@@ -1,0 +1,26 @@
+@media (max-width: 600px) {
+  #content {
+    .entry-header {
+      .entry-title {
+        font-size: 1.0em;
+      }
+    }
+    .entry-content {
+      margin: 0 2%;
+      padding-right: 0;
+      .meta {
+        position: relative;
+        width: 100%;
+        & > * {
+          float: right;
+          &.post-edit-link {
+            position: fixed;
+            right: 1em;
+            top: 3em;
+            z-index: 1000;
+          }
+        }
+      }
+    }
+  }
+}

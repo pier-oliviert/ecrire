@@ -1,0 +1,7 @@
+<%= link_to "Create a new post",  new_post_path %>
+<%= link_to "Published",  posts_path(status: "published") %>
+<%= link_to "Drafted",  posts_path(status: "drafted") %>
+
+<% @posts.each do |post| %>
+  <%= link_to post.title, edit_post_path(post) %>
+<% end %>

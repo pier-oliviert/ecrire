@@ -1,0 +1,19 @@
+.session.wrapper {
+  height: 40px;
+  width: 100%;
+  background: rgba(184, 160, 98, 0.5);
+}
+
+#new_session {
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 3px;
+  text-align: center;
+  font-weight: lighter;
+  #session_password, #session_email {
+    display: inline-block;
+    border: 1px solid #ABABAB;
+    font-size: 1.4em;
+    vertical-align: center;
+  }
+}

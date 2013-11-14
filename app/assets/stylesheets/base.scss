@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  color: #6d645c;
+}
+
+body {
+  margin: 0;
+  background-image: image-url("background.png");
+  background-repeat: repeat;
+  font-family: Helvetica, Arial;
+  font-weight: 200;
+}

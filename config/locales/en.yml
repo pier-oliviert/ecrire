@@ -1,0 +1,13 @@
+en:
+  sessions:
+    email: "Email"
+    password: "Password"
+    submit: "Login"
+  admin:
+    posts:
+      new:
+        title: "Your title here"
+        content: "Write"
+        stylesheet: "Style everything!"
+        preview: "Preview"
+        slug: "Create your own slug. It will be build with the title otherwise."

@@ -1,0 +1,140 @@
+@font-face {
+  font-family: 'entypo';
+  font-style: 'normal';
+  font-weight: 'normal';
+  src: url('/fonts/entypo.woff') format('woff');
+}
+
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+@mixin fields {
+  border: none;
+  margin: 0;
+  outline: none;
+  padding: 4px 12px;
+}
+
+#new_post {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .wrapper {
+    position: relative;
+    height: 100%;
+  }
+
+  .height.spacing {
+    position: absolute;
+    top: 85px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+}
+
+#post_title_wrapper {
+  margin-top: 10px;
+  background: #FAFAFA;
+  position: relative;
+
+  #post_title, #post_slug {
+    @include fields;
+    font-size: 2.5em;
+    width: 100%;
+    margin: 0;
+    padding-left: 40px;
+    font-weight: lighter;
+    background: none;
+  }
+
+  .toggle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0 12px;
+    line-height: 3.8em;
+    cursor: pointer;
+    border-left: 1px solid transparent;
+
+    &:hover {
+      opacity: 0.4;
+    }
+
+    &:before {
+      content: "\1f517";
+    }
+  }
+  &.slug {
+    .toggle {
+      border-left-color: #CACACA;
+      box-shadow: inset 1px 0px 4px -2px rgba(0, 0, 0, 0.3);
+      background: rgba(0,0,0,0.1);
+    }
+  }
+}
+
+#post_content, #post_stylesheet {
+  @include fields;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  font-weight: lighter;
+  bottom: 0;
+  padding-top: 8px;
+  resize: none;
+  font-size: 1.2em;
+  background: #FAFAFA;
+  border-right: 1px solid #CACACA;
+}
+
+#post_editing_options {
+  height: 3.0em;
+  line-height: 3.0em;
+  border-bottom: 1px solid #CACACA;
+  position: relative;
+  .wrapper {
+    width: 50%;
+    text-align: center;
+  }
+  a {
+    cursor: pointer;
+    border: 1px solid #aaa;
+    background: #E2E9EF;
+    padding: 4px 8px;
+    border-radius: 3px;
+    &:first-child {
+      margin-right: 24px;
+    }
+  }
+
+  .actions.overlay {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+  }
+}
+
+#content_preview {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  overflow-y: scroll;
+  & > .preview {
+    position: relative;
+    padding: 24px 8px 8px;
+  }
+  .sticky {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: #BABABA;
+  }
+}
