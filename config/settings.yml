@@ -1,8 +1,16 @@
 defaults: &defaults
   secret_key_base: "*!#JLQ W*JAS'DJAS*!H#UHDAS'hK!&*HJKBN'JSANJHSAHuih12euihuhukqnd,i hO*!#HONlwijQI JOI!# @L*$U !"
+  database:
+    name: "blog"
+    user: "blog"
+    password: "dev-blog-123"
 
 development:
   <<: *defaults
+
+test:
+  <<: *defaults
+  name: "blog-test"
 
 production:
   <<: *defaults
