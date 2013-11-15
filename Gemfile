@@ -9,6 +9,8 @@ gem 'warden'
 gem 'bcrypt-ruby'
 gem 'admin', path: 'admin'
 
+gem 'nokogiri' #Needs to be before pg because of libxml dynamic library loading
+
 gem 'pg'
 
 gem 's3'
@@ -31,10 +33,13 @@ gem 'turbolinks'
 gem 'kaminari'
 gem 'exits'
 
-gem 'nokogiri'
 
 group :development do
   gem 'debugger'
+end
+
+group :production do
+  gem 'thin'
 end
 
 group :doc do
