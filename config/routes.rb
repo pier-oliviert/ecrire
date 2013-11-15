@@ -2,6 +2,7 @@ PothiboCom::Application.routes.draw do
   root 'posts#index'
 
   get '/:year/:month/:id', to: 'posts#show', constraints: { year: /\d+/, month: /\d+/ }, as: "post"
+  get '/feed', to: 'posts#index', defaults: { format: :rss }
 
   resources :posts, only: [:index]
 

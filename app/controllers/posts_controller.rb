@@ -3,6 +3,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.published.order("published_at DESC").page(params[:page]).per(params[:per_page])
+    respond_to do |format|
+      format.html
+      format.rss
+    end
   end
 
   def show
