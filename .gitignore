@@ -16,3 +16,5 @@
 /tmp
 
 settings.local.yml
+.DS_Store
+
