@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :pagination, only: :index
 
   def index
-    @posts = Post.published.page(params[:page]).per(params[:per_page])
+    @posts = Post.published.order("published_at DESC").page(params[:page]).per(params[:per_page])
   end
 
   def show
