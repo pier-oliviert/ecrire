@@ -1,5 +1,5 @@
 <article id="post-<%= post.id %>" class="post">
-  <h3><%= link_to post.title, post_path(post) %></h3>
+  <h3><%= link_to post.title, post_path(post.published_at.year, post.published_at.month, post) %></h3>
   <%= content_tag :span, l(post.published_at.to_date, format: :long), class: %w(timestamp) %>
   <%= content_tag :p, post.excerpt %>
 </article>
