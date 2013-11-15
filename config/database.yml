@@ -15,7 +15,7 @@ test:
 
 production:
   adapter: postgresql
-  database: "pothibo.com"
+  database: <%= Rails.configuration.database.name %>
   user: <%= Rails.configuration.database.user %>
   password: <%= Rails.configuration.database.password %>
   pool: 5
