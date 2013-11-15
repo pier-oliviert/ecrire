@@ -58,21 +58,21 @@
     line-height: 1.3em;
     font-weight: lighter;
   }
+  article.post {
+    padding: 8px 0;
+    line-height: 1.5em;
+    border-bottom: 1px solid #CCC;
+
+    h3 {
+      padding: 0;
+      margin: 0;
+    }
+    span.timestamp {
+      font-size: 0.8em;
+    }
+  }
 }
 
-article.post {
-  padding: 8px 0;
-  line-height: 1.5em;
-  border-bottom: 1px solid #CCC;
-
-  h3 {
-    padding: 0;
-    margin: 0;
-  }
-  span.timestamp {
-    font-size: 0.8em;
-  }
-}
 
 #pagination {
   padding: 8px 0;
