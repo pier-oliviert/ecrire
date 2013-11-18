@@ -15,6 +15,7 @@
       </header>
     <% end %>
           <div class="entry-content">
+            <style scoped><%= @post.stylesheet %></style>
             <%= @post.content.html_safe %>
           </div>
         </article>
