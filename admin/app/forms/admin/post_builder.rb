@@ -84,11 +84,11 @@ module Admin
 
     def possible_actions
       buttons = [
-        button("Save", name: "post[status]", value: "draft"),
+        button("Save", name: "post[status]", value: "draft", class: %w(button)),
       ]
 
       if object.draft?
-        buttons << button("Publish", name: "post[status]", value: "publish")
+        buttons << button("Publish", name: "post[status]", value: "publish", class: %w(button))
       end
 
       buttons.join.html_safe
