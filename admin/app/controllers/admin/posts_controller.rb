@@ -10,17 +10,16 @@ module Admin
     end
 
     def create
-      @post = Post.new post_params
-      unless @post.save
-        # Errors!
-        puts @post.errors.full_messages
+      @post = Post.create post_params
+
+      respond_to do |format|
+        format.html do
+          if @post.errors.blank?
+            redirect_to root_url
+          end
+        end
       end
 
-      if @post.draft?
-        redirect_to :back
-      else
-        redirect_to root_url
-      end
     end
 
     def edit

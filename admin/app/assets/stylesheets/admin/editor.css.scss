@@ -17,6 +17,29 @@
 }
 
 #new_post, .edit_post {
+  #formErrors {
+    position: absolute;
+    top: 4px;
+    width: 400px;
+    left: calc(50% - 200px);
+    background: rgba(236, 66, 66, 0.23);
+    padding: 4px 8px;
+    border-radius: 3px;
+    border: 1px solid #BB0101;
+    color: #811616;
+    .wrapper {
+      position: relative;
+      padding-right: 20px;
+    }
+    .dismiss.button {
+      position: absolute;
+      right: 4px;
+      top: -1px;
+      text-decoration: none;
+      color: #811616;
+      font-weight: bold;
+    }
+  }
   position: relative;
   height: 100%;
   width: 100%;
