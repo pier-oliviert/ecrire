@@ -49,7 +49,7 @@ class Post < ActiveRecord::Base
   end
 
   def generate_excerpt
-    html = Nokogiri::HTML(self.content)
-    self.excerpt = html.text[0..75].gsub("\r\n", "") << "..."
+    html = Nokogiri::HTML(self.content).xpath("//body").children
+    self.excerpt = html.children.to_a.join(" ")[0..75] << "..."
   end
 end
