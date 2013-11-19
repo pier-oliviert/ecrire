@@ -33,6 +33,7 @@ gem 'turbolinks'
 gem 'kaminari'
 gem 'exits'
 
+gem 'split'
 
 group :development do
   gem 'debugger'

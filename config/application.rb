@@ -19,5 +19,12 @@ module PothiboCom
       manager.failure_app = UnauthenticatedController.action(:failed)
     end
 
+    Split.configure do |config|
+      config.persistence = Split::Persistence::RedisAdapter.with_config lookup_by: proc { |context|
+        context.current_user.id
+      }
+    end
+
   end
+
 end
