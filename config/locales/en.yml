@@ -5,7 +5,7 @@ en:
     submit: "Login"
   admin:
     posts:
-      new:
+      form:
         title: "Your title here"
         content: "Write"
         stylesheet: "Style everything!"

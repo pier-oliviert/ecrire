@@ -1,11 +1,11 @@
-$ ->
-  window.Editor = new Editor()
+$(document).on "DOMContentLoaded page:load", ->
+  if $("[class*=_post]").length > 0
+    window.Editor = new Editor()
 
-  $("#post_editing_options").on "click", "a", ->
-    $el = $("##{$(this).attr("binding")}")
-    $("form .editor").not($el).hide()
-    $el.show()
-    
+    $("#post_editing_options").on "click", "a", ->
+      $el = $("#" + $(this).attr("binding"))
+      $("form .editor").not($el).hide()
+      $el.show()
 
 class Editor
   constructor: (opts) ->

@@ -1,7 +1,20 @@
-<%= link_to "Create a new post",  new_post_path %>
-<%= link_to "Published",  posts_path(status: "published") %>
-<%= link_to "Drafted",  posts_path(status: "drafted") %>
+<header id="adminHeader">
+  <%= link_to "Post",  posts_path %>
+</header>
 
-<% @posts.each do |post| %>
-  <%= link_to post.title, edit_post_path(post) %>
-<% end %>
+<section id="postsList">
+  <header id="actions">
+    <%= filter_links %>
+    <%= link_to "New", new_post_path, id: "newPostLink" %>
+  </header>
+
+  <ol class="list">
+    <%= decorate @posts, :overview %>
+  </ol>
+  <%= paginate @posts %>
+</section>
+
+<section id="postContainer">
+  <header id="postOptions" class="hidden">
+  </header>
+</section>

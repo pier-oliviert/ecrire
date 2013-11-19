@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     admin (0.0.1)
+      cubisme (~> 0.2)
       rails (~> 4.0.0)
 
 GEM
@@ -34,6 +35,7 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     builder (3.1.4)
+    cubisme (0.2.0)
     erubis (2.7.0)
     hike (1.2.3)
     i18n (0.6.5)
