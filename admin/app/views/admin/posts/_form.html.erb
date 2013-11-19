@@ -1,34 +1,9 @@
-<%= form_for post do |f| %>
-  <%= content_tag :div, id: "post_title_wrapper" do %>
-    <%= f.text_field :title, placeholder: t('.title') %>
-    <%= content_tag :a, nil, class: %w(toggle entypo-link) %>
-    <%= f.text_field :slug, placeholder: t('.slug'), class: %w(hidden) %>
-  <% end %>
+<%= form_for post, builder: PostFormBuilder do |f| %>
+  <%= f.header %>
 
-  <%= content_tag :div, id: "post_editing_options" do %>
-    <%= content_tag :div, class: %w(wrapper) do %>
-      <%= content_tag :a, t('.text'), binding: "post_content", class: %w(active) %>
-      <%= content_tag :a, t('.CSS'), binding: "post_stylesheet" %>
-    <% end %>
-    <%= content_tag :div, class: %w(actions overlay) do %>
-      <%= f.button "Save Draft", name: "post[status]", value: "draft" %>
-      <%= f.button "Publish", name: "post[status]", value: "publish" %>
-    <% end %>
-  <% end %>
+  <%= f.title %>
 
-  <%= content_tag :div, class: %w(height spacing) do %>
-    <%= content_tag :div, class: %w(wrapper) do %>
-      <%= f.text_area :content, placeholder: t('.content'), class: %w(editor) %>
-      <%= f.text_area :stylesheet, placeholder: t('.stylesheet'), class: %w(hidden editor) %>
+  <%= f.editor %>
 
-
-      <%= content_tag :div, id: "content_preview" do %>
-        <%= content_tag :span, t('.preview'), class: %w(sticky) %>
-        <%= content_tag :style %>
-        <%= content_tag :div, class: %w(preview) do %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
 <% end %>
 
