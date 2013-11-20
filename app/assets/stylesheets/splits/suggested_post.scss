@@ -1,0 +1,42 @@
+[id*=post-] {
+  position: relative;
+  .post-wrapper {
+    min-width: 600px;
+    width: 80%;
+  }
+
+  sidebar#suggestedPosts {
+    position: absolute;
+    top: 400px;
+    bottom: 0;
+    right: 0;
+    min-width: 300px;
+    width: 20%;
+    border-left: 1px solid rgb(207, 184, 142);
+    padding: 0 12px;
+
+    ol {
+      list-style-type: none;
+    }
+  }
+
+  div#suggestedPosts {
+    min-width: 600px;
+    max-width: 960px;
+    width: 80%;
+    margin: 0 auto 80px auto;
+    padding: 0 32px;
+
+    h2 {
+      text-align: center;
+      font-weight: lighter;
+    }
+
+    ol {
+      list-style-type: none;
+      li {
+        font-size: 1.2em;
+      }
+    }
+  }
+}

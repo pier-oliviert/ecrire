@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
   scope :published, lambda { status("published") }
   scope :drafted, lambda { status("drafted") }
   scope :slug, lambda { |slug| where("posts.slug is ?", slug) }
+  scope :without, lambda { |post| where("posts.id != ?", post.id) }
 
   validates :title, presence: true
   validates :slug, presence: true, on: :update

@@ -21,7 +21,7 @@ module PothiboCom
 
     Split.configure do |config|
       config.persistence = Split::Persistence::RedisAdapter.with_config lookup_by: proc { |context|
-        context.current_user.id
+        context.session.id
       }
     end
 

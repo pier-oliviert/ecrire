@@ -31,6 +31,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 gem 'kaminari'
+gem 'cubisme'
+
 gem 'exits'
 
 gem 'split'

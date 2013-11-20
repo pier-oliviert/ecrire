@@ -17,6 +17,13 @@ class PostTest < ActiveSupport::TestCase
     end
   end
 
+  test 'fetch post without a specific one' do
+    excluded_post = posts(:published)
+    Post.without(excluded_post).each do |post|
+      assert_not_equal post, excluded_post, "The excluded post shouldn't be part of the result"
+    end
+  end
+
   test "publishing a post" do
     @post = Post.new
     @post.title = "Some new post"
@@ -50,4 +57,5 @@ class PostTest < ActiveSupport::TestCase
 
     assert_equal @post.excerpt, "A header And a paragraph..."
   end
+
 end

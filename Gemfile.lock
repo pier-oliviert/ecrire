@@ -162,6 +162,7 @@ DEPENDENCIES
   bcrypt-ruby
   choices
   coffee-rails (~> 4.0.0)
+  cubisme
   debugger
   exits
   jquery-rails
