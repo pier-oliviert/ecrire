@@ -1,4 +1,8 @@
 en:
+  layouts:
+    application:
+      logout: "Log out"
+      admin: "Administration"
   sessions:
     email: "Email"
     password: "Password"

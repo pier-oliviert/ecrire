@@ -12,3 +12,20 @@ body {
   font-family: Helvetica, Arial;
   font-weight: 200;
 }
+
+#adminAccessBar {
+  background: rgba(255,255,255,0.4);
+  height: 32px;
+  position: relative;
+
+  .admin.link {
+    line-height: 32px;
+    font-size: 1.4em;
+  }
+
+  .button_to {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+  }
+}

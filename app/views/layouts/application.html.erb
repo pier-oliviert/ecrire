@@ -8,8 +8,7 @@
 </head>
 <body>
   <% if signed_in? %>
-    <%= link_to t(".admin"), admin.root_path %>
-    <%= button_to "logout", session_path, method: :delete %>
+    <%= admin_access_bar %>
   <% end %>
 
   <%= yield %>
