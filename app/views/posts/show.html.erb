@@ -1,6 +1,5 @@
 <div id="primary" class="site-content">
   <div id="content" role="main" class="single-post">
-
     <%= content_tag :article, id: "post-#{@post.id}", class: %w(post) do %>
       <header class="entry-header code">
         <div class="social">
@@ -13,14 +12,13 @@
         <%= content_tag :h1, @post.title, class: %w(entry-title) %>
         <p class="author">By <a href="/" />Pier-Olivier Thibault</a></p>
       </header>
+      <div class="entry-content">
+        <style scoped><%= @post.stylesheet %></style>
+        <%= @post.content.html_safe %>
+      </div>
+      <div id="disqus_thread"></div>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
     <% end %>
-          <div class="entry-content">
-            <style scoped><%= @post.stylesheet %></style>
-            <%= @post.content.html_safe %>
-          </div>
-        </article>
 
-    <div id="disqus_thread"></div>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		</div>
 	</div>
