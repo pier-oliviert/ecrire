@@ -11,7 +11,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find_by_slug(params[:id])
-    redirect_to :root unless @post.published?
+    redirect_to :root and return if @post.nil?
+    redirect_to :root and return unless @post.published?
   end
 
   protected
