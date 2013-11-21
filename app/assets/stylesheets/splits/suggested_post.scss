@@ -5,6 +5,26 @@
     width: 80%;
   }
 
+  #suggestedPosts {
+    h2 {
+      font-weight: lighter;
+      text-align: center;
+    }
+
+    ol {
+      list-style-type: none;
+      padding: 0;
+
+      li {
+        font-weight: bold;
+        .excerpt {
+          font-weight: normal;
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+
   sidebar#suggestedPosts {
     position: absolute;
     top: 400px;
@@ -15,9 +35,6 @@
     border-left: 1px solid rgb(207, 184, 142);
     padding: 0 12px;
 
-    ol {
-      list-style-type: none;
-    }
   }
 
   div#suggestedPosts {
@@ -27,15 +44,11 @@
     margin: 0 auto 80px auto;
     padding: 0 32px;
 
-    h2 {
-      text-align: center;
-      font-weight: lighter;
-    }
-
     ol {
-      list-style-type: none;
       li {
-        font-size: 1.2em;
+        display: inline-block;
+        width: calc(33% - 8px);
+        width: -webkit-calc(33% - 8px);
       }
     }
   }

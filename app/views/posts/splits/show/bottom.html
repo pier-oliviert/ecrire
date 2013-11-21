@@ -19,7 +19,7 @@
       <div id="suggestedPosts">
         <h2>More awesome posts</h2>
         <ol class="posts">
-          <%= decorate suggested_posts(@post), :suggested %>
+          <%= decorate suggested_posts(@post), :suggested, excerpt: true %>
         </ol>
       </div>
       <%= render "comments" %>
