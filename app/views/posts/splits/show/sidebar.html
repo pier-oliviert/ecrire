@@ -17,15 +17,15 @@
           <style scoped><%= @post.stylesheet %></style>
           <%= @post.content.html_safe %>
         </div>
+        <sidebar id="suggestedPosts">
+          <h2>More awesome posts</h2>
+          <ol class="posts">
+            <%= decorate suggested_posts(@post), :suggested, excerpt: true %>
+          </ol>
+        </sidebar>
         <%= render "comments" %>
       </div>
-      <sidebar id="suggestedPosts">
-      <h2>More awesome posts</h2>
-        <ol class="posts">
-          <%= decorate suggested_posts(@post), :suggested, excerpt: true %>
-        </ol>
-      </sidebar>
-      </div>
+    </div>
     <% end %>
 	</div>
 
