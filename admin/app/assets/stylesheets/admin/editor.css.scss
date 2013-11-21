@@ -2,7 +2,7 @@
   font-family: 'entypo';
   font-style: 'normal';
   font-weight: 'normal';
-  src: url('/fonts/entypo.woff') format('woff');
+  src: font-url('entypo.woff') format('woff');
 }
 
 [class*="entypo-"]:before {
