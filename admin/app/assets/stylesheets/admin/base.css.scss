@@ -1,4 +1,5 @@
 $fonts: Helvetica, sans-serif;
+$header-height: 60px;
 
 html, body {
   height: 100%;
@@ -14,6 +15,10 @@ body {
   box-sizing: border-box;
 }
 
+a {
+  color: rgb(110, 123, 165);
+}
+
 input, textarea {
   font: 100% $fonts;
 }
@@ -23,8 +28,30 @@ input, textarea {
 }
 
 #adminHeader {
-  height: 60px;
+  height: $header-height;
   background: aliceblue;
+  position: relative;
+
+  #blogLink {
+    font-size: 3.0em;
+  }
+
+  #adminNavigationOptions {
+    position: absolute;
+    right: 10%;
+    top: 0;
+    bottom: 0;
+
+    .link {
+      font-size: 2.0em;
+      line-height: $header-height;
+      font-weight: lighter;
+      padding: 4px 8px;
+    }
+
+    .active {
+    }
+  }
 }
 
 .flash {
