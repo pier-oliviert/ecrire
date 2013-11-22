@@ -9,20 +9,23 @@ $(document).on "DOMContentLoaded page:load", ->
 
 class Editor
   constructor: (opts) ->
-    @elements = {
+    elements = {
       $content: $("#post_content"),
       $stylesheet: $("#post_stylesheet"),
       $preview: $("#content_preview > .preview"),
       title: new Title()
     }
-    @listen(@elements)
+    @listen(elements)
 
   listen: (elements) ->
-    elements.$content.get(0).addEventListener 'input', () ->
+    updatePreview = ->
       elements.$preview.html elements.$content.val()
+      elements.$preview.siblings("style").text elements.$stylesheet.val()
 
-    elements.$stylesheet.get(0).addEventListener 'input', () ->
-      elements.$preview.siblings("style").text element.$stylesheet.value
+    elements.$content.get(0).addEventListener 'input', updatePreview
+    elements.$stylesheet.get(0).addEventListener 'input', updatePreview
+
+    updatePreview()
 
 
 class Title
