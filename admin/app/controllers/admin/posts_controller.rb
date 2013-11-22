@@ -28,6 +28,7 @@ module Admin
     def update
       @post.update_attributes post_params
       if @post.errors.blank?
+        flash[:notice] = t(".successful", title: @post.title)
         redirect_to :posts
       end
     end
