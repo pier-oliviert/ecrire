@@ -12,18 +12,27 @@ class Editor
     elements = {
       $content: $("#post_content"),
       $stylesheet: $("#post_stylesheet"),
-      $preview: $("#content_preview > .preview"),
+      $preview: $("#content_preview"),
       title: new Title()
     }
     @listen(elements)
 
   listen: (elements) ->
+    $textareas = elements.$content.add(elements.$preview)
     updatePreview = ->
-      elements.$preview.html elements.$content.val()
-      elements.$preview.siblings("style").text elements.$stylesheet.val()
+      elements.$preview.children(".preview").html elements.$content.val()
+      elements.$preview.children("style").text elements.$stylesheet.val()
+
+    updateScroll = ->
+      $this = $(this)
+      $textareas.not($this).scrollTop $this.scrollTop()
 
     elements.$content.get(0).addEventListener 'input', updatePreview
+    elements.$content.get(0).addEventListener 'scroll', updateScroll
+    elements.$preview.get(0).addEventListener 'scroll', updateScroll
     elements.$stylesheet.get(0).addEventListener 'input', updatePreview
+
+    elements.$content.get(0)
 
     updatePreview()
 
