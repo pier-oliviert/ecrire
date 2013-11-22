@@ -346,6 +346,7 @@ if (script) {
 	
 	if (document.addEventListener && !script.hasAttribute('data-manual')) {
 		document.addEventListener('DOMContentLoaded', _.highlightAll);
+		document.addEventListener('page:load', _.highlightAll);
 	}
 }
 
