@@ -9,6 +9,11 @@ en:
     submit: "Login"
   admin:
     posts:
+      index:
+        links:
+          post: "Post"
+      update:
+        successful: "%{title} saved!"
       form:
         title: "Your title here"
         content: "Write"
