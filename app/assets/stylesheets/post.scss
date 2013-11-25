@@ -26,6 +26,7 @@
 
 .single-post {
   article.post {
+    position: relative;
     header.entry-header {
       min-height: 400px;
       padding: 60px 10% 0;
@@ -88,6 +89,10 @@
     }
   }
 
+  .post-wrapper {
+      min-width: 600px;
+  }
+
   .entry-content {
     margin: 80px 0;
     font-size: 1.2em;
@@ -95,6 +100,26 @@
     font-weight: lighter;
     word-wrap: break-word;
     
+    #suggestedPosts {
+      h2 {
+        font-weight: lighter;
+        text-align: center;
+      }
+
+      ol {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+          font-weight: bold;
+          .excerpt {
+            font-weight: normal;
+            font-size: 0.8em;
+          }
+        }
+      }
+    }
+
     & > *:not(pre) {
       max-width: 960px;
       margin-left: auto;

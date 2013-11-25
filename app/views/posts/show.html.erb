@@ -12,12 +12,20 @@
         <%= content_tag :h1, @post.title, class: %w(entry-title) %>
         <p class="author">By <a href="/" />Pier-Olivier Thibault</a></p>
       </header>
-      <div class="entry-content">
-        <style scoped><%= @post.stylesheet %></style>
-        <%= @post.content.html_safe %>
+      <div class="post-wrapper">
+        <div class="entry-content sided">
+          <style scoped><%= @post.stylesheet %></style>
+          <%= @post.content.html_safe %>
+        </div>
+        <sidebar id="suggestedPosts">
+          <h2>More awesome posts</h2>
+          <ol class="posts">
+            <%= decorate suggested_posts(@post), :suggested, excerpt: true %>
+          </ol>
+        </sidebar>
+        <%= render "comments" %>
       </div>
-      <%= render "comments" %>
-      </div>
+    </div>
     <% end %>
-
 	</div>
+

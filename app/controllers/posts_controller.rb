@@ -13,12 +13,6 @@ class PostsController < ApplicationController
     @post = Post.find_by_slug(params[:id])
     redirect_to :root and return if @post.nil?
     redirect_to :root and return unless @post.published?
-
-    if params[:bouncing].eql? "true"
-      finished('posts_suggestion')
-    end
-    view = ab_test 'posts_suggestion', 'sidebar', 'bottom'
-    render "posts/splits/show/#{view}" and return
   end
 
   protected
