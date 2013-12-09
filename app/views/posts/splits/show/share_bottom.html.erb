@@ -1,0 +1,32 @@
+<div id="primary" class="site-content">
+  <div id="content" role="main" class="single-post">
+    <%= content_tag :article, id: "post-#{@post.id}", class: %w(post) do %>
+      <header class="entry-header code">
+        <%= content_tag :h1, @post.title, class: %w(entry-title) %>
+        <p class="author">By <a href="/" />Pier-Olivier Thibault</a></p>
+      </header>
+      <div class="post-wrapper">
+        <div class="entry-content sided">
+          <style scoped><%= @post.stylesheet %></style>
+          <%= @post.content.html_safe %>
+          <div class="social">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="pothibo">Tweet</a>
+            <a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a>
+            <a href="http://feeds.feedburner.com/pothibo" id="feedburner">
+              <img src="http://feeds.feedburner.com/~fc/pothibo?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" />
+            </a>
+          </div>
+        </div>
+        <sidebar id="suggestedPosts">
+          <h2>More awesome posts</h2>
+          <ol class="posts">
+            <%= decorate suggested_posts(@post), :suggested, excerpt: true %>
+          </ol>
+        </sidebar>
+        <%= render "comments" %>
+      </div>
+    </div>
+    <% end %>
+	</div>
+
+
