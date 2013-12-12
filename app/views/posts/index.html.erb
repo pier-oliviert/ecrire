@@ -1,20 +1,24 @@
 <header id="blogHeader">
-  <div class="content">
-    <%= image_tag "profile.png", alt: "I'm signing the Declaration of independance!" %>
-    <h1>Pothibo</h1>
+  <%= image_tag "profile.png", alt: "I'm signing the Declaration of independance!" %>
+  <p>I'm Pier-Olivier, a developer from <a href="http://goo.gl/maps/4dFu2" target='_blank'>Québec City, Canada</a>.</p>
+</header>
+
+<section id="indexNavigation">
+  <div class="wrapper">
+    <p>If you don't know me or the things I do, you may want to check out some of the places I hang out on the Internet.</p>
+    <a class="icons" href="https://twitter.com/pothibo">&#62218;</a>
+    <a class="icons" href="https://github.com/pothibo">&#62209;</a>
   </div>
-  <section class="navbar">
-    <div class="content">
+</section>
+
+<section id="articlesOverview">
+  <div class="wrapper">
+    <h2>
+      Recent Articles
       <a href="http://feeds.feedburner.com/pothibo" id="feedburner">
         <img src="http://feeds.feedburner.com/~fc/pothibo?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" />
       </a>
-      <a href="https://twitter.com/pothibo" class="twitter-follow-button" data-show-count="false">Follow @pothibo</a>
-    </div>
-  </section>
-</header>
-
-<div id="indexWrapper">
-  <section id="articlesListing">
+    </h2>
     <% @posts.each do |post| %>
       <%= render "post", post: post %>
     <% end %>
@@ -23,13 +27,4 @@
       <%= paginate @posts %>
     </div>
   </section>
-
-  <aside id="sidebar">
-    <h4>What's up!</h4>
-    <p>I'm Pier-Olivier, a developer from Québec City, Canada. I <a href="https://twitter.com/pothibo">tweet</a> and open source code stuff on <a href="https://github.com">github</a></p>
-    <p>Here, I share my experience with Go, Ruby, JS and CSS.</p>
-  </aside>
 </div>
-
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-

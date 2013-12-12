@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Manage your blog</title>
+  <title>Management</title>
   <%= stylesheet_link_tag    "admin/application", media: "all" %>
   <%= javascript_include_tag "admin/application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
 
   <% flash.each do |name, msg| %>
     <%= content_tag :div, class: %W(flash #{name}) do %>

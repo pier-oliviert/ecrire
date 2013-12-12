@@ -1,98 +1,58 @@
 #blogHeader {
-  margin: 20px 0;
-  .content {
-    & > img {
-      width: 160px;
-      display: inline-block;
-      margin: 0 1em;
-      vertical-align: top;
-    }
-
-    h1 {
-      margin-left: 12px;
-      font-weight: lighter;
-
-      &:first-letter {
-        font-family: Olivier;
-        font-size: 3em;
-      }
-    }
-
-    h1,p {
-      display: inline-block;
-    }
+  margin: 100px 0;
+  height: 400px;
+  text-align: center;
+  & > img {
+    width: 160px;
+    vertical-align: top;
   }
 
-  section.navbar {
-    margin: 1em 0;
-    height: 2em;
-    background-color: #6d645c;
-
-    .content {
-      @media all and (min-width: 900px) {
-        width: 900px;
-        margin: 0 auto;
-      }
-
-      & > iframe, & > a {
-        float:right;
-        margin: calc(1em - 10px) 0 0 1em;
-      }
-    }
-  }
-}
-
-#articlesListing {
-  @media (max-width: 899px) {
-    width: 100%;
-  }
-  width: calc(60% - 2px);
-  width: -webkit-calc(60% - 2px);
-  vertical-align: top;
-  padding: 0 1em;
-  display: inline-block;
-  
-  margin: 24px 0;
-  p {
-    font-size: 1.2em;
-    line-height: 1.3em;
-    font-weight: lighter;
-  }
-  article.post {
-    padding: 8px 0;
+  & > p {
+    width: 25%;
+    margin: 60px auto;
+    font-size: 1.4em;
     line-height: 1.5em;
-    border-bottom: 1px solid #CCC;
-
-    h3 {
-      padding: 0;
-      margin: 0;
-    }
-    span.timestamp {
-      font-size: 0.8em;
-    }
   }
 }
 
+#indexNavigation {
+  height: 500px;
+  text-align: center;
+  background: rgba(219, 215, 204, 0.5);
+  .icons {
+    font-family: entypo-social;
+    font-size: 8em;
+    text-decoration: none;
+    margin: 0 24px;
+  }
+
+  .wrapper {
+    padding: 100px 0;
+
+    p {
+      font-size: 1.3em;
+      line-height: 1.3em;
+    }
+  }
+}
 
 #pagination {
   padding: 8px 0;
   text-align: center;
 }
 
-#sidebar {
-  display: inline-block;
-  width: calc(40% - 2px);
-  vertical-align: top;
-  padding-right: 20px;
-  @media (max-width: 899px) {
-    display: none;
+#articlesOverview {
+  position: relative;
+  padding: 48px 0;
+
+  h2 {
+    position: relative;
   }
 }
 
-#indexWrapper {
-  margin: 0 auto 32px auto;
-  max-width: 900px;
-  position: relative;
-
-  background: rgba(219, 215, 204, 0.5);
+#posts-index {
+  .wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 }
