@@ -1,17 +1,21 @@
 @media (min-width: 801px) {
   [id*=post-] {
     .post-wrapper {
-      width: 80%;
+      padding-right: 20%;
     }
   }
 
   #suggestedPosts {
     position: absolute;
     padding: 0 12px;
-    top: 400px;
+    top: 0;
     bottom: 0;
     right: 0;
     width: 20%;
-    border-left: 1px solid rgb(207, 184, 142);
+    border-left: 1px solid #DDCFB4;
+    .posts {
+      list-style-type: none;
+      padding: 0;
+    }
   }
 }
