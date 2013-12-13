@@ -6,25 +6,19 @@
 <section id="indexNavigation">
   <div class="wrapper">
     <p>If you don't know me or the things I do, you may want to check out some of the places I hang out on the Internet.</p>
-    <a class="icons" href="https://twitter.com/pothibo">&#62218;</a>
-    <a class="icons" href="https://github.com/pothibo">&#62209;</a>
+    <a class="icons" href="https://twitter.com/pothibo" target="_blank">&#62218;</a>
+    <a class="icons" href="https://github.com/pothibo" target="_blank">&#62209;</a>
   </div>
 </section>
 
 <section id="articlesOverview">
   <div class="wrapper">
-    <h2>
-      Recent Articles
+    <h2>You may also want to read something I've wrote</h2>
       <a href="http://feeds.feedburner.com/pothibo" id="feedburner">
         <img src="http://feeds.feedburner.com/~fc/pothibo?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" />
       </a>
-    </h2>
     <% @posts.each do |post| %>
       <%= render "post", post: post %>
     <% end %>
-
-    <div id="pagination">
-      <%= paginate @posts %>
-    </div>
   </section>
 </div>

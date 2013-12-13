@@ -9,6 +9,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def archive
+    @posts = Post.published.order("published_at DESC").page(params[:page]).per(params[:per_page])
+    format.html
+  end
+
   def show
     @post = Post.find_by_slug(params[:id])
     redirect_to :root and return if @post.nil?

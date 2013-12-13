@@ -44,9 +44,15 @@
 #articlesOverview {
   position: relative;
   padding: 48px 0;
+  text-align: center;
 
   h2 {
-    position: relative;
+    text-align: center;
+  }
+  .post {
+    text-align: left;
+    padding: 24px 0;
+    border-bottom: 1px solid #CCC;
   }
 }
 
