@@ -7,6 +7,9 @@ module Admin
       params[:status] ||= "drafted"
       @posts = Post.status params[:status]
       @posts = @posts.page(params[:page]).per(params[:per_page])
+      respond_to do |format|
+        format.html
+      end
     end
 
     def create
