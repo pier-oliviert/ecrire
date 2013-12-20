@@ -1,2 +1,2 @@
-key.sequence ["l","o","g", "i", "n"], ->
+key 'ctrl+l', ->
   $.getScript("/admin")
