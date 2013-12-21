@@ -4,7 +4,7 @@ module Admin
   class PartialsController < ApplicationController
 
     def index
-      @partials = Partial.all
+      @partials = Partial.page(params[:page]).per(params[:per_page])
 
       respond_to do |format|
         format.js

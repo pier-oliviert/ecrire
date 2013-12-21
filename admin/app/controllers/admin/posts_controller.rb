@@ -1,6 +1,5 @@
 module Admin
   class PostsController < Admin::ApplicationController
-    before_action :pagination
     before_action :fetch_post, only: [:show, :edit, :update]
 
     def index
@@ -45,10 +44,6 @@ module Admin
 
     protected
 
-    def pagination
-      params[:per_page] ||= 10
-      params[:page] ||= 1
-    end
 
     def post_params
       params.require(:post).permit(:title, :content, :status, :stylesheet, :slug)

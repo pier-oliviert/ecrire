@@ -1,5 +1,9 @@
 <div class="wrapper">
   <section id="partialList">
+    <ol class="list">
+      <%= decorate @partials, :overview %>
+    </ol>
+    <%= paginate @partials %>
   </section>
 
   <section id="partialOverview">
