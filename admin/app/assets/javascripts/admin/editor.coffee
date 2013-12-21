@@ -1,10 +1,10 @@
 $(document).on "DOMContentLoaded page:load", ->
-  if $("[class*=_post]").length > 0
+  if $(".post.form").length > 0
     window.Editor = new Editor()
 
-    $("#post_editing_options").on "click", "a", ->
+    $("#post_editing_options").on "click", "a.content", ->
       $el = $("#" + $(this).attr("binding"))
-      $("form .editor").not($el).hide()
+      $(".content > .editor").not($el).hide()
       $el.show()
 
 class Editor
@@ -12,8 +12,9 @@ class Editor
     elements = {
       $content: $("#post_content"),
       $stylesheet: $("#post_stylesheet"),
-      $preview: $("#content_preview"),
-      title: new Title()
+      $preview: $(".content.preview"),
+      title: new Title(),
+      menu: new Menu($(".possible.save.actions"))
     }
     @listen(elements)
 
@@ -55,3 +56,7 @@ class Title
     elements.$wrapper.toggleClass("slug")
     elements.$title.add(elements.$slug).toggle()
 
+class Menu
+  constructor: ($el) ->
+    $el.on 'click', '.arrow', ->
+      $el.find("button[value=publish]").toggle()

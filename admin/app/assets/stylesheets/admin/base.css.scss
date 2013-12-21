@@ -1,5 +1,5 @@
 $fonts: Helvetica, sans-serif;
-$header-height: 60px;
+$header-height: 36px;
 
 html, body {
   height: 100%;
@@ -13,14 +13,11 @@ body {
 
 * {
   box-sizing: border-box;
+  font-family: $fonts;
 }
 
 a {
   color: rgb(110, 123, 165);
-}
-
-input, textarea {
-  font: 100% $fonts;
 }
 
 .hidden {

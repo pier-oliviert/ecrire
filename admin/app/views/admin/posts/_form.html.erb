@@ -1,9 +1,12 @@
-<%= form_for post, builder: Admin::PostBuilder do |f| %>
-  <%= f.header %>
+<%= form_for post,
+builder: Admin::PostBuilder,
+html: {class: %w(post form)} do |f| %>
+
+<div class="wrapper">
 
   <%= f.title %>
-
   <%= f.editor %>
+</div>
 
 <% end %>
 
