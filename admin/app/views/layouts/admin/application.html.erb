@@ -6,7 +6,7 @@
   <%= javascript_include_tag "admin/application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="<%= controller_name %>">
 
 
   <% flash.each do |name, msg| %>

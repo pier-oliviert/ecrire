@@ -1,0 +1,2 @@
+class SplitsController < ApplicationController
+end

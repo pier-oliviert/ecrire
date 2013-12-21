@@ -18,5 +18,6 @@ en:
         title: "Your title here"
         content: "Write"
         stylesheet: "Style everything!"
+        javascript: "Javascript"
         preview: "Preview"
         slug: "Create your own slug. It will be build with the title otherwise."

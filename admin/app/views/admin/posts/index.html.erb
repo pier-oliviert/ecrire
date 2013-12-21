@@ -1,16 +1,18 @@
-<section id="postsList">
-  <header id="actions">
-    <%= filter_links %>
-    <%= link_to "New", new_post_path, id: "newPostLink" %>
-  </header>
+<div class="wrapper">
+  <section id="postsList">
+    <header id="actions">
+      <%= filter_links %>
+      <%= link_to "New", new_post_path, id: "newPostLink" %>
+    </header>
 
-  <ol class="list">
-    <%= decorate @posts, :overview %>
-  </ol>
-  <%= paginate @posts %>
-</section>
+    <ol class="list">
+      <%= decorate @posts, :overview %>
+    </ol>
+    <%= paginate @posts %>
+  </section>
 
-<section id="postContainer">
-  <header id="postOptions" class="hidden">
-  </header>
-</section>
+  <section id="postContainer">
+    <header id="postOptions" class="hidden">
+    </header>
+  </section>
+</div>

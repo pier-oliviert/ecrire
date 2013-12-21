@@ -55,7 +55,8 @@ module Admin
       content_tag :div, class: %w(content wrapper) do
         [
           text_area(:content, placeholder: t('.content'), class: %w(editor)),
-          text_area(:stylesheet, placeholder: t('.stylesheet'), class: %w(hidden editor))
+          text_area(:stylesheet, placeholder: t('.stylesheet'), class: %w(hidden editor)),
+          text_area(:javascript, placeholder: t('.javascript'), class: %w(hidden editor))
         ].join.html_safe
       end
     end
@@ -131,9 +132,9 @@ module Admin
 
       def preview_options
         [
-          content_tag(:a, t('.preview'), class: %w(active)),
-          content_tag(:a, t('.AB')),
-          content_tag(:a, t('.partials'))
+          link_to(t('.preview'), 'javascript:void(0)', class: %w(active)),
+          link_to(t('.splits'), splits_path(active: true), class: %w(), remote: true),
+          link_to(t('.partials'), partials_path(), class: %w(), remote: true)
         ].join.html_safe
       end
 

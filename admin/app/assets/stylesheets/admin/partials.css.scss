@@ -1,0 +1,20 @@
+#partials {
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    #partialList {
+      display: flex;
+      flex: 1 100%;
+      flex-basis: 300px;
+      height: 100%;
+    }
+
+    #partialOverview {
+      display: flex;
+      flex: 4 100%;
+      flex-basis: 800px;
+      height: 100%;
+    }
+  }
+}
