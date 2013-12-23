@@ -3,9 +3,17 @@ $(document).on "DOMContentLoaded page:load", ->
     window.Editor = new Editor()
 
     $(".editor.options").on "click", "a.content", ->
-      $el = $($(this).attr("binding"))
+      $this = $(this)
+      $this.siblings(".active").removeClass("active")
+      $this.addClass("active")
+      $el = $($this.attr("binding"))
       $(".content > .editor").not($el).hide()
       $el.show()
+
+    $(".preview.options").on 'click', 'a', ->
+      $this = $(this)
+      $this.siblings(".active").removeClass("active")
+      $this.addClass("active")
 
     $(".preview.options #previewLink").on 'click', ->
       window.Editor.sidebarContent.show('preview')

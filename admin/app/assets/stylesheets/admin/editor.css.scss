@@ -166,6 +166,10 @@
     a {
       cursor: pointer;
       margin-right: 24px;
+      text-decoration: none;
+      &.active {
+        font-weight: bold;
+      }
     }
   }
 }
