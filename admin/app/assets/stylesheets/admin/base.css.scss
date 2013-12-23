@@ -34,16 +34,12 @@ a {
   }
 
   #adminNavigationOptions {
-    position: absolute;
-    right: 10%;
-    top: 0;
-    bottom: 0;
-
     .link {
-      font-size: 2.0em;
+      font-size: 1.4em;
       line-height: $header-height;
       font-weight: lighter;
       padding: 4px 8px;
+      text-decoration: none;
     }
 
     .active {
