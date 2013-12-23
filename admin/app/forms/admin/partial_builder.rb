@@ -1,5 +1,14 @@
 module Admin
-  class PostBuilder < ActionView::Helpers::FormBuilder
+  class PartialBuilder < ActionView::Helpers::FormBuilder
+
+    def title
+      content_tag :div, id: "partial_title_wrapper", class: %w(title wrapper) do
+        [
+          text_field(:title, placeholder: t('.title'), class: %w(input)),
+          possible_actions
+        ].join.html_safe
+      end
+    end
 
     def editor
       [
@@ -11,17 +20,6 @@ module Admin
           ].join.html_safe
         end
       ].join.html_safe
-    end
-
-    def title
-      content_tag :div, id: "post_title_wrapper", class: %w(title wrapper) do
-        [
-          text_field(:title, placeholder: t('.title'), class: %w(input)),
-          content_tag(:a, nil, class: %w(toggle entypo-link)),
-          text_field(:slug, placeholder: t('.slug'), class: %w(hidden)),
-          possible_actions
-        ].join.html_safe
-      end
     end
 
     protected
@@ -38,7 +36,7 @@ module Admin
     end
 
     def editor_options
-      content_tag :div, class: %w(wrapper editor options) do
+      content_tag :div, class: %w(editor options wrapper) do
         Options.new(@template).render
       end
     end
@@ -53,42 +51,14 @@ module Admin
       end
     end
 
-    def flash_container
-      return if object.errors.blank?
-      content_tag :div, object.errors.full_messages.to_sentence, id: "formErrors", class: %w(flash) do
-        content_tag :div, class: %w(wrapper) do
-          [
-            object.errors.full_messages.to_sentence,
-            link_to("x", "javascript:void(0)", class: %w(dismiss button))
-          ].join.html_safe
-        end
-      end
-    end
-
     def possible_actions
       content_tag :div, class: %w(possible save actions) do
-        if object.draft?
-          [
-            content_tag(:div, class: %w(wrapper)) do
-              [
-                save_button,
-                publish_button
-              ].join.html_safe
-            end,
-            content_tag(:span, '&#59228;'.html_safe, class: %w(arrow))
-          ].join.html_safe
-        else
-          content_tag(:div, save_button, class: %w(wrapper standalone))
-        end
+        content_tag(:div, save_button, class: %w(wrapper standalone))
       end
     end
 
     def save_button
       button("Save", name: "post[status]", value: "draft", class: %w(button))
-    end
-
-    def publish_button
-      button("Publish", name: "post[status]", value: "publish", class: %w(button hidden))
     end
 
     def method_missing(method, *args, &block)
@@ -102,10 +72,7 @@ module Admin
       end
 
       def render
-        [
-          content_tag(:div, editor_options, class: %w(editor options)),
-          content_tag(:div, preview_options, class: %w(preview options))
-        ].join.html_safe
+        content_tag(:div, editor_options, class: %w(editor options))
       end
 
       def editor_options
@@ -113,13 +80,6 @@ module Admin
           content_tag(:a, t('.text'), binding: ".editor.content", class: %w(content active)),
           content_tag(:a, t('.CSS'), binding: ".editor.stylesheet", class: %w(content)),
           content_tag(:a, t('.JS'), binding: ".editor.javascript", class: %w(content))
-        ].join.html_safe
-      end
-
-      def preview_options
-        [
-          link_to(t('.preview'), 'javascript:void(0)', class: %w(active), id: "previewLink"),
-          link_to(t('.partials'), partials_path(), id: "partialsListLink", remote: true)
         ].join.html_safe
       end
 

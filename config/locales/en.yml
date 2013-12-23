@@ -8,6 +8,13 @@ en:
     password: "Password"
     submit: "Login"
   admin:
+    partials:
+      form:
+        title: "Your title here"
+        content: "Write"
+        stylesheet: "Style"
+        javascript: "Script"
+        preview: "Preview"
     posts:
       index:
         links:
@@ -17,7 +24,7 @@ en:
       form:
         title: "Your title here"
         content: "Write"
-        stylesheet: "Style everything!"
-        javascript: "Javascript"
+        stylesheet: "Style"
+        javascript: "Script"
         preview: "Preview"
         slug: "Create your own slug. It will be build with the title otherwise."

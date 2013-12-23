@@ -18,8 +18,7 @@ module Admin
 
       [
         link_to(t(".links.post"), posts_path, class: html_class),
-        link_to(t(".links.partials"), partials_path, class: html_class),
-        link_to(t(".links.splits"), splits_path, class: html_class)
+        link_to(t(".links.partials"), partials_path, class: html_class)
       ].join.html_safe
     end
   end

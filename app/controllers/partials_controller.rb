@@ -1,5 +1,8 @@
 class PartialsController < ApplicationController
   def show
-    render params[:id], layout: false
+    @partial = Partial.find(params[:id].to_i)
+    respond_to do |format|
+      format.html { render layout: false }
+    end
   end
 end

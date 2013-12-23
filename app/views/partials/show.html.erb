@@ -1,0 +1,13 @@
+<div class="partial">
+  <style scoped>
+    <%= @partial.stylesheet.html_safe %>
+  </style>
+
+  <script type="text/javascript">
+    <%= @partial.javascript.html_safe %>
+  </script>
+
+  <div class="content">
+    <%= @partial.content.html_safe %>
+  </div>
+</div>

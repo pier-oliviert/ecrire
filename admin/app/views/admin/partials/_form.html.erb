@@ -1,0 +1,10 @@
+<%= form_for partial,
+  builder: Admin::PartialBuilder,
+  html: {class: %w(partial editor form)} do |f| %>
+
+  <div class="wrapper">
+    <%= f.title %>
+    <%= f.editor %>
+  </div>
+
+<% end %>

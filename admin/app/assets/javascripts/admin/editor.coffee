@@ -1,27 +1,37 @@
 $(document).on "DOMContentLoaded page:load", ->
-  if $(".post.form").length > 0
+  if $(".editor.form").length > 0
     window.Editor = new Editor()
 
-    $("#post_editing_options").on "click", "a.content", ->
-      $el = $("#" + $(this).attr("binding"))
+    $(".editor.options").on "click", "a.content", ->
+      $el = $($(this).attr("binding"))
       $(".content > .editor").not($el).hide()
       $el.show()
+
+    $(".preview.options #previewLink").on 'click', ->
+      window.Editor.sidebarContent.show('preview')
 
 class Editor
   constructor: (opts) ->
     elements = {
-      $content: $("#post_content"),
-      $stylesheet: $("#post_stylesheet"),
+      $content: $(".editor.content"),
+      $stylesheet: $(".editor.stylesheet"),
       $preview: $(".content.preview"),
-      title: new Title(),
-      menu: new Menu($(".possible.save.actions"))
     }
+
+    @title =  new Title()
+    @menu = new SaveButton($(".possible.save.actions"))
+    @sidebarContent = new SideBarContent($("#editorSideContent"))
     @listen(elements)
 
   listen: (elements) ->
     $textareas = elements.$content.add(elements.$preview)
     updatePreview = ->
-      elements.$preview.children(".preview").html elements.$content.val()
+      $preview = elements.$preview.children(".preview")
+      $preview.html elements.$content.val()
+      $preview.find('link[rel="partial"]').each ->
+        $link = $(this)
+        $.get $link.attr('href'), (data) ->
+          $link.replaceWith(data)
       elements.$preview.children("style").text elements.$stylesheet.val()
 
     updateScroll = ->
@@ -37,12 +47,26 @@ class Editor
 
     updatePreview()
 
+class SideBarContent
+  constructor: ($wrapper) ->
+    @$wrapper = $wrapper
+    @templates = {}
+    @templates['preview'] = $wrapper.children(".content.preview")
+
+  show: (name) =>
+    @$wrapper.empty().append(@templates[name])
+
+  add: (name, dom) =>
+    if @templates[name]? 
+      raise "Can't add template because another template is assigned to #{name}"
+    @templates[name] = dom
+    return this
 
 class Title
   constructor: ->
     @elements = {
-      $wrapper: $("#post_title_wrapper"),
-      $title: $("#post_title"),
+      $wrapper: $(".title.wrapper"),
+      $title: $(".title.wrapper > .input"),
       $slug: $("#post_slug")
     }
 
@@ -56,7 +80,8 @@ class Title
     elements.$wrapper.toggleClass("slug")
     elements.$title.add(elements.$slug).toggle()
 
-class Menu
+class SaveButton
   constructor: ($el) ->
     $el.on 'click', '.arrow', ->
       $el.find("button[value=publish]").toggle()
+

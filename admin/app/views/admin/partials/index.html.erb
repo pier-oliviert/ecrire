@@ -1,5 +1,8 @@
 <div class="wrapper">
   <section id="partialList">
+    <header>
+      <%= link_to "new", new_partial_path %>
+    </header>
     <ol class="list">
       <%= decorate @partials, :overview %>
     </ol>
