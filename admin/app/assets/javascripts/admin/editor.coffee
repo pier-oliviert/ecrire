@@ -42,13 +42,7 @@ class Editor
           $link.replaceWith(data)
       elements.$preview.children("style").text elements.$stylesheet.val()
 
-    updateScroll = ->
-      $this = $(this)
-      $textareas.not($this).scrollTop $this.scrollTop()
-
     elements.$content.get(0).addEventListener 'input', updatePreview
-    elements.$content.get(0).addEventListener 'scroll', updateScroll
-    elements.$preview.get(0).addEventListener 'scroll', updateScroll
     elements.$stylesheet.get(0).addEventListener 'input', updatePreview
 
     elements.$content.get(0)
