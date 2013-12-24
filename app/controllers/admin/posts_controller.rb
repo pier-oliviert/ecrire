@@ -5,6 +5,7 @@ module Admin
     def index
       params[:status] ||= "drafted"
       @posts = Admin::Post.status params[:status]
+      @posts = @posts.order('posts.published_at DESC')
       @posts = @posts.page(params[:page]).per(params[:per_page])
       respond_to do |format|
         format.html
