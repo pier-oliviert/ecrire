@@ -26,9 +26,17 @@ a {
 
 #adminHeader {
   height: $header-height;
-  background: aliceblue;
+  background: rgb(71, 101, 145);
   position: relative;
   border-bottom: 1px solid rgb(52, 69, 99);
+  padding: 0 12px;
+  a {
+    color: #FFF;
+    text-decoration: none;
+    font-size: 1.4em;
+    line-height: $header-height;
+    font-weight: lighter;
+  }
 
   #blogLink {
     font-size: 3.0em;
@@ -36,11 +44,7 @@ a {
 
   #adminNavigationOptions {
     .link {
-      font-size: 1.4em;
-      line-height: $header-height;
-      font-weight: lighter;
       padding: 4px 8px;
-      text-decoration: none;
     }
 
     .active {

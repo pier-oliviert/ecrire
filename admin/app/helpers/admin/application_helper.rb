@@ -3,6 +3,7 @@ module Admin
     def admin_navigation_options
       content_tag :div, id: 'adminNavigationOptions' do
         [
+          link_to(t('.blog'), main_app.root_path, id: 'linkHome'),
           post_link
         ].join.html_safe
       end
