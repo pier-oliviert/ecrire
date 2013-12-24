@@ -3,7 +3,8 @@ module ApplicationHelper
     content_tag :header, id: 'adminNavigationOptions' do
       [
         link_to(t('admin.navigation.blog'), root_path, id: 'linkHome'),
-        post_link
+        post_link,
+        button_to(t("admin.navigation.logout"), session_path, method: :delete)
       ].join.html_safe
     end
   end

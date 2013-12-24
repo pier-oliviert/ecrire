@@ -1,14 +1,22 @@
 $header-height: 36px;
+$fonts: Helvetica, sans-serif;
+
+html, body {
+  height: 100%;
+  font-size: 13px;
+}
 
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   color: #6d645c;
+  font-family: $fonts;
 }
 
 body {
   margin: 0;
+  padding: 0;
   background-image: image-url("background.png");
   background-repeat: repeat;
   font-family: Helvetica, Arial;
@@ -27,18 +35,23 @@ body {
     font-size: 1.4em;
     line-height: $header-height;
     font-weight: lighter;
+    margin: 0 24px;
   }
 
-  #blogLink {
-    font-size: 3.0em;
-  }
-
-  #adminNavigationOptions {
-    .link {
+  .button_to {
+    position: absolute;
+    right: 24px;
+    top: 4px;
+    
+    input[type=submit] {
+      color: #500A0A;
+      background: rgb(189, 103, 103);
+      border: 1px solid rgb(185, 50, 50);
+      border-radius: 3px;
+      font-weight: 100;
+      font-size: 1.0rem;
       padding: 4px 8px;
-    }
-
-    .active {
+      cursor: pointer;
     }
   }
 }

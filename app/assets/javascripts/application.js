@@ -13,15 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require_tree ./blog
+//= require_tree ./post
+//= require base
 //
-
-$(function() {
-  var globalFunc = $.globalEval
-  $.globalEval = function(data) {
-    if (data.slice(0, 8).localeCompare("for(;;);") == 0) {
-      data = data.slice(8)
-    }
-    globalFunc(data)
-  }
-})

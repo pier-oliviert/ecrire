@@ -119,7 +119,7 @@ module Admin
       def preview_options
         [
           link_to(t('.preview'), 'javascript:void(0)', class: %w(active), id: "previewLink"),
-          link_to(t('.partials'), partials_path(), id: "partialsListLink", remote: true)
+          link_to(t('.partials'), admin_partials_path(), id: "partialsListLink", remote: true)
         ].join.html_safe
       end
 

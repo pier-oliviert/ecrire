@@ -4,7 +4,7 @@ module Admin
 
     def index
       params[:status] ||= "drafted"
-      @posts = Post.status params[:status]
+      @posts = Admin::Post.status params[:status]
       @posts = @posts.page(params[:page]).per(params[:per_page])
       respond_to do |format|
         format.html
@@ -12,7 +12,7 @@ module Admin
     end
 
     def create
-      @post = Post.create post_params
+      @post = Admin::Post.create post_params
 
       respond_to do |format|
         format.html do
@@ -50,7 +50,7 @@ module Admin
     end
 
     def fetch_post
-      @post = Post.find_by_slug(params[:id])
+      @post = Admin::Post.find_by_slug(params[:id])
     end
   end
 end
