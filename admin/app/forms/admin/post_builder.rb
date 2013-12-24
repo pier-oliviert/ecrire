@@ -18,7 +18,7 @@ module Admin
         [
           text_field(:title, placeholder: t('.title'), class: %w(input)),
           content_tag(:a, nil, class: %w(toggle entypo-link)),
-          text_field(:slug, placeholder: t('.slug'), class: %w(hidden)),
+          text_field(:slug, placeholder: t('.slug'), class: %w(input hidden)),
           possible_actions
         ].join.html_safe
       end
