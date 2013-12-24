@@ -1,13 +1,17 @@
 en:
   layouts:
     application:
-      logout: "Log out"
       admin: "Administration"
   sessions:
     email: "Email"
     password: "Password"
     submit: "Login"
   admin:
+    navigation:
+      posts: "Posts"
+      partials: "Partials"
+      blog: "Blog"
+      logout: "Log out"
     partials:
       form:
         title: "Your title here"

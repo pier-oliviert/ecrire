@@ -1,3 +1,5 @@
+$header-height: 36px;
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -13,19 +15,30 @@ body {
   font-weight: 200;
 }
 
-#adminAccessBar {
-  background: rgba(255,255,255,0.4);
-  height: 32px;
+#adminNavigationOptions {
+  height: $header-height;
+  background: rgb(71, 101, 145);
   position: relative;
-
-  .admin.link {
-    line-height: 32px;
+  border-bottom: 1px solid rgb(52, 69, 99);
+  padding: 0 12px;
+  a {
+    color: #FFF;
+    text-decoration: none;
     font-size: 1.4em;
+    line-height: $header-height;
+    font-weight: lighter;
   }
 
-  .button_to {
-    position: absolute;
-    top: 4px;
-    right: 4px;
+  #blogLink {
+    font-size: 3.0em;
+  }
+
+  #adminNavigationOptions {
+    .link {
+      padding: 4px 8px;
+    }
+
+    .active {
+    }
   }
 }

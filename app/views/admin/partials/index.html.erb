@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <section id="partialList">
+    <header>
+      <%= link_to "new", new_admin_partial_path %>
+    </header>
+    <ol class="list">
+      <%= decorate @partials, :overview %>
+    </ol>
+    <%= paginate @partials %>
+  </section>
+
+  <section id="partialOverview">
+  </section>
+</div>

@@ -1,0 +1,11 @@
+var $content = $("<%= j render("partials", partials: @partials) %>")
+
+var $link = $("#partialsListLink")
+$link.attr("href", "javascript:void(0);").removeAttr("remote")
+
+$link.on('click', function() {
+  window.Editor.sidebarContent.show('partials')
+})
+
+window.Editor.sidebarContent.add('partials', $content).show('partials')
+

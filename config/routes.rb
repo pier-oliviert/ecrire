@@ -11,6 +11,11 @@ PothiboCom::Application.routes.draw do
 
   resources :partials, only: [:show]
 
-  mount Admin::Engine, at: 'admin'
+  namespace :admin do
+    root 'posts#index'
+    resources :posts
+    resources :splits
+    resources :partials
+  end
 
 end

@@ -25,6 +25,8 @@ module PothiboCom
       }
     end
 
+    config.assets.precompile = %w(application admin)
+
   end
 
 end

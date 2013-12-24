@@ -1,0 +1,9 @@
+/*
+ *= require_self
+ *= require ./base
+ *= require ./fonts
+ *= require_tree ./admin
+ *= require_tree ./post
+ */
+
+

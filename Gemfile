@@ -7,7 +7,6 @@ gem 'choices'
 
 gem 'warden'
 gem 'bcrypt-ruby'
-gem 'admin', path: 'admin'
 
 gem 'nokogiri' #Needs to be before pg because of libxml dynamic library loading
 
