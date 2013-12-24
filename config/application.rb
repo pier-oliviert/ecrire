@@ -25,7 +25,7 @@ module PothiboCom
       }
     end
 
-    config.assets.precompile = %w(application admin)
+    config.assets.precompile += [/(?:\/|\\|\A)admin\.(css|js)$/]
 
   end
 
