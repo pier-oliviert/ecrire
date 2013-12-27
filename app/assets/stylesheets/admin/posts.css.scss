@@ -1,3 +1,11 @@
+@mixin pagination {
+  .pagination {
+    font-size: 1.2em;
+    text-align: center;
+    margin: 12px 0;
+  }
+}
+
 #posts {
   & > .wrapper {
     display: flex;
@@ -20,11 +28,14 @@
     height: 100%;
     border-right: 1px solid #BABABA;
 
+    @include pagination;
+
     #actions {
       width: 100%;
       height: 40px;
       display: inline-block;
       background: rgb(214, 236, 235);
+      border-bottom: 2px solid #BABABA;
       position: relative;
       .filters {
         display: inline-block;
@@ -51,13 +62,13 @@
     .list {
       display: inline-block;
       width: 100%;
-      height: calc(100% - 40px);
       margin: 0;
       padding: 0;
 
       .post {
-        padding: 4px 8px;
+        padding: 12px 8px;
         list-style-type: none;
+        border-bottom: 1px solid #BABABA;
         &:hover {
           background: #F0F0F0;
         }
