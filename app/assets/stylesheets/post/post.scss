@@ -66,13 +66,12 @@
   article.content {
     min-width: 600px;
     font-size: 1.2em;
-    padding-top: 40px;
     line-height: 1.3em;
     font-weight: lighter;
 
     & > *:not(pre) {
       max-width: 960px;
-      margin-left: 100px;
+      margin-left: 10%;
       margin-right: auto;
       padding: 0 32px;
     }
@@ -81,7 +80,7 @@
       & > code {
         display: block;
         max-width: 900px;
-        margin: 0 auto 0 100px;
+        margin: 0 auto 0 10%;
       }
     }
   }
@@ -91,5 +90,13 @@
   @include header;
   @include post;
   @include disqus;
+
+  article.content {
+    padding-top: 40px;
+  }
+}
+
+.content.preview {
+  @include post;
 }
 

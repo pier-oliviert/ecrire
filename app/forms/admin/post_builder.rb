@@ -32,7 +32,7 @@ module Admin
           content_tag(:span, t('.preview'), class: %w(sticky)),
           content_tag(:style),
           content_tag(:script, nil, class: %w(preview), type: 'text/javascript'),
-          content_tag(:div, nil, class: %w(preview)),
+          content_tag(:article, nil, class: %w(preview content)),
         ].join.html_safe
       end
     end

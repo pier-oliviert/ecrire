@@ -183,13 +183,13 @@
     position: relative;
     & > .preview {
       position: relative;
-      padding: 8px;
     }
     .sticky {
       position: absolute;
-      top: 4px;
-      right: 4px;
+      top: 0px;
+      left: 2%;
       color: #BABABA;
+      text-shadow: 0 1px #FFF;
     }
   }
 }
