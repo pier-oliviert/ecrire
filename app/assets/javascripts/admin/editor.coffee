@@ -41,6 +41,7 @@ class Editor
         $.get $link.attr('href'), (data) ->
           $link.replaceWith(data)
       elements.$preview.children("style").text elements.$stylesheet.val()
+      Prism.highlightAll()
 
     elements.$content.get(0).addEventListener 'input', updatePreview
     elements.$stylesheet.get(0).addEventListener 'input', updatePreview
