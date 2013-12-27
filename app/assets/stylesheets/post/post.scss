@@ -24,73 +24,55 @@
   }
 }
 
-.single-post {
-  article.post {
-    position: relative;
-    header.entry-header {
-      text-align: center;
-      padding: 60px 10%;
-      background: rgb(233,229,217);
-      border-bottom: 20px solid #FFF;
+@mixin disqus {
+  #disqus_thread {
+    max-width: 900px;
+    min-width: 300px;
+    margin: 0 auto 0 100px;
+    padding: 0 12px;
+  }
+}
 
-      .entry-title {
-        color: #5C5340;
-        display: inline-block;
-        font-size: 2.0em;
-        font-weight: lighter;
-        line-height: 1.8em;
-        padding: 0 12px;
-        margin: 0;
-      }
+@mixin header {
+  header.post.title {
+    padding: 60px 10%;
+    background: rgb(233,229,217);
+    border-bottom: 20px solid #FFF;
 
-      .home.link.logo {
-        display: inline-block;
-        vertical-align: middle;
-      }
-
+    .entry-title {
+      color: #5C5340;
+      display: inline-block;
+      font-size: 2.0em;
+      font-weight: lighter;
+      line-height: 1.8em;
+      padding: 0 12px;
+      margin: 0;
     }
+
+    .home.link.logo {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+  }
+}
+
+@mixin post {
+  .social {
+    padding: 20px 0;
+    text-align: center;
   }
 
-  .post-wrapper {
-    position: relative;
+  article.content {
     min-width: 600px;
-
-    .social {
-      padding: 20px 0;
-      text-align: center;
-    }
-  }
-
-  .entry-content {
-    padding-top: 40px;
     font-size: 1.2em;
+    padding-top: 40px;
     line-height: 1.3em;
     font-weight: lighter;
-    word-wrap: break-word;
-    
-    #suggestedPosts {
-      h2 {
-        font-weight: lighter;
-        text-align: center;
-      }
-
-      ol {
-        list-style-type: none;
-        padding: 0;
-
-        li {
-          font-weight: bold;
-          .excerpt {
-            font-weight: normal;
-            font-size: 0.8em;
-          }
-        }
-      }
-    }
 
     & > *:not(pre) {
       max-width: 960px;
-      margin-left: auto;
+      margin-left: 100px;
       margin-right: auto;
       padding: 0 32px;
     }
@@ -99,15 +81,17 @@
       & > code {
         display: block;
         max-width: 900px;
-        margin: 0 auto;
+        margin: 0 auto 0 100px;
+        font-size: 1.1em;
+        line-height: 1.2em;
       }
     }
   }
-
-  #disqus_thread {
-    max-width: 900px;
-    min-width: 300px;
-    margin: 0 auto;
-    padding: 0 12px;
-  }
 }
+
+[id*=post-] {
+  @include header;
+  @include post;
+  @include disqus;
+}
+
