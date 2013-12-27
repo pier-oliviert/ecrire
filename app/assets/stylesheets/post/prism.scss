@@ -12,8 +12,8 @@ pre[class*="language-"] {
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
-  font-size: 1rem;
-  line-height: 1.3rem;
+  font-size: 0.8rem;
+  line-height: 1.1rem;
 
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -131,8 +131,8 @@ pre.line-numbers > code {
 	position: absolute;
 	pointer-events: none;
 	top: 0;
-	font-size: 100%;
-  line-height: 1.35rem;
+  font-size: 0.8rem;
+  line-height: 1.1rem;
 	left: -3.8em;
 	width: 3em; /* works for line-numbers below 1000 lines */
 	letter-spacing: -1px;
