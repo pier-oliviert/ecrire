@@ -1,4 +1,4 @@
-$header-height: 36px;
+$header-height: 46px;
 $fonts: Helvetica, sans-serif;
 
 html, body {
@@ -53,8 +53,8 @@ body {
   .button_to {
     position: absolute;
     right: 24px;
-    top: 2px;
-    
+    top: 4px;
+
     input[type=submit] {
       color: #500A0A;
       background: rgb(189, 103, 103);
@@ -62,7 +62,7 @@ body {
       border-radius: 3px;
       font-weight: 100;
       font-size: 1.0rem;
-      padding: 4px 8px;
+      padding: 6px 8px;
       cursor: pointer;
       outline: none;
       box-shadow: 0 1px 0 0 rgb(199, 159, 159);
