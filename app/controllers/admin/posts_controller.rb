@@ -28,8 +28,7 @@ module Admin
     end
 
     def update
-      @post.update_attributes post_params
-      if @post.errors.blank?
+      if @post.update(post_params)
         flash[:notice] = t(".successful", title: @post.title)
         redirect_to :posts
       end
@@ -47,7 +46,7 @@ module Admin
 
 
     def post_params
-      params.require(:post).permit(:title, :content, :status, :stylesheet, :slug)
+      params.require(:admin_post).permit(:title, :content, :status, :stylesheet, :slug)
     end
 
     def fetch_post
