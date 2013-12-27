@@ -28,13 +28,26 @@ body {
   position: relative;
   border-bottom: 1px solid rgb(52, 69, 99);
   padding: 0 12px;
-  a {
-    color: #FFF;
+  a.link {
+    display: inline-block;
+    color: #253649;
     text-decoration: none;
     font-size: 1.4em;
-    line-height: $header-height;
+    line-height: $header-height - 1px;
     font-weight: lighter;
-    margin: 0 24px;
+    padding: 0 12px;
+    text-align: center;
+    min-width: 80px;
+    text-shadow: 0 1px #5A7FB6;
+    &:hover:not(.active) {
+      background: rgba(197, 234, 255, 0.31);
+      text-shadow: 0 -1px transparent;
+    }
+    &.active {
+      color: rgb(137, 169, 204);
+      background: rgba(9, 36, 65, 0.44);
+      text-shadow: 0 -1px #163057;
+    }
   }
 
   .button_to {
@@ -51,6 +64,7 @@ body {
       font-size: 1.0rem;
       padding: 4px 8px;
       cursor: pointer;
+      outline: none;
       box-shadow: 0 1px 0 0 rgb(199, 159, 159);
       text-shadow: 0 1px rgb(199, 159, 159);
       &:active {
