@@ -9,7 +9,7 @@ Prism.languages.ruby = {
   'builtin': /\b(Array|Bignum|Binding|Class|Continuation|Dir|Exception|FalseClass|File|Stat|File|Fixnum|Fload|Hash|Integer|IO|MatchData|Method|Module|NilClass|Numeric|Object|Proc|Range|Regexp|String|Struct|TMS|Symbol|ThreadGroup|Thread|Time|TrueClass)\b/,
   'boolean': /\b(true|false)\b/g,
   'number': /\b-?(0x)?\d*\.?\d+\b/g,
-  'instance-variable': /[@&]\b[a-zA-Z_][a-zA-Z_0-9]*[?!]?\b/g,
+  'instance-variable': /[@]\b[a-zA-Z_][a-zA-Z_0-9]*[?!]?\b/g,
   'const': {
     'pattern': /\b[A-Z][a-zA-Z_0-9]*\b/,
     'inside': {
