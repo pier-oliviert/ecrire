@@ -3,6 +3,8 @@
     font-size: 1.2em;
     text-align: center;
     margin: 12px 0;
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 }
 
@@ -32,9 +34,8 @@
 
     #actions {
       width: 100%;
-      height: 40px;
-      min-height: 40px;
-      display: inline-block;
+      flex-grow: 0;
+      flex-shrink: 0;
       background: rgb(214, 236, 235);
       border-bottom: 2px solid #BABABA;
       position: relative;
@@ -61,10 +62,9 @@
     }
 
     .list {
-      display: inline-block;
-      width: 100%;
       margin: 0;
       padding: 0;
+      flex-grow: 1;
 
       .post {
         padding: 12px 8px;
