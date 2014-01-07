@@ -17,4 +17,12 @@ module ApplicationHelper
     content_tag :meta, nil, name: 'description', content: 'Ruby, Javascript, CSS blog. I use my experience to help you understand different programming concepts.'
   end
 
+  def open_graph_type
+    if @post.nil?
+      'website'
+    else
+      'article'
+    end
+  end
+
 end
