@@ -13,4 +13,8 @@ module ApplicationHelper
     return "pothibo's blog"
   end
 
+  def description_meta_tag
+    content_tag :meta, nil, name: 'description', content: 'Ruby, Javascript, CSS blog. I use my experience to help you understand different programming concepts.'
+  end
+
 end
