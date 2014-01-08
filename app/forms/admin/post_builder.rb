@@ -84,11 +84,11 @@ module Admin
     end
 
     def save_button
-      button("Save", name: "post[status]", value: "draft", class: %w(button))
+      button("Save", name: "admin_post[status]", value: "draft", class: %w(button))
     end
 
     def publish_button
-      button("Publish", name: "post[status]", value: "publish", class: %w(button hidden))
+      button("Publish", name: "admin_post[status]", value: "publish", class: %w(button hidden))
     end
 
     def method_missing(method, *args, &block)
