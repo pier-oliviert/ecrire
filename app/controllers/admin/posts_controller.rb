@@ -18,7 +18,7 @@ module Admin
       respond_to do |format|
         format.html do
           if @post.errors.blank?
-            redirect_to root_url
+            redirect_to edit_admin_post_path(@post)
           end
         end
       end
@@ -30,7 +30,11 @@ module Admin
     def update
       if @post.update(post_params)
         flash[:notice] = t(".successful", title: @post.title)
-        redirect_to :posts
+        if @post.published?
+          redirect_to post_path(@post.published_at.year, l(@post.published_at, format: '%m'), @post, trailing_slash: true)
+        else
+          redirect_to edit_admin_post_path(@post)
+        end
       end
     end
 
