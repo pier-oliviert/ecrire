@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def description_meta_tag
-    content_tag :meta, nil, name: 'description', content: 'Ruby, Javascript, CSS blog. I use my experience to help you understand different programming concepts.'
+    content_tag :meta, nil, name: 'description', content: Rails.configuration.meta.description
   end
 
   def open_graph_type
