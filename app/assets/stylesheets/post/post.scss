@@ -29,6 +29,12 @@
       font-family: olivier;
       font-size: 1.4rem;
     }
+
+     & > div, & > iframe {
+       display: inline-block;
+       vertical-align: middle;
+       margin: 0 12px;
+     }
   }
 }
 
