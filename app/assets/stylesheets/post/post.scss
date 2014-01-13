@@ -12,22 +12,23 @@
   }
 }
 
-@mixin social-logos {
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  opacity: 0.1;
-  margin-top: 1em;
-
-  &:hover {
-    opacity: 0.2;
+@mixin disqus {
+  #disqus_thread {
+    padding-top: 20px;
+    margin-top: 20px;
+    max-width: 900px;
+    min-width: 300px;
+    border-radius: 3px 3px 0 0;
+    background: #FEFEFE;
   }
 }
 
-@mixin disqus {
-  #disqus_thread {
-    max-width: 900px;
-    min-width: 300px;
+@mixin social {
+  .social {
+    & > h4 {
+      font-family: olivier;
+      font-size: 1.4rem;
+    }
   }
 }
 
@@ -88,6 +89,7 @@
   @include header;
   @include post;
   @include disqus;
+  @include social;
 
   article.content {
     padding-top: 40px;
