@@ -12,6 +12,7 @@ defaults: &defaults
     password: "dev-blog-123"
 
   meta:
+    title: "pothibo's blog"
     author: 'https://google.com/+PierOlivierThibault'
     description: 'Ruby, Javascript, CSS blog. I use my experience to help you understand different programming concepts.'
 

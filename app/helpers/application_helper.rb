@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def title
     return @post.title unless @post.nil?
-    return "pothibo's blog"
+    return Rails.configuration.meta.title
   end
 
   def description_meta_tag
