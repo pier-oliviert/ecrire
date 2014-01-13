@@ -8,13 +8,7 @@
   <article class="content">
     <style scoped><%= @post.stylesheet %></style>
     <%= @post.content.html_safe %>
-    <div class="social">
-      <a href="https://twitter.com/share" class="twitter-share-button" data-via="pothibo">Tweet</a>
-      <a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a>
-      <a href="http://feeds.feedburner.com/pothibo" id="feedburner">
-        <img src="http://feeds.feedburner.com/~fc/pothibo?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" />
-      </a>
-    </div>
+    <%= render "social", url: post_path(@post.published_at.year, @post.published_at.month, @post.slug, only_path: false) %>
     <%= render "comments" %>
   </article>
 
