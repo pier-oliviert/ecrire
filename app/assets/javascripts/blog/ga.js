@@ -9,7 +9,7 @@ setTimeout(function() {
     _gaq.push(['_trackEvent', 'scroll', 'read']);
   }
 
-  document.addEventListener('scroll', unbounce) 
+  document.addEventListener('scroll', unbounce)
 }, 5000);
 
 (function() {
