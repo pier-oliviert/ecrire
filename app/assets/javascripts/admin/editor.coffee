@@ -32,6 +32,7 @@ class Editor
     @listen(elements)
 
   listen: (elements) ->
+    sidebarContent = @sidebarContent
     $textareas = elements.$content.add(elements.$preview)
     updatePreview = ->
       $preview = elements.$preview.children(".preview")
@@ -46,7 +47,8 @@ class Editor
     elements.$content.get(0).addEventListener 'input', updatePreview
     elements.$stylesheet.get(0).addEventListener 'input', updatePreview
 
-    elements.$content.get(0)
+    elements.$content.get(0).addEventListener 'scroll', ->
+      sidebarContent.scrollTo(this.scrollTop / this.scrollHeight)
 
     updatePreview()
 
@@ -64,6 +66,10 @@ class SideBarContent
       raise "Can't add template because another template is assigned to #{name}"
     @templates[name] = dom
     return this
+
+  scrollTo: (percent) ->
+    @$wrapper.scrollTop(percent * @$wrapper.get(0).scrollHeight)
+
 
 class Title
   constructor: ->
