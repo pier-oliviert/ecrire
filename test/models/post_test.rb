@@ -46,6 +46,22 @@ class PostTest < ActiveSupport::TestCase
     assert !@post.slug.nil?
   end
 
+  test "can't save a post if the title already exists" do
+    @old_post = Post.first
+    @post = Post.new
+    @post.title = @old_post.title
+    assert !@post.save, "The post shouldn't save."
+    assert @post.errors.has_key?(:title), 'There should be an error with the title'
+  end
+
+  test "can't save a post if the slug already exists" do
+    @old_post = Post.first
+    @post = Post.new
+    @post.slug = @old_post.slug
+    assert !@post.save, "The post shouldn't save."
+    assert @post.errors.has_key?(:slug), 'There should be an error with the slug'
+  end
+
   test "excerpt should only be readable HTML" do
     @post = Post.new title: "Some other test"
     @post.content = "
