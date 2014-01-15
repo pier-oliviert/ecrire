@@ -197,27 +197,24 @@
 }
 
 @mixin errors {
-  #formErrors {
-    position: absolute;
-    top: 16px;
-    width: 400px;
-    left: calc(50% - 200px);
+  .errors {
+    flex: 1 auto;
     background: rgba(236, 66, 66, 0.23);
-    padding: 4px 8px;
+    margin: 12px 20% 0 20%;
+    padding: 8px;
     border-radius: 3px;
     border: 1px solid #BB0101;
     color: #811616;
-    .wrapper {
-      position: relative;
-      padding-right: 20px;
-    }
+    position: relative;
     .dismiss.button {
       position: absolute;
-      right: 4px;
-      top: -1px;
+      right: 6px;
+      top: 3px;
       text-decoration: none;
       color: #811616;
       font-weight: bold;
+      text-shadow: 0 1px rgb(243, 200, 200);
+      font-size: 1.4em;
     }
   }
 }
@@ -240,7 +237,7 @@
 
 .editor.form {
   position: absolute;
-  top: 40px;
+  top: 46px;
   left: 0;
   right: 0;
   bottom: 0;

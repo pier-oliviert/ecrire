@@ -1,6 +1,16 @@
 module Admin
   class PostBuilder < ActionView::Helpers::FormBuilder
 
+    def errors
+      return unless object.errors.any?
+      content_tag :div, class: %w(container errors) do
+        [
+          content_tag(:span, h(object.errors.full_messages.to_sentence)),
+          link_to("x", "javascript:void(0)", class: %w(dismiss button))
+        ].join.html_safe
+      end
+    end
+
     def editor
       [
         editor_options,
@@ -50,18 +60,6 @@ module Admin
           text_area(:stylesheet, placeholder: t('.stylesheet'), class: %w(stylesheet hidden editor)),
           text_area(:javascript, placeholder: t('.javascript'), class: %w(javascript hidden editor))
         ].join.html_safe
-      end
-    end
-
-    def flash_container
-      return if object.errors.blank?
-      content_tag :div, object.errors.full_messages.to_sentence, id: "formErrors", class: %w(flash) do
-        content_tag :div, class: %w(wrapper) do
-          [
-            object.errors.full_messages.to_sentence,
-            link_to("x", "javascript:void(0)", class: %w(dismiss button))
-          ].join.html_safe
-        end
       end
     end
 

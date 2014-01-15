@@ -1,2 +1,2 @@
-$(document).on "click", ".flash .dismiss", ->
-  $(this).parents(".flash").fadeOut("fast")
+$(document).on "click", ".dismiss", ->
+  $(this).parents(".container").fadeOut("fast", -> $(this).remove())
