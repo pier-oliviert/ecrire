@@ -1,13 +1,15 @@
 <div class="wrapper">
-  <section id="partialList">
+  <sidebar id="partialList" class="listing">
     <header>
       <%= link_to "new", new_admin_partial_path %>
     </header>
-    <ol class="list">
+    <ol class="items">
       <%= decorate @partials, :overview %>
     </ol>
+
     <%= paginate @partials %>
-  </section>
+
+  </sidebar>
 
   <section id="partialOverview">
   </section>

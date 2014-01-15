@@ -1,18 +1,21 @@
 <div class="wrapper">
-  <section id="postsList">
+  <sidebar id="postsList" class="listing">
     <header id="actions">
       <%= filter_links %>
-      <%= link_to "New", new_admin_post_path, id: "newPostLink" %>
     </header>
 
-    <ol class="list">
+    <ol class="items">
       <%= decorate @posts, :overview %>
     </ol>
-    <%= paginate @posts %>
-  </section>
 
-  <section id="postContainer">
-    <header id="postOptions" class="hidden">
-    </header>
-  </section>
+    <%= paginate @posts %>
+
+  </sidebar>
+
+  <main id="postContainer">
+    <section id="newIdea">
+      <%= content_tag :h1, t('.new_idea') %>
+      <%= link_to t('.start_writing'), new_admin_post_path, id: "newPostLink", class: %w(new item) %>
+    </section>
+  </main>
 </div>

@@ -1,7 +1,7 @@
 module Admin
   class PostDecorator < Cubisme::Decorator::Base
     def overview(options)
-      html_class = options.fetch :html_class, %w(post)
+      html_class = options.fetch :html_class, %w(post item)
 
       content_tag :li, class: html_class do
         [
@@ -20,10 +20,12 @@ module Admin
     end
 
     def date
-      if record.draft?
-        return l(record.updated_at.to_date, format: date_format)
-      else
-        return l(record.published_at.to_date, format: date_format)
+      content_tag :span, class: %w(date) do
+        if record.draft?
+          l(record.updated_at.to_date, format: date_format)
+        else
+          l(record.published_at.to_date, format: date_format)
+        end
       end
     end
 

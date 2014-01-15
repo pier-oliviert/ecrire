@@ -4,28 +4,6 @@
     flex-direction: row;
     height: 100%;
 
-    #partialList {
-      display: flex;
-      flex: 1 100%;
-      flex-basis: 300px;
-      flex-direction: column;
-      height: 100%;
-      border-right: 1px solid #BABABA;
-      header {
-        display: block;
-        height: 40px;
-        font-size: 1.4em;
-        text-align: center;
-      }
-      .list {
-        list-style-type: none;
-        font-size: 1.4em;
-        text-align: left;
-        margin: 0;
-        padding: 0;
-      }
-    }
-
     #partialOverview {
       display: flex;
       flex: 4 100%;

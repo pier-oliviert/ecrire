@@ -21,6 +21,8 @@ en:
         preview: "Preview"
     posts:
       index:
+        new_idea: "Every great post starts small."
+        start_writing: "Start writing."
         links:
           post: "Post"
       update:
