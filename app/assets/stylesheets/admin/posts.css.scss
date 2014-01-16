@@ -2,7 +2,7 @@
   & > .wrapper {
     display: flex;
     flex-direction: row;
-    height: calc(100% - 46px);
+    min-height: calc(100% - 46px);
   }
 
   #postContainer {
