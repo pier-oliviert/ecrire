@@ -1,0 +1,61 @@
+#imageDropPad {
+  margin: 12px;
+  border-radius: 6px;
+  border: 4px dashed #BABABA;
+  min-height: 100px;
+  text-align: center;
+
+  .message {
+    line-height: 90px;
+  }
+
+  &.hover {
+    border-color: rgb(155, 212, 155);
+  }
+
+  #submittingImageProgress {
+    height: 100%;
+    position: relative;
+
+    .overlay {
+      position: absolute;
+      box-sizing: border-box;
+      top: 30%;
+      width: 60%;
+      left: 20%;
+      background: rgba(26, 61, 134, 0.75);
+      box-shadow: 0 1px 0 0 rgba(140, 163, 238, 0.49);
+      border-radius: 8px;
+      padding: 12px 20px;
+      progress {
+        margin-bottom: 1px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.images.items {
+  list-style-type: none;
+  margin: 8px;
+  li {
+    display: inline-block;
+    width: 240px;
+    height: 240px;
+    margin: 12px 0 12px 12px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

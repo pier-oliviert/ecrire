@@ -18,6 +18,8 @@ $(document).on "DOMContentLoaded page:load", ->
     $(".preview.options #previewLink").on 'click', ->
       window.Editor.sidebarContent.show('preview')
 
+    $(document).trigger('editor:loaded', window.Editor)
+
 class Editor
   constructor: (opts) ->
     elements = {

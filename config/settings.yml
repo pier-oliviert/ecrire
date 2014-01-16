@@ -4,6 +4,7 @@ defaults: &defaults
     account: 'UA-Something'
     domain: 'localhost'
   s3:
+    bucket: 'My-bucket'
     access_key: 'access_key'
     secret_key: 'secret_key'
   database:

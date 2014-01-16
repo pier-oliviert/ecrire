@@ -1,0 +1,5 @@
+window.Editor.imageDropPad.showMessage()
+
+var $image = $("<%= j decorate(@image, :thumbnail) %>").hide()
+
+$image.prependTo($(".images.items")).show("slow")

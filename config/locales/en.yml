@@ -6,19 +6,33 @@ en:
     email: "Email"
     password: "Password"
     submit: "Login"
+
   admin:
     navigation:
+      blog: "Back to the blog"
       posts: "Posts"
       partials: "Partials"
-      blog: "Blog"
       logout: "Log out"
-    partials:
-      form:
+
+    form:
+      image:
+        drop_pad: "Déposer votre image ici."
+      post:
         title: "Your title here"
         content: "Write"
         stylesheet: "Style"
         javascript: "Script"
-        preview: "Preview"
+        slug: "Create your own slug. It will be build with the title otherwise."
+        options:
+          fields:
+            text: 'Write'
+            CSS: 'Stylesheet'
+            JS: 'Javascript'
+          preview: "Preview"
+          partials: "Partials"
+          images:
+            link: "Images"
+            post_not_persisted: "Images unavailable. Save your post first."
     posts:
       index:
         new_idea: "Every great post starts small."
@@ -27,10 +41,3 @@ en:
           post: "Post"
       update:
         successful: "%{title} saved!"
-      form:
-        title: "Your title here"
-        content: "Write"
-        stylesheet: "Style"
-        javascript: "Script"
-        preview: "Preview"
-        slug: "Create your own slug. It will be build with the title otherwise."

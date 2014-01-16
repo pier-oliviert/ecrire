@@ -1,0 +1,15 @@
+var $images = $("<%= j render('images', images: @post.images) %>")
+var $form = $("<%= j render('form', image: @post.images.new) %>")
+var $div = $("<div id='imagesContainer'>")
+var $sidebar = $("#editorSideContent")
+
+
+Editor.imageDropPad( $form.find("#imageDropPad").get(0) )
+$div.append($form).append($images)
+
+$("#imagesListLink").data('page', $div).on('click', function() {
+  var $this = $(this)
+  $this.addClass("active").siblings().removeClass("active")
+  $sidebar.empty().append($div)
+  return false
+}).click()

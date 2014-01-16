@@ -1,0 +1,11 @@
+<%= form_for [image.post, image],
+  builder: Admin::ImageBuilder,
+  url: admin_post_images_path(image.post),
+  html: {
+    class: %w(image form),
+    id: "imageForm"
+  } do |f| %>
+
+  <%= f.drop_pad %>
+
+<% end %>

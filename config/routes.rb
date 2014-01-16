@@ -10,10 +10,13 @@ PothiboCom::Application.routes.draw do
   resource :session, only: [:create, :destroy]
 
   resources :partials, only: [:show]
+  resources :images, only: [:show]
 
   namespace :admin do
     root 'posts#index'
-    resources :posts
+    resources :posts do
+      resources :images, shallow: true
+    end
     resources :splits
     resources :partials
   end

@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  has_many :images
+
   scope :status, lambda {|status|
     if status.eql?("published")
       where "posts.published_at IS NOT NULL"
