@@ -1,8 +1,6 @@
 <div class="wrapper">
   <sidebar id="partialList" class="listing">
-    <header>
-      <%= link_to "new", new_admin_partial_path %>
-    </header>
+
     <ol class="items">
       <%= decorate @partials, :overview %>
     </ol>
@@ -11,6 +9,10 @@
 
   </sidebar>
 
-  <section id="partialOverview">
-  </section>
+  <main id="partialContainer">
+    <section id="newIdea">
+      <%= content_tag :h1, t('.new_idea') %>
+      <%= link_to t('.start_writing'), new_admin_partial_path, id: "newPartialLink", class: %w(new item) %>
+    </section>
+  </main>
 </div>

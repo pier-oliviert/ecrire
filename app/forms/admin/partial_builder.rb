@@ -27,7 +27,6 @@ module Admin
     def preview
       content_tag(:div, class: %w(content preview)) do
         [
-          content_tag(:span, t('.preview'), class: %w(sticky)),
           content_tag(:style),
           content_tag(:script, nil, class: %w(preview), type: 'text/javascript'),
           content_tag(:div, nil, class: %w(preview)),
@@ -77,10 +76,14 @@ module Admin
 
       def editor_options
         [
-          content_tag(:a, t('.text'), binding: ".editor.content", class: %w(content active)),
-          content_tag(:a, t('.CSS'), binding: ".editor.stylesheet", class: %w(content)),
-          content_tag(:a, t('.JS'), binding: ".editor.javascript", class: %w(content))
+          content_tag(:a, t('fields.text'), binding: ".editor.content", class: %w(content active)),
+          content_tag(:a, t('fields.CSS'), binding: ".editor.stylesheet", class: %w(content)),
+          content_tag(:a, t('fields.JS'), binding: ".editor.javascript", class: %w(content))
         ].join.html_safe
+      end
+
+      def t(*args)
+        I18n.t args[0], scope: %w(admin partials form options)
       end
 
       def method_missing(method, *args, &block)

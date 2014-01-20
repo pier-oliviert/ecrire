@@ -4,11 +4,28 @@
     flex-direction: row;
     height: 100%;
 
-    #partialOverview {
-      display: flex;
+    #partialContainer {
       flex: 4 100%;
       flex-basis: 800px;
       height: 100%;
+      position: relative;
+    }
+
+    #newIdea {
+      position: absolute;
+      top: 25%;
+      width: 400px;
+      left: calc(50% - 200px);
+      text-align: center;
+
+      h1 {
+        font-size: 2.2em;
+        text-shadow: 0 1px #FCEFD9;
+      }
+
+      .new.item {
+        font-size: 1.5em;
+      }
     }
   }
 }
