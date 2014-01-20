@@ -14,6 +14,8 @@
   margin: 0;
   outline: none;
   padding: 4px 12px;
+  font-weight: lighter;
+  resize: none;
 }
 
 @mixin text {
@@ -25,22 +27,17 @@
 
   .content.wrapper {
     flex: 1 50%;
-    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   .editor.content, .editor.stylesheet, .editor.javascript {
     @include fields;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
     padding-top: 28px;
-    font-weight: lighter;
-    resize: none;
     font-size: 1.2em;
     background: #FAFAFA;
     border-right: 1px solid #CACACA;
+    flex: 1 100%;
 
     &.hidden {
       display: none;
