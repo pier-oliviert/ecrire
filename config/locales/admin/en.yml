@@ -1,0 +1,27 @@
+en:
+  admin:
+    navigation:
+      blog: "Back to the blog"
+      posts: "Posts"
+      partials: "Partials"
+      logout: "Log out"
+
+    form:
+      image:
+        drop_pad: "Déposer votre image ici."
+      post:
+        title: "Your title here"
+        content: "Write"
+        stylesheet: "Style"
+        javascript: "Script"
+        slug: "Create your own slug. It will be build with the title otherwise."
+        options:
+          fields:
+            text: 'Write'
+            CSS: 'Stylesheet'
+            JS: 'Javascript'
+          preview: "Preview"
+          partials: "Partials"
+          images:
+            link: "Images"
+            post_not_persisted: "Images unavailable. Save your post first."

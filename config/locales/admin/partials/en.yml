@@ -1,0 +1,7 @@
+en:
+  admin:
+    partials:
+      index:
+        new_idea: "Build small HTML snippet you can reuse in your blog posts. It can be anything: Mailing list form, Christmas HTML snippet, etc."
+        start_writing: "Create a partial."
+
