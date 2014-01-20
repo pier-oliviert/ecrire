@@ -3,6 +3,9 @@
   html: {class: %w(partial editor form)} do |f| %>
 
   <div class="wrapper">
+
+    <%= f.errors %>
+
     <%= f.title %>
     <%= f.editor %>
   </div>

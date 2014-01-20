@@ -1,6 +1,16 @@
 module Admin
   class PartialBuilder < ActionView::Helpers::FormBuilder
 
+    def errors
+      return unless object.errors.any?
+      content_tag :div, class: %w(container errors) do
+        [
+          content_tag(:span, h(object.errors.full_messages.to_sentence)),
+          link_to("x", "javascript:void(0)", class: %w(dismiss button))
+        ].join.html_safe
+      end
+    end
+
     def title
       content_tag :div, id: "partial_title_wrapper", class: %w(title wrapper) do
         [

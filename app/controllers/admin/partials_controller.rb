@@ -29,7 +29,7 @@ module Admin
     protected
 
     def partial_params
-      params.require(:partial).permit(:title, :content, :javascript, :stylesheet)
+      params.require(:admin_partial).permit(:title, :content, :javascript, :stylesheet)
     end
 
   end
