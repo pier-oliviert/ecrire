@@ -20,6 +20,7 @@
     .overlay {
       position: absolute;
       box-sizing: border-box;
+      -moz-box-sizing: border-box;
       top: 30%;
       width: 60%;
       left: 20%;

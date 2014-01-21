@@ -18,7 +18,6 @@
       display: inline-block;
       text-decoration: none;
       padding: 0 8px;
-      height: 100%;
       line-height: 38px;
       position: relative;
       
@@ -77,6 +76,7 @@ sidebar.listing {
     font-size: 1.0rem;
     position: relative;
     box-sizing: content-box;
+    -moz-box-sizing: content-box;
     border-bottom: 5px double #BABABA;
 
     @include filters;
