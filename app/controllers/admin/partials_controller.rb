@@ -20,10 +20,17 @@ module Admin
 
     def create
       @partial = Admin::Partial.create(partial_params)
+      respond_to do |format|
+        format.html do
+          redirect_to edit_admin_partial_path(@partial)
+        end
+      end
     end
 
     def update
-      @partial = Admin::Partial.find(params[:id].to_i).update(partial_params)
+      @partial = Admin::Partial.find(params[:id].to_i)
+      @partial.update(partial_params)
+      redirect_to edit_admin_partial_path(@partial) and return
     end
 
     protected
