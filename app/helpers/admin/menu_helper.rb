@@ -21,10 +21,7 @@ module Admin
       end
 
       def render
-        @items.values.map do |item|
-          item.request = @request
-          item.render
-        end.join.html_safe
+        @items.values.map(&:render).join.html_safe
       end
     end
 
