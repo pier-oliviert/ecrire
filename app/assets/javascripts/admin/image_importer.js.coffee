@@ -1,7 +1,7 @@
 class ImageImporter
   configureEvent: (e) =>
     $el = $(e.toElement)
-    event.dataTransfer.setData "text/plain", @tag($el)
+    e.dataTransfer.setData "text/plain", @tag($el)
 
   showPreview: (e) ->
     $("#previewLink").click()

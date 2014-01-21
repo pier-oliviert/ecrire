@@ -1,7 +1,7 @@
 class PartialImporter
   configureEvent: (e) =>
-    $el = $(e.toElement)
-    event.dataTransfer.setData "text/plain", @tag($el)
+    $el = $(e.target)
+    e.dataTransfer.setData "text/plain", @tag($el)
 
   tag: ($el) ->
     "<link rel='partial' href='#{$el.data('url')}' />"
