@@ -25,7 +25,7 @@ class Editor
     elements = {
       $content: $(".editor.content"),
       $stylesheet: $(".editor.stylesheet"),
-      $preview: $(".content.preview"),
+      $preview: $("#contentPreviewContainer"),
     }
 
     @title =  new Title()
@@ -58,7 +58,7 @@ class SideBarContent
   constructor: ($wrapper) ->
     @$wrapper = $wrapper
     @templates = {}
-    @templates['preview'] = $wrapper.children(".content.preview")
+    @templates['preview'] = $('#contentPreviewContainer')
 
   show: (name) =>
     @$wrapper.children().detach()

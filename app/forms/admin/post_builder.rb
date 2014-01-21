@@ -37,7 +37,7 @@ module Admin
     protected
 
     def preview
-      content_tag(:article, class: %w(content preview)) do
+      content_tag(:div, id: 'contentPreviewContainer') do
         [
           content_tag(:style),
           content_tag(:script, nil, class: %w(preview), type: 'text/javascript'),

@@ -35,11 +35,11 @@ module Admin
     protected
 
     def preview
-      content_tag(:div, class: %w(content preview)) do
+      content_tag(:div, id: 'contentPreviewContainer') do
         [
           content_tag(:style),
           content_tag(:script, nil, class: %w(preview), type: 'text/javascript'),
-          content_tag(:div, nil, class: %w(preview)),
+          content_tag(:article, nil, class: %w(content preview)),
         ].join.html_safe
       end
     end
