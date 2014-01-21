@@ -1,7 +1,9 @@
 #posts {
   & > .wrapper {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     min-height: calc(100% - 46px);
   }
 
@@ -9,11 +11,15 @@
     display: flex;
     flex: 4 100%;
     flex-basis: 300px;
+    display: -webkit-flex;
+    -webkit-flex: 4 100%;
+    -webkit-flex-basis: 300px;
     position: relative;
   }
 
   #postsList .list {
     flex-grow: 1;
+    -webkit-flex-grow: 1;
   }
 
   #newIdea {

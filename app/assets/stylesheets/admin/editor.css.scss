@@ -21,14 +21,20 @@
 @mixin text {
   .main.editor {
     display: flex;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-flex: 1 100%;
     flex-direction: row;
     flex: 1 100%;
   }
 
   .content.wrapper {
-    flex: 1 50%;
     display: flex;
+    display: -webkit-flex;
+    flex: 1 50%;
+    -webkit-flex: 1 50%;
     flex-direction: column;
+    -webkit-flex-direction: column;
   }
 
   .editor.content, .editor.stylesheet, .editor.javascript {
@@ -38,6 +44,7 @@
     background: #FAFAFA;
     border-right: 1px solid #CACACA;
     flex: 1 100%;
+    -webkit-flex: 1 100%;
 
     &.hidden {
       display: none;
@@ -51,8 +58,11 @@
     margin: 20px 0 0;
     background: #FAFAFA;
     display: flex;
+    display: -webkit-flex;
     flex: 0 40px;
+    -webkit-flex: 0 40px;
     flex-shrink: 0;
+    -webkit-flex-shrink: 0;
     position: relative;
 
     .input {
@@ -180,13 +190,14 @@
     font-size: 1.2em;
     font-weight: lighter;
     flex: 1 50%;
-
+    -webkit-flex: 1 50%;
   }
 }
 
 @mixin errors {
   .errors {
     flex: 1 auto;
+    -webkit-flex: 1 auto;
     background: rgba(236, 66, 66, 0.23);
     margin: 12px 20% 0 20%;
     padding: 8px;
@@ -246,9 +257,10 @@
 
   & > .wrapper {
     display: flex;
+    display: -webkit-flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
     min-height: 100%;
-    display: flex;
     height: 100%;
   }
 

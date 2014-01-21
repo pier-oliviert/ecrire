@@ -1,12 +1,16 @@
 #partials {
   & > .wrapper {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     height: 100%;
 
     #partialContainer {
       flex: 4 100%;
       flex-basis: 800px;
+      -webkit-flex: 4 100%;
+      -webkit-flex-basis: 800px;
       height: 100%;
       position: relative;
     }
