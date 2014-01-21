@@ -7,7 +7,7 @@ en:
 
     form:
       image:
-        drop_pad: "Déposer votre image ici."
+        drop_pad: "Drop your image here."
       post:
         title: "Your title here"
         content: "Write"
