@@ -1,17 +1,18 @@
-class ImageImporter
+class PartialImporter
   configureEvent: (e) =>
     $el = $(e.toElement)
     event.dataTransfer.setData "text/plain", @tag($el)
 
+  tag: ($el) ->
+    "<link rel='partial' href='#{$el.data('url')}' />"
+
   showPreview: (e) ->
     $("#previewLink").click()
 
-  tag: ($el) ->
-    "<img src='#{$el.data('url')}' alt='#{$el.data('alt')}' />"
-
 if @Editor?
-  @Editor.imageImporter = new ImageImporter()
+  @Editor.partialImporter = new PartialImporter()
 else
   $(document).on 'editor:loaded', (event, editor) ->
-    window.Editor.imageImporter = new ImageImporter()
+    window.Editor.partialImporter = new PartialImporter()
+
 

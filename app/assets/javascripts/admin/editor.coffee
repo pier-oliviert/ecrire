@@ -15,7 +15,7 @@ $(document).on "DOMContentLoaded page:load", ->
       $this.siblings(".active").removeClass("active")
       $this.addClass("active")
 
-    $(".preview.options #previewLink").on 'click', ->
+    $(".preview.options #previewLink").on 'click', (e) ->
       window.Editor.sidebarContent.show('preview')
 
     $(document).trigger('editor:loaded', window.Editor)
@@ -38,7 +38,7 @@ class Editor
     $textareas = elements.$content.add(elements.$preview)
     updatePreview = ->
       $preview = elements.$preview.children(".preview")
-      $preview.html elements.$content.val()
+      $preview.html $(elements.$content.val())
       $preview.find('link[rel="partial"]').each ->
         $link = $(this)
         $.get $link.attr('href'), (data) ->
@@ -61,9 +61,11 @@ class SideBarContent
     @templates['preview'] = $wrapper.children(".content.preview")
 
   show: (name) =>
-    @$wrapper.empty().append(@templates[name])
+    @$wrapper.children().detach()
+    @$wrapper.html(@templates[name])
 
   add: (name, dom) =>
+    console.log dom
     if @templates[name]? 
       raise "Can't add template because another template is assigned to #{name}"
     @templates[name] = dom

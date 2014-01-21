@@ -180,7 +180,6 @@
     font-size: 1.2em;
     font-weight: lighter;
     flex: 1 50%;
-    padding: 32px 0;
 
   }
 }
@@ -212,7 +211,14 @@
   .partials.listing {
     overflow-y: scroll;
     list-style-type: none;
-    padding: 8px;
+    .partial {
+      padding: 8px 24px;
+      border-bottom: 1px solid #BABABA;
+      cursor: pointer;
+      &:hover {
+        background: rgba(255,255,255, 0.2);
+      }
+    }
     .title {
       font-size: 1.3em;
       font-weight: lighter;

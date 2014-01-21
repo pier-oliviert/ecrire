@@ -7,7 +7,8 @@ module Admin
         style: "background-image: url('#{record.url}')",
         'data-url' => record.url,
         'data-alt' => record.key,
-        ondragstart: "window.Editor.imageImporter.configureEvent(event)"
+        ondragstart: "window.Editor.imageImporter.configureEvent(event)",
+        ondragend: "window.Editor.imageImporter.showPreview(event)"
     end
   end
 end

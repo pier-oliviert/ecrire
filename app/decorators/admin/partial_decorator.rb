@@ -7,14 +7,17 @@ module Admin
     end
 
     def listing(options)
-      content_tag :li, class: %w(partial) do
-        [
-          content_tag(:h4, record.title, class: %w(title)),
-          content_tag(:span, class: %w(include tag)) do
-            "<link rel='partial' href='/partials/#{record.id}' />"
-          end
-        ].join.html_safe
-      end
+      content_tag :li,
+        title,
+        class: %w(partial),
+        draggable: true,
+        'data-url' => partial_path(record),
+        ondragstart: "window.Editor.partialImporter.configureEvent(event)",
+        ondragend: "window.Editor.partialImporter.showPreview(event)"
+    end
+
+    def title
+      content_tag :h3, record.title
     end
   end
 end
