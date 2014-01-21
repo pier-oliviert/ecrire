@@ -38,7 +38,7 @@ class Editor
     $textareas = elements.$content.add(elements.$preview)
     updatePreview = ->
       $preview = elements.$preview.children(".preview")
-      $preview.html $(elements.$content.val())
+      $preview.html elements.$content.val()
       $preview.find('link[rel="partial"]').each ->
         $link = $(this)
         $.get $link.attr('href'), (data) ->
@@ -65,7 +65,6 @@ class SideBarContent
     @$wrapper.html(@templates[name])
 
   add: (name, dom) =>
-    console.log dom
     if @templates[name]? 
       raise "Can't add template because another template is assigned to #{name}"
     @templates[name] = dom
