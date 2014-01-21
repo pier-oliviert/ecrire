@@ -106,5 +106,8 @@
 
 #editorSideContent {
   @include post;
+  article.content {
+    min-width: none;
+  }
 }
 
