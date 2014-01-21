@@ -27,9 +27,16 @@ body {
   background: rgb(71, 101, 145);
   position: relative;
   border-bottom: 1px solid rgb(52, 69, 99);
-  padding: 0 12px;
+  padding: 0 12px 0 0;
+
+  #blogPublicHome {
+    font-family: entypo;
+    font-size: 3.6rem;
+  }
+
   a.link {
     display: inline-block;
+    vertical-align: top;
     color: #253649;
     text-decoration: none;
     font-size: 1.4em;

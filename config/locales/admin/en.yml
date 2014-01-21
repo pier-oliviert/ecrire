@@ -1,7 +1,6 @@
 en:
   admin:
     navigation:
-      blog: "Back to the blog"
       posts: "Posts"
       partials: "Partials"
       logout: "Log out"

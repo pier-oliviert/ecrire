@@ -35,7 +35,7 @@ module Admin
 
       attr_reader :request, :css
 
-      attr_accessor :path, :label
+      attr_accessor :path, :label, :id
 
       def initialize(request)
         @request = request
@@ -51,7 +51,7 @@ module Admin
         raise StandardError, "Admin::MenuHelper::Item is not configured properly, it's missing a callback" if @callback.nil?
 
         @css << "active" if @callback.call(@request)
-        link_to(@label, path, class: @css)
+        link_to(@label, path, class: @css, id: @id)
       end
     end
   end

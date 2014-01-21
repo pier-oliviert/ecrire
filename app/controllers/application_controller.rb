@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
     @menu ||= Admin::MenuHelper::Menu.new request do |menu|
       menu.add :blog do |item|
         item.path = root_path
-        item.label = I18n.t('admin.navigation.blog')
+        item.label = "&#128214;".html_safe
+        item.id = 'blogPublicHome'
         item.highlight_when do |request|
           !request.path.start_with?('/admin')
         end
