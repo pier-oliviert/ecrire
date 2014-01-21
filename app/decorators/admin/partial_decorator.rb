@@ -1,7 +1,7 @@
 module Admin
   class PartialDecorator < Cubisme::Decorator::Base
     def overview(options)
-      content_tag :li, class: %w(partial) do
+      content_tag :li, class: %w(partial item) do
         link_to record.title, edit_admin_partial_path(record)
       end
     end
