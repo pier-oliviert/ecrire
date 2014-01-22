@@ -50,7 +50,7 @@ module Admin
 
 
     def post_params
-      params.require(:admin_post).permit(:title, :content, :status, :stylesheet, :slug)
+      params.require(:admin_post).permit(:title, :content, :status, :stylesheet, :javascript, :slug)
     end
 
     def fetch_post
