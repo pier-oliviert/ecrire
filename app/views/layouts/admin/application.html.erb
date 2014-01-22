@@ -8,6 +8,7 @@
 </head>
 <body id="<%= controller_name %>">
 
+  <%= admin_navigation %>
 
   <% flash.each do |name, msg| %>
     <%= content_tag :div, class: %W(flash #{name}) do %>
@@ -15,8 +16,6 @@
       <%= link_to("x", "javascript:void(0)", class: %w(dismiss button)) %>
     <% end %>
   <% end %>
-
-  <%= admin_navigation %>
 
   <%= yield %>
 

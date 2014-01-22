@@ -14,6 +14,13 @@
     <%= admin_navigation %>
   <% end %>
 
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, class: %W(flash #{name}) do %>
+      <%= content_tag :span, msg, class: %w(message) %>
+      <%= link_to("x", "javascript:void(0)", class: %w(dismiss button)) %>
+    <% end %>
+  <% end %>
+
   <%= yield %>
 
 </body>
