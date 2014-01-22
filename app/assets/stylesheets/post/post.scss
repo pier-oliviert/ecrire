@@ -108,6 +108,9 @@
   @include post;
   article.content {
     min-width: none;
+    & > *:not(pre) {
+      margin-left: 2.5%;
+    }
   }
 }
 

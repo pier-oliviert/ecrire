@@ -39,9 +39,9 @@ module Admin
     def preview
       content_tag(:div, id: 'contentPreviewContainer') do
         [
-          content_tag(:style),
-          content_tag(:script, nil, class: %w(preview), type: 'text/javascript'),
-          content_tag(:article, nil, class: %w(preview content)),
+          content_tag(:style, nil, id: 'articleStylesheetContent'),
+          content_tag(:script, nil, class: %w(preview), id: 'articleScriptContent', type: 'text/javascript'),
+          content_tag(:article, nil, class: %w(preview content), id: 'articleHTMLContent'),
         ].join.html_safe
       end
     end
@@ -55,9 +55,9 @@ module Admin
     def editor_content
       content_tag :div, class: %w(content wrapper) do
         [
-          text_area(:content, placeholder: t('.content'), class: %w(content editor)),
-          text_area(:stylesheet, placeholder: t('.stylesheet'), class: %w(stylesheet hidden editor)),
-          text_area(:javascript, placeholder: t('.javascript'), class: %w(javascript hidden editor))
+          text_area(:content, placeholder: t('.content'), class: %w(content editor), id: 'formContentInput'),
+          text_area(:stylesheet, placeholder: t('.stylesheet'), class: %w(stylesheet hidden editor), id: 'formStylesheetInput'),
+          text_area(:javascript, placeholder: t('.javascript'), class: %w(javascript hidden editor), id: 'formScriptInput')
         ].join.html_safe
       end
     end

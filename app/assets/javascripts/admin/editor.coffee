@@ -22,34 +22,45 @@ $(document).on "DOMContentLoaded page:load", ->
 
 class Editor
   constructor: (opts) ->
-    elements = {
-      $content: $(".editor.content"),
-      $stylesheet: $(".editor.stylesheet"),
-      $preview: $("#contentPreviewContainer"),
+    previews = {
+      $HTMLContent: $("#articleHTMLContent"),
+      $StylesheetContent: $("#articleStylesheetContent"),
+      $ScriptContent: $("#articleScriptContent"),
+    }
+
+    inputs = {
+      $HTMLContent: $("#formContentInput"),
+      $StylesheetContent: $("#formStylesheetInput"),
+      $ScriptContent: $("#formScriptInput")
     }
 
     @title =  new Title()
     @menu = new SaveButton($(".possible.save.actions"))
     @sidebarContent = new SideBarContent($("#editorSideContent"))
-    @listen(elements)
+    @listen(inputs, previews)
 
-  listen: (elements) ->
+  listen: (inputs, previews) ->
     sidebarContent = @sidebarContent
-    $textareas = elements.$content.add(elements.$preview)
+
     updatePreview = ->
-      $preview = elements.$preview.children(".preview")
-      $preview.html elements.$content.val()
-      $preview.find('link[rel="partial"]').each ->
+      previews.$HTMLContent.html inputs.$HTMLContent.val()
+      previews.$HTMLContent.find('link[rel="partial"]').each ->
         $link = $(this)
         $.get $link.attr('href'), (data) ->
           $link.replaceWith(data)
-      elements.$preview.children("style").text elements.$stylesheet.val()
+
+      previews.$StylesheetContent.text inputs.$StylesheetContent.val()
+      $ScriptContent = $('<script>')
+      $ScriptContent.text inputs.$ScriptContent.val()
+      previews.$ScriptContent.replaceWith $ScriptContent
+      previews.$ScriptContent = $ScriptContent
       Prism.highlightAll()
 
-    elements.$content.get(0).addEventListener 'input', updatePreview
-    elements.$stylesheet.get(0).addEventListener 'input', updatePreview
+    inputs.$HTMLContent.get(0).addEventListener 'input', updatePreview
+    inputs.$StylesheetContent.get(0).addEventListener 'input', updatePreview
+    inputs.$ScriptContent.get(0).addEventListener 'input', updatePreview
 
-    elements.$content.get(0).addEventListener 'scroll', ->
+    inputs.$HTMLContent.get(0).addEventListener 'scroll', ->
       sidebarContent.scrollTo(this.scrollTop / this.scrollHeight)
 
     updatePreview()
