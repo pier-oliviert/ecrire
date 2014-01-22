@@ -1,28 +1,23 @@
-== README
+== Ecrire
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A blog engine made for people who write code.
 
-Things you may want to cover:
+If you are already a blogger or you are willing to start blogging, *ecrire* could be what you are looking for.
+Amongst other things, you can
 
-* Ruby version
+- Write blog post in the most flexible and well-known language (HTML)
+- Preview your post as you type it
+- Do code highlighting that doesn't screw your indentations
+- Modify CSS and Javascript for your post.
+- Create partials and use them in the post you want
+- Upload and use images
+- Configure your blog easily via a single YAML file
+- Easily modify the style and content of your blog wih highly modular HTML views.
 
-* System dependencies
+If you've ever wanted to have a blog that you could have your personality, ecrire is what you need.
 
-* Configuration
+=== How to install
 
-* Database creation
+= Licence
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+MIT, do as you wish!
