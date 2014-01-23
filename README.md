@@ -1,3 +1,5 @@
+# Ecrire
+
 You write code for a living and now, you feel like you could use a blog to share your experience with others. Most of us has been there.
 
 Starting your own blog isn't easy. If you've ever started one, you know that. Not only does it require you to have something to write about, you also need to know how to write. Thinking vaguely is much easier than writing the same thing down as you need to structure your idea. Not easy!
