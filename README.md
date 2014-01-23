@@ -50,7 +50,7 @@ When you want to start using partials, it's as simple as working with images. Yo
 
 You're a developer and you want to show code. And you want it to look awesome.
 
-Ecrire comes with [http://prismjs.co](prism.js), a library that does code highlighting extremely well. It also supports a large array of languages and is very easy to extend to your own language if yours isn't supported.
+Ecrire comes with [prism.js](http://prismjs.com), a library that does code highlighting extremely well. It also supports a large array of languages and is very easy to extend to your own language if yours isn't supported.
 
 Like everything else, code highlighting works in the live preview. Line numbers and all!
 
