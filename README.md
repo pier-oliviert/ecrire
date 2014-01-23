@@ -14,7 +14,7 @@ Ecrire is the blog engine that can do it for you.
 
 The editor is split in two halves. The left is where you write your post. The right is where you see a live preview of what you are writing as well as some tools to help you build your post.
 
-=== The editor
+### The editor
 
 This is where you will spend most of your time. The editor is plain but powerful: it's just HTML. But why would you want HTML to be abstracted from you? You probably know HTML really well and there's nothing more flexible than that.
 
@@ -26,7 +26,7 @@ By default, you have the live preview on the right side. It changes as you type 
 
 There's two importers that you can use to help you write awesome post. Images and partials.
 
-==== Images
+#### Images
 
 ![Image importer](https://raw2.github.com/pothibo/ecrire/gh-pages/images/images.png)
 
@@ -36,7 +36,7 @@ Once your file is uploaded to S3, you don't need to know where your file is, you
 
 ![How to import images](https://raw2.github.com/pothibo/ecrire/gh-pages/images/images.gif)
 
-==== Partials
+#### Partials
 
 If you've ever done some web development, you must know what partials are. They are small HTML snippet that you reuse on different pages.
 
@@ -45,7 +45,7 @@ Partials can be created like post can. They have their own HTML, CSS and Javascr
 When you want to start using partials, it's as simple as working with images. You have a list of all your partials and you can drag and drop onto your textarea the partial you want, at the location you want in your text. Like the images, Ecrire will generate the HTML tag for you. And your partial will appear in your live preview like everything else.
 
 
-=== Code highlighting
+### Code highlighting
 
 You're a developer and you want to show code. And you want it to look awesome.
 
@@ -53,24 +53,24 @@ Ecrire comes with <a href="http://prismjs.com/">prism.js</a>, a library that doe
 
 Like everything else, code highlighting works out in the live preview as well. Line numbers and all!
 
-=== Draft and publishing
+### Draft and publishing
 
 Like any blog engine worth its pinch of salt, Ecrire saves as a draft by default so you can write your post as you wish. When you're ready, simply press the arrow on the left of **Save** and click the publish button!
 
-=== Customize your blog
+### Customize your blog
 
 Customization is important and it shouldn't be hard to make minor changes to the look and feel of you blog. You should be able to infuse a dose of your personality without breaking a sweat. Ecrire was built using clean and modular HTML code so you can easily find your way around HTML, CSS and Javascript. Customize away!
 
 
-=== Alpha!!!
+### Alpha!!!
 
-This project is still in it's infancy and while everything you've read so far is working, there's still bugs, enhancements and features that are missing. Even though it's an alpha, this engine has been working flawlessly on <a href="http://pothibo.com">pothibo.com</a> for the last 2 months. So try it out, leave issues if you find any or even submit a PR, more the merrier!
+This project is still in it's infancy and while everything you've read so far is working, there's still bugs, enhancements and features that are missing. Even though it's an alpha, this engine has been working flawlessly on [http://pothibo.com](pothibo.com) for the last 2 months. So try it out, leave issues if you find any or even submit a PR, more the merrier!
 
-=== Getting started
+### Getting started
 
 All the information you need to install this blog engine is found on the Wiki.
 
-=== Licence
+### Licence
 
 The MIT License (MIT)
 
