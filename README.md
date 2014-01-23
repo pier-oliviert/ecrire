@@ -1,32 +1,32 @@
 # Ecrire
 
-You write code for a living and now, you feel like you could use a blog to share your experience with others. Most of us has been there.
+You write code for a living and now, you feel like you could use a blog to share your experience with others. Most of us have been there.
 
-Starting your own blog isn't easy. If you've ever started one, you know that. Not only does it require you to have something to write about, you also need to know how to write. Thinking vaguely is much easier than writing the same thing down as you need to structure your idea. Not easy!
+Starting your own blog isn't an easy task. If you've ever started one, you know how hard it is to stay focused.
 
 You also want your blog to look like something that looks like you. Personality.
 
-Because you write code for a living, you'd like to not waste too much time on your blog building everything from the ground up but you would also like to be able to change things, small HTML or CSS changes.
+Because you write code for a living, you don't want to waste much time on your blog building everything from the ground up but you would also like to be able to change things, small HTML or CSS changes.
 
-You might also want to show some code snippet that you've either created or found a useful use. Because you know how to code, you know how important code indentation and highlighting is. So you want that.
+You might also want to show some code snippet that you've either created or found about working on something. You know how important code indentations and highlighting is to help visualize concept and logic. So you need to have that.
 
-Ecrire is the blog engine that can do it for you.
+Well, Ecrire is the blog engine that can do it for you.
 
 ![The Editor](https://raw2.github.com/pothibo/ecrire/gh-pages/images/editor.png)
 
-The editor is split in two halves. The left is where you write your post. The right is where you see a live preview of what you are writing as well as some tools to help you build your post.
+The editor is split in two halves. The left is where you write your post. The right is where you see a live preview of what you are writing as well as some tools to help you build each of your post.
 
 ### The editor
 
-This is where you will spend most of your time. The editor is plain but powerful: it's just HTML. But why would you want HTML to be abstracted from you? You probably know HTML really well and there's nothing more flexible than that.
+This is where you will spend most of your time. The editor is plain but powerful: it's just HTML. Why would you want HTML to be abstracted from you? You probably know HTML really well and there's nothing more flexible than that.
 
-Above the editor, there's 3 links: Write, Stylesheet and Javascript. Write let's you write HTML while Stylesheet and Javascript let's you customize CSS and JS for this particular post. So if you want to float an image on a specific paragraph, you can. If you want to have a small button that toggles something special, you can too. You're a developer, I'm sure you'll have ideas of your own to leverage those, I sure did!
+Above the editor, there's 3 links: Write, Stylesheet and Javascript. **Write** let's you write HTML while **Stylesheet** and **Javascript** let you customize CSS and JS for this particular post. If you want to float an image on a specific paragraph, you can. If you want to have a small button that toggles something special, you can too. You're a developer, I'm sure you'll have ideas of your own on how to leverage those, I sure did!
 
-Preview and importers
+### Preview and importers
 
-By default, you have the live preview on the right side. It changes as you type HTML and CSS very useful to try many CSS configuration or when you move things around. HTML is flexible but it doesn't give you a sense of how it looks like. The preview does that for you, in real time.
+When you open up the editor, the right hand side shows the live preview of your post. It updates as you type HTML and CSS. It's very useful when you try to tweak your post or when you move things around. The preview gives you exactly how your post will look like once you publish it, in real time.
 
-There's two importers that you can use to help you write awesome post. Images and partials.
+There's two importers that you can use to help you write awesome posts. Images and partials.
 
 #### Images
 
@@ -42,31 +42,31 @@ Once your file is uploaded to S3, you don't need to know where your file is, you
 
 If you've ever done some web development, you must know what partials are. They are small HTML snippet that you reuse on different pages.
 
-Partials can be created like post can. They have their own HTML, CSS and Javascript that can be inserted in any post you wish. If you want to write about different topic and you would like to have a form on only certain topics, it becomes easy to do with partials.
+Partials have an editor very similar to posts. They have their own HTML, CSS and Javascript that can be inserted in any post you wish. If you write about different topics and you would like to have a form on only certain pages, it becomes easy to do that with partials.
 
-When you want to start using partials, it's as simple as working with images. You have a list of all your partials and you can drag and drop onto your textarea the partial you want, at the location you want in your text. Like the images, Ecrire will generate the HTML tag for you. And your partial will appear in your live preview like everything else.
-
+When you want to start using partials, it's as simple as working with images. You have a list of all your partials and you can drag and drop onto the textarea the partial you want, at the location you want in your text. Like the images, Ecrire will generate the HTML tag for you. And your partial will appear in your live preview like everything else.
 
 ### Code highlighting
 
 You're a developer and you want to show code. And you want it to look awesome.
 
-Ecrire comes with <a href="http://prismjs.com/">prism.js</a>, a library that does code highlighting extremely well. It also supports a large array of languages and is very easy to extend to your own language if yours isn't supported.
+Ecrire comes with [http://prismjs.co](prism.js), a library that does code highlighting extremely well. It also supports a large array of languages and is very easy to extend to your own language if yours isn't supported.
 
-Like everything else, code highlighting works out in the live preview as well. Line numbers and all!
+Like everything else, code highlighting works in the live preview. Line numbers and all!
 
 ### Draft and publishing
 
-Like any blog engine worth its pinch of salt, Ecrire saves as a draft by default so you can write your post as you wish. When you're ready, simply press the arrow on the left of **Save** and click the publish button!
+Like any blog engine, Ecrire saves as a draft by default so you can write your post without having the world seeing it.
+
+When you're ready, simply press the arrow on the left of **Save** and click the publish button!
 
 ### Customize your blog
 
-Customization is important and it shouldn't be hard to make minor changes to the look and feel of you blog. You should be able to infuse a dose of your personality without breaking a sweat. Ecrire was built using clean and modular HTML code so you can easily find your way around HTML, CSS and Javascript. Customize away!
-
+Customization is important and it shouldn't be hard to make minor changes to the look and feel of your blog. You should be able to infuse a dose of your personality without breaking a sweat. Ecrire was built using clean and modular HTML code. You can easily find your way around HTML, CSS and Javascript.
 
 ### Alpha!!!
 
-This project is still in it's infancy and while everything you've read so far is working, there's still bugs, enhancements and features that are missing. Even though it's an alpha, this engine has been working flawlessly on [http://pothibo.com](pothibo.com) for the last 2 months. So try it out, leave issues if you find any or even submit a PR, more the merrier!
+This project is still in its infancy and while everything you've read so far is working, there's still bugs, enhancements and features that are missing. Even though it's an alpha, this engine has been working flawlessly on [http://pothibo.com](pothibo.com) for the last 2 months. So try it out, leave issues if you find any or even submit a PR, more the merrier!
 
 ### Getting started
 
