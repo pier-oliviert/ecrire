@@ -14,6 +14,8 @@ gem 'pg'
 
 gem 's3'
 
+gem 'therubyracer'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
