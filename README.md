@@ -70,7 +70,7 @@ This project is still in its infancy and while everything you've read so far is 
 
 ### Getting started
 
-All the information you need to install this blog engine is found on the Wiki.
+All the information you need to install this blog engine is found [on the Wiki](https://github.com/pothibo/ecrire/wiki/How-to-install-on-Arch-Linux).
 
 ### Licence
 
