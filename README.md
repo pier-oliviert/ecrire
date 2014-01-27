@@ -66,7 +66,7 @@ Customization is important and it shouldn't be hard to make minor changes to the
 
 ### Alpha!!!
 
-This project is still in its infancy and while everything you've read so far is working, there's still bugs, enhancements and features that are missing. Even though it's an alpha, this engine has been working flawlessly on [http://pothibo.com](pothibo.com) for the last 2 months. So try it out, leave issues if you find any or even submit a PR, more the merrier!
+This project is still in its infancy and while everything you've read so far is working, there's still bugs, enhancements and features that are missing. Even though it's an alpha, this engine has been working flawlessly on [http://pothibo.com](http://pothibo.com) for the last 2 months. So try it out, leave issues if you find any or even submit a PR, more the merrier!
 
 ### Getting started
 
