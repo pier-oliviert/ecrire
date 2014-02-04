@@ -17,6 +17,8 @@ defaults: &defaults
     author: 'https://google.com/+PierOlivierThibault'
     description: 'Ruby, Javascript, CSS blog. I use my experience to help you understand different programming concepts.'
 
+  theme: "default"
+
 
 development:
   <<: *defaults

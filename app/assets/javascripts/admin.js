@@ -2,5 +2,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree ./admin
-//= require_tree ./post
+//= require xss_protection
 //= require base

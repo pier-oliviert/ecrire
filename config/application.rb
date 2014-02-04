@@ -33,6 +33,10 @@ module PothiboCom
 
     config.i18n.load_path = Dir[Rails.root.join('config', 'locales', '**', '*.yml')]
 
+    config.assets.paths = %w(images fonts javascripts stylesheets).map do |asset_type| 
+      (Rails.application.root + ['themes', Rails.configuration.theme, 'assets', asset_type].join('/')).to_s
+    end
+
   end
 
 end

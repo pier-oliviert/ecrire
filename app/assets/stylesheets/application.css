@@ -1,7 +1,5 @@
 /*
  *= require_self
- *= require base
- *= require fonts
- *= require_tree ./blog
- *= require_tree ./post
+ *= require_tree .
  */
+
