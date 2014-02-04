@@ -1,7 +1,7 @@
 /*
  *= require_tree ./blog
- *= require_tree ./post
- *= require fonts
+ *= require_tree ./shared
+ *= require post
 */
 
 $header-height: 46px;
@@ -37,61 +37,3 @@ body {
   flex-direction: column;
 }
 
-#adminNavigationOptions {
-  height: $header-height;
-  background: rgb(71, 101, 145);
-  position: relative;
-  border-bottom: 1px solid rgb(52, 69, 99);
-  padding: 0 12px 0 0;
-
-  #blogPublicHome {
-    font-family: entypo;
-    font-size: 3.6rem;
-  }
-
-  a.link {
-    display: inline-block;
-    vertical-align: top;
-    color: #253649;
-    text-decoration: none;
-    font-size: 1.4em;
-    line-height: $header-height - 1px;
-    font-weight: lighter;
-    padding: 0 12px;
-    text-align: center;
-    min-width: 80px;
-    text-shadow: 0 1px #5A7FB6;
-    &:hover:not(.active) {
-      background: rgba(197, 234, 255, 0.31);
-      text-shadow: 0 -1px transparent;
-    }
-    &.active {
-      color: rgb(137, 169, 204);
-      background: rgba(9, 36, 65, 0.44);
-      text-shadow: 0 -1px #163057;
-    }
-  }
-
-  .button_to {
-    position: absolute;
-    right: 24px;
-    top: 4px;
-
-    input[type=submit] {
-      color: #500A0A;
-      background: rgb(189, 103, 103);
-      border: 1px solid #4E3333;
-      border-radius: 3px;
-      font-weight: 100;
-      font-size: 1.0rem;
-      padding: 6px 8px;
-      cursor: pointer;
-      outline: none;
-      box-shadow: 0 1px 0 0 rgb(199, 159, 159);
-      text-shadow: 0 1px rgb(199, 159, 159);
-      &:active {
-        box-shadow: 0 1px 0 0 rgb(199, 159, 159), inset 0 0 6px 0 rgb(199, 23, 29);
-      }
-    }
-  }
-}

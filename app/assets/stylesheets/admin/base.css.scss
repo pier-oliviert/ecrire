@@ -1,6 +1,48 @@
-a {
-  color: rgb(110, 123, 165);
+$fonts: Helvetica, sans-serif;
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
+
+html, body {
+  display: flex;
+  flex: 1 auto;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: image-url("background.png");
+  background-repeat: repeat;
+  font-family: $fonts;
+  font-weight: 200;
+  font-size: 13px;
+  color: #6d645c;
+  flex-direction: column;
+}
+
+a {
+  color: rgb(114, 153, 204);
+}
+
+ol.list {
+  overflow-y: scroll;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 100;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
 
 .hidden {
   display: none;
@@ -49,15 +91,3 @@ a {
   }
 }
 
-ol.list {
-  overflow-y: scroll;
-}
-
-h1, h2, h3, h4, h5 {
-  font-weight: 100;
-}
-
-ul, ol {
-  margin: 0;
-  padding: 0;
-}

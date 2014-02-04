@@ -1,5 +1,7 @@
 module ApplicationHelper
   def admin_navigation
+    return unless signed_in?
+
     content_tag :header, id: 'adminNavigationOptions' do
       [
         menu.render,
@@ -8,9 +10,35 @@ module ApplicationHelper
     end
   end
 
+  def title_tag
+    content_tag :title do
+      title
+    end
+  end
+
   def title
-    return @post.title unless @post.nil?
-    return Rails.configuration.meta.title
+    if @post.nil?
+      Rails.configuration.meta.title
+    else
+      @post.title
+    end
+  end
+
+  def assets_tags
+    [
+      stylesheet_link_tag("application", media: "all", "data-turbolinks-track" => true),
+      javascript_include_tag("application", "data-turbolinks-track" => true)
+    ].join.html_safe
+  end
+
+  def meta_informations_tags
+    [
+      content_tag(:link, nil, rel: %w(shortcut icon), href: '/favicon.ico'),
+      content_tag(:link, nil, rel: %w(author), href: Rails.configuration.meta.author),
+      csrf_meta_tags,
+      description_meta_tag,
+      open_graph_tags
+    ].join.html_safe
   end
 
   def description_meta_tag
@@ -23,6 +51,10 @@ module ApplicationHelper
     else
       'article'
     end
+  end
+
+  def body_tag(html_options = {})
+    content_tag :body, yield, html_options
   end
 
 end

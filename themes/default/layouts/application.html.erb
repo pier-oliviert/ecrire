@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= title %></title>
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-  <%= description_meta_tag %>
-  <link rel="author" href="<%= Rails.configuration.meta.author %>"/>
-  <%= open_graph_tags %>
-</head>
-<body id="<%= controller_name %>-<%= action_name %>">
-  <% if signed_in? %>
+
+  <head>
+    <%= title_tag %>
+    <%= assets_tags %>
+    <%= meta_informations_tags %>
+  </head>
+
+  <%= body_tag id: [controller_name, action_name].join('-') do %>
+
     <%= admin_navigation %>
-  <% end %>
 
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, class: %W(flash #{name}) do %>
-      <%= content_tag :span, msg, class: %w(message) %>
-      <%= link_to("x", "javascript:void(0)", class: %w(dismiss button)) %>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, class: %W(flash #{name}) do %>
+        <%= content_tag :span, msg, class: %w(message) %>
+        <%= link_to("x", "javascript:void(0)", class: %w(dismiss button)) %>
+      <% end %>
     <% end %>
+
+    <%= yield %>
+
   <% end %>
-
-  <%= yield %>
-
-</body>
 </html>
