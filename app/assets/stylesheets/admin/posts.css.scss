@@ -4,7 +4,7 @@
     display: -webkit-flex;
     flex-direction: row;
     -webkit-flex-direction: row;
-    min-height: calc(100% - 46px);
+    flex: 1 100%;
   }
 
   #postContainer {
