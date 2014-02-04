@@ -25,7 +25,12 @@ module PothiboCom
       }
     end
 
-    config.assets.precompile += [/(?:\/|\\|\A)admin\.(css|js)$/]
+    config.assets.precompile = [
+      lambda do |filename, path|
+        path =~ /(app|themes\/#{Rails.configuration.theme})\/assets/ && !%w(.js .css).include?(File.extname(filename))
+      end,
+      /(?:\/|\\|\A)(admin|application)\.(css|js)$/
+    ]
 
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       html_tag
