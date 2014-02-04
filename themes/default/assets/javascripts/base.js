@@ -1,4 +1,4 @@
 //= require_tree ./blog
-//= require_tree ./post
-
+//= require_tree ./shared
+//= require post
 
