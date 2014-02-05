@@ -10,6 +10,8 @@ module PothiboCom
   class Application < Rails::Application
     config.from_file 'settings.yml'
 
+    puts config.theme
+
     config.to_prepare do
       Warden::Strategies.add :password, PasswordStrategy
     end
@@ -27,7 +29,7 @@ module PothiboCom
 
     config.assets.precompile = [
       lambda do |filename, path|
-        path =~ /(app|themes\/#{Rails.configuration.theme})\/assets/ && !%w(.js .css).include?(File.extname(filename))
+        path =~ /(app|themes\/#{config.theme})\/assets/ && !%w(.js .css).include?(File.extname(filename))
       end,
       /(?:\/|\\|\A)(admin|application)\.(css|js)$/
     ]
@@ -39,7 +41,7 @@ module PothiboCom
     config.i18n.load_path = Dir[Rails.root.join('config', 'locales', '**', '*.yml')]
 
     config.assets.paths = %w(images fonts javascripts stylesheets).map do |asset_type|
-      (Rails.application.root + ['themes', Rails.configuration.theme, 'assets', asset_type].join('/')).to_s
+      (Rails.application.root + ['themes', config.theme, 'assets', asset_type].join('/')).to_s
     end
 
   end
