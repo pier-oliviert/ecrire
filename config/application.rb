@@ -10,8 +10,6 @@ module PothiboCom
   class Application < Rails::Application
     config.from_file 'settings.yml'
 
-    puts config.theme
-
     config.to_prepare do
       Warden::Strategies.add :password, PasswordStrategy
     end
