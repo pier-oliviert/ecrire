@@ -17,7 +17,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-image: image-url("background.png");
+  background-image: url(image-path("background.png"));
   background-repeat: repeat;
   font-family: $fonts;
   font-weight: 200;

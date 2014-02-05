@@ -2,8 +2,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require xss_protection
-//= require vendor/keymaster
-//
+//= require_tree ./vendor
 //= require base
 //
 
