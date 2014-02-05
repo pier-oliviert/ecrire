@@ -7,5 +7,6 @@
 //= require base
 //
 
-key 'ctrl+l', ->
+key('ctrl+l', function() {
   $.getScript("/admin")
+})
