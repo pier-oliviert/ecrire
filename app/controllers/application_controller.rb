@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  prepend_view_path ['themes', Rails.configuration.theme].join('/')
+  prepend_view_path ['themes', Rails.configuration.theme, 'views'].join('/')
 
   protect_from_forgery with: :exception
   helper_method :current_user, :signed_in?

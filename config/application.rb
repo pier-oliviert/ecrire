@@ -10,6 +10,11 @@ module PothiboCom
   class Application < Rails::Application
     config.from_file 'settings.yml'
 
+    I18n.default_locale = :'fr-CA'
+
+    path = config.paths.add ['themes', config.theme, 'helpers'].join('/'), eager_load: true
+    config.helpers_paths += path.expanded
+
     config.to_prepare do
       Warden::Strategies.add :password, PasswordStrategy
     end
