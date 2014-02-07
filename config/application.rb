@@ -10,6 +10,7 @@ module PothiboCom
   class Application < Rails::Application
     config.from_file 'settings.yml'
 
+    config.paths.add ['themes', config.theme, 'decorators'].join('/'), eager_load: true
     path = config.paths.add ['themes', config.theme, 'helpers'].join('/'), eager_load: true
     config.helpers_paths += path.expanded
 
