@@ -1,4 +1,4 @@
-class PostDecorator < Cubisme::Decorator::Base
+class PostDecorator < EcrireDecorator
   def suggested(options)
     content_tag :li do
       content = [
@@ -14,3 +14,4 @@ class PostDecorator < Cubisme::Decorator::Base
     end
   end
 end
+
