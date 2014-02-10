@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'should only return favorited images' do
+    Image.favorites.each do |image|
+      assert image.favorite?, 'Image should be favorited'
+    end
+  end
 end
