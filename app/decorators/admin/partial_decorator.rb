@@ -12,8 +12,7 @@ module Admin
         class: %w(partial),
         draggable: true,
         'data-url' => partial_path(record),
-        ondragstart: "window.Editor.partialImporter.configureEvent(event)",
-        ondragend: "window.Editor.partialImporter.showPreview(event)"
+        ondragstart: "window.Editor.partialImporter.configureEvent(event)"
     end
 
     def title

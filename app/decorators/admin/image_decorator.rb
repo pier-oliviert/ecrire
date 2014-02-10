@@ -18,8 +18,7 @@ module Admin
         draggable: true,
         'data-url' => record.url,
         'data-alt' => record.key,
-        ondragstart: "window.Editor.imageImporter.configureEvent(event)",
-        ondragend: "window.Editor.imageImporter.showPreview(event)"
+        ondragstart: "window.Editor.imageImporter.configureEvent(event)"
     end
 
     def sidebar
