@@ -13,3 +13,18 @@ $("#imagesListLink").data('page', $div).on('click', function() {
   $sidebar.empty().append($div)
   return false
 }).click()
+
+$("#imagesOptionsToggle").on('click', function() {
+  var $this = $(this)
+  var $element = $('sidebar.options')
+  if ($element.css('visibility') == 'visible') {
+    $this.removeClass('active')
+    $element.css('visibility', 'hidden');
+  } else {
+    $this.addClass('active')
+    $element.css('visibility', 'visible');
+  }
+})
+
+Editor.imagesFavorite($images)
+Editor.imagesDestroy($images)

@@ -3,3 +3,7 @@ window.Editor.imageDropPad.showMessage()
 var $image = $("<%= j decorate(@image, :thumbnail) %>").hide()
 
 $image.prependTo($(".images.items")).show("slow")
+
+if ($('#imagesOptionsToggle').hasClass('active')) {
+  $image.find('sidebar.options').css('visibility', 'visible')
+}

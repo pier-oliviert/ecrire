@@ -16,10 +16,24 @@ class Admin::ImagesController < ApplicationController
     end
   end
 
+  def update
+    @image = Admin::Image.find(params[:id])
+    @image.update_attributes(image_params)
+  end
+
+  def destroy
+    @image = Admin::Image.find(params[:id])
+    @image.destroy
+  end
+
   protected
 
   def post
     @post ||= Admin::Post.find_by_slug(params[:post_id])
+  end
+
+  def image_params
+    params.require(:admin_image).permit(:favorite)
   end
 
 end

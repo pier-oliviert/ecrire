@@ -38,11 +38,9 @@ class DragAndDrop
 
   preview: (e) =>
     $div = $("<div class='loading' id='submittingImageProgress'>")
-    img = new Image()
-    img.src = e.target.result
+    $div.get(0).style.backgroundImage = "url('#{e.target.result}')"
 
     $progress = $("<div class='overlay'><progress value=0></progress></div>")
-    $div.append(img)
     $div.append($progress)
     $(@element).prepend($div)
 
@@ -77,4 +75,5 @@ if @Editor?
 else
   $(document).on 'editor:loaded', (event, editor) ->
     editor.imageDropPad = initializer
+
 

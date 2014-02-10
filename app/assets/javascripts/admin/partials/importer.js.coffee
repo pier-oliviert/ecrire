@@ -7,12 +7,11 @@ class PartialImporter
     "<link rel='partial' href='#{$el.data('url')}' />"
 
   showPreview: (e) ->
-    $("#previewLink").click()
+    $("#previewlink").click()
 
 if @Editor?
   @Editor.partialImporter = new PartialImporter()
 else
   $(document).on 'editor:loaded', (event, editor) ->
     window.Editor.partialImporter = new PartialImporter()
-
 

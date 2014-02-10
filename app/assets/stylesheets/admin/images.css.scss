@@ -1,12 +1,92 @@
+@mixin favorite {
+  &.favorite {
+    color: rgba(255, 255, 255, 0.5);
+
+    &.active {
+      color: rgba(229, 230, 22, 1);
+    }
+
+    &:not(.active):hover {
+      color: rgba(229, 230, 22, 0.8);
+    }
+  }
+}
+
+@mixin destroy {
+  &.destroy {
+    color: rgba(255, 147, 147, 0.7);
+    &:hover {
+      color: rgba(252, 107, 107, 1);
+    }
+  }
+}
+
+@mixin image {
+  li.image {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 240px;
+    height: 240px;
+    margin: 12px 0 12px 12px;
+    border: 1px solid #B8B690;
+    border-radius: 6px;
+
+    & > div {
+      width: 100%;
+      height: 100%;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      cursor: pointer;
+    }
+
+    & > sidebar.options {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.4);
+      visibility: hidden;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      .action {
+        width: 50%;
+        height: 100%;
+        cursor: pointer;
+        display: inline-block;
+        font-family: entypo;
+        font-size: 8rem;
+        line-height: 14rem;
+        text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+        text-decoration: none;
+        text-align: center;
+
+        &:first-child {
+          border-right: 2px solid rgba(158, 158, 158, 0.6);
+        }
+
+        &:last-child {
+          border-left: 2px solid rgba(158, 158, 158, 0.6);
+        }
+
+
+        @include favorite;
+        @include destroy;
+      }
+    }
+  }
+}
+
 #imageDropPad {
+  height: 100px;
   margin: 12px;
+  padding: 8px;
   border-radius: 6px;
   border: 4px dashed #BABABA;
-  min-height: 100px;
   text-align: center;
 
   .message {
-    line-height: 90px;
+    line-height: 80px;
   }
 
   &.hover {
@@ -15,18 +95,19 @@
 
   #submittingImageProgress {
     height: 100%;
+    width: 100%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: 16px 0;
     position: relative;
 
     .overlay {
       position: absolute;
       box-sizing: border-box;
       -moz-box-sizing: border-box;
-      top: 30%;
+      top: 25%;
       width: 60%;
       left: 20%;
-      background: rgba(26, 61, 134, 0.75);
-      box-shadow: 0 1px 0 0 rgba(140, 163, 238, 0.49);
-      border-radius: 8px;
       padding: 12px 20px;
       progress {
         margin-bottom: 1px;
@@ -38,25 +119,26 @@
 
 .images.items {
   list-style-type: none;
-  margin: 8px;
-  li {
-    display: inline-block;
-    width: 240px;
-    height: 240px;
-    margin: 12px 0 12px 12px;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    cursor: pointer;
+  margin: 8px 52px 8px 8px;
 
-    a {
-      display: block;
-      width: 100%;
-      height: 100%;
+  @include image;
 
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
+}
+
+#imagesOptionsToggle {
+  position: absolute;
+  bottom: 4px;
+  right: 16px;
+  font-family: entypo;
+  font-size: 4rem;
+  cursor: pointer;
+  color: rgba(109, 100, 92, 0.5);
+
+  &:hover:not(.active) {
+    color: rgba(109, 100, 92, 1);
+  }
+
+  &.active {
+    color: rgba(109, 100, 92, 1);
   }
 }

@@ -15,3 +15,4 @@ else
   $(document).on 'editor:loaded', (event, editor) ->
     window.Editor.imageImporter = new ImageImporter()
 
+
