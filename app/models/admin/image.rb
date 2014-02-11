@@ -7,7 +7,7 @@ module Admin
     before_destroy :remove_file
 
     def file=(file)
-      @file = Admin::Image.bucket.objects.build [post.id, file.original_filename].join("/")
+      @file = Admin::Image.bucket.objects.build path(file)
       @file.content = file
     end
 
@@ -23,6 +23,15 @@ module Admin
       s3.destroy
     end
 
+    def path(file)
+      items = [post.id, file.original_filename]
+      unless (base_folder = Rails.configuration.s3.base_folder).blank?
+        items.prepend base_folder
+      end
+
+      items.join("/")
+    end
+
     private
 
     def s3
@@ -30,8 +39,8 @@ module Admin
     end
 
     def self.service
-      @service ||= S3::Service.new(access_key_id: Rails.application.config.s3.access_key,
-                                   secret_access_key: Rails.application.config.s3.secret_key,
+      @service ||= S3::Service.new(access_key_id: Rails.configuration.s3.access_key,
+                                   secret_access_key: Rails.configuration.s3.secret_key,
                                    use_ssl: true
                                   )
     end

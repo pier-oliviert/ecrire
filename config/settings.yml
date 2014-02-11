@@ -5,6 +5,7 @@ defaults: &defaults
     domain: 'localhost'
   s3:
     bucket: 'My-bucket'
+    base_folder: ''
     access_key: 'access_key'
     secret_key: 'secret_key'
   database:
