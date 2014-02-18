@@ -4,7 +4,7 @@
     <title>pothibo's blog</title>
     <description>Ruby on rails, Javascript and development stories</description>
     <link>http://pothibo.com</link>
-    <lastBuildDate><%= @posts.first.published_at %></lastBuildDate>
+    <lastBuildDate><%= @posts.first.published_at.rfc822 %></lastBuildDate>
     <ttl>86400</ttl>
 
      
@@ -13,8 +13,8 @@
       <%= content_tag :title, post.title %>
       <%= content_tag :description, post.content %>
       <%= content_tag :link, post_path(year: post.published_at.year, month: l(post.published_at, format: "%m"), id: post.slug, only_path: false) %>
-      <%= content_tag :guid, post.slug %>
-      <%= content_tag :pubDate, l(post.published_at, format: :long) %>
+      <%= content_tag :guid, post_path(year: post.published_at.year, month: l(post.published_at, format: "%m"), id: post.slug, only_path: false) %>
+      <%= content_tag :pubDate, post.published_at.rfc822 %>
       </item>
     <% end %>
   </channel>
