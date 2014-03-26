@@ -2,7 +2,7 @@ module ApplicationHelper
   def admin_navigation
     return unless signed_in?
 
-    content_tag :header, id: 'adminNavigationOptions' do
+    content_tag :nav, id: 'adminNavigationOptions' do
       [
         menu.render,
         button_to(t("admin.navigation.logout"), session_path, method: :delete)

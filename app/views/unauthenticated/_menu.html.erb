@@ -1,7 +1,7 @@
-<div class="session wrapper">
+<nav class="session wrapper">
   <%= form_for User.new, url: session_path, as: "session" do |f| %>
     <%= f.text_field :email, placeholder: t("sessions.email") %>
     <%= f.password_field :password, placeholder: t("sessions.password") %>
     <%= f.submit t("sessions.submit"), id: "session_submit" %>
   <% end %>
-</div>
+</nav>
