@@ -5,4 +5,4 @@ en:
         new_idea: "Every great post starts small."
         start_writing: "Start writing."
       update:
-        successful: "%{title} saved!"
+        successful: "Saved"

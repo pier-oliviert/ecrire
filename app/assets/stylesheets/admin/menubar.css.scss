@@ -3,17 +3,25 @@ $header-height: 46px;
 #adminNavigationOptions {
   height: $header-height;
   background: rgb(71, 101, 145);
-  position: relative;
   border-bottom: 1px solid rgb(52, 69, 99);
-  padding: 0 12px 0 0;
+  display: flex;
+  display: -webkit-flex;
 
   #blogPublicHome {
     font-family: entypo;
     font-size: 3.6rem;
   }
 
+  & > a {
+    flex-grow: 0;
+    flex-basis: auto;
+  }
+
+  .spacer {
+    flex: 1 auto;
+  }
+
   a.link {
-    display: inline-block;
     vertical-align: top;
     color: #253649;
     text-decoration: none;
@@ -22,7 +30,6 @@ $header-height: 46px;
     font-weight: lighter;
     padding: 0 12px;
     text-align: center;
-    min-width: 80px;
     text-shadow: 0 1px #5A7FB6;
     &:hover:not(.active) {
       background: rgba(197, 234, 255, 0.31);
@@ -36,9 +43,8 @@ $header-height: 46px;
   }
 
   .button_to {
-    position: absolute;
-    right: 24px;
-    top: 4px;
+    flex-grow: 0;
+    flex-basis: auto;
 
     input[type=submit] {
       color: #500A0A;
@@ -48,6 +54,7 @@ $header-height: 46px;
       font-weight: 100;
       font-size: 1.0rem;
       padding: 6px 8px;
+      margin: 6px 1em 0;
       cursor: pointer;
       outline: none;
       box-shadow: 0 1px 0 0 rgb(199, 159, 159);

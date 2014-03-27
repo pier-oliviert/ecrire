@@ -49,45 +49,13 @@ ul, ol {
 }
 
 .flash {
-  position: absolute;
-  min-width: 20%;
-  max-width: 40%;
-  left: calc(50% - 10%);
-  top: 12px;
-  padding: 4px 8px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-  
-  &.notice {
-    background: #b5f5c4;
-    border-color: #18D344;
-    
-    .dismiss.button {
-      color: #096B1C;
-    }
-  }
-
-  &.alert {
-    background: #F5B5B5;
-    border-color: #CF1D1D;
-
-    .dismiss.button {
-      color: #6B0909;
-    }
-  }
-
-  .message {
-    padding-right: 12px;
-  }
-
-  .dismiss.button {
-    position: absolute;
-    right: 5px;
-    top: 3px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-  }
+  height: 100%;
+  line-height: 45px;
+  padding: 0 8px;
+  font-size: 1em;
+  text-align: center;
+  background: rgba(160, 207, 194, 0.5);
+  box-shadow: inset 0px 0px 3px 1px rgba(76, 120, 155, 1);
+  color: #FEFEFE;
 }
 
