@@ -3,7 +3,6 @@ PothiboCom::Application.routes.draw do
 
   get '/:year/:month/:id', to: 'posts#show', constraints: { year: /\d+/, month: /\d+/ }, as: "post"
   get '/feed', to: 'posts#index', defaults: { format: :rss }
-  get '/archives', to: 'posts#archive'
 
   resources :posts, only: [:index]
 
@@ -17,7 +16,6 @@ PothiboCom::Application.routes.draw do
     resources :posts do
       resources :images, shallow: true
     end
-    resources :splits
     resources :partials
   end
 
