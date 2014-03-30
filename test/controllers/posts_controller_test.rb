@@ -29,4 +29,11 @@ class PostsControllerTest < BaseControllerTest
     assert_redirected_to :root
   end
 
+  test 'Only published posts should be listed in the index' do
+    get :index
+    assigns(:posts).each do |post|
+      assert post.published?
+    end
+  end
+
 end
