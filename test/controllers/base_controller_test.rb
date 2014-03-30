@@ -4,7 +4,7 @@ class BaseControllerTest < ActionController::TestCase
   include Warden::Test::Helpers
 
   def self.manager
-    @manager = Warden::Manager.new(Rails.application, {})
+    @manager ||= Warden::Manager.new(self)
   end
 
   def setup
@@ -13,6 +13,10 @@ class BaseControllerTest < ActionController::TestCase
 
   def teardown
     Warden.test_reset!
+  end
+
+  def proxy
+    @controller.env['warden']
   end
 
 end

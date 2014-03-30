@@ -1,10 +1,9 @@
-require 'test_helper'
+require 'controllers/base_controller_test'
 
-class Admin::PostsControllerTest < ActionController::TestCase
-  attr_reader :manager
+class Admin::PostsControllerTest < BaseControllerTest
 
   def setup
-    proxy = @controller.env['warden'] = @request.env['warden'] = Warden::Proxy.new(@request.env, manager)
+    super
     proxy.set_user users(:pothibo)
   end
 
@@ -24,10 +23,5 @@ class Admin::PostsControllerTest < ActionController::TestCase
     assert_redirected_to post_path(@post.published_at.year, I18n.l(@post.published_at, format: '%m'), @post, trailing_slash: true)
   end
 
-  protected
-
-  def manager
-    @manager ||= Warden::Manager.new(self)
-  end
 end
 
