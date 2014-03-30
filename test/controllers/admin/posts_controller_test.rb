@@ -23,5 +23,33 @@ class Admin::PostsControllerTest < BaseControllerTest
     assert_redirected_to post_path(@post.published_at.year, I18n.l(@post.published_at, format: '%m'), @post, trailing_slash: true)
   end
 
+  test 'Show draft posts' do
+    get :index
+    assigns(:posts).each do |post|
+      assert !post.published?
+    end
+  end
+
+  test 'Show published posts' do
+    get :index, status: :published
+    assigns(:posts).each do |post|
+      assert post.published?
+    end
+  end
+
+  test 'pagination of posts' do
+    get :index
+    assert_equal assigns(:posts).current_page, 1
+    assert assigns(:posts).count <= 10
+  end
+
+  test 'customize pagination of posts' do
+    per = 1
+    page = 2
+    get :index, per: per, page: page
+    assert_equal assigns(:posts).current_page, page
+    assert assigns(:posts).count <= per
+  end
+
 end
 
