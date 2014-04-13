@@ -17,4 +17,5 @@
 
 settings.local.yml
 .DS_Store
-
+/gems
+.rbenv-gemsets
