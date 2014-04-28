@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'helpers/base_helper_test'
 
-class Admin::ImagesHelperTest < ActionView::TestCase
+class Admin::ImagesHelperTest < BaseHelperTest
 end
