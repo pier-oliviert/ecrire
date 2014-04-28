@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   before_action :pagination, only: :index
   protect_from_forgery except: :index
 
+  helper_method :post
+
   def index
     @posts = Post.published.order("published_at DESC").page(params[:page]).per(params[:per_page])
     respond_to do |format|
@@ -14,12 +16,15 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find_by_slug(params[:id])
-    redirect_to :root and return if @post.nil?
-    redirect_to :root and return unless @post.published?
+    redirect_to :root and return if post.nil?
+    redirect_to :root and return unless post.published?
   end
 
   protected
+
+  def post
+    @post ||= Post.find_by_slug(params[:id])
+  end
 
   def pagination
     params[:per_page] ||= 10
