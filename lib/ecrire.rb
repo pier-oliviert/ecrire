@@ -1,0 +1,2 @@
+module Ecrire
+end

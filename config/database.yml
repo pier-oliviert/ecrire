@@ -1,6 +1,5 @@
 development:
   adapter: postgresql
-  database: <%= Rails.configuration.database.name %>
   pool: 5
   timeout: 5000
 
@@ -15,8 +14,5 @@ test:
 
 production:
   adapter: postgresql
-  database: <%= Rails.configuration.database.name %>
-  username: <%= Rails.configuration.database.username %>
-  password: <%= Rails.configuration.database.password %>
   pool: 5
   timeout: 5000

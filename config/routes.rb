@@ -1,4 +1,4 @@
-PothiboCom::Application.routes.draw do
+Ecrire::Application.routes.draw do
   root 'posts#index'
 
   get '/:year/:month/:id', to: 'posts#show', constraints: { year: /\d+/, month: /\d+/ }, as: "post"

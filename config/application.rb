@@ -6,12 +6,11 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-module PothiboCom
+module Ecrire
   class Application < Rails::Application
-    config.from_file 'settings.yml'
 
-    config.paths.add ['themes', config.theme, 'decorators'].join('/'), eager_load: true
-    path = config.paths.add ['themes', config.theme, 'helpers'].join('/'), eager_load: true
+    config.paths.add ['themes', secrets.theme, 'decorators'].join('/'), eager_load: true
+    path = config.paths.add ['themes', secrets.theme, 'helpers'].join('/'), eager_load: true
     config.helpers_paths += path.expanded
 
     config.to_prepare do
@@ -31,7 +30,7 @@ module PothiboCom
 
     config.assets.precompile = [
       lambda do |filename, path|
-        path =~ /(app|themes\/#{config.theme})\/assets/ && !%w(.js .css).include?(File.extname(filename))
+        path =~ /(app|themes\/#{secrets.theme})\/assets/ && !%w(.js .css).include?(File.extname(filename))
       end,
       /(?:\/|\\|\A)(admin|application)\.(css|js)$/
     ]
@@ -43,7 +42,7 @@ module PothiboCom
     config.i18n.load_path = Dir[Rails.root.join('config', 'locales', '**', '*.yml')]
 
     config.assets.paths = %w(images fonts javascripts stylesheets).map do |asset_type|
-      (Rails.application.root + ['themes', config.theme, 'assets', asset_type].join('/')).to_s
+      (Rails.application.root + ['themes', secrets.theme, 'assets', asset_type].join('/')).to_s
     end
 
   end
