@@ -1,6 +1,11 @@
+lib = File.expand_path('../lib', __FILE__)
+$:.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'ecrire/version'
+
 Gem::Specification.new do |s|
   s.name        = 'ecrire'
-  s.version     = Ecrire::Version
+  s.version     = Ecrire::VERSION
   s.summary     = 'Blog engine'
   s.description = 'Blog engine on Rails'
 
@@ -24,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sass-rails',    '~> 4.0.0'
   s.add_dependency 'uglifier',      '>= 1.3.0'
   s.add_dependency 'coffee-rails',  '~> 4.0.0'
-  s.add_dependency 'jquery-rails',  '~> 3.1.6'
+  s.add_dependency 'jquery-rails',  '~> 3.1.0'
   s.add_dependency 'turbolinks',    '~> 2.2.2'
   s.add_dependency 'jbuilder',      '~> 2.0.6'
   s.add_dependency 'kaminari',      '~> 0.15.1'
