@@ -28,6 +28,8 @@ class Post < ActiveRecord::Base
 
   def publish!
     return unless published_at.nil?
+    return false if self.valid? == false
+
     self.published_at = DateTime.now
     save!
   end
