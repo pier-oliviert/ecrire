@@ -18,6 +18,9 @@ Gem::Specification.new do |s|
   s.homepage      = 'http://pothibo.com'
 
   s.files         = Dir['README.md', 'lib/**/*']
+  s.bindir      = 'bin'
+  s.executables = ['ecrire']
+
   s.require_path  = 'lib'
 
   s.add_dependency 'sprockets',      '~> 2.1', '<= 2.11.0'
