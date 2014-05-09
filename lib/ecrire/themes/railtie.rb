@@ -47,7 +47,7 @@ module Ecrire
       end
 
       initializer 'load assets' do |app|
-        app.config.assets.paths = paths['themes:assets'].existent
+        app.config.assets.paths.concat paths['themes:assets'].existent
       end
 
       initializer 'eager load' do
@@ -75,11 +75,11 @@ module Ecrire
       # It wouldn't be that much different than using require_dependency() in eager_load!
       def paths
         @paths ||= begin
-          paths = Rails::Paths::Root.new(root)
-          paths.add 'themes:assets', with: "assets/#{theme_name}", glob: '*'
-          paths.add 'themes:helpers', with: "helpers/#{theme_name}", eager_load: true
-          paths.add 'themes:decorators', with: "decorators/#{theme_name}", eager_load: true
-          paths.add 'themes:views', with: "views/#{theme_name}"
+          paths = Rails::Paths::Root.new(Dir.pwd)
+          paths.add 'themes:assets', with: 'assets', glob: '*'
+          paths.add 'themes:helpers', with: 'helpers', eager_load: true
+          paths.add 'themes:decorators', with: 'decorators', eager_load: true
+          paths.add 'themes:views', with: 'views'
 
           
           paths
@@ -90,31 +90,6 @@ module Ecrire
         paths.eager_load.each do |load_path|
           Dir.glob("#{load_path}/**/*.rb").sort.each do |file|
             require_dependency(file)
-          end
-        end
-      end
-
-      protected
-
-      def root
-        if default?
-          File.expand_path('../../themes/', __FILE__)
-        else
-          Dir.pwd
-        end
-
-      end
-
-      def default?
-        theme_name.eql? 'default'
-      end
-
-      def theme_name
-        @theme_name ||= begin
-          if Rails.application.secrets.has_key? :theme
-            Rails.application.secrets[:theme]
-          else
-            'default'
           end
         end
       end

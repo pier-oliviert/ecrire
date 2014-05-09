@@ -6,6 +6,8 @@ Rails.application.configure do
   config.paths.add 'app/forms', eager_load: true
   config.paths.add 'app/decorators', eager_load: true
 
+  config.paths.add "config/locales", with: "locales", glob: "**/*.{rb,yml}"
+
   config.paths.add 'Gemfile', with: 'config/Gemfile'
 
   config.filter_parameters += [:password]
@@ -23,14 +25,14 @@ Rails.application.configure do
 
   config.assets.debug = true
     
-#  config.to_prepare do
-#    Warden::Strategies.add :password, PasswordStrategy
-#  end
-#
-#  config.middleware.use Warden::Manager do |manager|
-#    manager.default_strategies :password
-#    manager.failure_app = SessionsController.action(:failed)
-#  end
+  config.to_prepare do
+    Warden::Strategies.add :password, PasswordStrategy
+  end
+
+  config.middleware.use Warden::Manager do |manager|
+    manager.default_strategies :password
+    manager.failure_app = SessionsController.action(:failed)
+  end
 
   ActiveSupport.on_load(:action_controller) do
     wrap_parameters format: [:json] if respond_to?(:wrap_parameters)
