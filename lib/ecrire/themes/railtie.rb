@@ -8,7 +8,7 @@ module Ecrire
       # Everything goes to shit if secrets isn't loaded from the right place
       
       initializer 'load secrets', before: :bootstrap_hook do |app|
-        app.paths.add 'config/secrets', with: Dir.pwd + '/secrets.yml'
+        app.paths.add 'config/secrets', with: Dir.pwd + '/config/secrets.yml'
       end
 
       initializer 'set load paths', before: :bootstrap_hook do |app|
@@ -33,8 +33,13 @@ module Ecrire
       #
       # I need to overwrite the path instead
       initializer 'set database information', before: "active_record.initialize_database" do |app|
-        # app.paths['config/database'] << Dir.pwd + '/database.yml'
-        app.paths.add 'config/database', with: Dir.pwd + '/database.yml' # Until rails is fixed
+        # app.paths['config/database'] << Dir.pwd + '/database.yml' # Working in rails >= 4.1.2
+        app.paths.add 'config/database', with: Dir.pwd + '/config/database.yml' # Until rails is fixed
+
+        # Database folder should point to the user's folder so we can have
+        # individual schema file for each project
+        app.paths.add "db", with: Dir.pwd + '/db'
+
       end
 
       initializer 'load view paths' do |app|

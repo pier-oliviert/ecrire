@@ -1,13 +1,8 @@
-require 'rails/all'
+require 'rails'
 
 module Ecrire
 
-  def self.launch!
-    require 'ecrire/application'
-    require 'ecrire/config/environment'
-    Ecrire::Application.initialize! unless Ecrire::Application.initialized?
+  autoload :Application,        'ecrire/application'
 
-    Rack::Server.start(app: Ecrire::Application, Port: 3000, Host: '0.0.0.0')
-  end
 end
 
