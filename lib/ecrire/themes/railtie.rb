@@ -36,10 +36,10 @@ module Ecrire
         # app.paths['config/database'] << Dir.pwd + '/database.yml' # Working in rails >= 4.1.2
         app.paths.add 'config/database', with: Dir.pwd + '/config/database.yml' # Until rails is fixed
 
-        # Database folder should point to the user's folder so we can have
-        # individual schema file for each project
-        app.paths.add "db", with: Dir.pwd + '/db'
+        app.paths.add 'config/schema', with: Dir.pwd + '/config/schema.rb'
 
+        # Don't check for existing file as it will be created if needed.
+        ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first
       end
 
       initializer 'load view paths' do |app|
