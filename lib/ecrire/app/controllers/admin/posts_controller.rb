@@ -54,7 +54,7 @@ module Admin
     end
 
     def fetch_post
-      @post = Admin::Post.find(params[:id])
+      @post = Admin::Post.find_by_slug(params[:id])
     end
   end
 end
