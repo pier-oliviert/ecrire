@@ -82,6 +82,7 @@ module Ecrire
         end
       rescue ActiveRecord::NoDatabaseError => e
         if retried == 0
+          retried += 1
           puts 'Database does not exist. Creating...'
           ActiveRecord::Tasks::DatabaseTasks.create_current
           puts 'Database created, migrating now...'
