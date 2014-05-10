@@ -71,6 +71,7 @@ module Ecrire
     end
 
     def migrate!
+      retried = 0
       puts 'Migrating database...'
       ActiveRecord::Tasks::DatabaseTasks.database_configuration = ActiveRecord::Base.configurations
       ActiveRecord::Migrator.migrations_paths = ActiveRecord::Tasks::DatabaseTasks.migrations_paths
@@ -79,11 +80,15 @@ module Ecrire
         ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, ENV["VERSION"] ? ENV["VERSION"].to_i : nil) do |migration|
           ENV["SCOPE"].blank? || (ENV["SCOPE"] == migration.scope)
         end
-      rescue ActiveRecord::NoDatabaseError
-        puts 'Database does not exist. Creating...'
-        ActiveRecord::Tasks::DatabaseTasks.create_current
-        puts 'Database created, migrating now...'
-        retry
+      rescue ActiveRecord::NoDatabaseError => e
+        if retried == 0
+          puts 'Database does not exist. Creating...'
+          ActiveRecord::Tasks::DatabaseTasks.create_current
+          puts 'Database created, migrating now...'
+          retry
+        else
+          raise e
+        end
       end
       puts 'Migration completed.'
     end
