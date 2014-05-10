@@ -72,11 +72,18 @@ module Ecrire
 
     def migrate!
       puts 'Migrating database...'
-      ActiveRecord::Base.configurations       = ActiveRecord::Tasks::DatabaseTasks.database_configuration || {}
+      ActiveRecord::Tasks::DatabaseTasks.database_configuration = ActiveRecord::Base.configurations
       ActiveRecord::Migrator.migrations_paths = ActiveRecord::Tasks::DatabaseTasks.migrations_paths
       ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-      ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, ENV["VERSION"] ? ENV["VERSION"].to_i : nil) do |migration|
-        ENV["SCOPE"].blank? || (ENV["SCOPE"] == migration.scope)
+      begin
+        ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, ENV["VERSION"] ? ENV["VERSION"].to_i : nil) do |migration|
+          ENV["SCOPE"].blank? || (ENV["SCOPE"] == migration.scope)
+        end
+      rescue ActiveRecord::NoDatabaseError
+        puts 'Database does not exist. Creating...'
+        ActiveRecord::Tasks::DatabaseTasks.create_current
+        puts 'Database created, migrating now...'
+        retry
       end
       puts 'Migration completed.'
     end
