@@ -1,4 +1,5 @@
 require 'rails/commands/commands_tasks'
+require 'ecrire/version'
 
 module Ecrire
   class CommandsTasks < Rails::CommandsTasks
@@ -48,7 +49,7 @@ module Ecrire
       puts "Updating ecrire for your blog"
       require 'ecrire'
       begin
-        bundle!
+        initialize_application!
         migrate!
         puts "Your blog has successfully been updated with the latest version #{Ecrire::VERSION}"
       rescue Exception => exception
@@ -61,7 +62,6 @@ module Ecrire
     end
 
     def version
-      require 'ecrire/version'
       puts "Ecrire #{Ecrire::VERSION}"
     end
 
