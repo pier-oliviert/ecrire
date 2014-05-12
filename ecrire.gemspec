@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'thin',          '~> 1.6'
   s.add_dependency 'warden',        '~> 1.2'
   s.add_dependency 'bcrypt',        '~> 3.1'
+  s.add_dependency 'nokogiri',      '~> 1.6'
   s.add_dependency 's3',            '~> 0.3'
   s.add_dependency 'pg',            '~> 0.17'
   s.add_dependency 'sass-rails',    '~> 4.0'
