@@ -17,9 +17,10 @@ Gem::Specification.new do |s|
   s.email         = 'pothibo@gmail.com'
   s.homepage      = 'http://pothibo.com'
 
-  s.files         = Dir['README.md', 'lib/**/*']
-  s.bindir      = 'bin'
-  s.executables = ['ecrire']
+  s.files         = `git ls-files -z`.split("\x0")
+  s.files         += Dir['README.md']
+  s.bindir        = 'bin'
+  s.executables   = ['ecrire']
 
   s.require_path  = 'lib'
 
