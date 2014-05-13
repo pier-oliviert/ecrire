@@ -18,7 +18,6 @@ module Ecrire
     end
 
     def server
-      set_application_directory!
       require_command!("server")
 
       Rails::Server.new.tap do |server|
