@@ -25,6 +25,14 @@ Rails.application.configure do
 
   config.assets.debug = true
     
+  Warden::Manager.serialize_into_session do |user|
+      user.id
+  end
+
+  Warden::Manager.serialize_from_session do |id|
+      User.find_by_id(id)
+  end
+
   config.to_prepare do
     Warden::Strategies.add :password, PasswordStrategy
   end
