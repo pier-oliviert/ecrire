@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'activerecord',  '~> 4.1'
   s.add_dependency 'actionmailer',  '~> 4.1'
   s.add_dependency 'railties',      '~> 4.1'
+  s.add_dependency 'sprockets-rails','~> 2.1'
   s.add_dependency 'thin',          '~> 1.6'
   s.add_dependency 'warden',        '~> 1.2'
   s.add_dependency 'bcrypt',        '~> 3.1'
