@@ -48,6 +48,7 @@ module Ecrire
 
       initializer 'load assets' do |app|
         app.config.assets.paths.concat paths['themes:assets'].existent
+        app.config.paths.add 'public', with: Dir.pwd + '/tmp/public'
       end
 
       initializer 'eager load' do

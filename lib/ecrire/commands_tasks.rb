@@ -20,13 +20,20 @@ module Ecrire
     def server
       require_command!("server")
 
-      Rails::Server.new.tap do |server|
+      server = Ecrire::Server.new.tap do |server|
         # We need to require application after the server sets environment,
         # otherwise the --environment option given to the server won't propagate.
         require 'ecrire'
         Dir.chdir(Ecrire::Application.root)
-        server.start
       end
+
+      if Rails.env.production?
+        require_command!('assets')
+        Ecrire::Assets.new(server.app).compile!
+      end
+
+      server.start
+
     end
 
 
@@ -41,7 +48,7 @@ module Ecrire
       shift_argv!
 
       initialize_application!
-      Rails::Console.start(Ecrire::Application, options)
+      Ecrire::Console.start(Ecrire::Application, options)
     end
 
     def update
@@ -49,7 +56,9 @@ module Ecrire
       require 'ecrire'
       begin
         initialize_application!
-        migrate!
+        require_command!('migrate')
+
+        Ecrire::Migrate.new.run!
         puts "Your blog has successfully been updated with the latest version #{Ecrire::VERSION}"
       rescue Exception => exception
         puts "An error occurred while updating: #{exception.message}"
@@ -79,28 +88,8 @@ module Ecrire
       Ecrire::Application.initialize!
     end
 
-    def migrate!
-      retried = 0
-      puts 'Migrating database...'
-      ActiveRecord::Tasks::DatabaseTasks.database_configuration = ActiveRecord::Base.configurations
-      ActiveRecord::Migrator.migrations_paths = ActiveRecord::Tasks::DatabaseTasks.migrations_paths
-      ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-      begin
-        ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, ENV["VERSION"] ? ENV["VERSION"].to_i : nil) do |migration|
-          ENV["SCOPE"].blank? || (ENV["SCOPE"] == migration.scope)
-        end
-      rescue ActiveRecord::NoDatabaseError => e
-        if retried == 0
-          retried += 1
-          puts 'Database does not exist. Creating...'
-          ActiveRecord::Tasks::DatabaseTasks.create_current
-          puts 'Database created, migrating now...'
-          retry
-        else
-          raise e
-        end
-      end
-      puts 'Migration completed.'
+    def require_command!(command)
+      require "ecrire/commands/#{command}"
     end
 
   end
