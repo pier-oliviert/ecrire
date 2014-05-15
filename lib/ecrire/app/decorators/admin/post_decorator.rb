@@ -1,5 +1,5 @@
 module Admin
-  class PostDecorator < Cubisme::Decorator::Base
+  class PostDecorator < EcrireDecorator
     def overview(options)
       html_class = options.fetch :html_class, %w(post item)
 

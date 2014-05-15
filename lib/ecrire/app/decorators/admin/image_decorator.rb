@@ -1,5 +1,5 @@
 module Admin
-  class ImageDecorator < Ecrire::BaseDecorator
+  class ImageDecorator < EcrireDecorator
     def thumbnail(options)
       content_tag :li, class: %w(image), id: "image-#{record.id}" do
         [
