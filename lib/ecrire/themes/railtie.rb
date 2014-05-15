@@ -1,5 +1,3 @@
-require 'debugger'
-
 module Ecrire
   module Themes
     class Railtie < ::Rails::Railtie
