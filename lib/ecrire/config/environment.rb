@@ -45,4 +45,6 @@ Rails.application.configure do
   ActiveSupport.on_load(:action_controller) do
     wrap_parameters format: [:json] if respond_to?(:wrap_parameters)
   end
+
+  require "ecrire/config/environment/#{Rails.env}"
 end
