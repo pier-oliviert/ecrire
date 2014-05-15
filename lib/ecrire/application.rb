@@ -14,7 +14,7 @@ require 'cubisme'
 module Ecrire
   class Application < Rails::Application
     require 'ecrire/config/environment'
-    require 'ecrire/themes/railtie'
+    require 'ecrire/railtie'
 
     # Let's not put anything in here. Because Rails instantiate the class as soon as it's defined,
     # it's impossible to rely on any declaration made here.
