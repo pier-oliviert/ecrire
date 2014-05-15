@@ -1,5 +1,6 @@
 Rails.application.configure do
   config = self.config
+  config.eager_load = true
 
   config.paths.path = File.expand_path '../../', __FILE__
   config.paths.add 'app/strategies', eager_load: true
@@ -12,19 +13,8 @@ Rails.application.configure do
 
   config.filter_parameters += [:password]
   config.session_store :cookie_store, key: '_ecrire_com_session'
-  config.cache_classes = false
 
-  config.eager_load = false
-    
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
 
-  config.active_support.deprecation = :log
-
-  config.active_record.migration_error = :page_load
-
-  config.assets.debug = true
-    
   Warden::Manager.serialize_into_session do |user|
       user.id
   end
