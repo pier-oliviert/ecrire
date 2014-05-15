@@ -14,6 +14,12 @@ Rails.application.configure do
   config.filter_parameters += [:password]
   config.session_store :cookie_store, key: '_ecrire_com_session'
 
+  config.assets.precompile = [
+    lambda do |filename, path|
+      path =~ /assets/ && !%w(.js .css).include?(File.extname(filename))
+    end,
+    /(?:\/|\\|\A)(admin|application)\.(css|js)$/
+  ]
 
   Warden::Manager.serialize_into_session do |user|
       user.id
