@@ -1,5 +1,30 @@
 module Ecrire
   class Railtie < ::Rails::Railtie
+    # This hack is done because ActiveRecord raise an error that makes
+    # Ecrire exit which makes it impossible to have an instance working without a 
+    # database. By doing this, it becomes possible to Ecrire to load the server and
+    # serve the onboarding theme for the user.
+    ActiveRecord::Railtie.initializers.select do |initializer|
+      initializer.name.eql? 'active_record.initialize_database'
+    end.first.instance_variable_set :@block, Proc.new { |app|
+      ActiveSupport.on_load(:active_record) do
+        self.configurations = Rails.application.config.database_configuration
+
+        begin
+          establish_connection
+        rescue ActiveRecord::NoDatabaseError, ActiveRecord::AdapterNotSpecified
+          warn <<-end_warning
+                    Oops - It was impossible to establish a connection to your database
+
+                    The default theme has been activated for you.
+                    Instructions will be explained there so you can complete your
+                    installation and start blogging.
+
+          end_warning
+
+        end
+      end
+    }
 
     initializer 'ecrire.secrets', before: :bootstrap_hook do |app|
       app.paths.add 'config/secrets', with: Dir.pwd + '/config/secrets.yml'
@@ -35,12 +60,17 @@ module Ecrire
       ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first
     end
 
+    initializer 'ecrire.disable_active_record_middlewares_if_no_database' do |app|
+      app.config.middleware.delete 'ActiveRecord::QueryCache'
+      app.config.middleware.delete 'ActiveRecord::ConnectionAdapters::ConnectionManagement'
+    end
+
     initializer 'ecrire.view_paths' do |app|
       ActionController::Base.prepend_view_path paths['user:views'].existent
     end
 
     initializer 'ecrire.assets' do |app|
-      app.config.assets.paths.concat paths['themes:assets'].existent
+      app.config.assets.paths.concat paths['user:assets'].existent
       app.config.paths.add 'public', with: Dir.pwd + '/tmp/public'
     end
 
@@ -66,10 +96,10 @@ module Ecrire
       # which would pass the @path.existent to ActiveSupport::Dependencies. As it's either autoloaded or
       # manually loaded (Right now via eager_load!), I believe that filter is useless.
       #
-      # Initializer could do something like @paths['themes:helpers'].load! and fail if a requirement fails.
+      # Initializer could do something like @paths['user:helpers'].load! and fail if a requirement fails.
       # It wouldn't be that much different than using require_dependency() in eager_load!
       @paths ||= begin
-                   paths = Rails::Paths::Root.new(Dir.pwd)
+                   paths = Rails::Paths::Root.new(user_path)
                    paths.add 'user:assets', with: 'assets', glob: '*'
                    paths.add 'user:helpers', with: 'helpers', eager_load: true
                    paths.add 'user:decorators', with: 'decorators', eager_load: true
@@ -77,6 +107,14 @@ module Ecrire
 
                    paths
                  end
+    end
+
+    def user_path
+      if ActiveRecord::Base.connected?
+        Dir.pwd
+      else
+        File.expand_path '../theme/', __FILE__
+      end
     end
 
     def eager_load!
