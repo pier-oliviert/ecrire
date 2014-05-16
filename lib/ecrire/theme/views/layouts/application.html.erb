@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <%= title_tag %>
+    <%= assets_tags %>
+    <%= meta_informations_tags %>
+  </head>
+
+  <%= body_tag id: [controller_name, action_name].join('-') do %>
+
+    <%= admin_navigation %>
+
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, class: %W(flash #{name}) do %>
+        <%= content_tag :span, msg, class: %w(message) %>
+        <%= link_to("x", "javascript:void(0)", class: %w(dismiss button)) %>
+      <% end %>
+    <% end %>
+
+    <%= yield %>
+
+  <% end %>
+</html>

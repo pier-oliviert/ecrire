@@ -1,0 +1,16 @@
+<%= content_tag :section, id: "post-#{post.id}", class: %w(post) do %>
+
+  <header class="post title">
+    <%= link_to image_tag("profile.png", alt: "I'm signing the Declaration of independance!"), root_path, class: %w(logo home link) %>
+    <%= content_tag :h1, post.title, class: %w(entry-title) %>
+    <%= admin_edit_link %>
+  </header>
+
+  <article class="content">
+    <style scoped><%= post.stylesheet %></style>
+    <%= post.content.html_safe %>
+    <%= render "social", url: post_path(post.published_at.year, post.published_at.month, post.slug, only_path: false) %>
+    <%= render "comments" %>
+  </article>
+
+<% end %>
