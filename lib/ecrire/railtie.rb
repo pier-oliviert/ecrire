@@ -54,7 +54,9 @@ module Ecrire
     end
 
     initializer 'ecrire.view_paths' do |app|
-      ActionController::Base.prepend_view_path paths['user:views'].existent
+      if user_layout_initialized?
+        ActionController::Base.prepend_view_path paths['user:views'].existent
+      end
     end
 
     initializer 'ecrire.assets' do |app|
@@ -103,6 +105,12 @@ module Ecrire
       else
         File.expand_path '../theme/', __FILE__
       end
+    end
+
+    def user_layout_initialized?
+      layout = paths['user:views'].existent.first + '/layouts/application.html.erb'
+
+      File.exist? layout
     end
 
     def eager_load!
