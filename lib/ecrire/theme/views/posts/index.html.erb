@@ -1,37 +1,59 @@
 <header id="blogHeader">
-  <p>Welcome to <a href="http://github.com/pothibo/ecrire">Ecrire</a>.</p>
-  <p>This is the page your user will see when they reach your blog.</p>
+  <h1>Ecrire</h1>
+  <p>Welcome to your new blog!</p>
+  <h2>A few things before you can start writing</h2>
 
-  <p>This page can be customized by editing <code class="language-bash">app/views/posts/index.html</code></p>
+  <p>Ecrire comes with a few builtin features that needs to be configured before working.</p>
 
-  <p>If you want to edit the HTML for you blog post, the page to edit is <code class="language-bash">app/views/posts/show.html</code></p>
-
+  <p>Once the neede configurations are set, you won't see this page and you will see your own blog layout.</p>
 </header>
 
-<section id="indexNavigation">
-  <div class="wrapper">
+<section class="database">
+  <div>
+    <h2>Configure postgresql</h2>
+    <%= database_status %>
+    <p>To use Ecrire, you need to have a working postgresql database working on your server. This walkthrough expects you can install postgresql on your own.</p>
+  </div>
 
-    <p>You can also modify CSS and Javascript that will affect your blog as a whole.</p>
-    <p>All CSS/JS files are located in <code class="language-bash">app/assets/</code> folder.
-      If you want to change how your whole blog look, you will want to change CSS in the
-      <code class="language-bash">blog/</code> folder. Conversely, if you want to change how
-      your post look, you will need to change the CSS in the <code class="language-bash">post/</code> folder.</p>
+  <div>
+    <span>/Code</span>
+    <p>Start by launching postgresql command line environment:</p>
+      <pre><code class="language-sql">$ psql</code></pre>
 
-    <p><strong>Don't forget to setup a S3 instance so you can use images on your blog!</strong></p>
+    <p>Replace all $variables with your own information.</p>
 
+    <p>Create a user:</p>
+      <pre><code class="language-sql">> CREATE USER $user WITH PASSWORD '$password';</code></pre>
+
+    <p>Create a database for ecrire to use:</p>
+      <pre><code class="language-sql">> CREATE DATABASE $ecrire_database;</code></pre>
+
+    <p>Grant all privileges to your user so ecrire can use both together:</p>
+      <pre><code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE $ecrire_database to $user</code></pre>
+
+    <p>Once this is done, you will need to update <code>your_blog/config/database.yml</code> to have the following information:</p>
+
+    <pre><code class="language-yaml">development:
+        adapter: 'postgresql'
+        database: '$ecrire_database'
+        user: '$user'
+        password: '$password'
+        </code></pre>
   </div>
 </section>
 
-<section id="articlesOverview">
+<section>
+  <div>
+    <h2>Enable your blog's theme</h2>
+    <%= user_layout_status %>
+  </div>
 
-  <h2>Happy blogging!</h2>
+  <div>
+    <p>To make ecrire use your instance, you will need to rename <code>your_blog/views/layouts/application.html.erb.inactive</code> to <code>your_blog/views/layouts/application.html.erb</code></p>
+  </div>
+</section>
 
-  <% if ActiveRecord::Base.connected? %>
-    <div class="wrapper">
-      <% posts.each do |post| %>
-        <%= render "post", post: post %>
-      <% end %>
-      <%= paginate posts %>
-    </section>
-  <% end %>
-</div>
+<section>
+  <h2>Enable image uploading</h2>
+</section>
+
