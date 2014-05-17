@@ -13,15 +13,8 @@ module Ecrire
         begin
           establish_connection
         rescue ActiveRecord::NoDatabaseError, ActiveRecord::AdapterNotSpecified
-          warn <<-end_warning
-                    Oops - It was impossible to establish a connection to your database
-
-                    The default theme has been activated for you.
-                    Instructions will be explained there so you can complete your
-                    installation and start blogging.
-
-          end_warning
-
+          app.config.middleware.delete 'ActiveRecord::QueryCache'
+          app.config.middleware.delete 'ActiveRecord::ConnectionAdapters::ConnectionManagement'
         end
       end
     }
@@ -58,11 +51,6 @@ module Ecrire
 
       # Don't check for existing file as it will be created if needed.
       ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first
-    end
-
-    initializer 'ecrire.disable_active_record_middlewares_if_no_database' do |app|
-      app.config.middleware.delete 'ActiveRecord::QueryCache'
-      app.config.middleware.delete 'ActiveRecord::ConnectionAdapters::ConnectionManagement'
     end
 
     initializer 'ecrire.view_paths' do |app|
