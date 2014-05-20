@@ -1,0 +1,41 @@
+body.onboarding main > header {
+  flex: 1 40%;
+  text-align: center;
+  margin: 5%;
+
+  h1 {
+    font-size: 6em;
+  }
+
+  ol {
+    width: 80%;
+    margin: 1em auto;
+    list-style-type: none;
+
+    li {
+      text-align: left;
+      font-size: 1.4em;
+
+      &:before {
+        font-family: 'entypo';
+        font-size: 2em;
+        display: inline-block;
+        margin: 0 0.5em;
+      }
+
+      &.current {
+        font-weight: bolder;
+      }
+
+      &.current:before, &.current + li:before {
+        content: '➖';
+      }
+
+      &.done:before {
+        content: '✓';
+      }
+
+    }
+  }
+}
+

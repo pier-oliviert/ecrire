@@ -1,0 +1,124 @@
+/*
+ *= require fonts
+ *= require databases
+ *= require header
+ *= require complete
+*/
+
+$header-height: 46px;
+$fonts: Helvetica, sans-serif;
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+html, body {
+  display: flex;
+  flex: 1 auto;
+}
+
+html {
+  min-height: 100%;
+}
+
+a {
+  color: rgb(114, 153, 204);
+}
+
+body.onboarding {
+  margin: 0;
+  padding: 0;
+  background-image: url(image-path("background.png"));
+  background-repeat: repeat;
+  font-family: $fonts;
+  font-weight: 200;
+  font-size: 13px;
+  color: #6d645c;
+  flex-direction: column;
+  display: flex;
+
+  main {
+    display: flex;
+    flex: 1;
+
+    section {
+      flex: 1 60%;
+      color: #2E2317;
+      padding: 0 4%;
+      background: rgba(39, 31, 13, 0.5);
+      border-radius: 2px;
+      text-align: left;
+      box-shadow: inset 0 1px 3px 0 #6D6D6D;
+
+      h2 {
+        color: #FEFEFE;
+        font-weight: lighter;
+        font-size: 1.8em;
+        margin: 3em 0 1em 0;
+      }
+
+      code {
+        color: #FFEDCD;
+      }
+
+      form {
+        margin: 2em 0 5em 0;
+
+        div.error {
+          padding: 2px 8px;
+          box-shadow: 0 0 3px 0 #7C2C2C;
+          background: rgb(196, 109, 109);
+          p {
+            color: rgb(240, 218, 218);
+          }
+        }
+      }
+
+      input, button {
+        display: block;
+        border: none;
+        padding: 4px 8px;
+        line-height: 1.8em;
+        font-size: 1.3em;
+      }
+
+      input {
+        margin: 1em 0;
+        width: 100%;
+        border-radius: 2px;
+        background: rgba(230, 231, 212, 0.5);
+
+        @mixin placeholder {
+          font-style: italic;
+          color: rgb(151, 135, 93);
+        }
+
+        &::-webkit-input-placeholder {
+          @include placeholder;
+        }
+
+        &::-moz-placeholder {
+          @include placeholder;
+        }
+
+        &:-ms-input-placeholder {  
+          @include placeholder;
+        }
+      }
+
+      button {
+        outline: none;
+        color: rgb(68, 97, 65);
+        background: rgb(174, 202, 174);
+        border: 1px solid #20411D;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 0 0 #D8F5D4;
+        width: 40%;
+        margin: 0 0 0 auto;
+        cursor: pointer;
+      }
+    }
+  }
+}
+

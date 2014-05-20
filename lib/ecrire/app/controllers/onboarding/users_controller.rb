@@ -1,0 +1,27 @@
+module Onboarding
+  class UsersController < OnboardingController
+
+    helper_method :user
+
+    def create
+      @user = User.create(user_params)
+      
+      if user.errors.blank?
+        redirect_to onboarding_complete_path
+      else
+        render 'index'
+      end
+    end
+
+    protected
+
+    def user
+      @user ||= User.new
+    end
+
+    def user_params
+      params.require(:user).permit(:email, :password, :password_confirmation)
+    end
+
+  end
+end

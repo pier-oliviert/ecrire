@@ -8,7 +8,6 @@ module Ecrire
       initializer.name.eql? 'active_record.initialize_database'
     end.first.instance_variable_set :@block, Proc.new { |app|
       ActiveSupport.on_load(:active_record) do
-        self.configurations = Rails.application.config.database_configuration
 
         begin
           establish_connection
@@ -51,17 +50,38 @@ module Ecrire
 
       # Don't check for existing file as it will be created if needed.
       ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first
+      ActiveRecord::Base.configurations = app.config.database_configuration
+    end
+
+    initializer 'ecrire.onboarding' do |app|
+      unless Ecrire::Railtie.blog_configured?
+
+        app.routes.clear!
+
+        app.paths.add 'config/routes.rb', with: 'config/onboarding_routes.rb'
+
+        paths = app.paths['config/routes.rb'].existent
+        app.routes_reloader.paths.clear.unshift(*paths)
+        app.routes_reloader.route_sets << app.routes
+      end
     end
 
     initializer 'ecrire.view_paths' do |app|
-      if user_layout_initialized?
+      if Ecrire::Railtie.blog_configured?
         ActionController::Base.prepend_view_path paths['user:views'].existent
+      else
+        ActionController::Base.prepend_view_path paths['onboarding:views'].existent
       end
     end
 
     initializer 'ecrire.assets' do |app|
-      app.config.assets.paths.concat paths['user:assets'].existent
       app.config.paths.add 'public', with: Dir.pwd + '/tmp/public'
+
+      if Ecrire::Railtie.blog_configured?
+        app.config.assets.paths.concat paths['user:assets'].existent
+      else
+        app.config.assets.paths.concat paths['onboarding:assets'].existent
+      end
     end
 
     initializer 'ecrire.eager_load' do
@@ -89,7 +109,11 @@ module Ecrire
       # Initializer could do something like @paths['user:helpers'].load! and fail if a requirement fails.
       # It wouldn't be that much different than using require_dependency() in eager_load!
       @paths ||= begin
-                   paths = Rails::Paths::Root.new(user_path)
+                   paths = Rails::Paths::Root.new(Dir.pwd)
+
+                   paths.add 'onboarding:assets', with: onboarding_path + '/assets', glob: '*'
+                   paths.add 'onboarding:views', with: onboarding_path + '/views'
+
                    paths.add 'user:assets', with: 'assets', glob: '*'
                    paths.add 'user:helpers', with: 'helpers', eager_load: true
                    paths.add 'user:decorators', with: 'decorators', eager_load: true
@@ -99,18 +123,16 @@ module Ecrire
                  end
     end
 
-    def user_path
-      if ActiveRecord::Base.connected?
-        Dir.pwd
-      else
-        File.expand_path '../theme/', __FILE__
-      end
+    def self.blog_configured?
+      @blog_configured ||= begin
+                             !ActiveRecord::Base.configurations.empty? && !User.first.nil?
+                           rescue
+                             false
+                           end
     end
 
-    def user_layout_initialized?
-      layout = paths['user:views'].existent.first + '/layouts/application.html.erb'
-
-      File.exist? layout
+    def onboarding_path
+      @onboarding_path ||= File.expand_path '../onboarding/', __FILE__
     end
 
     def eager_load!

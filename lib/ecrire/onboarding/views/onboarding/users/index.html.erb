@@ -1,0 +1,28 @@
+<main class="databases">
+  <header>
+    <h1>Ecrire</h1>
+    <ol>
+      <li class="done">Configure postgresql</li>
+      <li class="current">Create a user</li>
+    </ol>
+  </header>
+
+  <section>
+    <div>
+      <h2>Create a user</h2>
+      <p>You need to create a user so you can log in and create new posts.</p>
+    </div>
+
+    <%= form_for [:onboarding, user] do |f| %>
+      <% if user.errors.any? %>
+        <%= content_tag :div, class: %w(error) do %>
+          <%= content_tag :p, user.errors.full_messages.first %>
+        <% end %>
+      <% end %>
+      <%= f.text_field :email, placeholder: 'E-mail' %>
+      <%= f.password_field :password, placeholder: 'Password' %>
+      <%= f.password_field :password_confirmation, placeholder: 'Confirm your password' %>
+      <%= button_tag 'Create' %>
+    <% end %>
+  </section>
+</main>

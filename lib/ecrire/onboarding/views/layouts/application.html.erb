@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <%= title_tag %>
+    <%= assets_tags %>
+    <%= meta_informations_tags %>
+  </head>
+
+  <%= body_tag class: 'onboarding', id: [controller_name, action_name].join('-') do %>
+
+
+    <%= yield %>
+
+  <% end %>
+</html>

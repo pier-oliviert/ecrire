@@ -11,7 +11,7 @@ Rails.application.configure do
 
   config.paths.add 'Gemfile', with: 'config/Gemfile'
 
-  config.filter_parameters += [:password]
+  config.filter_parameters += [:password, :database]
   config.session_store :cookie_store, key: '_ecrire_com_session'
 
   config.assets.precompile = [
