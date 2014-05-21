@@ -1,0 +1,20 @@
+<main>
+  <h1>Welcome to your new blog!</h1>
+
+  <p>This template can be customized to your need.</p>
+
+  <p><%= Ecrire::Railtie.user_path %></p>
+
+  <% unless signed_in? %>
+    <%= render 'sessions/form' %>
+  <% end %>
+
+  <p>This default template has been copied to help you get started. You can customize it to your need and use a versionning system to save it.</p>
+
+  <% if posts.empty? %>
+    <%= render 'onboarding' %>
+  <% else %>
+    <%= render 'posts' %>
+  <% end %>
+
+</main>

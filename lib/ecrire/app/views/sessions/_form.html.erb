@@ -1,4 +1,4 @@
-<%= form_for User.new, url: session_path, as: "session" do |f| %>
+<%= form_for User.new, url: session_path, as: "session", html: { class: %w(session) } do |f| %>
   <%= f.text_field :email, placeholder: t("sessions.email") %>
   <%= f.password_field :password, placeholder: t("sessions.password") %>
   <%= f.submit t("sessions.submit"), id: "session_submit" %>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+
+  <head>
+    <%= title_tag %>
+    <%= assets_tags %>
+    <%= meta_informations_tags %>
+  </head>
+
+  <%= body_tag id: [controller_name, action_name].join('-') do %>
+
+    <%= admin_navigation %>
+
+    <%= yield %>
+
+  <% end %>
+</html>
+
+
