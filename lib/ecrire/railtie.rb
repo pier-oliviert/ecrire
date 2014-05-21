@@ -19,7 +19,7 @@ module Ecrire
     }
 
     initializer 'ecrire.secrets', before: :bootstrap_hook do |app|
-      app.paths.add 'config/secrets', with: Dir.pwd + '/config/secrets.yml'
+      app.paths.add 'config/secrets', with: user_path + '/config/secrets.yml'
     end
 
     initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
@@ -34,7 +34,7 @@ module Ecrire
     end
 
     initializer 'ecrire.logs', before: :initialize_logger do |app|
-      app.paths.add "log", with: "#{Dir.pwd}/log/#{Rails.env}.log"
+      app.paths.add "log", with: "#{user_path}/log/#{Rails.env}.log"
     end
 
     initializer 'ecrire.database_information', before: "active_record.initialize_database" do |app|
@@ -43,14 +43,14 @@ module Ecrire
       # https://github.com/rails/rails/blob/master/railties/lib/rails/application/configuration.rb#L95
       # It should be paths['config/database'].existent.first
       #
-      # For that reason, it's not possible to use paths << Dir.pwd + '/database.yml' and let rails figure
+      # For that reason, it's not possible to use paths << user_path + '/database.yml' and let rails figure
       # things out (Which was my initial solution)
       #
       # I need to overwrite the path instead
       #
-      # app.paths['config/database'] << Dir.pwd + '/database.yml' # Working in rails >= 4.1.2
-      app.paths.add 'config/database', with: Dir.pwd + '/config/database.yml'
-      app.paths.add 'config/schema', with: Dir.pwd + '/config/schema.rb'
+      # app.paths['config/database'] << user_path + '/database.yml' # Working in rails >= 4.1.2
+      app.paths.add 'config/database', with: user_path + 'config/database.yml'
+      app.paths.add 'config/schema', with: user_path + 'config/schema.rb'
 
       # Don't check for existing file as it will be created if needed.
       ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first
@@ -79,7 +79,7 @@ module Ecrire
     end
 
     initializer 'ecrire.assets' do |app|
-      app.config.paths.add 'public', with: Dir.pwd + '/tmp/public'
+      app.config.paths.add 'public', with: user_path + 'tmp/public'
 
       if Ecrire::Railtie.blog_configured?
         app.config.assets.paths.concat paths['user:assets'].existent
@@ -113,10 +113,10 @@ module Ecrire
       # Initializer could do something like @paths['user:helpers'].load! and fail if a requirement fails.
       # It wouldn't be that much different than using require_dependency() in eager_load!
       @paths ||= begin
-                   paths = Rails::Paths::Root.new(Dir.pwd)
+                   paths = Rails::Paths::Root.new(user_path)
 
-                   paths.add 'onboarding:assets', with: onboarding_path + '/assets', glob: '*'
-                   paths.add 'onboarding:views', with: onboarding_path + '/views'
+                   paths.add 'onboarding:assets', with: onboarding_path + 'assets', glob: '*'
+                   paths.add 'onboarding:views', with: onboarding_path + 'views'
 
                    paths.add 'user:assets', with: 'assets', glob: '*'
                    paths.add 'user:helpers', with: 'helpers', eager_load: true
@@ -135,8 +135,24 @@ module Ecrire
                            end
     end
 
+    def user_path(file = 'config.ru')
+      @user_path ||= begin
+                       pathname = Pathname.pwd
+
+                       while !(pathname + file).exist? do
+                         pathname = pathname.parent
+                         if pathname.root?
+                           raise "Could not find #{file}. Type 'ecrire new blog_name' to create a new blog"
+                           break
+                         end
+                       end
+
+                       pathname
+                     end
+    end
+
     def onboarding_path
-      @onboarding_path ||= File.expand_path '../onboarding/', __FILE__
+      @onboarding_path ||= Pathname.new(__FILE__).dirname + 'onboarding/'
     end
 
     def eager_load!
