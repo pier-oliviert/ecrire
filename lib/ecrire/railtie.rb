@@ -19,7 +19,7 @@ module Ecrire
     }
 
     initializer 'ecrire.secrets', before: :bootstrap_hook do |app|
-      app.paths.add 'config/secrets', with: user_path + '/config/secrets.yml'
+      app.paths.add 'config/secrets', with: user_path + 'config/secrets.yml'
     end
 
     initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
