@@ -33,6 +33,10 @@ module Ecrire
       ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)
     end
 
+    initializer 'ecrire.logs', before: :initialize_logger do |app|
+      app.paths.add "log", with: "#{Dir.pwd}/log/#{Rails.env}.log"
+    end
+
     initializer 'ecrire.database_information', before: "active_record.initialize_database" do |app|
       # TODO: Rails' configuration check for the first path in config/database. So, if the first one
       # is invalid and another one is valid, rails configuration will choke.
