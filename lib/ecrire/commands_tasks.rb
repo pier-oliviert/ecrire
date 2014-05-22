@@ -75,7 +75,7 @@ module Ecrire
       project_folder = "#{Dir.pwd}/#{project_name}"
       Dir.mkdir project_folder
       Dir.chdir project_folder
-      template = File.expand_path '../themes/template/*', __FILE__
+      template = File.expand_path '../template/*', __FILE__
       FileUtils.cp_r(Dir[template], project_folder)
     end
 
