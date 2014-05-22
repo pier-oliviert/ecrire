@@ -60,19 +60,21 @@ Like any blog engine, Ecrire saves as a draft by default so you can write your p
 
 When you're ready, simply press the arrow on the left of **Save** and click the publish button!
 
-### Customize your blog
-
-Customization is important and it shouldn't be hard to make minor changes to the look and feel of your blog. You should be able to infuse a dose of your personality without breaking a sweat. Ecrire was built using clean and modular HTML code. You can easily find your way around HTML, CSS and Javascript.
-
-With this being said, **theme** has been implemented in Ecrire.
-
-### Alpha!!!
-
-This project is still in its infancy and while everything you've read so far is working, there's still bugs, enhancements and features that are missing. Even though it's an alpha, this engine has been working flawlessly on [http://pothibo.com](http://pothibo.com) for the last 2 months. So try it out, leave issues if you find any or even submit a PR, more the merrier!
-
 ### Getting started
 
-All the information you need to install this blog engine is found [on the Wiki](https://github.com/pothibo/ecrire/wiki/How-to-install-on-Arch-Linux).
+First, you need to have ruby version **higher than** 2.0.0.
+
+You can install the gem with rubygems.
+``` gem install ecrire ```
+
+Then create a new blog
+``` ecrire new your_blog_name ```
+
+It will create a new blog using the default template. Running the blog will enter into a configuration mode that will guide you through the steps of configuration Ecrire.
+``` ecrire server  ```
+
+You can access the blog & configuration setup with your browser by going at the following address.
+``` localhost:3000  ```
 
 ### Licence
 
