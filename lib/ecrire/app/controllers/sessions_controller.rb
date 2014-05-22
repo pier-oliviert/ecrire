@@ -13,6 +13,9 @@ class SessionsController < ApplicationController
   def failed
     respond_to do |format|
       format.html do
+        unless warden.errors.empty?
+          flash[:user] = warden.errors.full_messages.to_sentence
+        end
         redirect_to :root
       end
       format.js do
