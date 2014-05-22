@@ -1,20 +1,20 @@
 <main>
-  <h1>Welcome to your new blog!</h1>
+  <aside>
+    <h1>Ecrire is ready!</h1>
+    <% if Rails.env.development? %>
+      <p class="small"><code><%= Ecrire::Railtie.user_path %></code></p>
+    <% end %>
 
-  <p>This template can be customized to your need.</p>
+    <% unless signed_in? %>
+      <p>Sign in to access administration.</p>
+      <%= render 'sessions/form' %>
+    <% end %>
 
-  <p><%= Ecrire::Railtie.user_path %></p>
+  </aside>
 
-  <% unless signed_in? %>
-    <%= render 'sessions/form' %>
-  <% end %>
-
-  <p>This default template has been copied to help you get started. You can customize it to your need and use a versionning system to save it.</p>
-
-  <% if posts.empty? %>
+  <% if posts.empty? && Rails.env.development? %>
     <%= render 'onboarding' %>
   <% else %>
     <%= render 'posts' %>
   <% end %>
-
 </main>

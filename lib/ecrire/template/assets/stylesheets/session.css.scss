@@ -1,20 +1,24 @@
-main {
-  form.session {
-    width: 50%;
-    margin: 0 auto;
-    background: #EEE;
-    border-radius: 3px;
-    padding: 8px;
+form.session {
+  width: 75%;
+  margin: 0 auto;
 
-    input {
-      display: block;
-      width: 100%;
-      border: none;
-      line-height: 1em;
-      font-size: 1em;
-      padding: 2px 4px;
-      margin: 1em 0;
-    }
+  input {
+    display: block;
+    width: 100%;
+    border: none;
+    line-height: 1em;
+    font-size: 1em;
+    padding: 4px 8px;
+    margin: 1em 0;
+  }
 
+  button {
+    display: block;
+    background: #94BB90;
+    border: none;
+    margin: 0 0 0 auto;
+    font-size: 1.0em;
+    padding: 4px 8px;
+    color: #DEF0DC;
   }
 }

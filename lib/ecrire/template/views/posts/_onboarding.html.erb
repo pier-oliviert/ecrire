@@ -1,25 +1,95 @@
-<p>Ecrire's template provides a few mechanism to help you build your blog the way you want.</p>
+<div class='onboarding'>
+  <section>
+    <h2>Customize your blog!</h2>
 
-<h2>Views</h2>
-<p>Views are where most of your HTML script goes. You can customize the layouts or any other view. But before you do, please take a moment reading the difference between layouts and post views.</p>
+    <p>Ecrire is built on top of Ruby On Rails. For that reason, you are free to use Rails' API whenever you want.</p>
 
-<h3>Layouts</h3>
-<p>The layout lives in <code>views/assets/application.html.erb</code>.</p>
+    <p>However, the default template provided by Ecrire has a few additional methods to help you customize your blog.</p>
 
-<h3>Posts</h3>
+  </section>
 
-<h2>Helpers</h2>
-<p>Helpers are methods you can create and use them in your views.</p>
+  <section>
+    <h2>Views</h2>
+    <p>Views are where most of your HTML customization goes. The view system is split in two:</p>
 
-<h2>Decorators</h2>
-<p>Decorators are very similar to helpers.</p>
+    <h3>Layouts</h3>
+    <p class="small"><code>views/layouts/application.html.erb</code></p>
 
-<h2>Assets</h2>
-<p>Assets are CSS and JS files.</p>
+    <p>The layout is where you set the document type, the &lt;head&gt;, the stylesheets.</p>
 
-<h3>Stylesheets</h3>
-<p>Stylesheets can either be pure CSS or SASS.</p>
+    <h3>Views</h3>
+    <p>The post views is where you can customize your HTML dependant of the URL access. Initially, there's two views configured: <code>posts/index.html.erb</code> and <code>posts/show.html.erb</code></p>
 
-<h3>Javascripts</h3>
-<p>Javascripts can either be pure Javascript or Coffeescript.</p>
+    <h4><code>posts/index.html.erb</code></h4>
 
+    <p>This view is the home page of your blog. If you want to list your post entries, you can do it by adding this code snippet to your view:</p>
+
+    <pre><code class='language-ruby'># views/posts/index.html.erb
+&lt;%= posts.each do |post| %&gt;
+  &lt;%= link_to post.title, post_path(post) &gt;
+&lt;% end %&gt;</code></pre>
+
+    <h4><code>posts/show.html.erb</code></h4>
+
+  </section>
+
+  <section>
+    <h2>Helpers</h2>
+    <p>Helpers are modules you can create to define methods that can be used for different purposes.</p>
+    <pre><code class='language-ruby'># helpers/your_helper.rb
+module YourHelper
+  def tags_list
+    Post.all.pluck(&:tags).uniq!.map do |tag|
+      link_to posts_path(tag: tag)
+    end
+  end
+end</code></pre>
+
+    <pre><code class='language-html'># views/posts/index.html.erb
+&lt;aside&gt;
+  &lt;h2&gt;Tags&lt;/h2&gt;
+
+  &lt;p&gt;
+    &lt;%= tags_list %&gt;
+  &lt;/p&gt;
+&lt;aside&gt;</code></pre>
+  </section>
+
+  <section>
+    <h2>Decorators</h2>
+    <p>Decorators are very similar to helpers.</p>
+    <pre><code class='language-ruby'># decorators/post_decorator.rb
+class PostDecorator &lt; EcrireDecorator
+  def overview(options)
+    content_tag :article, class: %w(post) do
+      [
+        content_tag(:h2, link_to(record.title, post_path(record)),
+        content_tag(:p, record.content[0..50])
+      ].join.html_safe
+    end
+  end
+end</code></pre>
+
+    <pre><code class='language-html'># views/posts/index.html.erb
+&lt;aside&gt;
+  &lt;h2&gt;Tags&lt;/h2&gt;
+
+  &lt;section&gt;
+    &lt;%= decorate posts, :overview %&gt;
+  &lt;/section&gt;
+&lt;aside&gt;</code></pre>
+  </section>
+
+  <section>
+    <h2>Assets</h2>
+    <p>Assets are CSS and JS files.</p>
+
+    <h3>Stylesheets</h3>
+    <p class="small"><code>assets/stylesheets/*.css[.scss]</code></p>
+    <p>Stylesheets can either be pure CSS or SASS.</p>
+
+    <h3>Javascripts</h3>
+    <p class="small"><code>assets/javascripts/*.js[.coffee]</code></p>
+    <p>Javascripts can either be pure Javascript or Coffeescript.</p>
+  </section>
+</div>
