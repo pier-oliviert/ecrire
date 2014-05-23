@@ -1,14 +1,16 @@
 <main>
   <aside>
     <h1>Ecrire is ready!</h1>
-    <% if Rails.env.development? %>
-      <p class="small"><code><%= Ecrire::Railtie.user_path %></code></p>
-    <% end %>
 
-    <% unless signed_in? %>
-      <p>Sign in to access administration.</p>
+    <% if signed_in? %>
+      <p>You can start writing new blog post</p>
+      <%= link_to 'New post', new_admin_post_path, class: %w(button) %>
+    <% else %>
       <%= render 'sessions/form' %>
     <% end %>
+
+    <h2>Your blog's path</h2>
+    <p class="small"><code><%= Ecrire::Railtie.user_path %></code></p>
 
   </aside>
 

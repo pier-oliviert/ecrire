@@ -10,12 +10,30 @@
 
   <section>
     <h2>Views</h2>
-    <p>Views are where most of your HTML customization goes. The view system is split in two:</p>
-
     <h3>Layouts</h3>
     <p class="small"><code>views/layouts/application.html.erb</code></p>
 
-    <p>The layout is where you set the document type, the &lt;head&gt;, the stylesheets.</p>
+    <p>The layout is where you set the document type, the &lt;head&gt; and everything else that you want to have on every page.</p>
+
+    <pre><code class='language-ruby'># views/layouts/application.html.erb
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;%= title_tag %&gt;
+    &lt;%= assets_tags %&gt;
+    &lt;%= meta_informations_tags %&gt;
+  &lt;/head&gt;
+
+  &lt;%= body_tag id: [controller_name, action_name].join('-') do %&gt;
+
+    &lt;%= admin_navigation %&gt;
+
+    &lt;%= yield %&gt;
+
+  &lt;% end %&gt;
+&lt;/html&gt;</code></pre>
+
+    <p>One thing you <strong>must</strong> have in your layout is the <code class='language-ruby'>&lt;%= yield %&gt;</code> call. This call will inject the view into the layout. If you want to learn more about the layout, Ruby on rails has a <a href="http://guides.rubyonrails.org/layouts_and_rendering.html#understanding-yield">great guide that explains</a> the layout more thoroughly.</p>
 
     <h3>Views</h3>
     <p>The post views is where you can customize your HTML dependant of the URL access. Initially, there's two views configured: <code>posts/index.html.erb</code> and <code>posts/show.html.erb</code></p>
@@ -30,6 +48,9 @@
 &lt;% end %&gt;</code></pre>
 
     <h4><code>posts/show.html.erb</code></h4>
+    <pre><code class='language-ruby'># views/posts/show.html.erb
+&lt;%= decorate post, :content %&gt;</code></pre>
+
 
   </section>
 
@@ -91,5 +112,17 @@ end</code></pre>
     <h3>Javascripts</h3>
     <p class="small"><code>assets/javascripts/*.js[.coffee]</code></p>
     <p>Javascripts can either be pure Javascript or Coffeescript.</p>
+
+    <h3>Images</h3>
+    <p class="small"><code>assets/images/*</code></p>
+    <p>Images can be any format you want.</p>
+  </section>
+
+  <section>
+    <h2>Start writing now!</h2>
+
+    <p>Once you will have a first post published, this page will be replaced by a list of your published posts.</p>
+
+    <p>Enjoy!</p>
   </section>
 </div>

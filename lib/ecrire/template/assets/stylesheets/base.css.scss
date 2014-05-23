@@ -33,6 +33,14 @@ aside {
   p.user.flash {
     color: rgb(201, 80, 80);
   }
+
+  .button {
+    display: inline-block;
+    padding: 4px 8px;
+    background: rgb(187, 209, 221);
+    color: #132C52;
+    text-decoration: none;
+  }
 }
 
 main {
@@ -52,7 +60,13 @@ main > div {
 
     h2 {
       margin: 0;
-      color: #4776C2;
+      color: #C28C47;
+      font-size: 2.2em;
+      font-weight: lighter;
+    }
+
+    h3 {
+      margin: 1em 0.4em 0 0.4em;
     }
     
     p {
@@ -62,10 +76,6 @@ main > div {
         margin: 0.3em;
       }
     }
-
-    h3 {
-      margin: 1em 0.4em 0 0.4em;
-    }
   }
 
   h1 {
@@ -73,3 +83,21 @@ main > div {
   }
 }
 
+h1, h2, h3, h4, h5 {
+  font-weight: lighter;
+}
+
+div.posts ol {
+  li {
+    list-style-type: none;
+    text-align: left;
+
+    span {
+      margin-right: 0.4em;
+    }
+
+    a {
+      margin-left: 0.4em;
+    }
+  }
+}
