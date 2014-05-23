@@ -57,6 +57,12 @@ module Ecrire
       ActiveRecord::Base.configurations = app.config.database_configuration
     end
 
+    initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
+      app.config.eager_load_paths.unshift *paths.eager_load
+      app.config.autoload_once_paths.unshift *paths.autoload_once
+      app.config.autoload_paths.unshift *paths.autoload_paths
+    end
+
     initializer 'ecrire.onboarding' do |app|
       unless Ecrire::Railtie.blog_configured?
 
