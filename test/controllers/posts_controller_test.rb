@@ -1,5 +1,3 @@
-require 'test_helper'
-
 class PostsControllerTest < BaseControllerTest
 
   test 'pagination settings should be set before calling an action' do get :index

@@ -1,5 +1,3 @@
-require 'helpers/base_helper_test'
-
 class PostsHelperTest < BaseHelperTest
 
   attr_accessor :post

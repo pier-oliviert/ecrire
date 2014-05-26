@@ -34,7 +34,9 @@ module Ecrire
     end
 
     initializer 'ecrire.logs', before: :initialize_logger do |app|
-      app.paths.add "log", with: "#{user_path}/log/#{Rails.env}.log"
+      unless Rails.env.test?
+        app.paths.add "log", with: "#{user_path}/log/#{Rails.env}.log"
+      end
     end
 
     initializer 'ecrire.database_information', before: "active_record.initialize_database" do |app|

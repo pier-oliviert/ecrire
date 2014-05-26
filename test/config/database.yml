@@ -1,0 +1,4 @@
+test:
+  adapter: 'postgresql'
+  database: 'ecrire_test'
+  encoding: 'utf8'

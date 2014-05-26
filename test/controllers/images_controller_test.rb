@@ -1,4 +1,2 @@
-require 'test_helper'
-
-class ImagesControllerTest < ActionController::TestCase
+class ImagesControllerTest < BaseControllerTest
 end

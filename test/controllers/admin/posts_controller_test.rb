@@ -1,5 +1,3 @@
-require 'controllers/base_controller_test'
-
 class Admin::PostsControllerTest < BaseControllerTest
 
   def setup
