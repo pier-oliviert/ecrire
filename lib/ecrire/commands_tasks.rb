@@ -67,16 +67,13 @@ module Ecrire
     end
 
     def new
-      require 'fileutils'
-      project_name = ARGV.shift
-      if project_name.nil?
+      name = ARGV.shift
+      if name.nil?
         raise 'You need to specify a name for your new blog'
       end
-      project_folder = "#{Dir.pwd}/#{project_name}"
-      Dir.mkdir project_folder
-      Dir.chdir project_folder
-      template = File.expand_path '../template/*', __FILE__
-      FileUtils.cp_r(Dir[template], project_folder)
+
+      require_command!('new')
+      Ecrire::New.generate! name
     end
 
     def version

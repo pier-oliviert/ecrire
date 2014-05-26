@@ -1,19 +1,37 @@
+require 'yaml'
+require 'securerandom'
+
 module Ecrire
-  class Assets < Sprockets::Rails::SprocketsTask
+  class New
 
-    def initialize(app)
-      @app = app
+    def self.generate!(name)
+      new(name).generate!
     end
 
-    def output
-      @app.paths['public'].existent.first + @app.config.assets.prefix
+    def initialize(name)
+      @name = name
     end
 
-    def manifest
-      if app
-        Sprockets::Manifest.new(index, output, app.config.assets.manifest)
-      else
-        super
+    def generate!
+      copy_template!
+      generate_secrets!
+    end
+
+    def copy_template!
+      require 'fileutils'
+      path = "#{Dir.pwd}/#{@name}"
+      Dir.mkdir @name
+      Dir.chdir @name
+      template = File.expand_path '../../template/*', __FILE__
+      FileUtils.cp_r(Dir[template], path)
+    end
+
+    def generate_secrets!
+      File.open(Dir.pwd + '/config/secrets.yml', 'w') do |file|
+        secrets = Hash.new
+        secrets['production'] = secrets['development'] = secrets['defaults'] = Hash.new
+        secrets['defaults']['secret_key_base'] = SecureRandom.hex(64)
+        file.write(secrets.to_yaml)
       end
     end
 
