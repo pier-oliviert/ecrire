@@ -41,9 +41,7 @@ class OnboardingController < ApplicationController
   before_action ::RedirectFilter, only: :index
 
   def index
-  end
-
-  def complete
+    render 'complete'
   end
 
   def configure_user!
@@ -60,7 +58,7 @@ class OnboardingController < ApplicationController
 
   def configuration_completed!
     if !instance_of?(OnboardingController)
-      redirect_to onboarding_complete_path
+      redirect_to :root
     end
   end
 

@@ -3,11 +3,13 @@ module Onboarding
 
     helper_method :user
 
+    def index; end;
+
     def create
       @user = User.create(user_params)
       
       if user.errors.blank?
-        redirect_to onboarding_complete_path
+        redirect_to :root
       else
         render 'index'
       end

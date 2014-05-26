@@ -9,6 +9,8 @@ module Onboarding
 
     helper_method :user, :db_name
 
+    def index; end;
+
     def create
       begin
         ActiveRecord::Base.configurations = {
