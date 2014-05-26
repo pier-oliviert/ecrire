@@ -6,7 +6,6 @@
 */
 
 $header-height: 46px;
-$fonts: Helvetica, sans-serif;
 $color-dark: #4B482C;
 $color-light: rgb(201, 198, 183);
 
@@ -31,8 +30,6 @@ a {
 }
 
 body {
-  font-family: $fonts;
-  font-weight: 200;
   font-size: 13px;
   background: #F3F0EA;
   color: #313126;
