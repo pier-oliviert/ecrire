@@ -1,39 +1,39 @@
 <main class="databases">
-  <header>
+  <aside>
     <h1>Ecrire</h1>
     <ol>
       <li class="current">Configure postgresql</li>
       <li>Create a user</li>
     </ol>
-  </header>
+  </aside>
 
   <section>
     <h2>Configure Postgresql</h2>
 
     <div class="terminal">
       <p>Start by launching postgresql command line environment:</p>
-          <pre><code class="language-sql">$ psql</code></pre>
+      <code class="language-sql">$ psql</code>
 
       <p>Replace all $variables with your own information. Start by creating a user:</p>
 
-          <pre><code class="language-sql">> CREATE USER $user WITH PASSWORD '$password';</code></pre>
+      <code class="language-sql">> CREATE USER $user WITH PASSWORD '$password';</code>
 
       <p>Create a database for ecrire to use:</p>
-          <pre><code class="language-sql">> CREATE DATABASE $ecrire_database;</code></pre>
+      <code class="language-sql">> CREATE DATABASE $ecrire_database;</code>
 
       <p>Grant all privileges to your user so ecrire can use both together:</p>
-          <pre><code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE $ecrire_database to $user;</code></pre>
+      <code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE $ecrire_database to $user;</code>
     </div>
 
     <h2>Connect to your database</h2>
 
-    <% unless @exception.nil? %>
-      <div class="error">
-        <%= content_tag :p, @exception %>
-      </div>
-    <% end %>
-
     <%= form_tag onboarding_databases_path, method: :post do %>
+      <% unless @exception.nil? %>
+        <div class="error">
+          <%= content_tag :p, @exception %>
+        </div>
+      <% end %>
+
       <%= text_field_tag 'database[name]', nil, placeholder: "$ecrire_database" %>
       <%= text_field_tag 'database[user]', nil, placeholder: "$user" %>
       <%= text_field_tag 'database[password]', nil, placeholder: "$password" %>

@@ -1,0 +1,39 @@
+body.onboarding main > aside {
+  flex: 1 30%;
+  background: #e2dccf;
+  border-right: 1px solid #BABABA;
+  box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.5);
+
+  h1 {
+    font-size: 6em;
+    margin-left: 1em;
+  }
+
+  ol {
+    margin: 1em 0 0 3.4em;
+    list-style-type: none;
+
+    li {
+      text-align: left;
+      font-size: 1.4em;
+      margin: 1em 0;
+      position: relative;
+
+      &.current {
+        font-weight: bolder;
+      }
+
+      &.done:before {
+        font-family: 'entypo';
+        font-size: 2em;
+        color: #446141;
+        content: '✓';
+        position: absolute;
+        left: -0.8em;
+        top: -0.2em;
+      }
+
+    }
+  }
+}
+

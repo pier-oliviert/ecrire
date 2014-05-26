@@ -1,10 +1,14 @@
 body.onboarding main.databases section {
   div.terminal {
-    padding: 4px;
+    padding: 4px 4px 24px 4px;
     background: #000;
-    border-top: 10px solid #BBB;
+    border-top: 10px solid #5A503C;
     border-radius: 3px;
     box-shadow: 0 1px 3px 0 #161616;
     color: #8D8D8D;
+
+    code {
+      background: none;
+    }
   }
 }

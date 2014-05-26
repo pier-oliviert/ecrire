@@ -1,4 +1,6 @@
-body.onboarding > main > header.completed {
+body.onboarding > main.completed {
+  display: block;
+  text-align: center;
 
   h1 {
   }
