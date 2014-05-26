@@ -1,5 +1,13 @@
 module Onboarding
   class DatabasesController < OnboardingController
+    DB_NAME = 'ecrire'
+    USER = {
+      name: "ecrire#{SecureRandom.hex(2)}",
+      password: SecureRandom.hex(16)
+    }
+
+
+    helper_method :user, :db_name
 
     def create
       begin
@@ -17,6 +25,16 @@ module Onboarding
         render 'index' and return
       end
       redirect_to onboarding_users_path
+    end
+
+    protected
+
+    def user
+      Onboarding::DatabasesController::USER
+    end
+
+    def db_name
+      Onboarding::DatabasesController::DB_NAME
     end
 
     private

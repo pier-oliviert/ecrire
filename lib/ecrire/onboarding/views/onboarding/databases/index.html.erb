@@ -16,13 +16,13 @@
 
       <p>Replace all $variables with your own information. Start by creating a user:</p>
 
-      <code class="language-sql">> CREATE USER $user WITH PASSWORD '$password';</code>
+      <code class="language-sql">> CREATE USER <%= user[:name] %> WITH PASSWORD '<%= user[:password] %>';</code>
 
       <p>Create a database for ecrire to use:</p>
-      <code class="language-sql">> CREATE DATABASE $ecrire_database;</code>
+      <code class="language-sql">> CREATE DATABASE <%= db_name %>;</code>
 
       <p>Grant all privileges to your user so ecrire can use both together:</p>
-      <code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE $ecrire_database to $user;</code>
+      <code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE <%= db_name %> to <%= user[:name] %>;</code>
     </div>
 
     <h2>Connect to your database</h2>
@@ -34,9 +34,9 @@
         </div>
       <% end %>
 
-      <%= text_field_tag 'database[name]', nil, placeholder: "$ecrire_database" %>
-      <%= text_field_tag 'database[user]', nil, placeholder: "$user" %>
-      <%= text_field_tag 'database[password]', nil, placeholder: "$password" %>
+      <%= text_field_tag 'database[name]', db_name, placeholder: "$ecrire_database" %>
+      <%= text_field_tag 'database[user]', user[:name], placeholder: "$user" %>
+      <%= text_field_tag 'database[password]', user[:password], placeholder: "$password" %>
 
       <%= button_tag 'Connect to your database', value: 'connect' %>
     <% end %>
