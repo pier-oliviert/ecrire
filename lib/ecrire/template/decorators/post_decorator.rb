@@ -11,8 +11,8 @@ class PostDecorator < EcrireDecorator
 
   def content(options)
     [
-      post_stylesheet(record),
-      post_javascript(record),
+      stylesheet,
+      javascript,
       record.content.html_safe
     ].join.html_safe
   end
