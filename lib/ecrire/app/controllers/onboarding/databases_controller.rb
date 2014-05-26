@@ -10,6 +10,7 @@ module Onboarding
         ActiveRecord::Base.establish_connection
         ActiveRecord::Base.connection
         save_configurations!
+        migrate!
       rescue Exception => e
         @exception = e
         ActiveRecord::Base.clear_all_connections!
@@ -19,6 +20,15 @@ module Onboarding
     end
 
     private
+
+    def migrate!
+      ActiveRecord::Tasks::DatabaseTasks.database_configuration = ActiveRecord::Base.configurations
+      ActiveRecord::Migrator.migrations_paths = ActiveRecord::Tasks::DatabaseTasks.migrations_paths
+      ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
+      ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, ENV["VERSION"] ? ENV["VERSION"].to_i : nil) do |migration|
+        ENV["SCOPE"].blank? || (ENV["SCOPE"] == migration.scope)
+      end
+    end
 
     def db_params
       @db_params ||= {
