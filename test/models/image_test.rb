@@ -2,6 +2,8 @@ require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
 
+  Struct.new('File', :original_filename)
+
   test 'should only return favorited images' do
     Image.favorites.each do |image|
       assert image.favorite?, 'Image should be favorited'
@@ -9,8 +11,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test 'path should handle blank base_folder' do
-    Rails.configuration.s3.base_folder = ""
-    Struct.new('File', :original_filename)
+    Rails.application.secrets.s3['base_folder'] = ""
     file = Struct::File.new('some_image.jpg')
 
     image = Admin::Image.new
@@ -20,8 +21,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test 'path should handle base_folder' do
-    Rails.configuration.s3.base_folder = "my_blog"
-    Struct.new('File', :original_filename)
+    Rails.application.secrets.s3['base_folder'] = "my_blog"
     file = Struct::File.new('some_image.jpg')
 
     image = Admin::Image.new

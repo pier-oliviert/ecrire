@@ -1,6 +1,5 @@
-require_relative '../test_helper'
-
 class BaseHelperTest < ActionView::TestCase
+  include Rails.application.routes.url_helpers
 
   def signed_in?
     !@user.nil?

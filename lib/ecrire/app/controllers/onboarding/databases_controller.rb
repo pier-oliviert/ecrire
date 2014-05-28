@@ -1,3 +1,5 @@
+require_relative '../onboarding_controller'
+
 module Onboarding
   class DatabasesController < OnboardingController
     DB_NAME = 'ecrire'

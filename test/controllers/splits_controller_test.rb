@@ -1,2 +1,0 @@
-class SplitsControllerTest < BaseControllerTest
-end

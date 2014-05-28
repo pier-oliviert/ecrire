@@ -1,13 +1,6 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+$:.push File.expand_path("../lib", __FILE__)
 
-Dir.chdir(File.expand_path('../lib', __FILE__)) do
-  require 'ecrire'
+require_relative 'lib/ecrire'
 
-  Dir.chdir Pathname.pwd + '../test' do
-    Ecrire::Application.initialize!
-  end
+Ecrire::Application.load_tasks
 
-  Ecrire::Application.load_tasks
-
-end

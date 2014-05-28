@@ -1,4 +1,4 @@
-require '../test_helper'
+require_relative '../test_helper'
 
 class BaseControllerTest < ActionController::TestCase
   include Warden::Test::Helpers
