@@ -1,5 +1,3 @@
-require 'test_helper'
-
 class PostsControllerTest < BaseControllerTest
 
   test 'pagination settings should be set before calling an action' do get :index
@@ -31,7 +29,7 @@ class PostsControllerTest < BaseControllerTest
 
   test 'Only published posts should be listed in the index' do
     get :index
-    assigns(:posts).each do |post|
+    posts.each do |post|
       assert post.published?
     end
   end

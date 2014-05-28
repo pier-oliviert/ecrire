@@ -1,3 +1,5 @@
+require_relative '../ecrire_decorator'
+
 module Admin
   class PartialDecorator < EcrireDecorator
     def overview(options)

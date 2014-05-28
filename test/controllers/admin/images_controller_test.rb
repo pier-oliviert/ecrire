@@ -1,7 +1,6 @@
-require 'test_helper'
+require_relative '../base_controller_test'
 
-class Admin::ImagesControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+module Admin
+  class ImagesControllerTest < BaseControllerTest
+  end
 end

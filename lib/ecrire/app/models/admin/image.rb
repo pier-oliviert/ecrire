@@ -25,7 +25,7 @@ module Admin
 
     def path(file)
       items = [post.id, file.original_filename]
-      unless (base_folder = Rails.configuration.s3.base_folder).blank?
+      unless (base_folder = Rails.application.secrets.s3['base_folder']).blank?
         items.prepend base_folder
       end
 
@@ -39,8 +39,8 @@ module Admin
     end
 
     def self.service
-      @service ||= S3::Service.new(access_key_id: Rails.configuration.s3.access_key,
-                                   secret_access_key: Rails.configuration.s3.secret_key,
+      @service ||= S3::Service.new(access_key_id: Rails.application.secrets.s3.access_key,
+                                   secret_access_key: Rails.application.secrets.s3.secret_key,
                                    use_ssl: true
                                   )
     end

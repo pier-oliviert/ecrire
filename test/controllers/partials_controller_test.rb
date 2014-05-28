@@ -1,4 +1,2 @@
-require 'test_helper'
-
-class PartialsControllerTest < ActionController::TestCase
+class PartialsControllerTest < BaseControllerTest
 end
