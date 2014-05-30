@@ -1,25 +1,18 @@
 #posts {
   & > .wrapper {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    -webkit-flex-direction: row;
-    flex: 1 100%;
+    @include display-flex;
+    @include flex-direction(row);
+    @include flex(1 100%);
   }
 
   #postContainer {
-    display: flex;
-    flex: 4 100%;
-    flex-basis: 300px;
-    display: -webkit-flex;
-    -webkit-flex: 4 100%;
-    -webkit-flex-basis: 300px;
+    @include display-flex;
+    @include flex(4 300px);
     position: relative;
   }
 
   #postsList .list {
-    flex-grow: 1;
-    -webkit-flex-grow: 1;
+    @include flex-grow(1)
   }
 
   #newIdea {

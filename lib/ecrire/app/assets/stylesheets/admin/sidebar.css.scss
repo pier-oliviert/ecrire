@@ -3,8 +3,7 @@
     font-size: 1.2em;
     text-align: center;
     margin: 12px 0;
-    flex: 0 0 auto;
-    -webkit-flex: 0 0 auto;
+    @include flex(0 0 auto);
   }
 }
 
@@ -61,30 +60,25 @@
 }
 
 sidebar.listing {
-  display: flex;
-  display: -webkit-flex;
-  flex: 1 0 300px;
-  -webkit-flex: 1 0 300px;
-  flex-direction: column;
-  -webkit-flex-direction: column;
+  @include display-flex;
+  @include flex(1 0 300px);
+  @include flex-direction(column);
   border-right: 1px solid #BABABA;
   background: #FEFEFE;
 
   header {
+    @include flex(0 0 38px);
     width: 100%;
-    flex: 0 0 38px;
-    -webkit-flex: 0 0 38px;
     font-size: 1.0rem;
     position: relative;
     box-sizing: content-box;
-    -moz-box-sizing: content-box;
     border-bottom: 5px double #BABABA;
 
     @include filters;
   }
 
   & > .items {
-    flex: 1 auto;
+    @include flex(1 auto);
     list-style-type: none;
     font-size: 1.4em;
     text-align: left;

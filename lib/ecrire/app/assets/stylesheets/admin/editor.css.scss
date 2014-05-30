@@ -57,12 +57,8 @@
   .title.wrapper {
     margin: 20px 0 0;
     background: #FAFAFA;
-    display: flex;
-    display: -webkit-flex;
-    flex: 0 40px;
-    -webkit-flex: 0 40px;
-    flex-shrink: 0;
-    -webkit-flex-shrink: 0;
+    @include display-flex;
+    @include flex(0 0 40px);
     position: relative;
 
     .input {
@@ -186,18 +182,16 @@
 
 @mixin preview {
   #editorSideContent {
+    @include flex(1 50%);
     overflow-y: scroll;
     font-size: 1.2em;
     font-weight: lighter;
-    flex: 1 50%;
-    -webkit-flex: 1 50%;
   }
 }
 
 @mixin errors {
   .errors {
-    flex: 1 auto;
-    -webkit-flex: 1 auto;
+    @include flex(1 auto);
     background: rgba(236, 66, 66, 0.23);
     margin: 12px 20% 0 20%;
     padding: 8px;
@@ -256,10 +250,8 @@
   @include errors;
 
   & > .wrapper {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
+    @include display-flex;
+    @include flex-direction(column);
     min-height: 100%;
     height: 100%;
   }

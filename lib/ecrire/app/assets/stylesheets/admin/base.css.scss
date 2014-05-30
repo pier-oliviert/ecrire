@@ -6,8 +6,8 @@ $fonts: Helvetica, sans-serif;
 }
 
 html, body {
-  display: flex;
-  flex: 1 auto;
+  @include display-flex;
+  @include flex(1 auto);
 }
 
 html {
@@ -15,6 +15,7 @@ html {
 }
 
 body {
+  @include flex-direction(column);
   margin: 0;
   padding: 0;
   background-image: url(image-path("background.png"));
@@ -23,7 +24,6 @@ body {
   font-weight: 200;
   font-size: 13px;
   color: #6d645c;
-  flex-direction: column;
 }
 
 a {

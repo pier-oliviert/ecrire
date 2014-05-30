@@ -1,11 +1,10 @@
 $header-height: 46px;
 
 #adminNavigationOptions {
+  @include display-flex;
   height: $header-height;
   background: rgb(71, 101, 145);
   border-bottom: 1px solid rgb(52, 69, 99);
-  display: flex;
-  display: -webkit-flex;
 
   #blogPublicHome {
     font-family: entypo;
@@ -13,12 +12,11 @@ $header-height: 46px;
   }
 
   & > a {
-    flex-grow: 0;
-    flex-basis: auto;
+    @include flex(0 auto);
   }
 
   .spacer {
-    flex: 1 auto;
+    @include flex(1 auto);
   }
 
   a.link {
@@ -43,8 +41,7 @@ $header-height: 46px;
   }
 
   .button_to {
-    flex-grow: 0;
-    flex-basis: auto;
+    @include flex(0 auto);
 
     input[type=submit] {
       color: #500A0A;
