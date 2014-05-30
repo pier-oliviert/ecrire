@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency 's3',            '~> 0.3'
   s.add_dependency 'pg',            '~> 0.17'
   s.add_dependency 'sass-rails',    '~> 4.0'
+  s.add_dependency 'compass-rails', '~> 1.1'
   s.add_dependency 'coffee-rails',  '~> 4.0'
   s.add_dependency 'jquery-rails',  '~> 3.1'
   s.add_dependency 'turbolinks',    '~> 2.2'
