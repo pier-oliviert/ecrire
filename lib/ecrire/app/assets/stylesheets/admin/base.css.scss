@@ -18,8 +18,6 @@ body {
   @include flex-direction(column);
   margin: 0;
   padding: 0;
-  background-image: url(image-path("background.png"));
-  background-repeat: repeat;
   font-family: $fonts;
   font-weight: 200;
   font-size: 13px;
