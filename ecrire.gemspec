@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'turbolinks',    '~> 2.2'
   s.add_dependency 'kaminari',      '~> 0.15'
   s.add_dependency 'cubisme',       '~> 0.2'
+  s.add_dependency 'compass',       '~>0.13.alpha.4'
 
   s.add_development_dependency 'debugger', '~> 1.6'
 
