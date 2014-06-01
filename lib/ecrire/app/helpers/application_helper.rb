@@ -29,8 +29,8 @@ module ApplicationHelper
 
   def assets_tags
     [
-      stylesheet_link_tag("application", media: "all", "data-turbolinks-track" => true),
-      javascript_include_tag("application", "data-turbolinks-track" => true)
+      stylesheet_link_tag("application", "base", media: "all", "data-turbolinks-track" => true),
+      javascript_include_tag("application", "base", "data-turbolinks-track" => true)
     ].join.html_safe
   end
 
