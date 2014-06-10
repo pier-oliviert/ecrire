@@ -1,110 +1,124 @@
 $(document).on "DOMContentLoaded page:load", ->
-  if $(".editor.form").length > 0
-    window.Editor = new Editor()
+  return unless $('body.edit.posts').length > 0 
+  if $('form.post.editor').hasClass('autosave')
+    setTimeout autoSave, 250
+    autoSaveSettings()
+  else
+    manuallySaveSettings()
 
-    $(".editor.options").on "click", "a.content", ->
-      $this = $(this)
-      $this.siblings(".active").removeClass("active")
-      $this.addClass("active")
-      $el = $($this.attr("binding"))
-      $(".content > .editor").not($el).hide()
-      $el.show()
-
-    $(".preview.options").on 'click', 'a', ->
-      $this = $(this)
-      $this.siblings(".active").removeClass("active")
-      $this.addClass("active")
-
-    $(".preview.options #previewLink").on 'click', (e) ->
-      window.Editor.sidebarContent.show('preview')
-
-    $(document).trigger('editor:loaded', window.Editor)
-
-class Editor
-  constructor: (opts) ->
-    previews = {
-      $HTMLContent: $("#articleHTMLContent"),
-      $StylesheetContent: $("#articleStylesheetContent"),
-      $ScriptContent: $("#articleScriptContent"),
-    }
-
-    inputs = {
-      $HTMLContent: $("#formContentInput"),
-      $StylesheetContent: $("#formStylesheetInput"),
-      $ScriptContent: $("#formScriptInput")
-    }
-
-    @title =  new Title()
-    @menu = new SaveButton($(".possible.save.actions"))
-    @sidebarContent = new SideBarContent($("#editorSideContent"))
-    @listen(inputs, previews)
-
-  listen: (inputs, previews) ->
-    sidebarContent = @sidebarContent
-
-    updatePreview = ->
-      previews.$HTMLContent.html inputs.$HTMLContent.val()
-      previews.$HTMLContent.find('link[rel="partial"]').each ->
-        $link = $(this)
-        $.get $link.attr('href'), (data) ->
-          $link.replaceWith(data)
-
-      previews.$StylesheetContent.text inputs.$StylesheetContent.val()
-      $ScriptContent = $('<script>')
-      $ScriptContent.text inputs.$ScriptContent.val()
-      previews.$ScriptContent.replaceWith $ScriptContent
-      previews.$ScriptContent = $ScriptContent
-      Prism.highlightAll()
-
-    inputs.$HTMLContent.get(0).addEventListener 'input', updatePreview
-    inputs.$StylesheetContent.get(0).addEventListener 'input', updatePreview
-    inputs.$ScriptContent.get(0).addEventListener 'input', updatePreview
-
-    inputs.$HTMLContent.get(0).addEventListener 'scroll', ->
-      sidebarContent.scrollTo(this.scrollTop / this.scrollHeight)
-
-    updatePreview()
-
-class SideBarContent
-  constructor: ($wrapper) ->
-    @$wrapper = $wrapper
-    @templates = {}
-    @templates['preview'] = $('#contentPreviewContainer')
-
-  show: (name) =>
-    @$wrapper.children().detach()
-    @$wrapper.html(@templates[name])
-
-  add: (name, dom) =>
-    if @templates[name]? 
-      raise "Can't add template because another template is assigned to #{name}"
-    @templates[name] = dom
-    return this
-
-  scrollTo: (percent) ->
-    @$wrapper.scrollTop(percent * @$wrapper.get(0).scrollHeight)
+  preventSubmissions()
+  listenForUpdates()
+  livePreview()
+  toggleSettings()
+  autoScroll()
+  editorField().focus()
 
 
-class Title
-  constructor: ->
-    @elements = {
-      $wrapper: $(".title.wrapper"),
-      $title: $(".title.wrapper > .input"),
-      $slug: $("#post_slug")
-    }
+preventSubmissions = ->
+  $("form").on "submit", (e) ->
+    return false unless e.target.id == 'postEditor'
+  preventSubmissions
 
-    @listen(@elements)
+listenForUpdates = ->
+  $title = $('nav.admin.options > span.title')
+  $('nav').on 'title:updated', (e, title) ->
+    $title.text(title)
+  listenForUpdates
 
-  listen: (elements) ->
-    elements.$wrapper.on 'click', 'a.toggle', =>
-      @toggle(elements)
+manuallySaveSettings = ->
+  $('section.post.settings').on 'click', 'button.save', ->
+    $form = $(this).parents('form')
+    request = sendForm($form)
+    request.addEventListener("load", toggleSettings.close, false);
+  manuallySaveSettings
 
-  toggle: (elements) ->
-    elements.$wrapper.toggleClass("slug")
-    elements.$title.add(elements.$slug).toggle()
+autoSaveSettings = ->
+  $settings = $('section.post.settings')
+  $settings.on 'input', 'input', ->
+    $form = $(this).parents('form')
+    sendForm($form)
+  autoSaveSettings
 
-class SaveButton
-  constructor: ($el) ->
-    $el.on 'click', '.arrow', ->
-      $el.find("button[value=publish]").toggle()
+autoSave = ->
+  setTimeout autoSave, 250
+  $form = $("form.editor")
+  return autoSave unless $form.data('outdated')
 
+  $status = $form.find('nav.post p.status')
+  sendForm($form)
+  $form.data('outdated', false)
+  autoSave
+
+
+toggleSettings = ->
+  $settings = $("section.post.settings").detach().removeClass('hidden').css('visibility', 'hidden')
+  $closeBtn = $settings.find('div.actions > button')
+
+  toggleSettings.close = ->
+    return if $closeBtn.attr('disabled')
+    $parent = $settings.parent()
+    $parent.removeClass('settings').one 'transitionend', ->
+      $settings.detach()
+      $parent.html($items.fadeIn('fast'))
+    false
+
+  key 'escape', toggleSettings.close
+  $settings.on 'click', 'button.close', toggleSettings.close
+
+  $items = $('nav.admin.options').children()
+  $('nav.admin').on 'click', 'a.settings', ->
+    $this = $(this)
+    $items.fadeOut 'fast', ->
+      $parent = $this.parent()
+      $parent.addClass('settings')
+      $items.detach()
+      $parent.html $settings
+      $settings.css('visibility', 'visible')
+  toggleSettings
+
+editorField = ->
+  $form = $('form.editor')
+  editorField.focus = ->
+    $("form.editor textarea.active").focus()
+
+  $('nav.post ol.menu li[target]').on 'click', ->
+    $this = $(this)
+    $form.find('textarea').add('fieldset')
+      .removeClass('active')
+      .filter(".#{this.attributes.getNamedItem('target').value}")
+      .addClass('active')
+    $this.addClass('active').siblings().removeClass('active')
+    editorField.focus()
+  editorField
+
+autoScroll = ->
+  $preview = $('aside.preview')
+  $('form.post.editor textarea.content').on 'scroll', ->
+    return unless $(this).hasClass('active')
+    percent = this.scrollTop / (this.scrollHeight - this.clientHeight)
+    preview = $preview.get(0)
+    preview.scrollTop = (preview.scrollHeight - this.clientHeight) * percent
+  autoScroll
+
+livePreview = ->
+  $form = $('form.editor')
+  $form.children('textarea').on 'input', ->
+    $form.data('outdated', true)
+    $preview = $form
+    $element = $form.siblings("aside.preview").children(".#{this.attributes.getNamedItem('target').value}")
+    $element.html this.value
+  livePreview
+
+transferComplete = (e) ->
+  jQuery.globalEval(e.target.responseText)
+
+sendForm = ($form) ->
+  $actions = $('div.actions')
+  $actions.children('span').addClass('loading')
+  $actions.children('button').attr('disabled', true)
+  data = new FormData($form.get(0))
+  request = new XMLHttpRequest()
+  request.open 'PUT', $form.attr('action') + '.js'
+  request.addEventListener("load", transferComplete, false);
+  request.send(data)
+  request

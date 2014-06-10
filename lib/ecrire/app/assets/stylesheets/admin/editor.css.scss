@@ -1,259 +1,230 @@
-@font-face {
-  font-family: 'entypo';
-  font-style: 'normal';
-  font-weight: 'normal';
-  src: font-url('entypo.woff') format('woff');
+body.posts[class*=edit] > main,
+body.posts[class*=new] > main,
+form.editor {
+  background: #F7F7F7;
 }
 
-[class*="entypo-"]:before {
-  font-family: 'entypo', sans-serif;
-}
+body.posts[class*=edit] > main,
+body.posts[class*=new] > main {
 
-@mixin fields {
-  border: none;
-  margin: 0;
-  outline: none;
-  padding: 4px 12px;
-  font-weight: lighter;
-  resize: none;
-}
-
-@mixin text {
-  .main.editor {
-    display: flex;
-    display: -webkit-flex;
-    -webkit-flex-direction: row;
-    -webkit-flex: 1 100%;
-    flex-direction: row;
-    flex: 1 100%;
+  form.editor {
+    @include display-flex;
+    @include flex(1);
+    height: 100vh;
+    overflow-y: scroll;
+    border-right: 5px solid #FEFEFE;
   }
 
-  .content.wrapper {
-    display: flex;
-    display: -webkit-flex;
-    flex: 1 50%;
-    -webkit-flex: 1 50%;
-    flex-direction: column;
-    -webkit-flex-direction: column;
+  form ~ aside {
+    @include flex(1);
+    height: 100vh;
+    overflow-y: scroll;
+    padding: 6em 1em 3em 1em;
   }
+}
 
-  .editor.content, .editor.stylesheet, .editor.javascript {
-    @include fields;
-    padding-top: 28px;
+form.post.editor {
+  position: relative;
+
+  textarea {
+    @include flex(1);
+    margin: 0;
+    border: 0;
+    background: inherit;
+    resize: none;
+    padding: 6em 2em 2em 1em;
+    outline: none;
     font-size: 1.2em;
-    background: #FAFAFA;
-    border-right: 1px solid #CACACA;
-    flex: 1 100%;
-    -webkit-flex: 1 100%;
 
-    &.hidden {
+    &:not(.active) {
       display: none;
     }
   }
-
 }
 
-@mixin title {
-  .title.wrapper {
-    margin: 20px 0 0;
-    background: #FAFAFA;
-    @include display-flex;
-    @include flex(0 0 40px);
-    position: relative;
+nav.post {
+  @include flex(0 0 10em);
+  padding: 6em 1em 0 0;
+  margin-left: 1em;
+  ol.menu {
+    background: #FFF;
+    box-shadow: 0 0 3px 0 #bababa;
 
-    .input {
-      @include fields;
-      font-size: 2.5em;
-      width: 100%;
-      margin: 0;
-      padding-left: 44px;
-      font-weight: lighter;
-      background: none;
-    }
-
-    .toggle {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      padding: 0 12px;
-      line-height: 100%;
-      font-size: 3em;
+    li {
       cursor: pointer;
-      border-left: 1px solid transparent;
+      padding: 1em 0 1em 0.6em;
+      margin: 0;
+      border-left: 0.1em solid transparent;
+      @include transition(border 0.3s);
 
-      &:hover {
-        opacity: 0.4;
+      &.active {
+        border-left: 0.8em solid #BABABA;
       }
 
-      &:before {
-        content: "\1f517";
-      }
-    }
-    &.slug {
-      .toggle {
-        border-left-color: #CACACA;
-        box-shadow: inset 1px 0px 4px -2px rgba(0, 0, 0, 0.3);
-        background: rgba(0,0,0,0.1);
-      }
-    }
+      &.actions {
+        border: none;
+        margin: 0;
+        padding: 0;
 
-    .possible.save.actions {
-      margin: 6px 16px;
-      width: 100px;
-      z-index: 100;
-      position: relative;
+        button {
+          cursor: pointer;
+          border: none;
+          background: none;
+          padding: 1em 0;
+          margin: 0;
+          width: 100%;
+          text-align: center;
+          font-size: 1.0em;
+          outline: none;
+          box-shadow: inset 0 1px 0 0 #F0FDF0;
+          background: #E1F8E1;
+          border-top: 1px solid #AEE7AE;
 
-      & > .arrow {
-        position: absolute;
-        top: 6px;
-        left: 4px;
-        font-family: 'entypo', sans-serif;
-        font-size: 3em;
-        padding: 0 4px;
-        content: "\E75C";
-        line-height: 20px;
-        cursor: pointer;
-      }
-
-      & > .wrapper {
-        background: rgb(197, 220, 245);
-        border-radius: 3px;
-        padding-left: 24px;
-
-        &.standalone {
-          padding-left: 0;
-          button {
-            text-align: center;
+          &:active {
+            box-shadow: inset 0 1px 2px 0 #87B187;
+            border-top-color: transparent;
           }
         }
-      }
 
-      button {
-        background: none;
-        padding: 0 8px;
-        border: none;
-        vertical-align: top;
-        font-size: 1.2em;
-        margin: 0;
-        padding: 0 8px;
-        width: 100%;
-        height: 28px;
-        text-align: left;
-        outline: none;
-        cursor: pointer;
+      }
+    }
+  }
+
+  p.status {
+    font-size: 0.8em;
+    text-align: center;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(255,255,255,0.3);
+
+    &.warning {
+      color: #F0BC6F;
+      @include animation(flash 0.8s ease alternate infinite);
+    }
+
+    &:before {
+      font-family: entypo;
+      font-size: 3em;
+      display: block;
+      margin: 0 auto;
+    }
+
+    &.saved {
+      color: #549954;
+      &:before {
+        content: '';
+      }
+    }
+
+    &.error {
+      color: #9B2727;
+      &:before {
+        content: "❌";
       }
     }
   }
 }
 
-@mixin options {
-  .editor.options.wrapper {
-    .options {
-      width: 50%;
-      float: left;
-      padding: 0 24px;
-    }
+section.settings {
+  width: 100%;
+  height: 100%;
+  padding: 4em 10em;
 
-    height: 3.0em;
-    line-height: 3.0em;
-    border-bottom: 1px solid #CACACA;
-    position: relative;
-    flex-basis: 40px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    .wrapper {
-      padding: 0 24px;
-      width: 50%;
+  form {
+    min-height: 10vh;
+    
+    p {
+      text-align: center;
+      &.url {
+        font-weight: bolder;
+      }
     }
-    a {
-      cursor: pointer;
-      margin-right: 24px;
+  }
+
+  input {
+    @include transition(background 0.3s);
+    text-align: center;
+    background: none;
+    border: none;
+    font-size: 1.6em;
+    text-decoration: underline;
+    width: 100%;
+    cursor: pointer;
+
+    &:focus {
+      background: #DFE6EB;
       text-decoration: none;
-      &.active {
-        font-weight: bold;
-      }
-      &:hover:not(.active) {
-        text-decoration: underline;
-      }
+      cursor: text;
     }
   }
-}
 
-@mixin preview {
-  #editorSideContent {
-    @include flex(1 50%);
-    overflow-y: scroll;
-    font-size: 1.2em;
-    font-weight: lighter;
+  span.url {
+    margin: 1.5em 0 0 6px;
   }
-}
 
-@mixin errors {
-  .errors {
-    @include flex(1 auto);
-    background: rgba(236, 66, 66, 0.23);
-    margin: 12px 20% 0 20%;
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #BB0101;
-    color: #811616;
-    position: relative;
-    .dismiss.button {
-      position: absolute;
-      right: 6px;
-      top: 3px;
-      text-decoration: none;
-      color: #811616;
-      font-weight: bold;
-      text-shadow: 0 1px rgb(243, 200, 200);
+  div.actions {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    text-align: right;
+
+    & > * {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    button {
       font-size: 1.4em;
-    }
-  }
-}
-
-@mixin partials {
-  .partials.listing {
-    overflow-y: scroll;
-    list-style-type: none;
-    .partial {
-      padding: 8px 24px;
-      border-bottom: 1px solid #BABABA;
+      border-radius: 2px;
+      margin-left: 1em;
+      border: 1px solid #A3C0D1;
+      border-radius: 2px;
+      background: #E5F1F8;
+      box-shadow: inset 0 1px 0 0 #EDF7FF;
+      margin-left: 1em;
+      color: #325C75;
+      padding: 4px 8px;
       cursor: pointer;
-      &:hover {
-        background: rgba(255,255,255, 0.2);
+      outline: none;
+
+      &:active {
+        box-shadow: inset 0 0px 2px 0 #B4CCDF;
+      }
+
+      &[disabled] {
+        color: #D4DEE4;
+        border-color: #D4DEE4;
       }
     }
-    .title {
-      font-size: 1.3em;
-      font-weight: lighter;
-      margin-bottom: 4px;
-    }
-    .include.tag {
-      color: #BABABA;
-    }
+
   }
 }
 
-.editor.form {
-  position: absolute;
-  top: 46px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  @include text;
-  @include title;
-  @include options;
-  @include preview;
-  @include partials;
-  @include errors;
-
-  & > .wrapper {
-    @include display-flex;
-    @include flex-direction(column);
-    min-height: 100%;
-    height: 100%;
+@-webkit-keyframes flash {
+  to {
+    color: #E78932;
   }
+}
 
+@-o-keyframes flash {
+  to {
+    color: #E78932;
+  }
+}
+
+@-ms-keyframes flash {
+  to {
+    color: #E78932;
+  }
+}
+
+@-moz-keyframes flash {
+  to {
+    color: #E78932;
+  }
+}
+
+@keyframes flash {
+  to {
+    color: #E78932;
+  }
 }

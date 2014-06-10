@@ -1,0 +1,48 @@
+.loading {
+
+  &:before {
+    display: block;
+
+    width: 22px;
+    height: 22px;
+    margin: 4px;
+    
+    border-top: 2px solid #92B8D1;
+    border-right: 2px solid transparent;
+
+    content: "";
+
+    @include animation(spin 1s ease infinite);
+    border-radius: 100%;
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    @include transform(rotate( 360deg ));
+  }
+}
+
+@-o-keyframes spin {
+  to {
+    @include transform(rotate( 360deg ));
+  }
+}
+
+@-ms-keyframes spin {
+  to {
+    @include transform(rotate( 360deg ));
+  }
+}
+
+@-moz-keyframes spin {
+  to {
+    @include transform(rotate( 360deg ));
+  }
+}
+
+@keyframes spin {
+  to {
+    @include transform(rotate( 360deg ));
+  }
+}
