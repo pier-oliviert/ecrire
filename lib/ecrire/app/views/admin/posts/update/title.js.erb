@@ -5,4 +5,4 @@ $actions = $section.find("div.actions")
 $actions.find('span').removeClass('loading')
 $actions.find('button').removeAttr('disabled')
 
-$section.trigger('title:updated', ["<%= j @post.title %>"])
+$section.trigger('title:updated', ["<%= @post.title.html_safe %>"])
