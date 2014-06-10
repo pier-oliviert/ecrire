@@ -7,13 +7,11 @@
   <%= javascript_include_tag "admin" %>
   <%= csrf_meta_tags %>
 </head>
-<body id="<%= controller_name %>">
+<%= content_tag :body, class: %W(#{action_name} #{controller_name}) do %>
 
-  <%= admin_navigation do %>
-    <%= flash_messages %>
-  <% end %>
+  <main>
+    <%= yield %>
+  </main>
 
-  <%= yield %>
-
-</body>
+<% end %>
 </html>

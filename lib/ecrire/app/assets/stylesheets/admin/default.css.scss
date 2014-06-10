@@ -7,7 +7,7 @@ $fonts: Helvetica, sans-serif;
 
 html, body {
   @include display-flex;
-  @include flex(1 auto);
+  @include flex(1);
 }
 
 html {
@@ -15,7 +15,6 @@ html {
 }
 
 body {
-  @include flex-direction(column);
   margin: 0;
   padding: 0;
   font-family: $fonts;
@@ -39,6 +38,33 @@ h1, h2, h3, h4, h5 {
 ul, ol {
   margin: 0;
   padding: 0;
+  list-style-type: none;
+
+  li {
+    margin: 1em 0;
+  }
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  padding: 4px 8px;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+main {
+  @include flex(1 100%);
+  @include display-flex;
+  position: relative;
+  z-index: 1;
 }
 
 

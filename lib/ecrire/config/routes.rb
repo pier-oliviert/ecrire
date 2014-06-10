@@ -14,6 +14,9 @@ Ecrire::Application.routes.draw do
   namespace :admin do
     root 'posts#index'
     resources :posts do
+      collection do
+        get 'new/title', to: :new
+      end
       resources :images, shallow: true
     end
     resources :partials

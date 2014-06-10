@@ -1,0 +1,7 @@
+$status = $("nav.post p.status")
+if (!$status.hasClass('saved')) {
+  $status.fadeOut('fast', function() {
+    $status.addClass('saved').text('<%= time_ago_in_words(@post.updated_at).capitalize %> ago').fadeIn()
+  })
+}
+

@@ -1,0 +1,8 @@
+$section = $("section.post.settings")
+$section.find('p.url').text("<%= post_path(@post.becomes(::Post), only_path: false) %>")
+
+$actions = $section.find("div.actions")
+$actions.find('span').removeClass('loading')
+$actions.find('button').removeAttr('disabled')
+
+$section.trigger('title:updated', ["<%= j @post.title %>"])

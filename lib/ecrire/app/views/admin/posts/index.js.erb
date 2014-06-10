@@ -1,0 +1,9 @@
+$list = $("<%= j render('list', posts: @posts) %>")
+
+$nav = $('nav.menu.admin')
+$nav.addClass('extended')
+  .children('a.drafts')
+  .removeAttr('data-remote')
+
+$nav.append($list)
+

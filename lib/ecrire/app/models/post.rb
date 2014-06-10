@@ -43,7 +43,18 @@ class Post < ActiveRecord::Base
   end
 
   def to_param
-    slug
+    if self.instance_of?(Admin::Post)
+      id
+    else
+      slug
+    end
+  end
+
+  def title=(new_title)
+    super
+    if self.draft?
+      self.slug = nil
+    end
   end
 
   protected

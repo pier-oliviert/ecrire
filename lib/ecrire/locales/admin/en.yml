@@ -3,7 +3,7 @@ en:
     navigation:
       posts: "Posts"
       partials: "Partials"
-      logout: "Log out"
+      logout: ""
 
     form:
       image:
