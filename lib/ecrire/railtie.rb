@@ -100,6 +100,12 @@ module Ecrire
       end
     end
 
+    initializer 'ecrire.locales' do |app|
+      if self.class.blog_configured?
+        config.i18n.railties_load_path.concat(paths['user:locales'].existent)
+      end
+    end
+
     initializer 'ecrire.eager_load' do
       eager_load!
     end
@@ -130,6 +136,7 @@ module Ecrire
                    paths.add 'onboarding:assets', with: onboarding_path + 'assets', glob: '*'
                    paths.add 'onboarding:views', with: onboarding_path + 'views'
 
+                   paths.add 'user:locales', with: 'locales', glob: '**/*.{rb,yml}'
                    paths.add 'user:assets', with: 'assets', glob: '*'
                    paths.add 'user:helpers', with: 'helpers', eager_load: true
                    paths.add 'user:decorators', with: 'decorators', eager_load: true
