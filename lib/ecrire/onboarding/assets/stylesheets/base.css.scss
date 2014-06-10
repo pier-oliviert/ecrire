@@ -1,9 +1,5 @@
-/*
- *= require fonts
- *= require databases
- *= require aside
- *= require complete
-*/
+@import 'compass';
+@import '**/*';
 
 $header-height: 46px;
 $color-dark: #4B482C;
