@@ -56,7 +56,11 @@ module Ecrire
 
       # Don't check for existing file as it will be created if needed.
       ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first
-      ActiveRecord::Base.configurations = app.config.database_configuration
+      begin
+        ActiveRecord::Base.configurations = app.config.database_configuration
+      rescue
+        ActiveRecord::Base.configurations = {}
+      end
     end
 
     initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
