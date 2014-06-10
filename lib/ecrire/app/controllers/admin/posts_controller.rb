@@ -11,10 +11,9 @@ module Admin
     def index
       params[:status] ||= "drafted"
       @posts = Admin::Post.status params[:status]
-      @posts = @posts.order('posts.published_at DESC')
-      @posts = @posts.page(params[:page]).per(params[:per_page])
+      @posts = @posts.order('posts.created_at')
       respond_to do |format|
-        format.html
+        format.js
       end
     end
 
@@ -24,7 +23,7 @@ module Admin
       respond_to do |format|
         format.html do
           if @post.errors.blank?
-            redirect_to edit_admin_post_path(@post)
+            redirect_to edit_admin_post_path(@post.id)
           end
         end
       end
@@ -34,12 +33,20 @@ module Admin
     end
 
     def update
-      if @post.update(post_params)
-        flash[:notice] = t(".successful", title: @post.title)
-        if @post.published?
-          redirect_to post_path(@post.published_at.year, l(@post.published_at, format: '%m'), @post, trailing_slash: true)
-        else
-          redirect_to edit_admin_post_path(@post)
+      success = @post.update(post_params)
+      respond_to do |format|
+        format.js do
+          if success
+            render_context
+          else
+            render 'error'
+          end
+        end
+        format.html do
+          if success
+            flash[:notice] = t(".successful", title: @post.title)
+            redirect_to edit_admin_post_path(@post.id)
+          end
         end
       end
     end
@@ -54,13 +61,21 @@ module Admin
 
     protected
 
-
     def post_params
       params.require(:admin_post).permit(:title, :content, :status, :stylesheet, :javascript, :slug)
     end
 
     def fetch_post
-      @post = Admin::Post.find_by_slug(params[:id])
+      @post = Admin::Post.find(params[:id])
+    end
+
+    def render_context
+      available_contexts = %w(title content)
+      if params.has_key?(:context) && available_contexts.include?(params[:context])
+        render "admin/posts/update/#{params[:context]}" and return
+      else
+        render nothing: true
+      end
     end
   end
 end
