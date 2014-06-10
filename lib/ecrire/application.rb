@@ -1,5 +1,5 @@
-require 'sass-rails'
 require 'compass-rails'
+require 'sass-rails'
 require 'rails/all'
 require 'thin'
 require 'warden'
