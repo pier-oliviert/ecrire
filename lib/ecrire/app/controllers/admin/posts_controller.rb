@@ -2,6 +2,12 @@ module Admin
   class PostsController < Admin::ApplicationController
     before_action :fetch_post, only: [:show, :edit, :update]
 
+    def new
+      if /new\/title/i =~ request.path
+        render 'title' and return
+      end
+    end
+
     def index
       params[:status] ||= "drafted"
       @posts = Admin::Post.status params[:status]
