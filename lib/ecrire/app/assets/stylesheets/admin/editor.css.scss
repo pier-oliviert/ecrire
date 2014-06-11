@@ -26,18 +26,27 @@ body.posts[class*=new] > main {
 form.post.editor {
   position: relative;
 
-  textarea {
+  section.textareas {
     @include flex(1);
-    margin: 0;
-    border: 0;
-    background: inherit;
-    resize: none;
-    padding: 6em 2em 2em 1em;
-    outline: none;
-    font-size: 1.2em;
+    position: relative;
 
-    &:not(.active) {
-      display: none;
+    textarea {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      border: 0;
+      background: inherit;
+      width: 100%;
+      resize: none;
+      font-size: 1.2em;
+      padding: 6em 2em 2em 1em;
+      outline: none;
+      &:not(.active) {
+        display: none;
+      }
     }
   }
 }
@@ -110,7 +119,6 @@ nav.post {
       right: 0;
       font-family: entypo;
       font-size: 3em;
-      display: block;
     }
 
     &.saved {

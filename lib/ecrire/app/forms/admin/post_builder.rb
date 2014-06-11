@@ -19,11 +19,13 @@ module Admin
     end
 
     def editor
-      [
-        text_area(:content, placeholder: t('.content'), class: %w(content active), target: 'content'),
-        text_area(:stylesheet, placeholder: t('.stylesheet'), class: %w(stylesheet), target: 'stylesheet'),
-        text_area(:javascript, placeholder: t('.javascript'), class: %w(javascript), target: 'javascript')
-      ].join.html_safe
+      content_tag :section, class: %w(textareas) do
+        [
+          text_area(:content, placeholder: t('.content'), class: %w(content active), target: 'content'),
+          text_area(:stylesheet, placeholder: t('.stylesheet'), class: %w(stylesheet), target: 'stylesheet'),
+          text_area(:javascript, placeholder: t('.javascript'), class: %w(javascript), target: 'javascript')
+        ].join.html_safe
+      end
     end
 
     def action

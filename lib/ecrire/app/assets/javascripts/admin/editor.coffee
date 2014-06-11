@@ -102,7 +102,7 @@ autoScroll = ->
 
 livePreview = ->
   $form = $('form.editor')
-  $form.children('textarea').on 'input', ->
+  $form.find('section.textareas > textarea').on 'input', ->
     $form.data('outdated', true)
     $preview = $form
     $element = $form.siblings("aside.preview").children(".#{this.attributes.getNamedItem('target').value}")
