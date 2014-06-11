@@ -91,10 +91,12 @@ nav.post {
   }
 
   p.status {
+    position: relative;
     font-size: 0.8em;
     text-align: center;
-    margin-bottom: 0;
+    margin: 4em 0 0 0;
     border-top: 1px solid rgba(255,255,255,0.3);
+    @include transition(opacity 0.3s ease);
 
     &.warning {
       color: #F0BC6F;
@@ -102,10 +104,13 @@ nav.post {
     }
 
     &:before {
+      position: absolute;
+      top: -1em;
+      left: 0;
+      right: 0;
       font-family: entypo;
       font-size: 3em;
       display: block;
-      margin: 0 auto;
     }
 
     &.saved {
