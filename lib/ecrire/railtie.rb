@@ -19,7 +19,7 @@ module Ecrire
     }
 
     initializer 'ecrire.secrets', before: :bootstrap_hook do |app|
-      app.paths.add 'config/secrets', with: user_path + 'config/secrets.yml'
+      app.paths.add 'config/secrets', with: user_path + 'secrets.yml'
     end
 
     initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
@@ -51,8 +51,8 @@ module Ecrire
       # I need to overwrite the path instead
       #
       # app.paths['config/database'] << user_path + '/database.yml' # Working in rails >= 4.1.2
-      app.paths.add 'config/database', with: user_path + 'config/database.yml'
-      app.paths.add 'config/schema', with: user_path + 'config/schema.rb'
+      app.paths.add 'config/database', with: user_path + 'database.yml'
+      app.paths.add 'config/schema', with: user_path + 'schema.rb'
 
       # Don't check for existing file as it will be created if needed.
       ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first

@@ -1,5 +1,6 @@
 require 'yaml'
 require 'securerandom'
+require 'bundler'
 
 module Ecrire
   class New
@@ -15,6 +16,7 @@ module Ecrire
     def generate!
       copy_template!
       generate_secrets!
+      bundle!
     end
 
     def copy_template!
@@ -27,12 +29,17 @@ module Ecrire
     end
 
     def generate_secrets!
-      File.open(Dir.pwd + '/config/secrets.yml', 'w') do |file|
+      File.open(Dir.pwd + '/secrets.yml', 'w') do |file|
         secrets = Hash.new
         secrets['production'] = secrets['development'] = secrets['defaults'] = Hash.new
         secrets['defaults']['secret_key_base'] = SecureRandom.hex(64)
         file.write(secrets.to_yaml)
       end
+    end
+
+    def bundle!
+      require 'bundler/cli'
+      Bundler::CLI.new.install
     end
 
   end

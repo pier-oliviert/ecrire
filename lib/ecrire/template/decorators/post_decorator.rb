@@ -4,7 +4,7 @@ class PostDecorator < EcrireDecorator
       [
         content_tag(:span, l(record.published_at.to_date, format: :short)),
         '&mdash;',
-        link_to(record.title, post_path(record.published_at.year, record.published_at.month, record.slug))
+        link_to(record.title, post_path(record))
       ].join.html_safe
     end
   end

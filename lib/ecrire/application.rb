@@ -1,6 +1,6 @@
+require 'rails/all'
 require 'compass-rails'
 require 'sass-rails'
-require 'rails/all'
 require 'thin'
 require 'warden'
 require 'bcrypt'
