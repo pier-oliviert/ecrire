@@ -51,7 +51,7 @@ module Ecrire
       # I need to overwrite the path instead
       #
       # app.paths['config/database'] << user_path + '/database.yml' # Working in rails >= 4.1.2
-      app.paths.add 'config/database', with: user_path + 'database.yml'
+      app.paths.add 'config/database', with: user_path + 'secrets.yml'
       app.paths.add 'config/schema', with: user_path + 'schema.rb'
 
       # Don't check for existing file as it will be created if needed.
