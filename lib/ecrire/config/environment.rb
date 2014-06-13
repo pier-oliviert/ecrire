@@ -1,3 +1,5 @@
+Bundler.require(:default, :server, :assets, Rails.env)
+
 Rails.application.configure do
   config = self.config
   config.eager_load = true

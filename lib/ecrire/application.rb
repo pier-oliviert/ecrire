@@ -1,16 +1,6 @@
 require 'rails/all'
-require 'compass-rails'
-require 'sass-rails'
-require 'thin'
 require 'warden'
-require 'bcrypt'
 require 's3'
-require 'pg'
-require 'coffee-rails'
-require 'jquery-rails'
-require 'turbolinks'
-require 'kaminari'
-require 'cubisme'
 
 module Ecrire
   class Application < Rails::Application
