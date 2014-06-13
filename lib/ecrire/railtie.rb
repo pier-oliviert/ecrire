@@ -110,17 +110,8 @@ module Ecrire
       eager_load!
     end
 
-    initializer 'ecrire.helpers' do
-      # This is somewhat hacky for a specific reason: I want to use
-      # as much as possible rails' API even if it's not great. This way,
-      # I'll have a track records of API that I feel could benefit from a PR
-      # upstream. 
-      #
-      # TODO: Refactor how helpers are handled internally in rails and PR
-      helpers = ApplicationController.all_helpers_from_path(paths['user:helpers'].existent).map do |helper_name|
-        "#{helper_name}_helper".camelize.constantize
-      end
-      ApplicationController.helper *helpers
+    initializer 'ecrire.helpers' do |app|
+      app.config.helpers_paths.unshift(*paths['user:helpers'].existent)
     end
 
     def paths
