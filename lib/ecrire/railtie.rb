@@ -1,5 +1,51 @@
 module Ecrire
   class Railtie < ::Rails::Railtie
+
+    module Default
+      extend ActiveSupport::Concern
+
+      included do
+        initializer 'ecrire.locales' do |app|
+          config.i18n.railties_load_path.concat(paths['user:locales'].existent)
+        end
+
+        initializer 'ecrire.logs', before: :initialize_logger do |app|
+          unless Rails.env.test?
+            app.paths.add "log", with: "log/#{Rails.env}.log"
+          end
+        end
+
+      end
+    end
+
+    module Onboarding
+      class User < ActiveRecord::Base
+      end
+
+      extend ActiveSupport::Concern
+
+      included do
+        initializer 'ecrire.onboarding.dynamic_settings' do |app|
+          app.config.secret_key_base = SecureRandom.hex(16)
+        end
+
+        initializer 'ecrire.onboarding.routes' do |app|
+          app.routes.clear!
+
+          app.paths.add 'config/routes.rb', with: 'config/onboarding_routes.rb'
+
+          paths = app.paths['config/routes.rb'].existent
+          app.routes_reloader.paths.clear.unshift(*paths)
+          app.routes_reloader.route_sets << app.routes
+        end
+
+        def root_path
+          Pathname.new(__FILE__).dirname + 'onboarding/'
+        end
+
+      end
+    end
+
     # This hack is done because ActiveRecord raise an error that makes
     # Ecrire exit which makes it impossible to have an instance working without a 
     # database. By doing this, it becomes possible to Ecrire to load the server and
@@ -8,7 +54,6 @@ module Ecrire
       initializer.name.eql? 'active_record.initialize_database'
     end.first.instance_variable_set :@block, Proc.new { |app|
       ActiveSupport.on_load(:active_record) do
-
         begin
           establish_connection
         rescue ActiveRecord::NoDatabaseError, ActiveRecord::AdapterNotSpecified
@@ -19,49 +64,14 @@ module Ecrire
     }
 
     initializer 'ecrire.secrets', before: :bootstrap_hook do |app|
-      app.paths.add 'config/secrets', with: user_path + 'secrets.yml'
+      app.paths.add 'config/secrets', with: Dir.pwd + '/secrets.yml'
     end
 
     initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
-      # TODO: In rails::Engine, those are set. However since I'm using a railtie, I don't have a configuration.
-      # Moreover, the paths should be frozen at Rails::Paths level, not some array within the configuration
-      # since those 2 are tightly coupled. So, Rails should have a method to freeze a key for a Rails::Root::Path. Patent Pending.
-      # config.autoload_paths.freeze
-      # config.eager_load_paths.freeze
-      # config.autoload_once_paths.freeze
       ActiveSupport::Dependencies.autoload_paths.unshift(*self.paths.autoload_paths)
       ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)
     end
 
-    initializer 'ecrire.logs', before: :initialize_logger do |app|
-      unless Rails.env.test?
-        app.paths.add "log", with: "#{user_path}/log/#{Rails.env}.log"
-      end
-    end
-
-    initializer 'ecrire.database_information', before: "active_record.initialize_database" do |app|
-      # TODO: Rails' configuration check for the first path in config/database. So, if the first one
-      # is invalid and another one is valid, rails configuration will choke.
-      # https://github.com/rails/rails/blob/master/railties/lib/rails/application/configuration.rb#L95
-      # It should be paths['config/database'].existent.first
-      #
-      # For that reason, it's not possible to use paths << user_path + '/database.yml' and let rails figure
-      # things out (Which was my initial solution)
-      #
-      # I need to overwrite the path instead
-      #
-      # app.paths['config/database'] << user_path + '/database.yml' # Working in rails >= 4.1.2
-      app.paths.add 'config/database', with: user_path + 'secrets.yml'
-      app.paths.add 'config/schema', with: user_path + 'schema.rb'
-
-      # Don't check for existing file as it will be created if needed.
-      ActiveRecord::Tasks::DatabaseTasks.db_dir = app.paths['config/schema'].expanded.first
-      begin
-        ActiveRecord::Base.configurations = app.config.database_configuration
-      rescue
-        ActiveRecord::Base.configurations = {}
-      end
-    end
 
     initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
       app.config.eager_load_paths.unshift *paths.eager_load
@@ -69,100 +79,56 @@ module Ecrire
       app.config.autoload_paths.unshift *paths.autoload_paths
     end
 
-    initializer 'ecrire.onboarding' do |app|
-      unless Ecrire::Railtie.blog_configured?
 
-        app.routes.clear!
-
-        app.paths.add 'config/routes.rb', with: 'config/onboarding_routes.rb'
-
-        paths = app.paths['config/routes.rb'].existent
-        app.routes_reloader.paths.clear.unshift(*paths)
-        app.routes_reloader.route_sets << app.routes
-      end
+    initializer 'ecrire.helpers' do |app|
+      app.config.helpers_paths.unshift(*paths['user:helpers'].existent)
     end
 
     initializer 'ecrire.view_paths' do |app|
-      if Ecrire::Railtie.blog_configured?
-        ActionController::Base.prepend_view_path paths['user:views'].existent
-      else
-        ActionController::Base.prepend_view_path paths['onboarding:views'].existent
-      end
+      ActionController::Base.prepend_view_path paths['user:views'].existent
     end
 
     initializer 'ecrire.assets' do |app|
-      app.config.paths.add 'public', with: user_path + 'tmp/public'
-
-      if Ecrire::Railtie.blog_configured?
-        app.config.assets.paths.concat paths['user:assets'].existent
-      else
-        app.config.assets.paths.concat paths['onboarding:assets'].existent
-      end
-    end
-
-    initializer 'ecrire.locales' do |app|
-      if self.class.blog_configured?
-        config.i18n.railties_load_path.concat(paths['user:locales'].existent)
-      end
+      app.config.assets.paths.concat paths['user:assets'].existent
     end
 
     initializer 'ecrire.eager_load' do
       eager_load!
     end
 
-    initializer 'ecrire.helpers' do |app|
-      app.config.helpers_paths.unshift(*paths['user:helpers'].existent)
+    class << self
+
+      def configured?
+        @configured ||= begin
+          app = Rails.application
+          app.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
+          ActiveRecord::Base.configurations = app.config.database_configuration
+          ActiveRecord::Base.establish_connection
+          @configured = !ActiveRecord::Base.configurations.empty? && !Onboarding::User.first.nil?
+        rescue Exception => e
+          ActiveRecord::Base.configurations = {}
+          if Rails.env.production?
+            true
+          else
+            false
+          end
+        end
+      end
     end
 
     def paths
-      # Paths is underused. I would actually remove eager_load: true and add a method named load!
-      # which would pass the @path.existent to ActiveSupport::Dependencies. As it's either autoloaded or
-      # manually loaded (Right now via eager_load!), I believe that filter is useless.
-      #
-      # Initializer could do something like @paths['user:helpers'].load! and fail if a requirement fails.
-      # It wouldn't be that much different than using require_dependency() in eager_load!
       @paths ||= begin
-                   paths = Rails::Paths::Root.new(user_path)
-
-                   paths.add 'onboarding:assets', with: onboarding_path + 'assets', glob: '*'
-                   paths.add 'onboarding:views', with: onboarding_path + 'views'
+                   paths = Rails::Paths::Root.new(root_path)
 
                    paths.add 'user:locales', with: 'locales', glob: '**/*.{rb,yml}'
                    paths.add 'user:assets', with: 'assets', glob: '*'
                    paths.add 'user:helpers', with: 'helpers', eager_load: true
                    paths.add 'user:decorators', with: 'decorators', eager_load: true
                    paths.add 'user:views', with: 'views'
+                   paths.add 'public', with: 'tmp/public'
 
                    paths
                  end
-    end
-
-    def self.blog_configured?
-      @blog_configured ||= begin
-                             !ActiveRecord::Base.configurations.empty? && !User.first.nil?
-                           rescue
-                             false
-                           end
-    end
-
-    def user_path(file = 'config.ru')
-      @user_path ||= begin
-                       pathname = Pathname.pwd
-
-                       while !(pathname + file).exist? do
-                         pathname = pathname.parent
-                         if pathname.root?
-                           raise "Could not find #{file}. Type 'ecrire new blog_name' to create a new blog"
-                           break
-                         end
-                       end
-
-                       pathname
-                     end
-    end
-
-    def onboarding_path
-      @onboarding_path ||= Pathname.new(__FILE__).dirname + 'onboarding/'
     end
 
     def eager_load!
@@ -172,5 +138,29 @@ module Ecrire
         end
       end
     end
+
+    def root_path(file = 'config.ru')
+      begin
+        pathname = Pathname.pwd
+
+        while !(pathname + file).exist? do
+          pathname = pathname.parent
+          if pathname.root?
+            raise "Could not find #{file}. Type 'ecrire new blog_name' to create a new blog"
+            break
+          end
+        end
+
+        pathname
+      end
+    end
+
+    if configured?
+      include Default
+    else
+      include Onboarding
+    end
+
+
   end
 end

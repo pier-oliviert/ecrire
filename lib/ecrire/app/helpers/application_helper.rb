@@ -39,7 +39,9 @@ module ApplicationHelper
   end
 
   def description_meta_tag
-    content_tag :meta, nil, name: 'description', content: Rails.application.secrets.meta['description']
+    if Rails.application.secrets.fetch(:meta, {}).has_key?(:description)
+      content_tag :meta, nil, name: 'description', content: Rails.application.secrets[:meta][:description]
+    end
   end
 
   def open_graph_type
