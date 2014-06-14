@@ -1,3 +1,5 @@
+@import 'mixins/form';
+
 form.post.new.title {
   @include display-flex;
   @include flex-direction(column);
@@ -15,10 +17,8 @@ form.post.new.title {
   }
 
   fieldset {
-    padding: 8px;
+    @include textfield;
     margin: -30vh 10vw 0;
-    border: 1px solid #BABABA;
-    background: #FFF;
     position: relative;
     input {
       font-size: 1.1em;

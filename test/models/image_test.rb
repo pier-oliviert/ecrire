@@ -11,7 +11,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test 'path should handle blank base_folder' do
-    Rails.application.secrets.s3['base_folder'] = ""
+    Rails.application.secrets.s3['path'] = ""
     file = Struct::File.new('some_image.jpg')
 
     image = Admin::Image.new
@@ -21,7 +21,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test 'path should handle base_folder' do
-    Rails.application.secrets.s3['base_folder'] = "my_blog"
+    Rails.application.secrets.s3['path'] = "my_blog"
     file = Struct::File.new('some_image.jpg')
 
     image = Admin::Image.new
@@ -29,4 +29,5 @@ class ImageTest < ActiveSupport::TestCase
 
     assert_equal image.send(:path, file), "my_blog/#{image.post.id}/some_image.jpg"
   end
+
 end

@@ -1,3 +1,6 @@
+@import 'mixins/colors';
+@import 'mixins/animations';
+
 body.posts[class*=edit] > main,
 body.posts[class*=new] > main,
 form.editor {
@@ -55,10 +58,13 @@ nav.post {
   @include flex(0 0 10em);
   padding: 6em 1em 0 0;
   margin-left: 1em;
-  ol.menu {
+
+  ol.menu, div.missing.configuration {
     background: #FFF;
     box-shadow: 0 0 3px 0 #bababa;
+  }
 
+  ol.menu {
     li {
       cursor: pointer;
       padding: 1em 0 1em 0.6em;
@@ -99,6 +105,25 @@ nav.post {
     }
   }
 
+  div.missing.configuration {
+    margin: 3em 0;
+    padding: 0.3em 1em 1em 1em;
+    h3 {
+      text-align: center;
+      color: $warning;
+      @include animation(flash 0.8s ease alternate infinite);
+    }
+
+    p {
+      font-size: 0.8em;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+    }
+  }
+
   p.status {
     position: relative;
     font-size: 0.8em;
@@ -108,7 +133,7 @@ nav.post {
     @include transition(opacity 0.3s ease);
 
     &.warning {
-      color: #F0BC6F;
+      color: $warning;
       @include animation(flash 0.8s ease alternate infinite);
     }
 
@@ -212,32 +237,3 @@ section.settings {
   }
 }
 
-@-webkit-keyframes flash {
-  to {
-    color: #E78932;
-  }
-}
-
-@-o-keyframes flash {
-  to {
-    color: #E78932;
-  }
-}
-
-@-ms-keyframes flash {
-  to {
-    color: #E78932;
-  }
-}
-
-@-moz-keyframes flash {
-  to {
-    color: #E78932;
-  }
-}
-
-@keyframes flash {
-  to {
-    color: #E78932;
-  }
-}

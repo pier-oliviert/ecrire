@@ -1,11 +1,14 @@
-<%= form_for [image.post, image],
+<%= form_for [post, image],
   builder: Admin::ImageBuilder,
-  url: admin_post_images_path(image.post),
+  url: admin_post_images_path(post.id),
   html: {
     class: %w(image form),
     id: "imageForm"
   } do |f| %>
 
-  <%= f.drop_pad %>
+  <%= f.file_field :file %>
+  <div class="wrapper">
+    <p>You can upload a picture by either <strong>clicking</strong> here or <strong>dropping</strong> a picture here</p>
+  </div>
 
 <% end %>

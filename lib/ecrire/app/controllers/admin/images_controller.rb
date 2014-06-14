@@ -9,7 +9,7 @@ module Admin
 
     def create
       @image = post.images.build
-      @image.file = params[:file]
+      @image.file = params[:admin_image][:file]
       respond_to do |format|
         format.js do
           render 'error' unless @image.save
@@ -30,7 +30,7 @@ module Admin
     protected
 
     def post
-      @post ||= Admin::Post.find_by_slug(params[:post_id])
+      @post ||= Admin::Post.find(params[:post_id])
     end
 
     def image_params

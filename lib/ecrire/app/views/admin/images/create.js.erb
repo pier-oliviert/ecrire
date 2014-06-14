@@ -1,9 +1,16 @@
-window.Editor.imageDropPad.showMessage()
+$textarea = $('textarea.content')
+$article = $('article.content')
+$image = $('<%= j image_tag(@image.url) %>')
+df = document.createDocumentFragment()
+body = document.createElement('body')
+body.innerHTML = $textarea.val()
 
-var $image = $("<%= j decorate(@image, :thumbnail) %>").hide()
+$form = $('form.image.replaceable')
+idx = $article.find('form.image').index($form)
 
-$image.prependTo($(".images.items")).show("slow")
+$(body).find('img').filter(':not([src])').eq(idx).replaceWith($image)
 
-if ($('#imagesOptionsToggle').hasClass('active')) {
-  $image.find('sidebar.options').css('visibility', 'visible')
-}
+$textarea.val(body.innerHTML)
+
+$form.replaceWith($image)
+$('form.post.editor.autosave').data('outdated', true)

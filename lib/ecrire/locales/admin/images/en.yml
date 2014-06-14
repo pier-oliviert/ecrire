@@ -1,0 +1,5 @@
+en:
+  admin:
+    images:
+      helper:
+        title: "Configure s3 to upload images"

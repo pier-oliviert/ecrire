@@ -20,6 +20,10 @@ Ecrire::Application.routes.draw do
       resources :images, shallow: true
     end
     resources :partials
+
+    namespace :configurations do
+      resource :images, only: [:show, :create]
+    end
   end
 
 end

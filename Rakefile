@@ -1,6 +1,6 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-require_relative 'lib/ecrire'
+require 'ecrire'
 
 Ecrire::Application.load_tasks
 

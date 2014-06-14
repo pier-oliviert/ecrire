@@ -1,10 +1,5 @@
 module Admin
   class ImageBuilder < ActionView::Helpers::FormBuilder
-    def drop_pad
-      content_tag :div, id: "imageDropPad" do
-        content_tag :span, t('drop_pad'), class: %w(message)
-      end
-    end
 
     protected
 
