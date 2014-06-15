@@ -62,7 +62,7 @@ module Onboarding
     end
 
     def save_configurations!
-      path = Rails.application.paths['config/database'].expanded.first
+      path = Dir.pwd + '/secrets.yml'
       File.open(path, 'w') do |file|
         file.write(ActiveRecord::Base.configurations.to_yaml)
       end

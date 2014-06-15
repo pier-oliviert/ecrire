@@ -41,6 +41,7 @@ class OnboardingController < ApplicationController
   before_action ::RedirectFilter, only: :index
 
   def index
+    generate_secret_key_base!
     render 'complete'
   end
 
@@ -60,6 +61,17 @@ class OnboardingController < ApplicationController
     if !instance_of?(OnboardingController)
       redirect_to :root
     end
+  end
+
+  def generate_secret_key_base!
+    path = Rails.application.paths['config/secrets'].expanded.first
+    config = YAML.load_file(path)
+    config['development']['secret_key_base'] = config['production']['secret_key_base'] = SecureRandom.hex(64)
+    File.open(path, 'w') do |file|
+      file.write(config.to_yaml)
+    end
+
+
   end
 
   protected

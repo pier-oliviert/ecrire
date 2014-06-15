@@ -8,7 +8,7 @@ module Ecrire
     end
 
     def output
-      @app.paths['public'].existent.first + @app.config.assets.prefix
+      Ecrire::Railtie.paths['public'].existent.first + @app.config.assets.prefix
     end
 
     def compile!
