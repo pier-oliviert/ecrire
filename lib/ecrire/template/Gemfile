@@ -18,6 +18,7 @@ group :server do
 end
 
 group :assets do
+  gem 'therubyracer'
   gem 'sass-rails',    '~> 4.0.3'
   gem 'sprockets-rails','~> 2.1'
   gem 'compass',       '~>0.13.alpha.4'
