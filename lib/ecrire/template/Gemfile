@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'ecrire'         '~> 0.6'
+gem 'ecrire',        '~> 0.6'
 gem 'actionview',    '~> 4.1'
 gem 'activemodel',   '~> 4.1'
 gem 'actionmailer',  '~> 4.1'
