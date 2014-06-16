@@ -25,5 +25,6 @@ group :assets do
   gem 'coffee-rails',       '~> 4.0'
   gem 'jquery-rails',       '~> 3.1'
   gem 'turbolinks',         '~> 2.2'
+  gem 'uglifier',           '~> 2.5'
 end
 
