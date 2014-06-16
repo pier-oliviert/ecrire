@@ -4,7 +4,7 @@ require 'ecrire/version'
 module Ecrire
   class CommandsTasks < Rails::CommandsTasks
 
-    COMMAND_WHITELIST = %w(console server new update version help)
+    COMMAND_WHITELIST = %w(console server new version help)
 
     # I have to reimplement the whole method otherwise it will
     # check against the parent's COMMAND_WHITELIST
@@ -49,21 +49,6 @@ module Ecrire
 
       initialize_application!
       Ecrire::Console.start(Ecrire::Application, options)
-    end
-
-    def update
-      puts "Updating ecrire for your blog"
-      require 'ecrire'
-      begin
-        initialize_application!
-        require_command!('migrate')
-
-        Ecrire::Migrate.new.run!
-        puts "Your blog has successfully been updated with the latest version #{Ecrire::VERSION}"
-      rescue Exception => exception
-        puts "An error occurred while updating: #{exception.message}"
-        puts exception.backtrace
-      end
     end
 
     def new
