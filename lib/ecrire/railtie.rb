@@ -99,12 +99,12 @@ module Ecrire
     class << self
 
       def configured?
-        @configured ||= begin
+        begin
           app = Rails.application
           app.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
           ActiveRecord::Base.configurations = app.config.database_configuration
           ActiveRecord::Base.establish_connection
-          @configured = !ActiveRecord::Base.configurations.empty? && !Onboarding::User.first.nil?
+          !ActiveRecord::Base.configurations.empty? && !Onboarding::User.first.nil?
         rescue Exception => e
           ActiveRecord::Base.configurations = {}
           if Rails.env.production?
