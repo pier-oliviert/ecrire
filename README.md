@@ -12,7 +12,7 @@ You might also want to show some code snippet that you've either created or foun
 
 Well, Ecrire is the blog engine that can do it for you.
 
-![The Editor](https://raw2.github.com/pothibo/ecrire/gh-pages/images/editor.png)
+![The Editor](http://f.cl.ly/items/1u0r3g0E1r3x2z1g2G1P/Screen%20Shot%202014-06-16%20at%206.19.06%20PM.png)
 
 The editor is split in two halves. The left is where you write your post. The right is where you see a live preview of what you are writing as well as some tools to help you build each of your post.
 
