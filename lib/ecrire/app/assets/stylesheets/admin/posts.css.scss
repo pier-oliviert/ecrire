@@ -1,7 +1,7 @@
 @import 'mixins/form';
 
 form.post.new.title {
-  @include display-flex;
+  @include display(flex);
   @include flex-direction(column);
   @include flex(1);
   @include justify-content(center);

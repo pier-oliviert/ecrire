@@ -11,7 +11,7 @@ body.posts[class*=edit] > main,
 body.posts[class*=new] > main {
 
   form.editor {
-    @include display-flex;
+    @include display(flex);
     @include flex(1);
     height: 100vh;
     overflow-y: scroll;

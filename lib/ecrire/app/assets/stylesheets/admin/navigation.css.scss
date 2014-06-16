@@ -2,7 +2,7 @@
 
 nav.admin {
   position: absolute;
-  @include display-flex;
+  @include display(flex);
   @include flex-direction(row);
   @include align-items(center);
   @include justify-content(space-around);
@@ -50,7 +50,7 @@ nav.admin {
 
     &.settings {
       &:hover {
-        @include rotate(360deg);
+        @include transform(rotate(1.0turn));
       }
     }
   }

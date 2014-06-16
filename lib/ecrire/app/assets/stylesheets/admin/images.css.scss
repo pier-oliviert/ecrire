@@ -4,7 +4,7 @@ body.images > main {
   @include flex-direction(column);
 
   section.configure, section.complete {
-    @include display-flex;
+    @include display(flex);
     margin-top: 10em;
 
     h1 {
@@ -29,7 +29,7 @@ body.images > main {
     form {
       margin: 0 3em;
       font-size: 1.0em;
-      @include display-flex;
+      @include display(flex);
       @include flex-wrap(wrap);
 
       input {
@@ -58,7 +58,7 @@ body.images > main {
 }
 
 form.image {
-  @include display-flex;
+  @include display(flex);
   @include align-items(center);
   position: relative;
   background: #FFF;

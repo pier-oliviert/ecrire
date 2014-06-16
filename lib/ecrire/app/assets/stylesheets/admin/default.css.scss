@@ -6,7 +6,7 @@ $fonts: Helvetica, sans-serif;
 }
 
 html, body {
-  @include display-flex;
+  @include display(flex);
   @include flex(1);
 }
 
@@ -62,7 +62,7 @@ button {
 
 main {
   @include flex(1 100%);
-  @include display-flex;
+  @include display(flex);
   position: relative;
   z-index: 1;
 }

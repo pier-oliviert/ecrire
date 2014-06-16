@@ -1,6 +1,6 @@
 #partials {
   & > .wrapper {
-    @include display-flex;
+    @include display(flex);
     @include flex-direction(row);
     @include flex(1 100%);
 
