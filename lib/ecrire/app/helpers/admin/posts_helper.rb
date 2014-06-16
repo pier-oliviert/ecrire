@@ -8,7 +8,7 @@ module Admin
       else
         path = root_path
       end
-      link_to "", path
+      link_to "", path, 'data-no-turbolink' => true
     end
 
   end
