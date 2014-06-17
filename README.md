@@ -1,64 +1,21 @@
 # Ecrire
 
-You write code for a living and now, you feel like you could use a blog to share your experience with others. Most of us have been there.
+![The Editor](http://f.cl.ly/items/1u0r3g0E1r3x2z1g2G1P/Screen%20Shot%202014-06-16%20at%206.19.06%20PM.png)
 
-Starting your own blog isn't an easy task. If you've ever started one, you know how hard it is to stay focused.
+Starting your own blog isn't an easy task. If you've ever started one, you know how hard it is to stay focused. With ecrire, you have all the tools you need to help you get started.
 
-You also want your blog to look like something that looks like you. Personality.
+The interface is light and the editor is at the forefront. Because writing, that's what we do.
 
-Because you write code for a living, you don't want to waste much time on your blog building everything from the ground up but you would also like to be able to change things, small HTML or CSS changes.
+And it doesn't stop there. You have the ability to change personalize each and every post like you would for a web page. You can customize your page with custom Javascript and CSS. And to make your life even easier, those two are evaluated in **real time**.
 
-You might also want to show some code snippet that you've either created or found about working on something. You know how important code indentations and highlighting is to help visualize concept and logic. So you need to have that.
+Don't worry about saving your drafts, Ecrire does it for you every half a second. We're in 2014, after all.
 
-Well, Ecrire is the blog engine that can do it for you.
+Ecrire is built on top of Ruby on Rails, that means that every theme you build can be built with ruby helpers and decorators while having the power to write clean HTML. Your views can be neatly organized and clean.
 
-![The Editor](https://raw2.github.com/pothibo/ecrire/gh-pages/images/editor.png)
+Same goes for your CSS and Javascript files. Ecrire comes with SASS & Bourbon for the CSS interpreter. Coffeescript is also available for your javascript.
 
-The editor is split in two halves. The left is where you write your post. The right is where you see a live preview of what you are writing as well as some tools to help you build each of your post.
+Go ahead, try it out!
 
-### The editor
-
-This is where you will spend most of your time. The editor is plain but powerful: it's just HTML. Why would you want HTML to be abstracted from you? You probably know HTML really well and there's nothing more flexible than that.
-
-Above the editor, there's 3 links: Write, Stylesheet and Javascript. **Write** let's you write HTML while **Stylesheet** and **Javascript** let you customize CSS and JS for this particular post. If you want to float an image on a specific paragraph, you can. If you want to have a small button that toggles something special, you can too. You're a developer, I'm sure you'll have ideas of your own on how to leverage those, I sure did!
-
-### Preview and importers
-
-When you open up the editor, the right hand side shows the live preview of your post. It updates as you type HTML and CSS. It's very useful when you try to tweak your post or when you move things around. The preview gives you exactly how your post will look like once you publish it, in real time.
-
-There's two importers that you can use to help you write awesome posts. Images and partials.
-
-#### Images
-
-![Image importer](https://raw2.github.com/pothibo/ecrire/gh-pages/images/images.png)
-
-You see the dashed box there, it does what it says: It let's you upload images by dropping them from your desktop onto the dashed box. As simple as that.
-
-Once your file is uploaded to S3, you don't need to know where your file is, you can drag the image onto the textarea and the HTML tag will be generated for you at the place you drop it. Look for yourself.
-
-![How to import images](https://raw2.github.com/pothibo/ecrire/gh-pages/images/images.gif)
-
-#### Partials
-
-If you've ever done some web development, you must know what partials are. They are small HTML snippet that you reuse on different pages.
-
-Partials have an editor very similar to posts. They have their own HTML, CSS and Javascript that can be inserted in any post you wish. If you write about different topics and you would like to have a form on only certain pages, it becomes easy to do that with partials.
-
-When you want to start using partials, it's as simple as working with images. You have a list of all your partials and you can drag and drop onto the textarea the partial you want, at the location you want in your text. Like the images, Ecrire will generate the HTML tag for you. And your partial will appear in your live preview like everything else.
-
-### Code highlighting
-
-You're a developer and you want to show code. And you want it to look awesome.
-
-Ecrire comes with [prism.js](http://prismjs.com), a library that does code highlighting extremely well. It also supports a large array of languages and is very easy to extend to your own language if yours isn't supported.
-
-Like everything else, code highlighting works in the live preview. Line numbers and all!
-
-### Draft and publishing
-
-Like any blog engine, Ecrire saves as a draft by default so you can write your post without having the world seeing it.
-
-When you're ready, simply press the arrow on the left of **Save** and click the publish button!
 
 ### Getting started
 
@@ -70,11 +27,15 @@ You can install the gem with rubygems.
 Then create a new blog
 ``` ecrire new your_blog_name ```
 
-It will create a new blog using the default template. Running the blog will enter into a configuration mode that will guide you through the steps of configuration Ecrire.
-``` ecrire server  ```
+It will create a new blog using the default template. Before starting up your server, you will need to run Bundler to install all the dependency your blog needs.
+``` bundle install ```
+
+You are ready to go. Ecrire will launch the onboarding process until you set up your database and you create a user.
+
+``` bundle exec ecrire server  ```
 
 You can access the blog & configuration setup with your browser by going at the following address.
-``` localhost:3000  ```
+``` http://localhost:3000  ```
 
 ### Licence
 
