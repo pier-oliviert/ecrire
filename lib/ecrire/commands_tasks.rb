@@ -1,5 +1,6 @@
 require 'rails/commands/commands_tasks'
 require 'ecrire/version'
+require 'active_record'
 
 module Ecrire
   class CommandsTasks < Rails::CommandsTasks
@@ -25,6 +26,7 @@ module Ecrire
         # otherwise the --environment option given to the server won't propagate.
         require 'ecrire'
         Dir.chdir(Ecrire::Application.root)
+        check_migration_pending!
       end
 
       if Rails.env.production?
@@ -48,6 +50,7 @@ module Ecrire
       shift_argv!
 
       initialize_application!
+      check_migration_pending!
       Ecrire::Console.start(Ecrire::Application, options)
     end
 
@@ -72,6 +75,25 @@ module Ecrire
 
     def require_command!(command)
       require "ecrire/commands/#{command}"
+    end
+
+    protected
+
+    def check_migration_pending!
+      path = Rails.application.paths['db/migrate'].existent
+      migration = ActiveRecord::Migrator.migrations(path).last
+      current_version = ActiveRecord::Migrator.get_all_versions.max
+      if migration.version > current_version
+        puts 'Your database needs to be updated. You may want to backup your database beforehand. Would you like to do it now? (y/n)'
+        while a = gets
+          if a[0].casecmp('y') == 0
+            ActiveRecord::Migrator.migrate(path)
+            break
+          else
+            exit
+          end
+        end
+      end
     end
 
   end
