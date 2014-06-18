@@ -1,8 +1,4 @@
-$section = $("section.post.settings")
-$section.find('p.url').text("<%= post_path(@post.becomes(::Post), only_path: false) %>")
+$form = $("form.post.settings")
+$form.find('p.url').text("<%= post_path(@post.becomes(::Post), only_path: false) %>")
 
-$actions = $section.find("div.actions")
-$actions.find('span').removeClass('loading')
-$actions.find('button').removeAttr('disabled')
-
-$section.trigger('title:updated', ["<%= @post.title.html_safe %>"])
+$form.trigger('title:updated', ["<%= @post.title.html_safe %>"])

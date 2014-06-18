@@ -34,6 +34,31 @@
 <% end %>
 
 <aside class="preview">
+
+  <header>
+    <%= content_tag :p, post_path(post.becomes(::Post), only_path: false), class: %w(url) %>
+    <%= form_for post,
+      html: {class: %w(post title settings)} do |f| %>
+      <%= hidden_field_tag :context, :title %>
+
+      <%= f.text_field :title, class: %w(title), autocomplete: :off %>
+    <% end %>
+
+    <section class="labels">
+      <%= form_for [post, Admin::Label.new],
+        html: {class: %w(labels new)},
+        remote: true,
+        url: admin_post_properties_path(post.id) do |f| %>
+        <fieldset>
+          <%= f.text_field :name, placeholder: 'Create a new label' %>
+          <%= f.button '↵' %>
+        </fieldset>
+      <% end %>
+
+      <%= decorate @labels, :button, post: post, properties: post.properties.labels.includes(:data) %>
+    </section>
+  </header>
+
   <%= render 'admin/images/form', post: post, image: post.images.new %>
   <%= content_tag :style, post.stylesheet.html_safe, scoped: :scoped, class: %w(stylesheet) %>
   <%= content_tag :script, post.javascript.html_safe, type: 'text/javascript', class: %w(javascript) %>
@@ -42,23 +67,5 @@
 
 <nav class="admin options">
   <%= editor_back_button(post) %>
-  <%= content_tag :span, post.title, class: %w(title) %>
-  <%= link_to "⚙", 'javascript:void(0)', class: %w(settings) %>
-
-  <section class="post settings hidden">
-    <%= form_for post,
-      builder: Admin::PostSettingsBuilder,
-      html: {class: %w(post title settings)} do |f| %>
-      <%= hidden_field_tag :context, :title %>
-
-      <%= f.notice %>
-      <%= f.text_field :title, class: %w(title), autocomplete: :off %>
-      <%= f.permalink %>
-
-      <%= f.actions %>
-    <% end %>
-
-
-  </section>
 </nav>
 

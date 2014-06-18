@@ -2,6 +2,7 @@ require 'nokogiri'
 
 class Post < ActiveRecord::Base
   has_many :images
+  has_many :properties
 
   scope :status, lambda {|status|
     if status.eql?("published")

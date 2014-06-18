@@ -1,0 +1,106 @@
+aside.preview {
+  padding: 0 0 3em 0;
+
+  header {
+    min-height: 250px;
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(space-around);
+    position: relative;
+    padding: 5em 1em 0 1em;
+    background: #FDFDFD;
+  }
+
+  input {
+    color: #7299CC;
+    border: 1px solid transparent;
+    background: none;
+    outline: none;
+    @include transition(background 0.1s, border 0.3s, box-shadow 0.1s);
+  }
+
+  input.title {
+    width: 100%;
+    font-size: 2em;
+    color: #333D49;
+    border-color: #D9E3E9;
+  }
+
+  input.title:focus {
+      color: #415166;
+      background: #DDE6EB;
+      border: 1px solid #84A5B8;
+      box-shadow: inset 0 0 2px 0 #B5C4CC;
+  }
+
+  p.url {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    margin: 1.2em 0 2em 0;
+  }
+
+  section.labels {
+    @include display(flex);
+    @include flex-wrap(wrap);
+    @include align-items(center);
+
+    form.label {
+      border-radius: 2px;
+      &.create {
+        input[type='submit'] {
+          border: 1px solid #C1D5E0;
+        }
+      }
+
+      &.destroy {
+        input[type='submit'] {
+          background: #C1D5E0;
+          color: #11325C;
+        }
+      }
+    }
+
+    form.labels.new {
+      margin-right: 2em;
+      fieldset {
+        @include textfield;
+        @include transition(background 0.1s, border 0.3s, box-shadow 0.1s);
+        padding: 0;
+        position: relative;
+
+        &.focus {
+          color: #415166;
+          background: #DDE6EB;
+          border: 1px solid #84A5B8;
+          box-shadow: inset 0 0 2px 0 #B5C4CC;
+          input {
+            color: #415166;
+          }
+        }
+
+        input {
+          margin: 0;
+          padding-right: 1.6em;
+        }
+
+        button { 
+          position: absolute;
+          right: 0.4em;
+          top: 0.4em;
+          font-size: 1.0em;
+          color: #BABABA;
+          outline: none;
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+aside.preview article {
+  padding: 1em;
+}
