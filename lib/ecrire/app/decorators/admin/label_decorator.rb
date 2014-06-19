@@ -2,14 +2,8 @@ module Admin
   class LabelDecorator < EcrireDecorator
     def button(options)
       post = options[:post]
-      properties = options[:properties].select do |property|
-        property.data.id == record.id
-      end
-      
-      if properties.any?
-        properties.map do |property|
-          destroy(property: property)
-        end.join.html_safe
+      if post.labels.map(&:id).include?(record.id)
+        destroy(post: post)
       else
         create(post: post)
       end
@@ -22,17 +16,22 @@ module Admin
         form: {id: "label-#{record.id}"},
         form_class: %w(create label),
         params: {
-          label_id: record.id
+          property: :label,
+          value: record.name
         }
     end
 
     def destroy(options)
       button_to record.name,
-        admin_property_path(options[:property]),
+        admin_post_properties_path(options[:post].id),
         form: {id: "label-#{record.id}"},
         form_class: %w(destroy label),
         method: :delete,
-        remote: true
+        remote: true,
+        params: {
+          property: :label,
+          value: record.name
+        }
     end
 
   end

@@ -45,17 +45,18 @@
     <% end %>
 
     <section class="labels">
-      <%= form_for [post, Admin::Label.new],
+      <%= form_for :label,
         html: {class: %w(labels new)},
         remote: true,
         url: admin_post_properties_path(post.id) do |f| %>
+        <%= hidden_field_tag :property, 'label' %>
         <fieldset>
-          <%= f.text_field :name, placeholder: 'Create a new label' %>
+          <%= text_field_tag :value, nil, placeholder: 'Create a new label', class: %w(name) %>
           <%= f.button '↵' %>
         </fieldset>
       <% end %>
 
-      <%= decorate @labels, :button, post: post, properties: post.properties.labels.includes(:data) %>
+      <%= decorate Admin::Label.all, :button, post: post %>
     </section>
   </header>
 

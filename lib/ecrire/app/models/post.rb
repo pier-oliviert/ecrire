@@ -2,7 +2,8 @@ require 'nokogiri'
 
 class Post < ActiveRecord::Base
   has_many :images
-  has_many :properties
+
+  store_accessor :properties, :label_ids
 
   scope :status, lambda {|status|
     if status.eql?("published")
@@ -56,6 +57,10 @@ class Post < ActiveRecord::Base
     if self.draft?
       self.slug = nil
     end
+  end
+
+  def labels
+    @labels ||= Label.where(id: self.label_ids.split(','))
   end
 
   protected

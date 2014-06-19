@@ -1,0 +1,8 @@
+$placeholder = $('#label-<%= @property.id %>')
+$button = $('<%= j decorate(@property, :destroy, post: post) %>')
+if ($placeholder.length > 0) {
+  $placeholder.replaceWith($button)
+}
+else {
+  $('form.labels.new').after($button)
+}

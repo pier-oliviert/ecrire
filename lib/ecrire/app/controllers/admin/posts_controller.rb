@@ -30,8 +30,6 @@ module Admin
     end
 
     def edit
-      @labels = Admin::Label.all.uniq(&:name)
-      puts @post.properties.labels
     end
 
     def update

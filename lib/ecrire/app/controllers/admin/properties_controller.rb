@@ -1,14 +1,21 @@
 module Admin
   class PropertiesController < Admin::ApplicationController
+    INSTANCES = {
+      label: Property::Label
+    }.with_indifferent_access
+
+    helper_method :post
+
     def create
-      @property = post.properties.new
-      @property.data = label
-      @property.save!
+      instance = instance_for_property(params[:property])
+      @property = instance.create(params[:value])
+      render "admin/properties/#{instance.name}/create"
     end
 
     def destroy
-      @property = Admin::Property.find(params[:id])
-      @property.destroy
+      instance = instance_for_property(params[:property])
+      @property = instance.destroy(params[:value])
+      render "admin/properties/#{instance.name}/destroy"
     end
 
     protected
@@ -17,18 +24,11 @@ module Admin
       @post ||= Admin::Post.find(params[:post_id])
     end
 
-    def label
-      @label ||= begin
-                   if params.has_key?(:label_id)
-                     Admin::Label.find(params[:label_id])
-                   elsif params.has_key?(:admin_label)
-                     Admin::Label.create(label_param)
-                   end
-                 end
+    def instance_for_property(name)
+      instance = INSTANCES[name].new
+      instance.post = post
+      instance
     end
 
-    def label_param
-      params.require(:admin_label).permit(:name)
-    end
   end
 end
