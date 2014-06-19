@@ -7,19 +7,19 @@ module Property
     end
 
     def create(value)
-      label = Admin::Label.find_or_create_by!(name: value)
-      ids = label_ids
-      ids << label.id.to_s
-      post.label_ids = ids.uniq.join(',')
+      new_label = ::Label.find_or_create_by!(name: value)
+      labels = post.labels
+      labels << new_label
+      post.labels = labels
       post.save!
-      label
+      new_label
     end
 
     def destroy(value)
-      label = Admin::Label.find_by!(name: value)
-      ids = label_ids
-      ids.delete(label.id.to_s)
-      post.label_ids = ids.uniq.join(',')
+      label = ::Label.find_by!(name: value)
+      labels = post.labels
+      labels.delete(label)
+      post.labels = labels
       post.save!
       label
     end
