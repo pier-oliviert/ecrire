@@ -1,6 +1,7 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-require 'ecrire'
-
-Ecrire::Application.load_tasks
+Dir.chdir Dir.pwd + '/test/theme' do
+  require 'ecrire'
+  Ecrire::Application.load_tasks
+end
 
