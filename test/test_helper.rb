@@ -17,9 +17,10 @@ class ActiveSupport::TestCase
 
   path = Rails.application.paths['db/migrate'].existent
   migration = ActiveRecord::Migrator.migrations(path).last
+  current_version = ActiveRecord::Migrator.get_all_versions.max
 
   begin
-    ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths)
+    ActiveRecord::Migrator.migrate(path)
   rescue ActiveRecord::NoDatabaseError => e
     if @tries == 0
       @tries += 1

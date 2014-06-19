@@ -74,4 +74,24 @@ class PostTest < ActiveSupport::TestCase
     assert_equal @post.excerpt, "A header And a paragraph..."
   end
 
+  test 'should be able to add labels' do
+    @post = posts(:draft)
+    label = Label.create(name: 'A label')
+    @post.labels = [label]
+    assert @post.save
+  end
+
+  test 'labels are arrays of Label' do
+    @post = posts(:draft)
+    label = Label.create(name: 'A label')
+    @post.labels = [label]
+    assert @post.save
+    assert_equal @post.labels.first, label
+    assert_kind_of Array, @post.labels
+    assert_kind_of Label, @post.labels.first
+  end
+
+  test 'labels are instance of Label' do
+  end
+
 end
