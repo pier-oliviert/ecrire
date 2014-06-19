@@ -1,0 +1,2298 @@
+  [1m[36mActiveRecord::SchemaMigration Load (3.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[36mPost Load (1.5ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1[0m
+  [1m[35mPost Exists (1.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1[0m
+  [1m[35mSQL (2.5ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:01:48.336409"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:01:48.336409"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", "2014-06-19 14:01:48.347095"], ["excerpt", "..."], ["published_at", "2014-06-19 14:01:48.345098"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:01:48.347095"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:01:48.350775"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:01:48.350775"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[35mImage Load (0.8ms)[0m  SELECT "images".* FROM "images"  WHERE (images.favorite is true)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+Completed 200 OK in 3ms (Views: 2.7ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[36mPost Load (0.6ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1[0m
+  [1m[35mPost Exists (0.4ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:02:21.739225"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:02:21.739225"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", "2014-06-19 14:02:21.747362"], ["excerpt", "..."], ["published_at", "2014-06-19 14:02:21.745981"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:02:21.747362"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:02:21.750571"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:02:21.750571"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+  Rendered views/posts/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images"  WHERE (images.favorite is true)[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+  Rendered views/posts/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 2.5ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[36mPost Load (0.6ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 4ms (ActiveRecord: 1.7ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[35mPost Load (0.4ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:03:57.075383"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:03:57.075383"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2014-06-19 14:03:57.083209"], ["excerpt", "..."], ["published_at", "2014-06-19 14:03:57.081860"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:03:57.083209"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-06-19 14:03:57.086316"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:03:57.086316"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[36mImage Load (0.2ms)[0m  [1mSELECT "images".* FROM "images"  WHERE (images.favorite is true)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[35mPost Load (0.6ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1
+  [1m[36mPost Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:04:44.540945"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:04:44.540945"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2014-06-19 14:04:44.549058"], ["excerpt", "..."], ["published_at", "2014-06-19 14:04:44.547765"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:04:44.549058"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-06-19 14:04:44.552044"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:04:44.552044"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[36mImage Load (0.2ms)[0m  [1mSELECT "images".* FROM "images"  WHERE (images.favorite is true)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+  Rendered views/posts/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+  Rendered views/posts/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[35mPost Load (0.6ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1
+Redirected to http://test.host/
+Completed 302 Found in 6ms (ActiveRecord: 3.1ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[36mAdmin::Post Load (0.4ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[36mImage Load (0.3ms)[0m  [1mSELECT "images".* FROM "images"  WHERE (images.favorite is true)[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:06:13.192180"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:06:13.192180"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2014-06-19 14:06:13.200427"], ["excerpt", "..."], ["published_at", "2014-06-19 14:06:13.198966"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:06:13.200427"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-06-19 14:06:13.203709"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:06:13.203709"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (1.2ms)[0m  [1mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "posts" DISABLE TRIGGER ALL;ALTER TABLE "partials" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('t', '2014-06-19 14:07:21', '2014-06-19 14:07:21', 666559795)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('f', '2014-06-19 14:07:21', '2014-06-19 14:07:21', 284678023)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "partials"
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "posts"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "posts" ("title", "slug", "content", "published_at", "created_at", "updated_at", "id") VALUES ('Test', 'test', 'Test', '2014-06-17 14:07:21.000000', '2014-06-19 14:07:21', '2014-06-19 14:07:21', 675045400)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("title", "slug", "content", "created_at", "updated_at", "id") VALUES ('A draft', 'a-draft', 'A draft', '2014-06-19 14:07:21', '2014-06-19 14:07:21', 108828309)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.6ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "id") VALUES ('pothibo@gmail.com', '123456789', '2014-06-19 14:07:21', '2014-06-19 14:07:21', 933670524)[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "posts" ENABLE TRIGGER ALL;ALTER TABLE "partials" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}}
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A new published post' LIMIT 1[0m
+  [1m[35mPost Exists (0.8ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-new-published-post' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "stylesheet", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["content", "Some Blah blah"], ["created_at", "2014-06-19 14:07:21.476486"], ["excerpt", "Some Blah blah..."], ["slug", "a-new-published-post"], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:07:21.476486"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045401/edit
+Completed 302 Found in 138ms (ActiveRecord: 1.8ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"Just a test"}}
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Just a test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'just-a-test' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-06-19 14:07:21.483604"], ["excerpt", "..."], ["slug", "just-a-test"], ["title", "Just a test"], ["updated_at", "2014-06-19 14:07:21.483604"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045402/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Something to say"}, "id"=>"675045402"}
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045402]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Just a test' AND "posts"."id" != 675045402) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'just-a-test' AND "posts"."id" != 675045402) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045402[0m  [["content", "Something to say"], ["excerpt", "Something to say..."], ["updated_at", "2014-06-19 14:07:21.488502"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045402/edit
+Completed 302 Found in 4ms (ActiveRecord: 1.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Oh em G"}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045400[0m  [["content", "Oh em G"], ["excerpt", "Oh em G..."], ["updated_at", "2014-06-19 14:07:21.495734"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.8ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+Processing by Admin::PostsController#index as JS
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mAdmin::Post Load (0.8ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)  ORDER BY posts.created_at[0m
+  Rendered /Users/pothibo/Develop/ecrire/lib/ecrire/app/views/admin/posts/_list.html.erb (2.3ms)
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "stylesheet" = $3, "title" = $4, "updated_at" = $5 WHERE "posts"."id" = 675045400  [["content", "Some Blah blah"], ["excerpt", "Some Blah blah..."], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:07:21.513503"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.9ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }", "slug"=>""}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-new-published-post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  UPDATE "posts" SET "slug" = $1, "updated_at" = $2 WHERE "posts"."id" = 675045400  [["slug", "a-new-published-post"], ["updated_at", "2014-06-19 14:07:21.517792"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.7ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"108828309"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '108828309' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:07:21.542452"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:07:21.542452"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.id != 675045400)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2014-06-19 14:07:21.549631"], ["excerpt", "..."], ["published_at", "2014-06-19 14:07:21.548473"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:07:21.549631"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:07:21.552877"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:07:21.552877"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[35mImage Load (0.2ms)[0m  SELECT "images".* FROM "images"  WHERE (images.favorite is true)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "posts" DISABLE TRIGGER ALL;ALTER TABLE "partials" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('t', '2014-06-19 14:12:17', '2014-06-19 14:12:17', 666559795)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('f', '2014-06-19 14:12:17', '2014-06-19 14:12:17', 284678023)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "partials"
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "posts"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "posts" ("title", "slug", "content", "published_at", "created_at", "updated_at", "id") VALUES ('Test', 'test', 'Test', '2014-06-17 14:12:17.000000', '2014-06-19 14:12:17', '2014-06-19 14:12:17', 675045400)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("title", "slug", "content", "created_at", "updated_at", "id") VALUES ('A draft', 'a-draft', 'A draft', '2014-06-19 14:12:17', '2014-06-19 14:12:17', 108828309)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "id") VALUES ('pothibo@gmail.com', '123456789', '2014-06-19 14:12:17', '2014-06-19 14:12:17', 933670524)[0m
+  [1m[35m (1.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "posts" ENABLE TRIGGER ALL;ALTER TABLE "partials" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}}
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A new published post' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-new-published-post' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "stylesheet", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["content", "Some Blah blah"], ["created_at", "2014-06-19 14:12:17.559233"], ["excerpt", "Some Blah blah..."], ["slug", "a-new-published-post"], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:12:17.559233"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045401/edit
+Completed 302 Found in 140ms (ActiveRecord: 1.1ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"Just a test"}}
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Just a test' LIMIT 1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'just-a-test' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-06-19 14:12:17.566186"], ["excerpt", "..."], ["slug", "just-a-test"], ["title", "Just a test"], ["updated_at", "2014-06-19 14:12:17.566186"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045402/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.7ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Something to say"}, "id"=>"675045402"}
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045402]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Just a test' AND "posts"."id" != 675045402) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'just-a-test' AND "posts"."id" != 675045402) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045402[0m  [["content", "Something to say"], ["excerpt", "Something to say..."], ["updated_at", "2014-06-19 14:12:17.570912"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045402/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.9ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Oh em G"}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045400[0m  [["content", "Oh em G"], ["excerpt", "Oh em G..."], ["updated_at", "2014-06-19 14:12:17.577668"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+Processing by Admin::PostsController#index as JS
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mAdmin::Post Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)  ORDER BY posts.created_at[0m
+  Rendered /Users/pothibo/Develop/ecrire/lib/ecrire/app/views/admin/posts/_list.html.erb (2.0ms)
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "stylesheet" = $3, "title" = $4, "updated_at" = $5 WHERE "posts"."id" = 675045400  [["content", "Some Blah blah"], ["excerpt", "Some Blah blah..."], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:12:17.593736"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.9ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }", "slug"=>""}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-new-published-post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "slug" = $1, "updated_at" = $2 WHERE "posts"."id" = 675045400  [["slug", "a-new-published-post"], ["updated_at", "2014-06-19 14:12:17.598039"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.9ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:12:17.611999"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:12:17.611999"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.id != 675045400)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", "2014-06-19 14:12:17.619119"], ["excerpt", "..."], ["published_at", "2014-06-19 14:12:17.617964"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:12:17.619119"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------
+PostTest: test_should_be_able_to_add_labels
+-------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+PG::UndefinedTable: ERROR:  relation "labels" does not exist
+LINE 5:                WHERE a.attrelid = '"labels"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"labels"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:12:17.623883"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:12:17.623883"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 108828309]]
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"108828309"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '108828309' LIMIT 1
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[36mImage Load (0.2ms)[0m  [1mSELECT "images".* FROM "images"  WHERE (images.favorite is true)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateLabels (20140617224837)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (15.5ms)[0m  CREATE TABLE "labels" ("id" serial primary key, "name" character varying(255) NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.6ms)[0m  [1mCREATE  INDEX  "index_labels_on_name" ON "labels"  ("name")[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20140617224837"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to AddPropertiesToPosts (20140618321984)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (37.9ms)[0m  [1mCREATE EXTENSION hstore[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "posts" ADD COLUMN "properties" hstore
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20140618321984"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "posts" DISABLE TRIGGER ALL;ALTER TABLE "partials" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "labels" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('t', '2014-06-19 14:14:40', '2014-06-19 14:14:40', 666559795)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('f', '2014-06-19 14:14:40', '2014-06-19 14:14:40', 284678023)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "partials"
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "posts"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "posts" ("title", "slug", "content", "published_at", "created_at", "updated_at", "id") VALUES ('Test', 'test', 'Test', '2014-06-17 14:14:40.000000', '2014-06-19 14:14:40', '2014-06-19 14:14:40', 675045400)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("title", "slug", "content", "created_at", "updated_at", "id") VALUES ('A draft', 'a-draft', 'A draft', '2014-06-19 14:14:40', '2014-06-19 14:14:40', 108828309)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "id") VALUES ('pothibo@gmail.com', '123456789', '2014-06-19 14:14:40', '2014-06-19 14:14:40', 933670524)[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "posts" ENABLE TRIGGER ALL;ALTER TABLE "partials" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "labels" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+  Rendered views/posts/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[36mPost Load (0.6ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 9ms (ActiveRecord: 0.6ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"108828309"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '108828309' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[35mPost Load (0.7ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:14:40.182404"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:14:40.182404"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.id != 675045400)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2014-06-19 14:14:40.190312"], ["excerpt", "..."], ["published_at", "2014-06-19 14:14:40.189073"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:14:40.190312"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------
+PostTest: test_should_be_able_to_add_labels
+-------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 108828309]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "labels" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-06-19 14:14:40.197331"], ["name", "A label"], ["updated_at", "2014-06-19 14:14:40.197331"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:14:40.201015"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:14:40.201015"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A new published post' LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-new-published-post' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "stylesheet", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["content", "Some Blah blah"], ["created_at", "2014-06-19 14:14:40.208777"], ["excerpt", "Some Blah blah..."], ["slug", "a-new-published-post"], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:14:40.208777"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045404/edit
+Completed 302 Found in 10ms (ActiveRecord: 0.7ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"Just a test"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Just a test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'just-a-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:14:40.220698"], ["excerpt", "..."], ["slug", "just-a-test"], ["title", "Just a test"], ["updated_at", "2014-06-19 14:14:40.220698"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045405/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Something to say"}, "id"=>"675045405"}
+  [1m[35mAdmin::Post Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045405]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Just a test' AND "posts"."id" != 675045405) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'just-a-test' AND "posts"."id" != 675045405) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045405  [["content", "Something to say"], ["excerpt", "Something to say..."], ["updated_at", "2014-06-19 14:14:40.225023"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045405/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.9ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Oh em G"}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045400  [["content", "Oh em G"], ["excerpt", "Oh em G..."], ["updated_at", "2014-06-19 14:14:40.233888"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.9ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#index as JS
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mAdmin::Post Load (0.4ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)  ORDER BY posts.created_at
+  Rendered /Users/pothibo/Develop/ecrire/lib/ecrire/app/views/admin/posts/_list.html.erb (1.9ms)
+Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "stylesheet" = $3, "title" = $4, "updated_at" = $5 WHERE "posts"."id" = 675045400[0m  [["content", "Some Blah blah"], ["excerpt", "Some Blah blah..."], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:14:40.250582"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.8ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }", "slug"=>""}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-new-published-post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "slug" = $1, "updated_at" = $2 WHERE "posts"."id" = 675045400[0m  [["slug", "a-new-published-post"], ["updated_at", "2014-06-19 14:14:40.254998"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[35mImage Load (0.2ms)[0m  SELECT "images".* FROM "images"  WHERE (images.favorite is true)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "posts" DISABLE TRIGGER ALL;ALTER TABLE "partials" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "labels" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('t', '2014-06-19 14:14:50', '2014-06-19 14:14:50', 666559795)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('f', '2014-06-19 14:14:50', '2014-06-19 14:14:50', 284678023)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "partials"
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "posts"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "posts" ("title", "slug", "content", "published_at", "created_at", "updated_at", "id") VALUES ('Test', 'test', 'Test', '2014-06-17 14:14:50.000000', '2014-06-19 14:14:50', '2014-06-19 14:14:50', 675045400)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "posts" ("title", "slug", "content", "created_at", "updated_at", "id") VALUES ('A draft', 'a-draft', 'A draft', '2014-06-19 14:14:50', '2014-06-19 14:14:50', 108828309)[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "id") VALUES ('pothibo@gmail.com', '123456789', '2014-06-19 14:14:50', '2014-06-19 14:14:50', 933670524)[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "posts" ENABLE TRIGGER ALL;ALTER TABLE "partials" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "labels" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[36mAdmin::Post Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[35mAdmin::Post Load (0.3ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[36mImage Load (0.2ms)[0m  [1mSELECT "images".* FROM "images"  WHERE (images.favorite is true)[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.6ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A new published post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-new-published-post' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "stylesheet", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["content", "Some Blah blah"], ["created_at", "2014-06-19 14:14:50.999624"], ["excerpt", "Some Blah blah..."], ["slug", "a-new-published-post"], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:14:50.999624"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045401/edit
+Completed 302 Found in 100ms (ActiveRecord: 1.1ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"Just a test"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Just a test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'just-a-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:14:51.006526"], ["excerpt", "..."], ["slug", "just-a-test"], ["title", "Just a test"], ["updated_at", "2014-06-19 14:14:51.006526"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045402/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Something to say"}, "id"=>"675045402"}
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045402]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Just a test' AND "posts"."id" != 675045402) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'just-a-test' AND "posts"."id" != 675045402) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045402  [["content", "Something to say"], ["excerpt", "Something to say..."], ["updated_at", "2014-06-19 14:14:51.010958"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045402/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.8ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Oh em G"}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045400  [["content", "Oh em G"], ["excerpt", "Oh em G..."], ["updated_at", "2014-06-19 14:14:51.017571"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.8ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#index as JS
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mAdmin::Post Load (0.4ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)  ORDER BY posts.created_at
+  Rendered /Users/pothibo/Develop/ecrire/lib/ecrire/app/views/admin/posts/_list.html.erb (2.1ms)
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "stylesheet" = $3, "title" = $4, "updated_at" = $5 WHERE "posts"."id" = 675045400[0m  [["content", "Some Blah blah"], ["excerpt", "Some Blah blah..."], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:14:51.033530"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.8ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }", "slug"=>""}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-new-published-post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mUPDATE "posts" SET "slug" = $1, "updated_at" = $2 WHERE "posts"."id" = 675045400[0m  [["slug", "a-new-published-post"], ["updated_at", "2014-06-19 14:14:51.037733"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:14:51.049784"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:14:51.049784"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.id != 675045400)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", "2014-06-19 14:14:51.057275"], ["excerpt", "..."], ["published_at", "2014-06-19 14:14:51.055962"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:14:51.057275"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------
+PostTest: test_should_be_able_to_add_labels
+-------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 108828309]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "labels" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-06-19 14:14:51.091525"], ["name", "A label"], ["updated_at", "2014-06-19 14:14:51.091525"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A draft' AND "posts"."id" != 108828309) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-draft' AND "posts"."id" != 108828309) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "excerpt" = $1, "properties" = $2, "updated_at" = $3 WHERE "posts"."id" = 108828309  [["excerpt", "A draft..."], ["properties", "\"labels\"=>\"2\""], ["updated_at", "2014-06-19 14:14:51.094452"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", "2014-06-19 14:14:51.097387"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:14:51.097387"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+Completed 200 OK in 2ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"108828309"}
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '108828309' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "posts" DISABLE TRIGGER ALL;ALTER TABLE "partials" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "labels" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('t', '2014-06-19 14:15:47', '2014-06-19 14:15:47', 666559795)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('f', '2014-06-19 14:15:47', '2014-06-19 14:15:47', 284678023)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "partials"
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "posts"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "posts" ("title", "slug", "content", "published_at", "created_at", "updated_at", "id") VALUES ('Test', 'test', 'Test', '2014-06-17 14:15:47.000000', '2014-06-19 14:15:47', '2014-06-19 14:15:47', 675045400)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("title", "slug", "content", "created_at", "updated_at", "id") VALUES ('A draft', 'a-draft', 'A draft', '2014-06-19 14:15:47', '2014-06-19 14:15:47', 108828309)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "id") VALUES ('pothibo@gmail.com', '123456789', '2014-06-19 14:15:47', '2014-06-19 14:15:47', 933670524)[0m
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "posts" ENABLE TRIGGER ALL;ALTER TABLE "partials" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "labels" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1[0m
+  [1m[35mPost Exists (0.4ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:15:47.820142"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:15:47.820142"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.id != 675045400)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", "2014-06-19 14:15:47.828357"], ["excerpt", "..."], ["published_at", "2014-06-19 14:15:47.827117"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:15:47.828357"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------
+PostTest: test_should_be_able_to_add_labels
+-------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "labels" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-06-19 14:15:47.835247"], ["name", "A label"], ["updated_at", "2014-06-19 14:15:47.835247"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A draft' AND "posts"."id" != 108828309) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-draft' AND "posts"."id" != 108828309) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "excerpt" = $1, "properties" = $2, "updated_at" = $3 WHERE "posts"."id" = 108828309[0m  [["excerpt", "A draft..."], ["properties", "\"labels\"=>\"3\""], ["updated_at", "2014-06-19 14:15:47.838243"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------
+PostTest: test_should_be_able_to_retrieve_labels
+------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 108828309]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "labels" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2014-06-19 14:15:47.841027"], ["name", "A label"], ["updated_at", "2014-06-19 14:15:47.841027"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A draft' AND "posts"."id" != 108828309) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-draft' AND "posts"."id" != 108828309) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  UPDATE "posts" SET "excerpt" = $1, "properties" = $2, "updated_at" = $3 WHERE "posts"."id" = 108828309  [["excerpt", "A draft..."], ["properties", "\"labels\"=>\"4\""], ["updated_at", "2014-06-19 14:15:47.842953"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mLabel Load (0.2ms)[0m  SELECT "labels".* FROM "labels"  WHERE "labels"."id" IN (4)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:15:47.845983"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:15:47.845983"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A new published post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-new-published-post' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "stylesheet", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["content", "Some Blah blah"], ["created_at", "2014-06-19 14:15:47.855074"], ["excerpt", "Some Blah blah..."], ["slug", "a-new-published-post"], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:15:47.855074"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045404/edit
+Completed 302 Found in 10ms (ActiveRecord: 0.6ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"Just a test"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Just a test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'just-a-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:15:47.867306"], ["excerpt", "..."], ["slug", "just-a-test"], ["title", "Just a test"], ["updated_at", "2014-06-19 14:15:47.867306"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045405/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Something to say"}, "id"=>"675045405"}
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045405]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Just a test' AND "posts"."id" != 675045405) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'just-a-test' AND "posts"."id" != 675045405) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045405  [["content", "Something to say"], ["excerpt", "Something to say..."], ["updated_at", "2014-06-19 14:15:47.871247"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045405/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.8ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Oh em G"}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045400  [["content", "Oh em G"], ["excerpt", "Oh em G..."], ["updated_at", "2014-06-19 14:15:47.877608"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.7ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#index as JS
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mAdmin::Post Load (0.4ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)  ORDER BY posts.created_at
+  Rendered /Users/pothibo/Develop/ecrire/lib/ecrire/app/views/admin/posts/_list.html.erb (1.7ms)
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "stylesheet" = $3, "title" = $4, "updated_at" = $5 WHERE "posts"."id" = 675045400[0m  [["content", "Some Blah blah"], ["excerpt", "Some Blah blah..."], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:15:47.893071"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.8ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }", "slug"=>""}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-new-published-post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "slug" = $1, "updated_at" = $2 WHERE "posts"."id" = 675045400[0m  [["slug", "a-new-published-post"], ["updated_at", "2014-06-19 14:15:47.897065"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[35mImage Load (0.2ms)[0m  SELECT "images".* FROM "images"  WHERE (images.favorite is true)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+Completed 200 OK in 2ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"108828309"}
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '108828309' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "schema_migrations" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "posts" DISABLE TRIGGER ALL;ALTER TABLE "partials" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "labels" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('t', '2014-06-19 14:17:19', '2014-06-19 14:17:19', 666559795)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "images" ("favorite", "created_at", "updated_at", "id") VALUES ('f', '2014-06-19 14:17:19', '2014-06-19 14:17:19', 284678023)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "partials"
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "posts"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "posts" ("title", "slug", "content", "published_at", "created_at", "updated_at", "id") VALUES ('Test', 'test', 'Test', '2014-06-17 14:17:19.000000', '2014-06-19 14:17:19', '2014-06-19 14:17:19', 675045400)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "posts" ("title", "slug", "content", "created_at", "updated_at", "id") VALUES ('A draft', 'a-draft', 'A draft', '2014-06-19 14:17:19', '2014-06-19 14:17:19', 108828309)[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "id") VALUES ('pothibo@gmail.com', '123456789', '2014-06-19 14:17:19', '2014-06-19 14:17:19', 933670524)[0m
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "schema_migrations" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "posts" ENABLE TRIGGER ALL;ALTER TABLE "partials" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "labels" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------------------------------
+PostsControllerTest: test_Only_published_posts_should_be_listed_in_the_index
+----------------------------------------------------------------------------
+Processing by PostsController#index as HTML
+  Rendered views/posts/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_doesn't_exist
+------------------------------------------------------------
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"-1"}
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '-1' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------
+PostsControllerTest: test_redirect_if_the_post_isn't_published
+--------------------------------------------------------------
+  [1m[35mPost Load (1.0ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+Processing by PostsController#show as HTML
+  Parameters: {"year"=>"2003", "month"=>"1", "id"=>"108828309"}
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."slug" = '108828309' LIMIT 1[0m
+Redirected to http://test.host/
+Completed 302 Found in 1ms (ActiveRecord: 0.3ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+ImageTest: test_path_should_handle_base_folder
+----------------------------------------------
+  [1m[35mAdmin::Post Load (0.4ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------------
+ImageTest: test_path_should_handle_blank_base_folder
+----------------------------------------------------
+  [1m[36mAdmin::Post Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+ImageTest: test_should_only_return_favorited_images
+---------------------------------------------------
+  [1m[35mImage Load (0.2ms)[0m  SELECT "images".* FROM "images"  WHERE (images.favorite is true)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_slug_already_exists
+-----------------------------------------------------------
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" IS NULL LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+PostTest: test_can't_save_a_post_if_the_title_already_exists
+------------------------------------------------------------
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"   ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.3ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A draft' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-draft' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+---------------------------------------------------
+PostTest: test_excerpt_should_only_be_readable_HTML
+---------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some other test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-other-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["content", "\n    <script>some JS</script>\n    <style>Some CSS</style>\n    <h1>A header</h1>\n    <p>And a paragraph</p>"], ["created_at", "2014-06-19 14:17:19.531485"], ["excerpt", "A header And a paragraph..."], ["slug", "some-other-test"], ["title", "Some other test"], ["updated_at", "2014-06-19 14:17:19.531485"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------
+PostTest: test_fetch_draft_post
+-------------------------------
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------
+PostTest: test_fetch_post_without_a_specific_one
+------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.id != 675045400)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+PostTest: test_fetch_published_post
+-----------------------------------
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NOT NULL)
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+PostTest: test_labels_are_arrays_of_Label
+-----------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "labels" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-06-19 14:17:19.542001"], ["name", "A label"], ["updated_at", "2014-06-19 14:17:19.542001"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A draft' AND "posts"."id" != 108828309) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-draft' AND "posts"."id" != 108828309) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "excerpt" = $1, "properties" = $2, "updated_at" = $3 WHERE "posts"."id" = 108828309[0m  [["excerpt", "A draft..."], ["properties", "\"labels\"=>\"5\""], ["updated_at", "2014-06-19 14:17:19.545063"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mLabel Load (0.1ms)[0m  [1mSELECT "labels".* FROM "labels"  WHERE "labels"."id" IN (5)[0m
+  [1m[35mLabel Load (0.1ms)[0m  SELECT "labels".* FROM "labels"  WHERE "labels"."id" IN (5)
+  [1m[36mLabel Load (0.1ms)[0m  [1mSELECT "labels".* FROM "labels"  WHERE "labels"."id" IN (5)[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------
+PostTest: test_labels_are_instance_of_Label
+-------------------------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------
+PostTest: test_publishing_a_post
+--------------------------------
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Some new post' LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-new-post' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "excerpt", "published_at", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", "2014-06-19 14:17:19.549890"], ["excerpt", "..."], ["published_at", "2014-06-19 14:17:19.548597"], ["slug", "some-new-post"], ["title", "Some new post"], ["updated_at", "2014-06-19 14:17:19.549890"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------------------------------
+PostTest: test_publishing_date_shouldn't_change_once_set
+--------------------------------------------------------
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------
+PostTest: test_should_be_able_to_add_labels
+-------------------------------------------
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 108828309]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "labels" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", "2014-06-19 14:17:19.552896"], ["name", "A label"], ["updated_at", "2014-06-19 14:17:19.552896"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A draft' AND "posts"."id" != 108828309) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-draft' AND "posts"."id" != 108828309) LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mUPDATE "posts" SET "excerpt" = $1, "properties" = $2, "updated_at" = $3 WHERE "posts"."id" = 108828309[0m  [["excerpt", "A draft..."], ["properties", "\"labels\"=>\"6\""], ["updated_at", "2014-06-19 14:17:19.554721"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------
+PostTest: test_should_create_a_slug_if_none_exist
+-------------------------------------------------
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'some test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'some-test' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:17:19.556889"], ["excerpt", "..."], ["slug", "some-test"], ["title", "some test"], ["updated_at", "2014-06-19 14:17:19.556889"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+Admin::PostsControllerTest: test_Create_a_post
+----------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'A new published post' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'a-new-published-post' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("content", "created_at", "excerpt", "slug", "stylesheet", "title", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["content", "Some Blah blah"], ["created_at", "2014-06-19 14:17:19.564902"], ["excerpt", "Some Blah blah..."], ["slug", "a-new-published-post"], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:17:19.564902"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045404/edit
+Completed 302 Found in 10ms (ActiveRecord: 0.8ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+---------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_post_should_redirect_to_keep_editing_the_post
+---------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#create as HTML
+  Parameters: {"admin_post"=>{"title"=>"Just a test"}}
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE "posts"."title" = 'Just a test' LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE "posts"."slug" = 'just-a-test' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "posts" ("created_at", "excerpt", "slug", "title", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", "2014-06-19 14:17:19.576942"], ["excerpt", "..."], ["slug", "just-a-test"], ["title", "Just a test"], ["updated_at", "2014-06-19 14:17:19.576942"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045405/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.6ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Something to say"}, "id"=>"675045405"}
+  [1m[35mAdmin::Post Load (0.2ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045405]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Just a test' AND "posts"."id" != 675045405) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'just-a-test' AND "posts"."id" != 675045405) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045405  [["content", "Something to say"], ["excerpt", "Something to say..."], ["updated_at", "2014-06-19 14:17:19.581059"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045405/edit
+Completed 302 Found in 3ms (ActiveRecord: 0.8ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Saving_a_published_article_should_redirect_to_the_post_edit
+--------------------------------------------------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+  [1m[36mPost Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"content"=>"Oh em G"}, "id"=>"675045400"}
+  [1m[35mAdmin::Post Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'Test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mPost Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  UPDATE "posts" SET "content" = $1, "excerpt" = $2, "updated_at" = $3 WHERE "posts"."id" = 675045400  [["content", "Oh em G"], ["excerpt", "Oh em G..."], ["updated_at", "2014-06-19 14:17:19.587444"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.7ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+Admin::PostsControllerTest: test_Show_draft_posts
+-------------------------------------------------
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1  [["id", 933670524]]
+Processing by Admin::PostsController#index as JS
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "posts"  WHERE (posts.published_at IS NULL)[0m
+  [1m[35mAdmin::Post Load (0.4ms)[0m  SELECT "posts".* FROM "posts"  WHERE (posts.published_at IS NULL)  ORDER BY posts.created_at
+  Rendered /Users/pothibo/Develop/ecrire/lib/ecrire/app/views/admin/posts/_list.html.erb (1.7ms)
+Completed 200 OK in 6ms (Views: 5.5ms | ActiveRecord: 0.5ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------------------------------
+Admin::PostsControllerTest: test_Update_a_post
+----------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35mPost Load (0.1ms)[0m  SELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1  [["id", 675045400]]
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }"}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.1ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'test' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "content" = $1, "excerpt" = $2, "stylesheet" = $3, "title" = $4, "updated_at" = $5 WHERE "posts"."id" = 675045400[0m  [["content", "Some Blah blah"], ["excerpt", "Some Blah blah..."], ["stylesheet", "h1 {\\n  text-align: center;\\n }"], ["title", "A new published post"], ["updated_at", "2014-06-19 14:17:19.602882"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 4ms (ActiveRecord: 0.7ms)
+Processing by Admin::PostsController#update as HTML
+  Parameters: {"admin_post"=>{"title"=>"A new published post", "content"=>"Some Blah blah", "stylesheet"=>"h1 {\\n  text-align: center;\\n }", "slug"=>""}, "id"=>"675045400"}
+  [1m[36mAdmin::Post Load (0.1ms)[0m  [1mSELECT  "posts".* FROM "posts"  WHERE "posts"."id" = $1 LIMIT 1[0m  [["id", 675045400]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mPost Exists (28.4ms)[0m  [1mSELECT  1 AS one FROM "posts"  WHERE ("posts"."title" = 'A new published post' AND "posts"."id" != 675045400) LIMIT 1[0m
+  [1m[35mPost Exists (0.2ms)[0m  SELECT  1 AS one FROM "posts"  WHERE ("posts"."slug" = 'a-new-published-post' AND "posts"."id" != 675045400) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "posts" SET "slug" = $1, "updated_at" = $2 WHERE "posts"."id" = 675045400[0m  [["slug", "a-new-published-post"], ["updated_at", "2014-06-19 14:17:19.635794"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/admin/posts/675045400/edit
+Completed 302 Found in 33ms (ActiveRecord: 29.1ms)
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------------------------------------------------------
+Admin::PostsControllerTest: test_Validations:_Error_should_be_shown_when_missing_the_title
+------------------------------------------------------------------------------------------
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 933670524]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
