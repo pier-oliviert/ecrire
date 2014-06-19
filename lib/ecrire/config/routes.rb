@@ -18,7 +18,7 @@ Ecrire::Application.routes.draw do
         get 'new/title', to: :new
       end
       resources :images, shallow: true
-      resources :properties, shallow: true
+      resource :properties, only: [:create, :destroy]
     end
     resources :partials
 
