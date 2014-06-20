@@ -35,30 +35,32 @@
 
 <aside class="preview">
 
-  <header>
+  <%= preview_header(post) do %> 
     <%= content_tag :p, post_path(post.becomes(::Post), only_path: false), class: %w(url) %>
     <%= form_for post,
-      html: {class: %w(post title settings)} do |f| %>
+      html: {class: %w(post title settings autosave)} do |f| %>
       <%= hidden_field_tag :context, :title %>
 
       <%= f.text_field :title, class: %w(title), autocomplete: :off %>
     <% end %>
 
+    <%= render 'admin/images/header', post: post %>
+
     <section class="labels">
       <%= form_for :label,
-        html: {class: %w(labels new)},
+        html: {class: %w(labels new autosave)},
         remote: true,
         url: admin_post_properties_path(post.id) do |f| %>
         <%= hidden_field_tag :property, 'label' %>
-        <fieldset>
-          <%= text_field_tag :value, nil, placeholder: 'Create a new label', class: %w(name) %>
-          <%= f.button '↵' %>
-        </fieldset>
+        <%= text_field_tag :value, nil, placeholder: 'Create a new label', class: %w(name) %>
+        <%= f.button %>
       <% end %>
 
-      <%= decorate Label.all, :button, post: post %>
+      <div class='existing'>
+        <%= decorate Label.all, :button, post: post %>
+      </div>
     </section>
-  </header>
+  <% end %>
 
   <%= render 'admin/images/form', post: post, image: post.images.new %>
   <%= content_tag :style, post.stylesheet.html_safe, scoped: :scoped, class: %w(stylesheet) %>

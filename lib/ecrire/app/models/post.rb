@@ -3,7 +3,7 @@ require 'nokogiri'
 class Post < ActiveRecord::Base
   has_many :images
 
-  store_accessor :properties, :labels
+  store_accessor :properties, :labels, :header
 
   scope :status, lambda {|status|
     if status.eql?("published")
@@ -66,6 +66,20 @@ class Post < ActiveRecord::Base
 
   def labels=(labels)
     super(labels.map(&:id).join(','))
+  end
+
+  def header?
+    !header.nil?
+  end
+
+  def header
+    image_id = super.to_i
+    return unless image_id > 0
+    Admin::Image.where(id: image_id).first
+  end
+
+  def header=(img)
+    super(img.id)
   end
 
   protected

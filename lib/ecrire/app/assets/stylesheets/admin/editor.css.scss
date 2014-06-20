@@ -1,5 +1,7 @@
 @import 'mixins/colors';
 @import 'mixins/animations';
+@import 'mixins/form';
+@import 'editor/**/*';
 
 body.posts[class*=edit] > main,
 body.posts[class*=new] > main,

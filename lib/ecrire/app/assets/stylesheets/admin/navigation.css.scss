@@ -10,7 +10,7 @@ nav.admin {
   left: 0;
   max-height: 56px;
 
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.4);
   border-bottom: 1px solid rgba(191, 204, 218, 0.6);
   box-shadow: 0 1px 2px 0 rgba(217, 230, 241, 0.4);
 
@@ -19,16 +19,21 @@ nav.admin {
 
   @include transition(max-height 0.3s, background 0.6s);
 
+  &.options > a {
+    margin: 0 auto 0 0;
+  }
+
   a {
     @include flex(0 0 60px);
+    position: relative;
     text-align: center;
     font-family: entypo;
     font-size: 3.5em;
     text-decoration: none;
-    color: #586579;
-    margin-right: auto;
+    color: #3F4752;
+    text-shadow: 0 1px 0 rgba(114, 162, 231, 0.2);
 
-    &:hover {
+    &:hover:before {
       color: #1D8FCF;
     }
   }
@@ -43,11 +48,11 @@ nav.admin.menu {
   @include align-content(flex-start);
   @include flex-wrap(wrap);
   padding: 0.9em 0;
-  background: #FFF;
   position: fixed;
 
   &.extended {
     max-height: 100vh;
+    background: #FFF;
 
     a.drafts:before {
       content: "";
@@ -59,14 +64,16 @@ nav.admin.menu {
     @include flex(none);
 
     &.drafts {
+      padding-left: 1em;
       margin: 0 auto 0 1em;
       &:before {
-        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
         content: "";
         font-family: entypo;
         font-size: 2em;
-        vertical-align: middle;
-        margin: -2px 8px 0 0;
+        line-height: 0.7em;
       }
     }
 
@@ -96,10 +103,6 @@ nav.admin.menu {
     line-height: 50%;
     cursor: pointer;
     outline: none;
-
-    &:hover {
-      color: #BB4141;
-    }
   }
 }
 

@@ -20,7 +20,7 @@ body {
   font-family: $fonts;
   font-weight: 200;
   font-size: 13px;
-  color: #6d645c;
+  color: #5C656D;
 }
 
 a {
@@ -53,6 +53,13 @@ fieldset {
 
 input {
   padding: 4px 8px;
+  font-family: Helvetica;
+  font-weight: lighter;
+  outline: none;
+}
+
+textarea {
+  font-family: Helvetica;
 }
 
 button {

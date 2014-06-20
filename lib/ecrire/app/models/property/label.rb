@@ -6,8 +6,8 @@ module Property
       "label"
     end
 
-    def create(value)
-      new_label = ::Label.find_or_create_by!(name: value)
+    def create(params)
+      new_label = ::Label.find_or_create_by!(name: params[:value])
       labels = post.labels
       labels << new_label
       post.labels = labels
@@ -15,8 +15,8 @@ module Property
       new_label
     end
 
-    def destroy(value)
-      label = ::Label.find_by!(name: value)
+    def destroy(params)
+      label = ::Label.find_by!(name: params[:value])
       labels = post.labels
       labels.delete(label)
       post.labels = labels
@@ -24,8 +24,5 @@ module Property
       label
     end
 
-    def label_ids
-      post.label_ids.split(',')
-    end
   end
 end

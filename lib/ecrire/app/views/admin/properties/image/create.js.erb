@@ -1,0 +1,7 @@
+$header = $('aside.preview header')
+$old_form = $header.find('form.image.header')
+$form = $('<%= j render('admin/images/header', post: post) %>')
+$old_form.replaceWith($form)
+
+$header.addClass('image').children('div.image').attr('style', "background-image: url('<%= post.header.url %>')")
+

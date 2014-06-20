@@ -10,7 +10,7 @@ module Admin
     end
 
     def create(options)
-      button_to record.name,
+      button_to record.name.capitalize,
         admin_post_properties_path(options[:post].id),
         remote: true,
         form: {id: "label-#{record.id}"},
@@ -22,7 +22,7 @@ module Admin
     end
 
     def destroy(options)
-      button_to record.name,
+      button_to record.name.capitalize,
         admin_post_properties_path(options[:post].id),
         form: {id: "label-#{record.id}"},
         form_class: %w(destroy label),
