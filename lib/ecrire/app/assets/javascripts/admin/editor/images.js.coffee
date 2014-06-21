@@ -11,13 +11,14 @@ $(document).on "DOMContentLoaded page:load", ->
 
 enableHeader = ->
   $header = $('aside.preview header')
-  $form = $header.find('form.image')
-  droppable($header.get(0), $form.get(0))
-  $form.on 'change', 'input[type=file]', ->
+  droppable($header.get(0))
+  $header.on 'change', 'form.image input[type=file]', ->
+    $form = $(this).parents('form')
     sendFile($form.get(0))
+    false
 
 
-droppable = (element, form) ->
+droppable = (element) ->
   element.ondragover = ->
     $(this).addClass('dropping')
     false
@@ -27,7 +28,9 @@ droppable = (element, form) ->
     false
 
   element.ondrop = (e) ->
-    $(this).removeClass('dropping')
+    $this = $(this)
+    form = $this.find('form.image').get(0)
+    $this.removeClass('dropping')
     sendFile(form, e.dataTransfer.files[0])
     false
 

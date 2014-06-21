@@ -22,23 +22,19 @@ aside.preview header {
 
     form.label {
       input {
+        cursor: pointer;
         border-radius: 2px;
         margin-right: 1em;
         background: none;
-        color: #FFF;
-      }
-      &.create {
-        input[type='submit'] {
-          border: 1px solid #FEFEFE;
-        }
+        color: #C4D5E4;
+        border: 1px solid #C4D5E4;
       }
 
       &.destroy {
         input[type='submit'] {
           background: #C1D5E0;
           color: #11325C;
-          border: 1px solid #11325C;
-          text-shadow: none;
+          border-color: #11325C;
         }
       }
     }
@@ -54,7 +50,7 @@ aside.preview header {
         }
         &:hover:not(:focus) {
           @include placeholder {
-            text-shadow: 0 2px 3px #0A2442;
+            text-decoration: underline;
           }
         }
       }

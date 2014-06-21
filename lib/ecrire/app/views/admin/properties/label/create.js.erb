@@ -4,5 +4,5 @@ if ($placeholder.length > 0) {
   $placeholder.replaceWith($button)
 }
 else {
-  $('form.labels.new').after($button)
+  $('form.labels.new').siblings('.existing').append($button)
 }

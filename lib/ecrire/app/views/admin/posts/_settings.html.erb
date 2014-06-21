@@ -1,5 +1,5 @@
 <%= preview_header(post) do %> 
-<%= content_tag :p, post.title, data: { url: post_path(post.becomes(::Post), only_path: false)}, class: %w(title) %>
+<%= content_tag :p, post.title, class: %w(title) %>
   <div class='content'>
     <%= form_for post,
       html: {class: %w(post title settings autosave)} do |f| %>

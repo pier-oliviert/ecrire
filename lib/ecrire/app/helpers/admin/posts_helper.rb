@@ -12,9 +12,6 @@ module Admin
     end
 
     def preview_header(post, options = {}, &block)
-      options[:class] ||= []
-      options[:class] << 'image' if post.header?
-
       content_tag :header, options do
         if block_given?
           yield
