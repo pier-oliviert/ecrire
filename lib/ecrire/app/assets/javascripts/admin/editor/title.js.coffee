@@ -5,19 +5,24 @@ $(document).on "DOMContentLoaded page:load", ->
   else
     manuallySave()
 
+updateTitle = ->
+  $('aside.preview p.title')
+
 manuallySave = ->
   $('post.settings').on 'click', 'button.save', ->
     $form = $(this).parents('form')
     request = sendForm($form)
-    request.addEventListener("load", toggleSettings.close, false);
+    request.addEventListener("load", updateTitle, false);
     manuallySave
 
 autoSave = ->
-  $form = $('form.title.settings')
+  $form = $('form.title')
   $form.on 'input', 'input', ->
+    console.log 'here'
     $form = $(this).parents('form')
     sendForm($form)
-    autoSave
+    false
+  autoSave
 
 sendForm = ($form) ->
   window.sendForm($form, $form.attr('method'))

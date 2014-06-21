@@ -1,0 +1,16 @@
+<%= preview_header(post) do %> 
+<%= content_tag :p, post.title, data: { url: post_path(post.becomes(::Post), only_path: false)}, class: %w(title) %>
+  <div class='content'>
+    <%= form_for post,
+      html: {class: %w(post title settings autosave)} do |f| %>
+      <%= hidden_field_tag :context, :title %>
+
+      <%= f.text_field :title, class: %w(title), autocomplete: :off %>
+    <% end %>
+
+    <%= render 'admin/images/header', post: post %>
+    <%= render 'labels', post: post %>
+  </div>
+  <p class="handler">Settings</p>
+<% end %>
+

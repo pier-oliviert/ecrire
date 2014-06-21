@@ -1,0 +1,37 @@
+aside.preview {
+  &.image {
+      & > p {
+        text-shadow: 0 1px #FFF;
+        color: #000;
+      }
+    }
+  
+  div.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background-size: cover;
+    opacity: 0.3;
+  }
+
+
+
+  form.header.image {
+    background: none;
+    @include transition(color 0.3s ease);
+
+    &:before {
+      content: "🌄";
+    }
+
+    p {
+      padding: 4px 8px;
+      &:hover {
+        text-shadow: 0 2px 3px #0A2442;
+      }
+    }
+  }
+}

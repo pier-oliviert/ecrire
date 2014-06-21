@@ -14,14 +14,14 @@ body.posts[class*=new] > main {
 
   form.editor {
     @include display(flex);
-    @include flex(1);
+    @include flex(3 50%);
     height: 100vh;
     overflow-y: scroll;
     border-right: 5px solid #FEFEFE;
   }
 
   form ~ aside {
-    @include flex(1);
+    @include flex(1 50%);
     height: 100vh;
     overflow-y: scroll;
   }

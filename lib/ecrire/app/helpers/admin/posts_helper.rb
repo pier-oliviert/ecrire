@@ -16,24 +16,10 @@ module Admin
       options[:class] << 'image' if post.header?
 
       content_tag :header, options do
-        content = [
-          image_container(post)
-        ]
-
         if block_given?
-          content.append(capture(&block))
+          yield
         end
-
-        content.join.html_safe
       end
-    end
-
-    def image_container(post)
-      options = {class: %w(image)}
-      if post.header?
-        options[:style] = "background-image: url(#{post.header.url});"
-      end
-      content_tag(:div, nil, options)
     end
   end
 end

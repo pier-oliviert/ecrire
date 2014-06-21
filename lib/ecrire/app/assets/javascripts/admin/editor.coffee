@@ -7,6 +7,18 @@ $(document).on "DOMContentLoaded page:load", ->
   livePreview()
   autoScroll()
   editorField().focus()
+  toggleSettings()
+
+toggleSettings = ->
+  $header = $('aside.preview header')
+  $content = $header.children('div.content').detach()
+  $header.on 'click', 'p.handler', ->
+    $header.toggleClass('expanded')
+    if $header.hasClass('expanded')
+     $header.find('p.handler').before($content)
+    else
+      $content.detach()
+
 
 
 preventSubmissions = ->

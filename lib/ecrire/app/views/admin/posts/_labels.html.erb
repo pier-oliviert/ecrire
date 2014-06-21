@@ -1,0 +1,15 @@
+<section class="labels">
+  <%= form_for :label,
+    html: {class: %w(labels new autosave)},
+    remote: true,
+    url: admin_post_properties_path(post.id) do |f| %>
+    <%= hidden_field_tag :property, 'label' %>
+    <%= text_field_tag :value, nil, placeholder: 'Create a new label', class: %w(name) %>
+    <%= f.button %>
+  <% end %>
+
+  <div class='existing'>
+    <%= decorate Label.all, :button, post: post %>
+  </div>
+</section>
+
