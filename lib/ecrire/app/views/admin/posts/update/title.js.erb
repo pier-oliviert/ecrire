@@ -2,3 +2,5 @@ $form = $("form.post.settings")
 $form.find('p.url').text("<%= post_path(@post.becomes(::Post), only_path: false) %>")
 
 $form.trigger('title:updated', ["<%= @post.title.html_safe %>"])
+
+window.focus()

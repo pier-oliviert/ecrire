@@ -2,6 +2,7 @@
 <%= content_tag :p, post.title, class: %w(title) %>
   <div class='content'>
     <%= form_for post,
+      remote: true,
       html: {class: %w(post title settings autosave)} do |f| %>
       <%= hidden_field_tag :context, :title %>
 

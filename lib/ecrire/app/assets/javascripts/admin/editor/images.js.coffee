@@ -11,14 +11,14 @@ $(document).on "DOMContentLoaded page:load", ->
 
 enableHeader = ->
   $header = $('aside.preview header')
-  droppable($header.get(0))
+  droppable($header.get(0), 'aside.preview header form.image')
   $header.on 'change', 'form.image input[type=file]', ->
     $form = $(this).parents('form')
     sendFile($form.get(0))
     false
 
 
-droppable = (element) ->
+droppable = (element, selOrObj) ->
   element.ondragover = ->
     $(this).addClass('dropping')
     false
@@ -29,9 +29,10 @@ droppable = (element) ->
 
   element.ondrop = (e) ->
     $this = $(this)
-    form = $this.find('form.image').get(0)
+    if typeof selOrObj == 'string'
+      selOrObj = $(selOrObj).get(0)
     $this.removeClass('dropping')
-    sendFile(form, e.dataTransfer.files[0])
+    sendFile(selOrObj, e.dataTransfer.files[0])
     false
 
 clickableForm = ->
@@ -57,8 +58,8 @@ replaceEmptyImagesWithForm = () ->
 
     $(this).replaceWith($form)
 
-    form = $form.get(0)
-    droppable(form, form)
+    el = $form.get(0)
+    droppable(el, $form.get(0))
 
 observer = (el, config) ->
   obs = new MutationObserver replaceEmptyImagesWithForm
