@@ -17,4 +17,4 @@ log
 
 settings.local.yml
 .DS_Store
-
+Gemfile.lock

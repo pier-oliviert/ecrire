@@ -24,8 +24,7 @@ Gem::Specification.new do |s|
 
   s.require_path  = 'lib'
 
-  s.add_dependency 'railties',      '~> 4.1'
-  s.add_dependency 'activerecord',  '~> 4.1'
+  s.add_dependency 'rails',      '~> 4.1'
 
   s.add_development_dependency 'debugger', '~> 1.6'
 

@@ -1,3 +1,4 @@
+require 'bundler'
 require 'rails'
 
 module Ecrire
@@ -13,4 +14,3 @@ module Ecrire
   require 'bundler/setup' if Ecrire.bundle?
 
 end
-

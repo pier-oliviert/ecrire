@@ -7,7 +7,7 @@ class ActiveSupport::TestCase
     Ecrire::Application.initialize!
   end
   self.fixture_path = "#{Dir.pwd}/test/fixtures"
-  
+
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   fixtures :all
