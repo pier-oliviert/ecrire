@@ -14,4 +14,3 @@ module Ecrire
 
   end
 end
-

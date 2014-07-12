@@ -47,7 +47,7 @@ module Ecrire
     end
 
     # This hack is done because ActiveRecord raise an error that makes
-    # Ecrire exit which makes it impossible to have an instance working without a 
+    # Ecrire exit which makes it impossible to have an instance working without a
     # database. By doing this, it becomes possible to Ecrire to load the server and
     # serve the onboarding theme for the user.
     ActiveRecord::Railtie.initializers.select do |initializer|
@@ -160,7 +160,6 @@ module Ecrire
     else
       include Onboarding
     end
-
 
   end
 end

@@ -1,8 +1,10 @@
+require 'rails/all'
+require 'ecrire'
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
 
-  Dir.chdir Dir.pwd + '/test/theme' do
+  Dir.chdir Dir.pwd + '/test/themes/template' do
     Rails.env = 'test'
     Ecrire::Application.initialize!
   end
