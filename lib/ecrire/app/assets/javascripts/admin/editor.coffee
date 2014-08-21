@@ -1,5 +1,5 @@
 $(document).on "DOMContentLoaded page:load", ->
-  return unless $('body.edit.posts').length > 0 
+  return unless $('body.edit.posts').length > 0
   if $('form.post.editor').hasClass('autosave')
     setTimeout autoSave, 250
 
@@ -19,8 +19,6 @@ toggleSettings = ->
     else
       $content.detach()
 
-
-
 preventSubmissions = ->
   $("form").on "submit", (e) ->
     return false unless e.target.id == 'postEditor'
@@ -38,7 +36,6 @@ autoSave = ->
   sendForm($form, $form.attr('method'))
   $form.data('outdated', false)
   autoSave
-
 
 editorField = ->
   $form = $('form.editor')
