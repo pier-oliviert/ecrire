@@ -68,6 +68,17 @@ module Admin
       assert_redirected_to edit_admin_post_path(@post.id)
     end
 
+    test 'Publishing redirects to the blog post' do
+      data = {
+        title: 'A new published post',
+        content: 'Some Blah blah',
+        stylesheet: 'h1 {\n  text-align: center;\n }'
+      }
+      put :update, id: posts(:published).id, admin_post: data, button: 'publish'
+      assert assigns(:post).published?
+      assert_redirected_to post_path(assigns(:post).published_at.year, assigns(:post).published_at.month, assigns(:post).slug)
+    end
+
     test 'Show draft posts' do
       xhr :get, :index
       assigns(:posts).each do |post|

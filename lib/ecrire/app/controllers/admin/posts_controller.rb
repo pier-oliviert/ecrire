@@ -33,17 +33,22 @@ module Admin
     end
 
     def update
-      success = @post.update(post_params)
       respond_to do |format|
         format.js do
-          if success
+          if @post.update(post_params)
             render_context
           else
             render 'error'
           end
         end
         format.html do
-          if success
+          if params[:button].eql?('publish')
+            if @post.publish(post_params)
+              flash[:notice] = t(".successful", title: @post.title)
+              redirect_to post_path(@post.published_at.year, @post.published_at.month, @post.slug)
+            end
+          else
+            @post.update(post_params)
             flash[:notice] = t(".successful", title: @post.title)
             redirect_to edit_admin_post_path(@post.id)
           end
