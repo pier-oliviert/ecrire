@@ -8,7 +8,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   def setup
-    @controller.env['warden'] = Warden::Proxy.new(@controller.env, BaseControllerTest.manager)
+    @controller.env['warden'] = Warden::Proxy.new(@controller.env, self.class.manager)
   end
 
   def teardown
