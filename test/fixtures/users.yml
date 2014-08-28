@@ -6,4 +6,4 @@
 #
 pothibo:
   email: 'pothibo@gmail.com'
-  encrypted_password: '123456789'
+  encrypted_password: <%= BCrypt::Password.create('123456789') %>
