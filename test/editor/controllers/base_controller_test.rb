@@ -4,11 +4,15 @@ class BaseControllerTest < ActionController::TestCase
   include Warden::Test::Helpers
 
   def self.manager
-    @manager ||= Warden::Manager.new(self)
+    @manager ||= Warden::Manager.new(self,
+      {
+        default_strategies: :password,
+        failure_app: SessionsController.action(:failed)
+      })
   end
 
   def setup
-    @controller.env['warden'] = Warden::Proxy.new(@controller.env, self.class.manager)
+    @controller.env['warden'] = Warden::Proxy.new(@request.env, self.class.manager)
   end
 
   def teardown
