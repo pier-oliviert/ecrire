@@ -1,0 +1,92 @@
+[id^='sessions'] {
+  min-height: 100vh;
+  @include display(flex);
+  section {
+    @include flex(1);
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+  }
+
+  form {
+    min-width: 250px;
+    width: 30vw;
+    @include display(flex);
+    @include flex-wrap(wrap);
+
+    div.fieldset {
+      @include display(flex);
+      @include flex(3 auto);
+      @include flex-direction(column);
+      border: 1px solid #BABABA;
+      border-right: none;
+      border-radius: 2px 0 0 2px;
+      background: #FFF;
+    }
+    
+    p {
+      @include flex(1 100%);
+      padding: 0 1em;
+    }
+
+    p.errors {
+      color: rgb(193, 56, 28);
+    }
+
+    p.back {
+      margin: 1em 0;
+      &:before {
+        font-family: entypo;
+        font-size: 3em;
+        content: "←";
+        vertical-align: middle;
+      }
+
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    input, button {
+      margin: 0;
+      outline: none;
+    }
+
+    input {
+      @include flex(1);
+      font-family: 'Helvetica Neue';
+      font-weight: lighter;
+      border: none;
+      background: none;
+      font-size: 1.3em;
+      padding: 1em;
+
+      &:first-child {
+        border-bottom: 1px solid #BABABA;
+      }
+    }
+
+    button {
+      background: none;
+      border: 1px solid rgb(109, 154, 127);
+      font-family: entypo;
+      font-size: 4.5em;
+      cursor: pointer;
+      background: rgb(86, 205, 121);
+      padding: 0 0.3em;
+      border-radius: 0 2px 2px 0;
+      box-shadow: inset 0 1px 1px 0 rgba(215, 255, 225, 0.52);
+      color: #a9ffb3;
+      @include transition(box-shadow 0.3s);
+      @include user-select(none);
+
+      &:active {
+        box-shadow: inset 0 1px 3px 0 rgba(57, 88, 58, 0.26);
+      }
+    }
+  }
+}
+

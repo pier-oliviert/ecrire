@@ -1,10 +1,17 @@
 <%= form_for User.new, url: session_path, as: "session", html: { class: %w(session) } do |f| %>
 
-  <% if flash.key? 'user' %>
-    <%= content_tag :p, flash['user'], class: %w(flash user error) %>
+  <% unless warden.errors.empty? %>
+    <%= content_tag :p, warden.errors.full_messages.to_sentence, class: %w(errors) %>
   <% end %>
 
-  <%= f.text_field :email, placeholder: t("sessions.email") %>
-  <%= f.password_field :password, placeholder: t("sessions.password") %>
-  <%= f.button t("sessions.submit") %>
+  <div class="fieldset">
+    <%= f.text_field :email, placeholder: t("sessions.email") %>
+    <%= f.password_field :password, placeholder: t("sessions.password") %>
+  </div>
+
+  <%= f.button "&#59200;".html_safe %>
+
+  <p class='back'>
+    <%= link_to t('sessions.home'), :root %>
+  </p>
 <% end %>
