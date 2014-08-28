@@ -4,5 +4,6 @@ en:
   sessions:
     email: "Email"
     password: "Password"
+    home: "Go back"
     submit: "Login"
 

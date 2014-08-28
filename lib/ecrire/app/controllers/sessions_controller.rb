@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :authenticate!, except: :failed
+  before_action :authenticate!, except: [:failed, :new]
 
   def create
     redirect_to :root
@@ -13,10 +13,7 @@ class SessionsController < ApplicationController
   def failed
     respond_to do |format|
       format.html do
-        unless warden.errors.empty?
-          flash[:user] = warden.errors.full_messages.to_sentence
-        end
-        redirect_to :root
+        render 'new'
       end
       format.js do
         render 'show' and return
