@@ -7,11 +7,11 @@ class PasswordStrategy < Warden::Strategies::Base
 
   def authenticate!
     user = User.find_by_email(params["session"].fetch("email"))
-    if user.nil? || user.password != params["session"].fetch("password")
-      env['warden'].errors.add 'no.match', "Sorry, couldn't log you in."
-      fail! 
-    else
+    if !user.nil? && user.password == params["session"].fetch("password")
       success! user
+    else
+      env['warden'].errors.add :general, "Sorry, couldn't log you in."
+      fail! 
     end
   end
 end
