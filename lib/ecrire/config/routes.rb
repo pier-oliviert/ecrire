@@ -6,7 +6,7 @@ Ecrire::Application.routes.draw do
 
   resources :posts, only: [:index]
 
-  resource :session, only: [:create, :destroy]
+  resource :session, only: [:new, :create, :destroy]
 
   resources :partials, only: [:show]
   resources :images, only: [:show]
