@@ -9,7 +9,13 @@
   <% end %>
 
   <div class='existing'>
-    <%= decorate Label.all, :button, post: post %>
+    <% Label.all.each do |label| %>
+      <% if post.labels.map(&:id).include?(label.id) %>
+        <%= destroy_label_button(label, post) %>
+      <% else %>
+        <%= create_label_button(label, post) %>
+      <% end %>
+    <% end %>
   </div>
 </section>
 

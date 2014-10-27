@@ -1,2 +1,2 @@
-$('#label-<%= @property.id %>').replaceWith('<%= j decorate(@property, :create, post: post) %>')
+$('#label-<%= @property.id %>').replaceWith('<%= j create_label_button(@property, post) %>')
 

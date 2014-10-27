@@ -14,7 +14,6 @@ gem 'nokogiri',      '~> 1.6'
 gem 's3',            '~> 0.3'
 gem 'pg',            '~> 0.17'
 gem 'kaminari',      '~> 0.15'
-gem 'cubisme',       '~> 0.2'
 
 group :server do
   gem 'thin',          '~> 1.6'

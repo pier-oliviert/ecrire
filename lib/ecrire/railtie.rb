@@ -123,7 +123,6 @@ module Ecrire
                    paths.add 'user:locales', with: 'locales', glob: '**/*.{rb,yml}'
                    paths.add 'user:assets', with: 'assets', glob: '*'
                    paths.add 'user:helpers', with: 'helpers', eager_load: true
-                   paths.add 'user:decorators', with: 'decorators', eager_load: true
                    paths.add 'user:views', with: 'views'
                    paths.add 'public', with: 'tmp/public'
 
