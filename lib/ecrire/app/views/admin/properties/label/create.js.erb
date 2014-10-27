@@ -1,5 +1,5 @@
 $placeholder = $('#label-<%= @property.id %>')
-$button = $('<%= j decorate(@property, :destroy, post: post) %>')
+$button = $('<%= j destroy_label_button(@property, post) %>')
 if ($placeholder.length > 0) {
   $placeholder.replaceWith($button)
 }

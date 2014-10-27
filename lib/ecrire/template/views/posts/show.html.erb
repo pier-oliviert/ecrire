@@ -1,3 +1,6 @@
 <%= content_tag :h1, post.title %>
 
-<%= decorate post, :content %>
+<article class="content">
+  <style scoped><%= @post.stylesheet %></style>
+  <%= @post.content.html_safe %>
+</article>

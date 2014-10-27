@@ -49,7 +49,7 @@
 
     <h4><code>posts/show.html.erb</code></h4>
     <pre><code class='language-ruby'># views/posts/show.html.erb
-&lt;%= decorate post, :content %&gt;</code></pre>
+&lt;%= render post, :content %&gt;</code></pre>
 
 
   </section>
@@ -73,31 +73,6 @@ end</code></pre>
   &lt;p&gt;
     &lt;%= tags_list %&gt;
   &lt;/p&gt;
-&lt;aside&gt;</code></pre>
-  </section>
-
-  <section>
-    <h2>Decorators</h2>
-    <p>Decorators are very similar to helpers.</p>
-    <pre><code class='language-ruby'># decorators/post_decorator.rb
-class PostDecorator &lt; EcrireDecorator
-  def overview(options)
-    content_tag :article, class: %w(post) do
-      [
-        content_tag(:h2, link_to(record.title, post_path(record)),
-        content_tag(:p, record.content[0..50])
-      ].join.html_safe
-    end
-  end
-end</code></pre>
-
-    <pre><code class='language-html'># views/posts/index.html.erb
-&lt;aside&gt;
-  &lt;h2&gt;Tags&lt;/h2&gt;
-
-  &lt;section&gt;
-    &lt;%= decorate posts, :overview %&gt;
-  &lt;/section&gt;
 &lt;aside&gt;</code></pre>
   </section>
 
