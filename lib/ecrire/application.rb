@@ -1,4 +1,3 @@
-require 'rails/all'
 require 'warden'
 require 's3'
 

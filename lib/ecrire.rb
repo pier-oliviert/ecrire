@@ -1,16 +1,17 @@
-require 'bundler'
-require 'rails'
-
 module Ecrire
 
   autoload :Application,        'ecrire/application'
-
 
   def self.bundle?
     ENV['BUNDLE_GEMFILE'] ||= Dir.pwd + '/Gemfile'
     File.exists?(ENV['BUNDLE_GEMFILE'])
   end
 
-  require 'bundler/setup' if Ecrire.bundle?
-
+  if Ecrire.bundle?
+    require 'bundler/setup'
+    require 'rails/all'
+    Bundler.require(:default, :server, :assets, Rails.env)
+  else
+    require 'rails/all'
+  end
 end

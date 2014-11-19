@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'editor/test_helper'
 
 class BaseControllerTest < ActionController::TestCase
   include Warden::Test::Helpers
