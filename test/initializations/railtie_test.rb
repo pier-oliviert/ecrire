@@ -1,4 +1,4 @@
-require "initializations/isolation"
+require "isolation"
 
 class RailtieTest < ActiveSupport::TestCase
   include ActiveSupport::Testing::Isolation
@@ -11,7 +11,7 @@ class RailtieTest < ActiveSupport::TestCase
 
   test 'Ecrire onboards by default' do
     require 'ecrire'
-    require 'ecrire/application'
+    Ecrire::Application
     assert !Ecrire::Railtie.configured?
     assert Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
     assert !Ecrire::Railtie.include?(Ecrire::Railtie::Default)
@@ -21,20 +21,41 @@ class RailtieTest < ActiveSupport::TestCase
     old_env = ENV['RAILS_ENV']
     ENV['RAILS_ENV'] = 'production'
     require 'ecrire'
-    require 'ecrire/application'
+    Ecrire::Application
     assert Ecrire::Railtie.configured?
     assert !Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
     assert Ecrire::Railtie.include?(Ecrire::Railtie::Default)
     ENV['RAILS_ENV'] = old_env
   end
 
-  test 'Ecrire loads up completely if a connection to the database can be made' do
+  test 'not configured if no user is present in the database' do
     Dir.chdir 'test/themes/template' do
       require 'ecrire'
-      require 'ecrire/application'
+      Ecrire::Application
+      class User < ActiveRecord::Base; end
+      User.destroy_all
+      assert !Ecrire::Railtie.configured?
+      assert Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
+      assert !Ecrire::Railtie.include?(Ecrire::Railtie::Default)
+    end
+  end
+
+  test 'configured completely if a connection to the database can be made' do
+    Dir.chdir 'test/themes/template' do
+
+      run_in_isolation do
+        require 'ecrire'
+        Ecrire::Application.initialize!
+        ::User.first_or_create!(email: 'test@test.ca', password: 123456)
+      end
+
+      require 'ecrire'
+      Ecrire::Application.initialize!
+
       assert Ecrire::Railtie.configured?
       assert !Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
       assert Ecrire::Railtie.include?(Ecrire::Railtie::Default)
+      User.first.destroy
     end
   end
 

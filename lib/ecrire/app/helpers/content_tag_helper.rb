@@ -5,7 +5,7 @@ module ContentTagHelper
       old_buf = @output_buffer
       @output_buffer = ActionView::OutputBuffer.new
       value = yield(tag)
-      content = tag.render(@output_buffer.presence || value)
+      content = tag.render(@output_buffer.presence || value || '')
       @output_buffer = old_buf
       content
     else

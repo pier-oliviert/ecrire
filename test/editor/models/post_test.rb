@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'editor/test_helper'
 
 class PostTest < ActiveSupport::TestCase
   test "fetch published post" do
