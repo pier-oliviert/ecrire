@@ -1,5 +1,16 @@
-<section class="drafts">
-  <ol>
-    <%= render posts %>
-  </ol>
-</section>
+<div class='overlay'>
+  <div class='popup'>
+    <header>
+      <%= content_tag :h5, params[:type].capitalize %>
+    </header>
+    <% if posts.any? %>
+      <ol>
+        <%= render posts %>
+      </ol>
+    <% else %>
+      <p>You don't have any <%= params[:type] %> post.</p>
+
+      <p><%= link_to 'Do you want to create a new post?', new_title_admin_posts_path, class: %w(new button) %></p>
+    <% end %>
+  </div>
+</div>
