@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :pagination, only: :index
   protect_from_forgery except: :index
 
-  helper_method :post, :posts
+  helper_method :post
 
   def index
     respond_to do |format|
@@ -20,10 +20,6 @@ class PostsController < ApplicationController
   end
 
   protected
-
-  def posts
-    @posts ||= Post.published.order("published_at DESC").page(params[:page]).per(params[:per_page])
-  end
 
   def post
     @post ||= Post.find_by_slug(params[:id])
