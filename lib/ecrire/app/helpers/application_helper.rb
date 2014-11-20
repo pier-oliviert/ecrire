@@ -1,14 +1,7 @@
 module ApplicationHelper
   def admin_navigation
     return unless signed_in?
-
-    content_tag :nav, class: %w(menu admin), 'data-no-turbolink' => true do
-      [
-        link_to('New post', new_title_admin_posts_path, class: %w(new button)),
-        link_to('Drafts', admin_posts_path(type: :draft), class: %w(drafts), remote: true),
-        button_to(t("admin.navigation.logout"), session_path, method: :delete)
-      ].join.html_safe
-    end
+    render 'sessions/navigation'
   end
 
   def title_tag

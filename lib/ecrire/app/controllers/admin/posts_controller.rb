@@ -9,8 +9,8 @@ module Admin
     end
 
     def index
-      params[:status] ||= "drafted"
-      @posts = Admin::Post.status params[:status]
+      params[:type] ||= "drafted"
+      @posts = Admin::Post.status params[:type]
       @posts = @posts.order('posts.created_at')
       respond_to do |format|
         format.js
