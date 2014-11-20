@@ -9,6 +9,8 @@ div.overlay {
 }
 
 div.popup {
+  @include display(flex);
+  @include flex-direction(column);
   position: fixed;
   border-radius: 2px;
   max-width: 90vw;
@@ -28,24 +30,28 @@ div.popup {
 }
 
 div.popup header {
+  @include flex(0 0 auto);
+  @include display(flex);
+  @include align-items(center);
+  padding: 0 1em;
   color: #224056;
-  padding: 0.5em 1em;
   border-bottom: 1px solid #B7C4CD;
   box-shadow: 0 1px 0 0 #E7EFF5;
   letter-spacing: 2px;
   border-radius: 2px 2px 0 0;
   background: rgb(203, 212, 219);
   h5 {
-    margin: 0;
+    margin: 8px 0;
     font-size: 1.2em;
   }
 }
 
 div.popup ol {
+  @include flex(1 auto);
   padding: 1em 0;
   overflow-y: scroll;
-  font-weight: 100;
   li {
     padding: 0.5em 1em;
+    font-size: 1.3em;
   }
 }
