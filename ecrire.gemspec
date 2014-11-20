@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.require_path  = 'lib'
 
   s.add_dependency 'rails',      '~> 4.1'
+  s.add_dependency 'ethereal'
 
   s.add_development_dependency 'debugger', '~> 1.6'
 
