@@ -2,7 +2,7 @@
 
 nav#Menu.admin {
   @include display(flex);
-  @include align-content(center);
+  @include align-content(flex-start);
   @include align-items(center);
   @include justify-content(space-between);
   @include flex-wrap(wrap);
@@ -11,18 +11,34 @@ nav#Menu.admin {
   overflow: auto;
   height: 4em;
   width: 100%;
+  z-index: 50;
 
   background-color: rgba(199, 218, 229, 0.8);
+  color: #1A5371;
+  border-bottom: 1px solid rgb(168, 178, 190);
   box-shadow: 0 2px 3px 0 rgba(43, 69, 82, 0.25);
 
-  div.posts {
+  & > section {
+    @include display(flex);
+    height: 100%;
+  }
+
+  & > section > div {
     @include display(flex);
     @include flex(0 auto);
     @include align-items(center);
-    border-right: 1px solid rgba(43, 82, 71, 0.4);
-    padding: 0 1em;
     height: 100%;
-    color: #1A5371;
+    padding: 0 1em;
+    border-right: 1px solid rgba(43, 82, 71, 0.4);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+  }
+
+  div.posts {
     h4 {
       margin: 0 1em;
       a:hover {
@@ -36,10 +52,7 @@ nav#Menu.admin {
       @include flex-direction(column);
       @include align-items(center);
       padding: 8px;
-      color: inherit;
-      text-decoration: none;
 
-      
       &:hover span.count {
         text-decoration: underline;
       }
@@ -59,14 +72,15 @@ nav#Menu.admin {
   }
 }
 
-nav#Menu.admin .logout {
-  border-radius: 2px;
-  border: none;
-  background: none;
-  padding: 0;
-  color: rgb(128, 41, 41);
-  font-size: 2em;
-  margin: 0 8px;
-  font-family: entypo;
-  cursor: pointer;
+nav#Menu.admin .form.logout {
+  input {
+    border: none;
+    background: none;
+    padding: 0;
+    color: rgb(128, 41, 41);
+    font-size: 2em;
+    margin: 0 8px;
+    font-family: entypo;
+    cursor: pointer;
+  }
 }

@@ -1,0 +1,8 @@
+<%= form_for post,
+  remote: true,
+  html: {as: 'Posts.Title', class: %w(post title settings autosave)} do |f| %>
+    <%= hidden_field_tag :context, :title %>
+
+    <%= f.text_area :title, class: %w(title), autocomplete: :off, as: 'Posts.Title.TextArea' %>
+<% end %>
+

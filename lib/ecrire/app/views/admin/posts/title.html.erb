@@ -1,4 +1,4 @@
-<%= form_for Admin::Post.new, html: { class: %w(post new title) } do |f| %>
+<%= form_for Admin::Post.new, html: { class: %w(post new title), as: 'Posts.New' } do |f| %>
 
   <fieldset class="transparent">
     <%= f.text_field :title, placeholder: t('admin.posts.new.title') %>

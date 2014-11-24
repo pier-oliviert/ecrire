@@ -1,20 +1,22 @@
 <nav id="Menu" class="admin">
 
-  <div class='posts'>
-    <h4>
-      <%= link_to 'New post', new_title_admin_posts_path, class: %w(new button) %>
-    </h4>
-    <%= link_to admin_posts_path(type: :draft), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
-      <span class='type'>Drafts</span>
-      <%= content_tag :span, posts.drafted.count, class: %w(count) %>
-    <% end %>
+  <section>
+    <div class='posts'>
+      <h4>
+        <%= link_to 'New post', new_title_admin_posts_path, class: %w(new button) %>
+      </h4>
+      <%= link_to admin_posts_path(type: :draft), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
+        <span class='type'>Drafts</span>
+        <%= content_tag :span, posts.drafted.count, class: %w(count) %>
+      <% end %>
 
-    <%= link_to admin_posts_path(type: :published), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
-      <span class='type'>Published</span>
-      <%= content_tag :span, posts.published.count, class: %w(count) %>
-    <% end %>
-  </div>
+      <%= link_to admin_posts_path(type: :published), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
+        <span class='type'>Published</span>
+        <%= content_tag :span, posts.published.count, class: %w(count) %>
+      <% end %>
+    </div>
+  </section>
 
 
-  <%= button_to t("admin.navigation.logout"), session_path, method: :delete, class: %w(logout) %>
+  <%= button_to t("admin.navigation.logout"), session_path, method: :delete, class: %w(logout), form_class: %w(form logout) %>
 </nav>
