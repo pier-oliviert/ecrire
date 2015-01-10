@@ -12,25 +12,18 @@ form.editor {
 body.posts[class*=edit] > main,
 body.posts[class*=new] > main {
 
+  & > section {
+    @include flex(1);
+  }
   form.editor {
     @include display(flex);
-    @include flex(3 50%);
-    height: 100vh;
-    overflow-y: scroll;
-    border-right: 5px solid #FEFEFE;
-  }
-
-  form ~ aside {
-    @include flex(1 50%);
-    height: 100vh;
-    overflow-y: scroll;
   }
 }
 
 form.post.editor {
   position: relative;
 
-  section.textareas {
+  section {
     @include flex(1);
     position: relative;
 

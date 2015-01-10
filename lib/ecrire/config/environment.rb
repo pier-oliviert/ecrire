@@ -1,5 +1,3 @@
-require 'ethereal'
-
 Rails.application.configure do
   config = self.config
   config.eager_load = true

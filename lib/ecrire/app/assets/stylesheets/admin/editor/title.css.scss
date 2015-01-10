@@ -1,5 +1,7 @@
   form.title {
-    margin: 6em auto 1em auto;
+    @include display(flex);
+    @include flex(0 auto);
+
     padding: 0 1em;
     textarea.title {
       width: 100%;

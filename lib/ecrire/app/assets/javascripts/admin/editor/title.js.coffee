@@ -1,4 +1,4 @@
-class TextArea
+Joint.bind 'Posts.Title.TextArea', class
   loaded: =>
     @on 'keyup', @resize
     @on 'change', @resize
@@ -17,7 +17,7 @@ class TextArea
 
   submit: (e) =>
     return unless e.keyCode == 13
-    Ethereal.XHR.Form(@element().parentElement)
+    Joint.XHR.send(@element().parentElement)
 
     e.preventDefault()
     e.stopPropagation()
@@ -25,4 +25,3 @@ class TextArea
 
 
 
-Ethereal.Models.add TextArea, 'Posts.Title.TextArea'

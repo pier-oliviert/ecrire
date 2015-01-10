@@ -1,5 +1,19 @@
-article.content {
-  p {
-    margin-left: 1em;
+body.edit.posts > main > section {
+  @include display(flex);
+  @include flex-direction(column);
+  @include flex(1);
+  padding-top: 3em;
+
+  div.content {
+    @include flex(1);
+    padding: 1em;
+    outline: none;
+
+    & > span.line {
+      display: block;
+      min-height: 1.6em;
+      line-height: 1.6em;
+
+    }
   }
 }

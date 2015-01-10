@@ -1,24 +1,27 @@
 div.overlay {
-  position: fixed;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  min-height: 100vh;
+  width: 100vw;
+  position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 100;
+  background: rgba(0,0,0,0.5);
+  z-index: 5000;
+}
+
+main.overlayed {
+  position: fixed;
 }
 
 div.popup {
   @include display(flex);
   @include flex-direction(column);
-  position: fixed;
   border-radius: 2px;
   max-width: 90vw;
   width: 600px;
-  max-height: 80vh;
-  top: 80px;
-  left: 50%;
-  transform: translate(-50%, 0);
+  margin: 80px 0 80px 0;
   background: #DDE4EA;
   box-shadow: 0 0 3px #1a3642;
   color: #AAA;
@@ -49,7 +52,6 @@ div.popup header {
 div.popup ol {
   @include flex(1 auto);
   padding: 1em 0;
-  overflow-y: scroll;
   li {
     padding: 0.5em 1em;
     font-size: 1.3em;

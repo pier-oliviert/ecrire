@@ -1,5 +1,3 @@
-@import 'popup';
-
 nav#Menu.admin {
   @include display(flex);
   @include align-content(flex-start);

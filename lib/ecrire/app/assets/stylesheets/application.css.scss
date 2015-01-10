@@ -1,5 +1,6 @@
 @import 'bourbon';
 @import 'vendor/**/*';
+@import 'shared/**/*';
 @import 'admin/navigation';
 @import 'sessions';
 
@@ -8,3 +9,4 @@ ol, ul {
   margin: 0;
   padding: 0;
 }
+
