@@ -19,7 +19,6 @@ Joint.bind 'Editor.Content', class
       cb()
       @observer.observe @element(), observerSettings
 
-
   paste: (e) =>
     e.preventDefault()
     e.stopPropagation()
@@ -110,18 +109,27 @@ Joint.bind 'Editor.Content', class
 
 
       for line in lines
-        line.parentElement.replaceChild(@parse(line), line)
+        parsedLine = lines[lines.indexOf(line)] = @parse(line)
+        line.parentElement.replaceChild(parsedLine, line)
 
       @positionCursor(lines[1], 0)
 
   update: (node) ->
+    textNode = node
     while node? && node.parentElement != @element()
       node = node.parentElement
 
     return unless node?
 
+    walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
     sel = window.getSelection()
-    offset = node.textContent.indexOf(sel.focusNode.textContent) + sel.focusOffset
+    offset = sel.focusOffset
+
+    while walker.nextNode()
+      if walker.currentNode != sel.focusNode
+        offset += walker.currentNode.length
+      else
+        break
 
     el = @parse(node)
     if el != node
@@ -137,6 +145,7 @@ Joint.bind 'Editor.Content', class
 
 
   appended: (node) =>
+    textNode = node
     if node instanceof HTMLBRElement
       node.remove()
       return
@@ -146,14 +155,24 @@ Joint.bind 'Editor.Content', class
 
     return unless node?
 
-    walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
     line = @parse(@line(node.textContent))
-    offset = window.getSelection().focusOffset
+
+    walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
+    sel = window.getSelection()
+    offset = sel.focusOffset
+
+    while walker.nextNode()
+      if walker.currentNode != sel.focusNode
+        offset += walker.currentNode.length
+      else
+        break
+
 
     if line.nodeType == node.nodeType && line.innerHTML == node.innerHTML
       return
 
-    node.parentElement.replaceChild line, node
+    @observer.hold =>
+      node.parentElement.replaceChild line, node
 
     @positionCursor(line, offset)
 
