@@ -1,9 +1,10 @@
-@Parsers = []
-
-Joint.bind 'Editor.Content', class
+Joint.bind 'Editor.Content', class @Editor
   loaded: =>
     @on 'keydown', @linefeed
-    @on 'paste', @paste
+
+    Editor.Extensions = Editor.Extensions.map (ext) =>
+      new ext(this)
+      
 
     @observer = new MutationObserver(@outdated);
     observerSettings = {
@@ -18,46 +19,6 @@ Joint.bind 'Editor.Content', class
       @observer.disconnect()
       cb()
       @observer.observe @element(), observerSettings
-
-  paste: (e) =>
-    e.preventDefault()
-    e.stopPropagation()
-
-    data = e.clipboardData.getData('text/plain')
-
-    texts = data.split('\n')
-    return unless texts.length > 0
-
-    sel = window.getSelection()
-
-    @observer.hold =>
-      node = sel.focusNode
-
-      if sel.focusNode == @element()
-        node = @line()
-        @element().appendChild(node)
-      else if node.nodeType == node.TEXT_NODE
-        node = node.parentElement
-
-
-      texts[0] = node.textContent + texts[0]
-
-      lines = texts.map (text) =>
-        @parse(@line(text))
-
-
-      for line in lines
-        if lines.indexOf(line) == 0
-          node.parentElement.replaceChild(line, node)
-          node = line
-        else if node.nextElementSibling?
-          node.parentElement.insertBefore(line, node.nextElementSibling)
-          node = line
-        else
-          node.parentElement.appendChild(line)
-
-      selectEl = lines[lines.length - 1]
-      @positionCursor(selectEl, selectEl.textContent.length)
 
   outdated: (mutations) =>
     @observer.hold =>
@@ -132,10 +93,9 @@ Joint.bind 'Editor.Content', class
         break
 
     el = @parse(node)
-    if el != node
+    if el.nodeName != node.nodeName || el.innerHTML != node.innerHTML
       node.parentElement.replaceChild(el, node)
-
-    @positionCursor(el, offset)
+      @positionCursor(el, offset)
 
 
   removed: (node) =>
@@ -166,7 +126,6 @@ Joint.bind 'Editor.Content', class
         offset += walker.currentNode.length
       else
         break
-
 
     if line.nodeType == node.nodeType && line.innerHTML == node.innerHTML
       return
@@ -199,7 +158,7 @@ Joint.bind 'Editor.Content', class
     sel.addRange(range)
 
   line: (text) =>
-   cached = "<span class='line'></span>".toHTML()
+   cached = "<p></p>".toHTML()
    @line = (text) ->
      el = cached.cloneNode(true)
      if text?
@@ -210,13 +169,13 @@ Joint.bind 'Editor.Content', class
     @line(text)
 
   parse: (node) ->
-    node.innerHTML = node.textContent
-    line = @line()
-    line.innerHTML = node.textContent
-    for p in Parsers
-      parser = new p(node, line)
-      if parser.needUpdate()
-        line = node = parser.exec()
+    line = @line(node.textContent)
 
-    node
+    for p in Editor.Parsers
+      line = new p(line).render()
+
+    line
+
+Editor.Parsers = []
+Editor.Extensions = []
 

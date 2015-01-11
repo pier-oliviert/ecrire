@@ -1,18 +1,20 @@
-Parsers.push class
+Editor.Parsers.push class
   rule: /^(#{1,6}) /i
 
   constructor: (node, el) ->
     @default = el
     @node = node
 
-  needUpdate: =>
+  render: =>
     @match = @rule.exec(@node.textContent)
-    @match? || @node instanceof HTMLHeadingElement
 
-  exec: =>
-    if @match?
-      header = "<h#{@match[1].length}>".toHTML()
-      header.appendChild(node) for node in Array.prototype.slice.call(@node.childNodes)
-      header
+    return @node unless @match?
+
+    header = "<h#{@match[1].length}>".toHTML()
+
+    if header.nodeName == @node.nodeName
+      return @node
     else
-      @default
+      header.appendChild(node.cloneNode(true)) for node in Array.prototype.slice.call(@node.childNodes)
+      return header
+
