@@ -1,32 +1,15 @@
-<nav class="post">
-  <ol class="menu">
-    <li class='active' target='content'>Content</li>
-    <li target='stylesheet'>Stylesheet</li>
-    <li target='javascript'>Javascript</li>
-  </ol>
+<header>
+  <%= form_for @post,
+    remote: true,
+    html: {as: 'Posts.Title', class: %w(post title settings autosave)} do |f| %>
+    <%= hidden_field_tag :context, :title %>
 
-  <% unless Admin::Image.new.s3.connected? %>
-    <div class="missing configuration">
-      <h3>Configure</h3>
-      <p>You cannot use images in your posts until you add a S3 bucket.</p>
-      <%= link_to "Configure S3", admin_configurations_images_path, class: %w(button) %>
-    </div>
+    <%= f.text_field :title, class: %w(title), autocomplete: :off, as: 'Posts.Title.TextArea' %>
   <% end %>
-
-  <% if @post.draft? %>
-    <p class="status" data-saving="Saving your post...">Drafts are saved automatically</p>
-  <% else %>
-    <p class="status warning" data-saving="Saving your post...">Published post needs to be <strong>manually</strong> saved</p>
-  <% end %>
-
-</nav>
+</header>
 
 <section>
-  <%= render 'title', post: @post %>
-
-  <pre>
-    <%= content_tag :div, class: %w(content), as: 'Editor.Content', contenteditable: true, href: admin_post_path(@post.id) do %>
-      <%= @post.content %>
-    <% end %>
-    </pre>
+  <%= content_tag :div, class: %w(content), as: 'Editor.Content', contenteditable: true, href: admin_post_path(@post.id) do %>
+    <%= @post.content %>
+  <% end %>
 </section>

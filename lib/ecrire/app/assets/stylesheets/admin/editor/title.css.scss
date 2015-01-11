@@ -2,11 +2,11 @@
     @include display(flex);
     @include flex(0 auto);
 
-    padding: 0 1em;
-    textarea.title {
+    padding: 1em 4em;
+    input.title {
       width: 100%;
       min-height: 60px;
-      font-size: 1.6em;
+      font-size: 2em;
       cursor: pointer;
       text-decoration: underline;
       background: none;
@@ -15,13 +15,13 @@
       border-width: 1px;
       resize: none;
       outline: none;
+      color: inherit;
 
 
       &:focus {
         cursor: text;
         text-decoration: none;
         background: rgba(255,255,255,0.3);
-        border-color: rgb(154, 177, 194);
         box-shadow: 0 0 2px #FFF;
       }
     }

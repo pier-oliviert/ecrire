@@ -2,7 +2,9 @@ Joint.bind 'Editor.Content', class @Editor
   loaded: =>
     @on 'keydown', @linefeed
 
-    Editor.Extensions = Editor.Extensions.map (ext) =>
+    @parsers = Editor.Parsers
+
+    @extensions = Editor.Extensions.map (ext) =>
       new ext(this)
       
 
@@ -168,10 +170,10 @@ Joint.bind 'Editor.Content', class @Editor
 
     @line(text)
 
-  parse: (node) ->
+  parse: (node) =>
     line = @line(node.textContent)
 
-    for p in Editor.Parsers
+    for p in @parsers
       line = new p(line).render()
 
     line

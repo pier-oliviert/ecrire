@@ -2,12 +2,13 @@ body.edit.posts > main > section {
   @include display(flex);
   @include flex-direction(column);
   @include flex(1);
-  padding-top: 3em;
 
   div.content {
     @include flex(1);
-    padding: 1em;
+    padding: 2em 4em;
     outline: none;
+    border-top: double #EEE;
+    font-size: 1.2em;
 
     & > p {
       display: block;

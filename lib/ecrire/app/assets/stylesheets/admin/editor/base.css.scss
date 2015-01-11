@@ -1,0 +1,12 @@
+body.posts > main {
+  padding: 5em 0 0;
+  @include flex-direction(column);
+}
+
+body.posts > main > header {
+  @include flex(0 auto);
+}
+
+body.posts > main > section {
+  @include flex(1);
+}

@@ -1,53 +1,3 @@
-@import 'mixins/colors';
-@import 'mixins/animations';
-@import 'mixins/form';
-@import 'editor/**/*';
-
-body.posts[class*=edit] > main,
-body.posts[class*=new] > main,
-form.editor {
-  background: #F7F7F7;
-}
-
-body.posts[class*=edit] > main,
-body.posts[class*=new] > main {
-
-  & > section {
-    @include flex(1);
-  }
-  form.editor {
-    @include display(flex);
-  }
-}
-
-form.post.editor {
-  position: relative;
-
-  section {
-    @include flex(1);
-    position: relative;
-
-    textarea {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      margin: 0;
-      border: 0;
-      background: inherit;
-      width: 100%;
-      resize: none;
-      font-size: 1.2em;
-      padding: 6em 2em 2em 1em;
-      outline: none;
-      &:not(.active) {
-        display: none;
-      }
-    }
-  }
-}
-
 nav.post {
   @include flex(0 0 10em);
   padding: 6em 1em 0 0;
@@ -155,3 +105,4 @@ nav.post {
     }
   }
 }
+
