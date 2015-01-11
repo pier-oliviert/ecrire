@@ -9,10 +9,11 @@ body.edit.posts > main > section {
     padding: 1em;
     outline: none;
 
-    & > span.line {
+    & > p {
       display: block;
       min-height: 1.6em;
       line-height: 1.6em;
+      margin: 0;
 
     }
   }
