@@ -1,3 +1,14 @@
+<nav class='tools'>
+  <div>
+  </div>
+
+  <span class='toggle' as='Navigation.Toggle'></span>
+
+  <div>
+    <%= content_tag :button, "Save", as: 'Editor.Save', href: admin_post_path(id: @post.id) %>
+  </div>
+</nav>
+
 <header>
   <%= form_for @post,
     remote: true,

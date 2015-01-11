@@ -5,10 +5,7 @@ nav#Menu.admin {
   @include justify-content(space-between);
   @include flex-wrap(wrap);
 
-  position: fixed;
-  overflow: auto;
   height: 4em;
-  width: 100%;
   z-index: 50;
 
   background-color: rgba(199, 218, 229, 0.8);

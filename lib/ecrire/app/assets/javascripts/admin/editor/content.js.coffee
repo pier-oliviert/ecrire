@@ -30,6 +30,9 @@ Joint.bind 'Editor.Content', class @Editor
         if mutation.type == 'characterData'
           @update mutation.target
 
+    event = new CustomEvent('Editor:updated', {bubbles: true})
+    @element().dispatchEvent(event)
+
 
   linefeed: (e) =>
     return unless e.which == 13
@@ -77,6 +80,9 @@ Joint.bind 'Editor.Content', class @Editor
 
       lines[1].scrollIntoView()
       @positionCursor(lines[1], 0)
+
+    event = new CustomEvent('Editor:updated', {bubbles: true})
+    @element().dispatchEvent(event)
 
   update: (node) ->
     textNode = node
