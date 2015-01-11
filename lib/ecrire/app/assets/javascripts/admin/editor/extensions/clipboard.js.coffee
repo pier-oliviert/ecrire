@@ -140,6 +140,7 @@ Editor.Extensions.push class ClipBoard
         node = line
       else
         node.parentElement.appendChild(line)
+        node = line
     
     @editor.positionCursor(lines[lines.length - 1], offset)
 
