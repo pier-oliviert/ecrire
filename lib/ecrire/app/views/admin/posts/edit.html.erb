@@ -17,7 +17,13 @@
 
     <%= f.text_field :title, class: %w(title), autocomplete: :off, as: 'Posts.Title.TextArea' %>
   <% end %>
+
+  <div class='tags'>
+  </div>
 </header>
+
+<div class='messages'>
+</div>
 
 <section>
   <%= content_tag :div, class: %w(content), as: 'Editor.Content', contenteditable: true, href: admin_post_path(@post.id) do %>

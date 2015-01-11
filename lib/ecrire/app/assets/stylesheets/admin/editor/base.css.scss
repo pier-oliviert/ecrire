@@ -15,6 +15,7 @@ body.posts > main > nav.tools {
   & > div {
     @include display(flex);
     @include flex(1);
+    padding: 0 1em;
     &:last-child {
       @include justify-content(flex-end);
     }
@@ -40,6 +41,15 @@ body.posts > main > nav.tools {
 
 body.posts > main > header {
   @include flex(0 auto);
+
+  div.tags {
+    height: 3em;
+  }
+}
+
+body.posts > main > div.messages {
+  @include flex(0 3em);
+  border-top: double #EEE;
 }
 
 body.posts > main > section {

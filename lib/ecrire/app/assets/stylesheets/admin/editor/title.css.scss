@@ -2,7 +2,7 @@
     @include display(flex);
     @include flex(0 auto);
 
-    padding: 1em 4em;
+    padding: 0 4em;
     input.title {
       width: 100%;
       min-height: 60px;
