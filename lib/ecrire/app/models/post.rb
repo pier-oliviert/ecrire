@@ -46,7 +46,7 @@ class Post < ActiveRecord::Base
 
   def to_param
     if self.instance_of?(Admin::Post)
-      id
+      id.to_s
     else
       slug
     end
