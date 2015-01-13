@@ -1,9 +1,15 @@
 Joint.bind 'Posts.Title', class
   loaded: =>
+    @title = @element().querySelector('input.title')
     @on 'posts:update', @update
 
   update: (e) =>
-    input = @element().querySelector('textarea.title')
-    input.value = e.HTML.querySelector('textarea.title').value
-    input.blur()
+    @title.value = e.HTML
+    @title.blur()
+
+    if e.Notice
+      event = new CustomEvent('Editor:Messages:notice', { bubbles: true})
+      event.message = e.Notice
+      @element().dispatchEvent(event)
+
 

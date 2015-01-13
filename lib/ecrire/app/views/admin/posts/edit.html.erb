@@ -42,18 +42,19 @@
 
 <header>
   <%= form_for @post,
+    as: 'post',
     remote: true,
     html: {as: 'Posts.Title', class: %w(post title settings autosave)} do |f| %>
     <%= hidden_field_tag :context, :title %>
 
-    <%= f.text_field :title, class: %w(title), autocomplete: :off, as: 'Posts.Title.TextArea' %>
+    <%= f.text_field :title, class: %w(title), autocomplete: :off %>
   <% end %>
 
   <div class='tags'>
   </div>
 </header>
 
-<div class='messages'>
+<div class='messages' as="Editor.Messages">
 </div>
 
 <section>
