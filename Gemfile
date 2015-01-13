@@ -13,6 +13,8 @@ gem 's3',            '~> 0.3'
 gem 'pg',            '~> 0.17'
 gem 'kaminari',      '~> 0.15'
 
+gem 'kramdown',      '~> 1.5'
+
 group :server do
   gem 'thin',          '~> 1.6'
 end
