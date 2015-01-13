@@ -86,7 +86,6 @@ Joint.bind 'Editor.Content', class @Editor
         parsedLine = lines[lines.indexOf(line)] = @parse(line)
         line.parentElement.replaceChild(parsedLine, line)
 
-      lines[1].scrollIntoView()
       @positionCursor(lines[1], 0)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
