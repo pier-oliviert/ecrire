@@ -16,9 +16,32 @@ body.posts > main > header {
   }
 }
 
-body.posts > main > div.messages {
+body.posts > main div.messages {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
   @include flex(0 3em);
   border-top: double #FAFAFA;
+  @include user-select(none);
+
+  & > div {
+    @include transition(opacity 1s);
+    & > span {
+      margin-left: 1em;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    &.fade {
+      opacity: 0;
+    }
+  }
+
+  & > div.notice {
+    background: rgb(94, 216, 91);
+    padding: 0.5em 1em;
+    color: rgb(46, 79, 46);
+  }
 }
 
 body.posts > main > section {

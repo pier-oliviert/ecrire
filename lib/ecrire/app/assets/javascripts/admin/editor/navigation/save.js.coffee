@@ -2,7 +2,7 @@ Joint.bind 'Editor.Save', class
   loaded: =>
     @on 'Editor:loaded', document, @cache
     @on 'Editor:updated', document, @update
-    @on 'posts:update', document, => @cache(true)
+    @on 'posts:update', document, @saved
     @on 'click', @save
 
     @element().innerText = @element().getAttribute('persisted')
@@ -26,6 +26,13 @@ Joint.bind 'Editor.Save', class
     xhr.data.set('post[content]', texts.join('\n'))
     xhr.data.set('context', 'content')
     xhr.send()
+
+  saved: (e) =>
+    if e.MessageHTML
+      event = new CustomEvent('Editor:message', { bubbles: true})
+      event.MessageHTML = e.MessageHTML
+      @element().dispatchEvent(event)
+      @cache(true)
 
   update: (e) =>
     return unless @cache()?

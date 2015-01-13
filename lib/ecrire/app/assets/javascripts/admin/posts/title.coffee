@@ -7,9 +7,9 @@ Joint.bind 'Posts.Title', class
     @title.value = e.HTML
     @title.blur()
 
-    if e.Notice
-      event = new CustomEvent('Editor:Messages:notice', { bubbles: true})
-      event.message = e.Notice
+    if e.MessageHTML
+      event = new CustomEvent('Editor:message', { bubbles: true})
+      event.MessageHTML = e.MessageHTML
       @element().dispatchEvent(event)
 
 
