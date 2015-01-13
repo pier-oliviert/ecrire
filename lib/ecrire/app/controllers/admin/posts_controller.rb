@@ -29,6 +29,12 @@ module Admin
       end
     end
 
+    def destroy
+      post = Admin::Post.find(params[:id])
+      post.destroy
+      redirect_to :root
+    end
+
     def edit
     end
 
@@ -42,15 +48,14 @@ module Admin
           end
         end
         format.html do
-          if params[:button].eql?('publish')
-            if @post.publish(post_params)
-              flash[:notice] = t(".successful", title: @post.title)
-              redirect_to post_path(@post.published_at.year, @post.published_at.month, @post.slug)
-            end
-          else
-            @post.update(post_params)
+          case params[:button]
+          when 'publish'
+            @post.publish!
             flash[:notice] = t(".successful", title: @post.title)
-            redirect_to edit_admin_post_path(@post.id)
+            redirect_to post_path(@post.published_at.year, @post.published_at.month, @post.slug)
+          when 'unpublish'
+            @post.unpublish!
+            redirect_to edit_admin_post_path(@post)
           end
         end
       end
@@ -67,7 +72,7 @@ module Admin
     protected
 
     def post_params
-      params.require(:admin_post).permit(:title, :content, :status, :stylesheet, :javascript, :slug)
+      params.require(:post).permit(:title, :content, :status, :stylesheet, :javascript, :slug)
     end
 
     def fetch_post

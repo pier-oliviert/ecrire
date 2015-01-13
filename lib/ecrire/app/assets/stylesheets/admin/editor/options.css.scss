@@ -1,0 +1,73 @@
+body.posts > main > nav.options {
+  @include display(flex);
+  @include flex(0 auto);
+  @include align-items(space-between);
+  background: #FAFAFA;
+  padding: 1em;
+
+  & > div {
+    @include display(flex);
+    @include flex(1);
+  }
+}
+
+body.posts > main > nav.options > .publish.state {
+  @include display(flex);
+  @include align-items(center);
+  overflow-x: hidden;
+  .button {
+    @include transition(margin-left 0.4s, opacity 0.2s);
+    &.hide {
+      opacity: 0;
+    }
+  }
+
+  .fieldset {
+    @include display(flex);
+    @include align-items(center);
+    margin: 0 1em;
+  }
+
+  .publish.button {
+    background: #81BED8;
+    color: #155C7B;
+  }
+
+  .destroy.button {
+    margin-left: 1em;
+    background: rgb(216, 143, 143);
+    color: rgb(136, 0, 0);
+  }
+}
+
+
+body.posts > main > nav.options > .save {
+  @include display(flex);
+  @include justify-content(flex-end);
+  @include align-items(center);
+  .save.button {
+    margin: 0 1em;
+    background: #8FD8BA;
+    color: #00881C;
+
+    input[disabled] {
+      color: rgba(0,0,0,0.3);
+    }
+  }
+}
+
+body.posts > main > nav.options > .toggle {
+  @include flex(0 auto);
+  @include transition(transform 0.2s, color 0.2s);
+  font-family: entypo;
+  font-size: 3em;
+  cursor: pointer;
+  color: rgba(212, 228, 237, 1);
+  &:hover {
+    color: #73CDFF;
+  }
+  &.active {
+    @include transform(rotate(180deg));
+    color: #1A5371;
+  }
+}

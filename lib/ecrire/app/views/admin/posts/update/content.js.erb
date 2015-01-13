@@ -1,7 +1,0 @@
-$status = $("nav.post p.status")
-if (!$status.hasClass('saved')) {
-  $status.css('opacity', '0').one('transitionend', function() {
-    $status.addClass('saved').css('opacity', '1').text('<%= time_ago_in_words(@post.updated_at).capitalize %> ago').fadeIn()
-  })
-}
-

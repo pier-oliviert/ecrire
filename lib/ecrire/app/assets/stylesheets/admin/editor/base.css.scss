@@ -7,37 +7,6 @@ body.posts > main {
   @include flex-direction(column);
 }
 
-body.posts > main > nav.tools {
-  @include display(flex);
-  @include flex(0 auto);
-  @include align-items(space-between);
-
-  & > div {
-    @include display(flex);
-    @include flex(1);
-    padding: 0 1em;
-    &:last-child {
-      @include justify-content(flex-end);
-    }
-  }
-
-  & > span {
-    @include flex(0 auto);
-    @include transition(transform 0.2s, color 0.2s);
-    font-family: entypo;
-    font-size: 3em;
-    cursor: pointer;
-    color: rgba(199, 218, 229, 0.8);
-    &:hover {
-      color: rgba(199, 218, 229, 1); 
-    }
-    &.active {
-      @include transform(rotate(180deg));
-      color: #1A5371;
-    }
-  }
-  
-}
 
 body.posts > main > header {
   @include flex(0 auto);
@@ -49,7 +18,7 @@ body.posts > main > header {
 
 body.posts > main > div.messages {
   @include flex(0 3em);
-  border-top: double #EEE;
+  border-top: double #FAFAFA;
 }
 
 body.posts > main > section {

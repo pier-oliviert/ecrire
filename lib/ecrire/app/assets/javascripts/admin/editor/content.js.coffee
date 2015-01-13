@@ -6,7 +6,11 @@ Joint.bind 'Editor.Content', class @Editor
 
     @extensions = Editor.Extensions.map (ext) =>
       new ext(this)
-      
+
+    lines = @element().textContent.split('\n')
+    @element().textContent = ''
+    for text in lines
+      @element().appendChild(@parse(@line(text)))
 
     @observer = new MutationObserver(@outdated);
     observerSettings = {
@@ -21,6 +25,10 @@ Joint.bind 'Editor.Content', class @Editor
       @observer.disconnect()
       cb()
       @observer.observe @element(), observerSettings
+
+    event = new CustomEvent('Editor:loaded', {bubbles: true})
+    @element().dispatchEvent(event)
+
 
   outdated: (mutations) =>
     @observer.hold =>

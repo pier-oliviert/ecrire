@@ -62,9 +62,15 @@ textarea {
   font-family: Helvetica;
 }
 
-button {
-  border: none;
+button, input[type=submit] {
+  border: 1px solid transparent;
   background: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  color: inherit;
+  outline: none;
 }
 
 main {
