@@ -52,6 +52,10 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def content
+    (self.compiled_content || super).html_safe
+  end
+
   def title=(new_title)
     super
     if self.draft?

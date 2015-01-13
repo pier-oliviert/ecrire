@@ -3,6 +3,7 @@ require 'kramdown'
 module Admin
   class Post < ::Post
     has_many :images, class_name: Admin::Image
+    before_save :compile!
 
     def publish!(params = {})
       self.assign_attributes(params)
@@ -25,8 +26,13 @@ module Admin
     end
 
     def content
-      super || ""
+      read_attribute(:content) || ""
     end
 
+    private
+
+    def compile!
+      self.compiled_content = Kramdown::Document.new(self.content).to_html
+    end
   end
 end
