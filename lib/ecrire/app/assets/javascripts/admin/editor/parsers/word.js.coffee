@@ -2,7 +2,7 @@ Editor.Parsers.push class
   rule: /((\*{1,2})[^\*]+(\*{1,2}))/gi
 
   constructor: (node, el) ->
-    @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
+    @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
 
   matches: () =>
     matches = []
@@ -14,6 +14,7 @@ Editor.Parsers.push class
           node.splitText(m[0].length)
 
         m.node = node
+        @walker.currentNode = node
 
     @matches = ->
       matches
