@@ -1,0 +1,42 @@
+body.edit.posts > main > header {
+  background: #FAFAFA;
+}
+
+body.edit.posts > main > header form.title {
+  @include display(flex);
+  @include flex(0 auto);
+  position: relative;
+
+  &:after {
+    position: absolute;
+    width: 1em;
+    content: '↵';
+    right: 1em;
+    top: 1.1em;
+    color: #FAFAFA;
+    font-size: 1.4em;
+  }
+
+  input.title {
+    width: 100%;
+    min-height: 60px;
+    font-size: 2em;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: center;
+    background: none;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    resize: none;
+    outline: none;
+    color: inherit;
+
+    &:focus {
+      cursor: text;
+      text-decoration: none;
+      background: rgb(239, 239, 239);
+      box-shadow: 0 0 2px #FFF;
+    }
+  }
+}

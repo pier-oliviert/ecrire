@@ -1,4 +1,5 @@
 @import 'bourbon';
-@import 'admin/*';
-@import 'vendor/*';
-
+@import 'admin/mixins/**/*';
+@import 'admin/**/*';
+@import 'vendor/**/*';
+@import 'shared/**/*';

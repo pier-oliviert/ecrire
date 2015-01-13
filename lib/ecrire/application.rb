@@ -1,5 +1,7 @@
 require 'warden'
 require 's3'
+require 'kaminari'
+require 'jointjs'
 
 module Ecrire
   class Application < Rails::Application

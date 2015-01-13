@@ -46,10 +46,14 @@ class Post < ActiveRecord::Base
 
   def to_param
     if self.instance_of?(Admin::Post)
-      id
+      id.to_s
     else
       slug
     end
+  end
+
+  def content
+    (self.compiled_content || super).html_safe
   end
 
   def title=(new_title)
