@@ -1,5 +1,5 @@
 Editor.Parsers.push class
-  rule: /(\[(.+)\])\((\S+)(\s"(.*)")?\)/gi
+  rule: /(\[([^\]]+)\])\((\S+)(\s"([^\)]*)")?\)/gi
 
   constructor: (node, el) ->
     @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
