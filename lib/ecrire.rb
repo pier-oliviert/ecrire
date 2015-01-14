@@ -10,6 +10,13 @@ module Ecrire
   if Ecrire.bundle?
     require 'bundler/setup'
     require 'rails/all'
+
+    require 'bourbon'
+    require 'sass-rails'
+    require 'sprockets'
+    require 'coffee-rails'
+    require 'turbolinks'
+
     Bundler.require(:default, :server, :assets, Rails.env)
   else
     require 'rails/all'

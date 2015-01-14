@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sprockets-rails',   '~> 2.1'
   s.add_dependency 'sass-rails',        '~> 4.0.3'
   s.add_dependency 'coffee-rails',      '~> 4.0'
-  s.add_dependency 'turbolinks',    '~> 2.2'
+  s.add_dependency 'turbolinks',        '~> 2.2'
+  s.add_dependency 'bourbon',           '~> 3.2'
 
 end
