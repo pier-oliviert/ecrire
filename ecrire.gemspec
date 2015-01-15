@@ -40,4 +40,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'turbolinks',        '~> 2.2'
   s.add_dependency 'bourbon',           '~> 3.2'
 
+
+  s.add_development_dependency 'byebug', '~> 3.5'
 end

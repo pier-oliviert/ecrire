@@ -53,7 +53,7 @@ class Post < ActiveRecord::Base
   end
 
   def content
-    (self.compiled_content || super).html_safe
+    (self.compiled_content || super || '').html_safe
   end
 
   def title=(new_title)

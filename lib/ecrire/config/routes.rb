@@ -1,8 +1,8 @@
 Ecrire::Application.routes.draw do
   root 'posts#index'
 
-  get '/:year/:month/:id', to: 'posts#show', constraints: { year: /\d+/, month: /\d+/ }, as: "post"
-  get '/feed', to: 'posts#index', defaults: { format: :rss }
+  get '/:year/:month/:id', controller: :posts, action: :show, constraints: { year: /\d+/, month: /\d+/ }, as: "post"
+  get '/feed', controller: :posts, action: :index, defaults: { format: :rss }
 
   resources :posts, only: [:index]
 
@@ -15,7 +15,7 @@ Ecrire::Application.routes.draw do
     root 'posts#index'
     resources :posts do
       collection do
-        get 'new/title', to: :new
+        get 'new/title', controller: :posts, action: :new
       end
       resources :images, shallow: true
       resource :properties, only: [:create, :destroy]

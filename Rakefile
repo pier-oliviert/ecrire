@@ -18,6 +18,7 @@ namespace :database do
       ActiveRecord::Base.configurations = Rails.application.config.database_configuration
 
       path = Rails.application.paths['db/migrate'].existent
+      ActiveRecord::Migrator.migrations_paths = path
       if ActiveRecord::Migrator.needs_migration?
         ActiveRecord::Migrator.migrate(path)
       end
@@ -28,10 +29,6 @@ namespace :database do
       ActiveRecord::Migrator.migrate(path)
       puts "Migration completed."
     end
-
-    # Right now, the only way to run all the tests is to make sure
-    # the database is empty everytime it starts.
-    ActiveRecord::Base.subclasses.each(&:delete_all)
   end
 
   task :configure do
@@ -41,7 +38,7 @@ namespace :database do
   end
 
   task :purge do
-    ActiveRecord::Base.subclasses.each(&:delete_all)
+    [User, Post, Image, Partial, Label].each(&:delete_all)
   end
 
 end

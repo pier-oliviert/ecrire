@@ -16,7 +16,7 @@ module Admin
         stylesheet: 'h1 {\n  text-align: center;\n }'
       }
 
-      put :create, admin_post: data
+      put :create, post: data
       @post = assigns(:post)
 
       assert_equal data[:title], @post.title
@@ -32,7 +32,7 @@ module Admin
         stylesheet: 'h1 {\n  text-align: center;\n }'
       }
 
-      put :update, id: posts(:published).id, admin_post: data
+      put :update, id: posts(:published).id, post: data
       @post = assigns(:post)
 
       assert_equal data[:title], @post.title
@@ -43,7 +43,7 @@ module Admin
 
       data[:slug] = ""
 
-      put :update, id: posts(:published).id, admin_post: data
+      put :update, id: posts(:published).id, post: data
       @post = assigns(:post)
 
       assert_equal data[:title], @post.title
@@ -53,17 +53,17 @@ module Admin
     end
 
     test 'Saving a post should redirect to keep editing the post' do
-      post :create, admin_post: {'title' => 'Just a test'}
+      post :create, post: {'title' => 'Just a test'}
       record = assigns(:post)
       assert_redirected_to edit_admin_post_path(record.id)
 
-      put :update, id: record.id, admin_post: {'content' => 'Something to say'}
+      put :update, id: record.id, post: {'content' => 'Something to say'}
       assert_redirected_to edit_admin_post_path(record.id)
     end
 
     test 'Saving a published article should redirect to the post edit' do
       @post = posts(:published)
-      put :update, id: @post.id, admin_post: {'content' => 'Oh em G'}
+      put :update, id: @post.id, post: {'content' => 'Oh em G'}
 
       assert_redirected_to edit_admin_post_path(@post.id)
     end
@@ -74,7 +74,7 @@ module Admin
         content: 'Some Blah blah',
         stylesheet: 'h1 {\n  text-align: center;\n }'
       }
-      put :update, id: posts(:published).id, admin_post: data, button: 'publish'
+      put :update, id: posts(:published).id, post: data, button: 'publish'
       assert assigns(:post).published?
       assert_redirected_to post_path(assigns(:post).published_at.year, assigns(:post).published_at.month, assigns(:post).slug)
     end
