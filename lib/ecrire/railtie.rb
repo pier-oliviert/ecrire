@@ -42,13 +42,6 @@ module Ecrire
       eager_load!
     end
 
-    class << self
-      attr_writer :configured
-      def configured?
-        @configured
-      end
-    end
-
     def eager_load!
       paths.eager_load.each do |load_path|
         Dir.glob("#{load_path}/**/*.rb").sort.each do |file|
@@ -57,33 +50,26 @@ module Ecrire
       end
     end
 
-    begin
-      app = Rails.application
-      app.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
-      ActiveRecord::Base.configurations = app.config.database_configuration
-      ActiveRecord::Base.establish_connection
-      if !ActiveRecord::Base.configurations.empty?
-        sql = 'SELECT * from users limit(1)';
-        user = ActiveRecord::Base.connection.execute(sql)
-        self.configured = user.count > 0
-      else
-        self.configured = false
-      end
-    rescue Exception => e
-      app.config.active_record.migration_error = :none
-      ActiveRecord::Base.configurations = {}
-      if Rails.env.production?
-        self.configured = true
-      else
-        self.configured = false
-      end
-    end
-
-    if configured?
+    if Rails.env.production?
       include Ecrire::Railtie::Theme
     else
-      include Ecrire::Railtie::Onboarding
+      begin
+        app = Rails.application
+        app.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
+        ActiveRecord::Base.configurations = app.config.database_configuration
+        ActiveRecord::Base.establish_connection
+        sql = 'SELECT * from users limit(1)';
+        user = ActiveRecord::Base.connection.execute(sql)
+        if user.count > 0
+          include Ecrire::Railtie::Theme
+        else
+          include Ecrire::Railtie::Onboarding
+        end
+      rescue Exception => e
+        app.config.active_record.migration_error = :none
+        ActiveRecord::Base.configurations = {}
+        include Ecrire::Railtie::Onboarding
+      end
     end
-
   end
 end
