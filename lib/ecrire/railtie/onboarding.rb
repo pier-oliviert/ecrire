@@ -1,8 +1,5 @@
 class Ecrire::Railtie
   module Onboarding
-    class User < ActiveRecord::Base
-    end
-
     extend ActiveSupport::Concern
 
     included do

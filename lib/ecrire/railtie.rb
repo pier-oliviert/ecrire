@@ -40,23 +40,9 @@ module Ecrire
     end
 
     class << self
-
+      attr_writer :configured
       def configured?
-        app = Rails.application
-        begin
-          app.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
-          ActiveRecord::Base.configurations = app.config.database_configuration
-          ActiveRecord::Base.establish_connection
-          !ActiveRecord::Base.configurations.empty? && !Onboarding::User.first.nil?
-        rescue Exception => e
-          app.config.active_record.migration_error = :none
-          ActiveRecord::Base.configurations = {}
-          if Rails.env.production?
-            true
-          else
-            false
-          end
-        end
+        @configured
       end
     end
 
@@ -68,6 +54,27 @@ module Ecrire
       end
     end
 
+    begin
+      app = Rails.application
+      app.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
+      ActiveRecord::Base.configurations = app.config.database_configuration
+      ActiveRecord::Base.establish_connection
+      if !ActiveRecord::Base.configurations.empty?
+        sql = 'SELECT * from users limit(1)';
+        user = ActiveRecord::Base.connection.execute(sql)
+        self.configured = user.count > 0
+      else
+        self.configured = false
+      end
+    rescue Exception => e
+      app.config.active_record.migration_error = :none
+      ActiveRecord::Base.configurations = {}
+      if Rails.env.production?
+        self.configured = true
+      else
+        self.configured = false
+      end
+    end
 
     if configured?
       require('ecrire/railtie/theme')
