@@ -39,24 +39,21 @@ module Admin
     end
 
     def update
+      @post.update!(post_params)
       respond_to do |format|
         format.js do
-          if @post.update(post_params)
-            render_context
-          else
-            render 'error'
-          end
+          render_context and return
         end
         format.html do
           case params[:button]
           when 'publish'
             @post.publish!
             flash[:notice] = t(".successful", title: @post.title)
-            redirect_to post_path(@post.published_at.year, @post.published_at.month, @post.slug)
+            redirect_to post_path(@post.published_at.year, @post.published_at.month, @post.slug) and return
           when 'unpublish'
             @post.unpublish!
-            redirect_to edit_admin_post_path(@post)
           end
+          redirect_to edit_admin_post_path(@post) and return
         end
       end
     end

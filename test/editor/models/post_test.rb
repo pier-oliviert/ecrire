@@ -42,7 +42,7 @@ class PostTest < ActiveSupport::TestCase
   test "should create a slug if none exist" do
     @post = Post.new
     @post.title = "some test"
-    @post.save
+    !@post.save
     assert !@post.slug.nil?
   end
 
