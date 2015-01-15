@@ -1,5 +1,8 @@
 module Ecrire
   class Railtie < ::Rails::Railtie
+    require 'ecrire/railtie/onboarding'
+    require 'ecrire/railtie/theme'
+
 
     # This hack is done because ActiveRecord raise an error that makes
     # Ecrire exit which makes it impossible to have an instance working without a
@@ -77,10 +80,8 @@ module Ecrire
     end
 
     if configured?
-      require('ecrire/railtie/theme')
       include Ecrire::Railtie::Theme
     else
-      require('ecrire/railtie/onboarding')
       include Ecrire::Railtie::Onboarding
     end
 

@@ -14,7 +14,7 @@ class RailtieTest < ActiveSupport::TestCase
     Ecrire::Application
     assert !Ecrire::Railtie.configured?
     assert Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-    assert !Ecrire::Railtie.include?(Ecrire::Railtie::Default)
+    assert !Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
   end
 
   test 'Ecrire never onboards in production' do
@@ -24,7 +24,7 @@ class RailtieTest < ActiveSupport::TestCase
     Ecrire::Application
     assert Ecrire::Railtie.configured?
     assert !Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-    assert Ecrire::Railtie.include?(Ecrire::Railtie::Default)
+    assert Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
     ENV['RAILS_ENV'] = old_env
   end
 
@@ -36,7 +36,7 @@ class RailtieTest < ActiveSupport::TestCase
       User.destroy_all
       assert !Ecrire::Railtie.configured?
       assert Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-      assert !Ecrire::Railtie.include?(Ecrire::Railtie::Default)
+      assert !Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
     end
   end
 
@@ -54,7 +54,7 @@ class RailtieTest < ActiveSupport::TestCase
 
       assert Ecrire::Railtie.configured?
       assert !Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-      assert Ecrire::Railtie.include?(Ecrire::Railtie::Default)
+      assert Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
       User.first.destroy
     end
   end

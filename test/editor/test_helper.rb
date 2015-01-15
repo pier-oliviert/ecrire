@@ -3,6 +3,7 @@ require 'ecrire'
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
+  ActiveSupport.test_order = :sorted
   self.fixture_path = "#{Dir.pwd}/test/fixtures"
   fixtures :all
 
