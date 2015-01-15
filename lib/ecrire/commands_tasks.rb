@@ -26,9 +26,7 @@ module Ecrire
         # otherwise the --environment option given to the server won't propagate.
         require 'ecrire'
         Dir.chdir(Ecrire::Application.root)
-        if Ecrire::Railtie.configured?
-          check_migration_pending!
-        end
+        check_migration_pending!
       end
 
       if Rails.env.production?
@@ -52,9 +50,7 @@ module Ecrire
       shift_argv!
 
       initialize_application!
-      if Ecrire::Railtie.configured?
-        check_migration_pending!
-      end
+      check_migration_pending!
       Ecrire::Console.start(Ecrire::Application, options)
     end
 
