@@ -1,4 +1,5 @@
 require 'warden'
+require 'pg'
 require 's3'
 require 'kaminari'
 require 'jointjs'
