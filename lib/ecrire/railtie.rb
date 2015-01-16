@@ -35,11 +35,12 @@ module Ecrire
 
     Rails.application.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
 
-    if Rails.env.production?
-      include Ecrire::Railtie::Theme
-    else
-      begin
-        ActiveRecord::Base.configurations = Rails.application.config.database_configuration
+    begin
+      ActiveRecord::Base.configurations = Rails.application.config.database_configuration
+
+      if Rails.env.production?
+        include Ecrire::Railtie::Theme
+      else
         ActiveRecord::Base.establish_connection
         sql = 'SELECT * from users limit(1)';
         user = ActiveRecord::Base.connection.execute(sql)
@@ -48,11 +49,11 @@ module Ecrire
         else
           include Ecrire::Railtie::Onboarding
         end
-      rescue Exception => e
-        Rails.application.config.active_record.migration_error = :none
-        ActiveRecord::Base.configurations = {}
-        include Ecrire::Railtie::Onboarding
       end
+    rescue Exception => e
+      Rails.application.config.active_record.migration_error = :none
+      ActiveRecord::Base.configurations = {}
+      include Ecrire::Railtie::Onboarding
     end
     
     # This hack is done because ActiveRecord raise an error that makes
