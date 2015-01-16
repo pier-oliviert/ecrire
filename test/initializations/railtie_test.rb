@@ -14,16 +14,6 @@ class RailtieTest < ActiveSupport::TestCase
     assert !Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
   end
 
-  test 'Ecrire never onboards in production' do
-    old_env = ENV['RAILS_ENV']
-    ENV['RAILS_ENV'] = 'production'
-    require 'ecrire'
-    Ecrire::Application
-    assert !Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-    assert Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
-    ENV['RAILS_ENV'] = old_env
-  end
-
   test 'not configured if no user is present in the database' do
     Dir.chdir 'test/themes/template' do
 
