@@ -39,7 +39,9 @@ module Admin
     end
 
     def update
-      @post.update!(post_params)
+      if params.has_key?(:post)
+        @post.update!(post_params)
+      end
       respond_to do |format|
         format.js do
           render_context and return
@@ -69,7 +71,7 @@ module Admin
     protected
 
     def post_params
-      params.permit(post: [:title, :content, :status, :stylesheet, :javascript, :slug])
+      params.require(:post).permit(:title, :content, :status, :stylesheet, :javascript, :slug)
     end
 
     def fetch_post
