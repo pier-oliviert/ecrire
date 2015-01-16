@@ -69,7 +69,7 @@ module Admin
     protected
 
     def post_params
-      params.require(:post).permit(:title, :content, :status, :stylesheet, :javascript, :slug)
+      params.permit(post: [:title, :content, :status, :stylesheet, :javascript, :slug])
     end
 
     def fetch_post
