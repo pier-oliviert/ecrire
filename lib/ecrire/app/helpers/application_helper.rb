@@ -45,8 +45,8 @@ module ApplicationHelper
     end
   end
 
-  def body_tag(html_options = {})
-    content_tag :body, yield, html_options
+  def body_tag(html_options = {}, &block)
+    content_tag :body, html_options, &block
   end
 
 
