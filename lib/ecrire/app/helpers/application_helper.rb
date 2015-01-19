@@ -26,7 +26,7 @@ module ApplicationHelper
   def meta_informations_tags
     [
       content_tag(:link, nil, rel: 'alternate', type: 'application/rss+xml', title: 'RSS', href: '/feed'),
-      content_tag(:link, nil, rel: %w(shortcut icon), href: '/favicon.ico'),
+      content_tag(:link, nil, rel: %w(shortcut icon), href: asset_url('favicon.ico')),
       csrf_meta_tags
     ].join.html_safe
   end
