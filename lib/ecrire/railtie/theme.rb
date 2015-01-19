@@ -13,6 +13,16 @@ class Ecrire::Railtie
         end
       end
 
+      initializer 'ecrire.controllers' do |app|
+        if paths['user:controllers'].existent.any?
+          app.paths['app/controllers'].unshift *paths['user:controllers'].existent
+        end
+      end
+
+      initializer 'ecrire.helpers' do |app|
+        app.config.helpers_paths.unshift(*paths['user:helpers'].existent)
+      end
+
       initializer 'ecrire.view_paths' do |app|
         ActionController::Base.prepend_view_path paths['user:views'].existent
       end
@@ -21,15 +31,11 @@ class Ecrire::Railtie
         app.config.assets.paths.concat paths['user:assets'].existent
       end
 
-      initializer 'ecrire.helpers' do |app|
-        app.config.helpers_paths.unshift(*paths['user:helpers'].existent)
-      end
-
-
       def paths
         @paths ||= begin
           paths = Rails::Paths::Root.new(root_path)
           paths.add 'user:views', with: 'views'
+          paths.add 'user:controllers', with: 'controllers', eager_load: true
           paths.add 'user:assets', with: 'assets', glob: '*'
           paths.add 'user:locales', with: 'locales', glob: '**/*.{rb,yml}'
           paths.add 'user:helpers', with: 'helpers', eager_load: true
