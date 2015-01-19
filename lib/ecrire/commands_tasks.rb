@@ -5,7 +5,7 @@ require 'active_record'
 module Ecrire
   class CommandsTasks < Rails::CommandsTasks
 
-    COMMAND_WHITELIST = %w(console server new version help)
+    COMMAND_WHITELIST = %w(console server new version help precompile migrate)
 
     # I have to reimplement the whole method otherwise it will
     # check against the parent's COMMAND_WHITELIST
@@ -26,12 +26,6 @@ module Ecrire
         # otherwise the --environment option given to the server won't propagate.
         require 'ecrire'
         Dir.chdir(Ecrire::Application.root)
-        check_migration_pending!
-      end
-
-      if Rails.env.production?
-        require_command!('assets')
-        Ecrire::Assets.new(server.app).compile!
       end
 
       server.start
@@ -50,8 +44,26 @@ module Ecrire
       shift_argv!
 
       initialize_application!
-      check_migration_pending!
       Ecrire::Console.start(Ecrire::Application, options)
+    end
+
+    def precompile
+      ENV['RAILS_ENV'] = 'production'
+      initialize_application!
+      require_command!('assets')
+      Ecrire::Assets.new(Ecrire::Application).compile!
+    end
+
+    def migrate
+      initialize_application!
+      path = Ecrire::Application.paths['db/migrate'].existent
+      migration = ActiveRecord::Migrator.migrations(path).last
+      current_version = ActiveRecord::Migrator.get_all_versions.max
+      if migration.version > current_version
+        ActiveRecord::Migrator.migrate(path)
+      else
+        puts 'Ecrire is already migrated to the latest version.'
+      end
     end
 
     def new
@@ -75,25 +87,6 @@ module Ecrire
 
     def require_command!(command)
       require "ecrire/commands/#{command}"
-    end
-
-    protected
-
-    def check_migration_pending!
-      path = Rails.application.paths['db/migrate'].existent
-      migration = ActiveRecord::Migrator.migrations(path).last
-      current_version = ActiveRecord::Migrator.get_all_versions.max
-      if migration.version > current_version
-        puts 'Your database needs to be updated. You may want to backup your database beforehand. Would you like to do it now? (y/n)'
-        while a = gets
-          if a[0].casecmp('y') == 0
-            ActiveRecord::Migrator.migrate(path)
-            break
-          else
-            exit
-          end
-        end
-      end
     end
 
   end
