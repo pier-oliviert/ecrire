@@ -13,24 +13,10 @@ module Ecrire
       ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)
     end
 
-
     initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
       app.config.eager_load_paths.unshift *paths.eager_load
       app.config.autoload_once_paths.unshift *paths.autoload_once
       app.config.autoload_paths.unshift *paths.autoload_paths
-    end
-
-
-    initializer 'ecrire.eager_load' do
-      eager_load!
-    end
-
-    def eager_load!
-      paths.eager_load.each do |load_path|
-        Dir.glob("#{load_path}/**/*.rb").sort.each do |file|
-          require_dependency(file)
-        end
-      end
     end
 
     Rails.application.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'

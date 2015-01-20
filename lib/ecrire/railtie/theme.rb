@@ -3,9 +3,6 @@ class Ecrire::Railtie
     extend ActiveSupport::Concern
 
     included do
-      initializer 'ecrire.locales' do |app|
-        config.i18n.railties_load_path.concat(paths['user:locales'].existent)
-      end
 
       initializer 'ecrire.logs', before: :initialize_logger do |app|
         unless Rails.env.test?
@@ -13,14 +10,20 @@ class Ecrire::Railtie
         end
       end
 
+      initializer 'ecrire.locales' do |app|
+        config.i18n.railties_load_path.concat(paths['user:locales'].existent)
+      end
+
       initializer 'ecrire.controllers' do |app|
         if paths['user:controllers'].existent.any?
-          app.paths['app/controllers'].unshift *paths['user:controllers'].existent
+          app.paths['app/controllers'].concat paths['user:controllers'].existent
         end
       end
 
       initializer 'ecrire.helpers' do |app|
-        app.config.helpers_paths.unshift(*paths['user:helpers'].existent)
+        if paths['user:helpers'].existent.any?
+          app.paths['app/helpers'].concat paths['user:helpers'].existent
+        end
       end
 
       initializer 'ecrire.view_paths' do |app|
