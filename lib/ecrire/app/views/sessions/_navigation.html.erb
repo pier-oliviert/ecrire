@@ -7,12 +7,12 @@
       </h4>
       <%= link_to admin_posts_path(type: :draft), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
         <span class='type'>Drafts</span>
-        <%= content_tag :span, posts.drafted.count, class: %w(count) %>
+        <%= content_tag :span, Post.drafted.count, class: %w(count) %>
       <% end %>
 
       <%= link_to admin_posts_path(type: :published), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
         <span class='type'>Published</span>
-        <%= content_tag :span, posts.published.count, class: %w(count) %>
+        <%= content_tag :span, Post.published.count, class: %w(count) %>
       <% end %>
     </div>
   </section>
