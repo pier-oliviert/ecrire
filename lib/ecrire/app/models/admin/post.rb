@@ -33,6 +33,8 @@ module Admin
 
     def compile!
       self.compiled_content = Kramdown::Document.new(self.content).to_html
+      html = Nokogiri::HTML(self.compiled_content).xpath("//body").children[0..20]
+      self.compiled_excerpt = html.to_s
     end
   end
 end

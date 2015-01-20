@@ -22,7 +22,6 @@ class Post < ActiveRecord::Base
   validates :slug, presence: true, uniqueness: true
 
   before_validation :create_slug_if_nil
-  before_save :generate_excerpt
 
   def status=(new_status)
     if new_status.eql? "publish"
@@ -55,6 +54,11 @@ class Post < ActiveRecord::Base
   def content
     (self.compiled_content || super || '').html_safe
   end
+
+  def excerpt
+    (self.compiled_excerpt || "").html_safe
+  end
+
 
   def title=(new_title)
     super
@@ -93,8 +97,4 @@ class Post < ActiveRecord::Base
     self.slug = self.title.parameterize
   end
 
-  def generate_excerpt
-    html = Nokogiri::HTML(self.content).xpath("//body").children
-    self.excerpt = html.children.to_a.join(" ")[0..75] << "..."
-  end
 end
