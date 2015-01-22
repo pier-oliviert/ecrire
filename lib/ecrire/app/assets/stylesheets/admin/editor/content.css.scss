@@ -5,7 +5,7 @@ body.edit.posts > main > section {
 
   div.content {
     @include flex(1);
-    padding: 1em 4em;
+    padding: 1em 4em 12em 4em;
     outline: none;
     font-size: 1.2em;
     width: 90%;
