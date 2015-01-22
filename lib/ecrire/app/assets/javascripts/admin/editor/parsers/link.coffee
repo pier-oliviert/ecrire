@@ -1,8 +1,8 @@
 Editor.Parsers.push class
-  rule: /(\[([^\]]+)\])\((\S+)(\s"([^\)]*)")?\)/gi
+  rule: /!{0}(\[([^\]]+)\])(\(([^\)]+)\))/gi
 
   constructor: (node, el) ->
-    @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
+    @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
 
   matches: () =>
     matches = []
@@ -26,11 +26,10 @@ Editor.Parsers.push class
     for match in @matches()
       if match.node.parentElement.nodeName == 'A'
         continue
+
       node = match.node
       el = "<a>".toHTML()
-      el.href = match[3]
-      if match[5]?
-        el.title = match[5]
+      el.href = match[4]
 
       name = "<strong>".toHTML()
       url = node.splitText(match[1].length)

@@ -8,16 +8,50 @@ body.edit.posts > main > section {
     padding: 1em 4em;
     outline: none;
     font-size: 1.2em;
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
 
-    & > p {
-      display: block;
+    & > * {
+      white-space: pre;
       min-height: 1.6em;
       line-height: 1.6em;
-      margin: 0;
+      margin: 0.3em 0;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      margin: 0;
+    & > picture {
+      @include display(flex);
+      @include flex-direction(column);
+      @include transition(background-color 0.3s);
+      height: 400px;
+      background-color: #EEE;
+
+      &:hover {
+        background-color: #CCC;
+      }
+
+      & > em {
+        background-color: #EEE;
+        padding: 1em;
+      }
+
+      & > div {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        cursor: pointer;
+        flex: 1;
+        width: 100%;
+        background-size: cover;
+
+        & > p {
+          text-align: center;
+        }
+
+        & > input[type=file] {
+          display: none;
+        }
+      }
     }
   }
 }

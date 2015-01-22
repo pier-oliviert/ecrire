@@ -98,7 +98,17 @@ Joint.bind 'Editor.Content', class @Editor
 
     return unless node?
 
-    walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
+    elements = node.querySelectorAll('[contenteditable=false]')
+
+    walker = document.createTreeWalker node,
+      NodeFilter.SHOW_TEXT,
+      acceptNode: (node) ->
+        for el in elements
+          if el.contains(node)
+            return NodeFilter.FILTER_REJECT
+            break
+        return NodeFilter.FILTER_ACCEPT
+
     sel = window.getSelection()
     offset = sel.focusOffset
 
@@ -122,18 +132,31 @@ Joint.bind 'Editor.Content', class @Editor
 
   appended: (node) =>
     textNode = node
+
+    el = node
+    while el? && el.parentElement != @element()
+      el = el.parentElement
+
     if node instanceof HTMLBRElement
       node.remove()
-      return
 
-    while node? && node.parentElement != @element()
-      node = node.parentElement
+    node = el
 
     return unless node?
 
     line = @parse(@line(node.textContent))
 
-    walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT) 
+    elements = node.querySelectorAll('[contenteditable=false]')
+
+    walker = document.createTreeWalker node,
+      NodeFilter.SHOW_TEXT,
+      acceptNode: (node) ->
+        for el in elements
+          if el.contains(node)
+            return NodeFilter.FILTER_REJECT
+            break
+        return NodeFilter.FILTER_ACCEPT
+
     sel = window.getSelection()
     offset = sel.focusOffset
 
@@ -153,7 +176,16 @@ Joint.bind 'Editor.Content', class @Editor
 
 
   positionCursor: (el, offset) ->
-    walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT) 
+    elements = el.querySelectorAll('[contenteditable=false]')
+    walker = document.createTreeWalker el,
+      NodeFilter.SHOW_TEXT,
+      acceptNode: (node) ->
+        for el in elements
+          if el.contains(node)
+            return NodeFilter.FILTER_REJECT
+            break
+        return NodeFilter.FILTER_ACCEPT
+
     idx = 0
     sel = window.getSelection()
     range = document.createRange()
@@ -185,12 +217,33 @@ Joint.bind 'Editor.Content', class @Editor
     @line(text)
 
   parse: (node) =>
+    if node.nodeType == document.ELEMENT_NODE && (els = node.querySelectorAll('[contenteditable=false]')).length > 0
+      el.textContent = '' for el in els
+        
     line = @line(node.textContent)
 
     for p in @parsers
-      line = new p(line).render()
+      line = new p(line, node).render()
 
     line
+
+  toString: =>
+    texts = []
+    elements = el.querySelectorAll('[contenteditable=false]')
+    walker = document.createTreeWalker el,
+      NodeFilter.SHOW_TEXT,
+      acceptNode: (node) ->
+        for el in elements
+          if el.contains(node)
+            return NodeFilter.FILTER_REJECT
+            break
+        return NodeFilter.FILTER_ACCEPT
+
+    while n = node.nextNode()
+      texts.push n
+
+    texts.join('\n')
+
 
 Editor.Parsers = []
 Editor.Extensions = []

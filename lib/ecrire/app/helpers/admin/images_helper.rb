@@ -1,5 +1,30 @@
 module Admin
   module ImagesHelper
+
+    def image_form_signature(policy)
+      @signature ||= begin
+        key = Rails.application.secrets.s3['secret_key']
+        sha = OpenSSL::Digest.new('sha1')
+        digest = OpenSSL::HMAC.digest sha, key, policy
+        Base64.encode64(digest).gsub("\n", "")
+      end
+    end
+
+    def image_form_policy(post)
+      @policy ||= begin
+                    policy = {
+                      "expiration" => "2019-01-01T00:00:00Z",
+                      "conditions" => [
+                        {"bucket" => "ecrire_test"},
+                        ["starts-with", "$key", "#{post.id}/"],
+                        {"acl" => "private"},
+                        {'success_action_status' => '201'}
+                      ]
+                    }
+                    Base64.encode64(policy.to_json).gsub("\n","")
+      end
+    end
+
     def editor_image_tag(post)
       return unless post.header?
       content_tag :div, class: %w(image), style: "background-image: url('#{post.header.url}')" do

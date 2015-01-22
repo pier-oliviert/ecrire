@@ -21,9 +21,8 @@ Joint.bind 'Editor.Save', class
     e.preventDefault()
     e.stopPropagation()
 
-    texts = Array.prototype.slice.call(PostBody.childNodes).map (n) -> n.textContent
     xhr = new Joint.XHR(e.target.form)
-    xhr.data.set('post[content]', texts.join('\n'))
+    xhr.data.set('post[content]', PostBody.instance.toString())
     xhr.data.set('context', 'content')
     xhr.send()
 
