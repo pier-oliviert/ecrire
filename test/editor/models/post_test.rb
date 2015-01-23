@@ -62,18 +62,6 @@ class PostTest < ActiveSupport::TestCase
     assert @post.errors.has_key?(:slug), 'There should be an error with the slug'
   end
 
-  test "excerpt should only be readable HTML" do
-    @post = Post.new title: "Some other test"
-    @post.content = "
-    <script>some JS</script>
-    <style>Some CSS</style>
-    <h1>A header</h1>
-    <p>And a paragraph</p>"
-    @post.save
-
-    assert_equal @post.excerpt, "A header And a paragraph..."
-  end
-
   test 'should be able to add labels' do
     @post = posts(:draft)
     label = Label.create(name: 'A label')
