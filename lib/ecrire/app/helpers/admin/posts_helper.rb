@@ -13,7 +13,10 @@ module Admin
         class: %w(content),
         as: 'Editor.Content',
         contenteditable: true,
-        href: admin_post_path(@post.id) do
+        href: admin_post_path(@post.id) do |div|
+          if Rails.application.secrets.s3.has_key?('namespace')
+            div['namespace'] = Rails.application.secrets.s3['namespace']
+          end
           post.content
         end
     end

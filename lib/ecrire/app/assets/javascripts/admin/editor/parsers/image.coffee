@@ -110,9 +110,15 @@ class Editor.ImageUploader
     policy = PostBody.getAttribute('policy')
     signature = PostBody.getAttribute('signature')
     bucket = PostBody.getAttribute('bucket')
+    namespace = PostBody.getAttribute('namespace')
     access_key = PostBody.getAttribute('access_key')
 
     url = "https://#{bucket}.s3.amazonaws.com/"
+    dir = [id]
+    if namespace?
+      dir.splice(0,0, namespace)
+
+    dir = dir.join '/'
 
     data = new FormData()
     data.append 'AWSAccessKeyId', access_key
@@ -120,7 +126,7 @@ class Editor.ImageUploader
     data.append 'acl', 'private'
     data.append 'policy', policy
     data.append 'signature', signature
-    data.append 'key', "#{id}/#{e.target.files[0].name}"
+    data.append 'key', "#{dir}/#{e.target.files[0].name}"
     data.append 'file', e.target.files[0]
 
     xhr = new XMLHttpRequest()

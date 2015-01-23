@@ -12,11 +12,16 @@ module Admin
 
     def image_form_policy(post)
       @policy ||= begin
+                    namespace = [post.id]
+                    if Rails.application.secrets.s3.has_key?('namespace')
+                      namespace.insert 0, Rails.application.secrets.s3['namespace']
+                    end
+
                     policy = {
                       "expiration" => (Time.now + 10.years).utc.to_s(:iso8601),
                       "conditions" => [
                         {"bucket" => Rails.application.secrets.s3['bucket']},
-                        ["starts-with", "$key", "#{post.id}/"],
+                        ["starts-with", "$key", "#{namespace.join('/')}/"],
                         {"acl" => "private"},
                         {'success_action_status' => '201'}
                       ]
