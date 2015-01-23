@@ -109,11 +109,13 @@ class Editor.ImageUploader
     id = PostBody.getAttribute('postid')
     policy = PostBody.getAttribute('policy')
     signature = PostBody.getAttribute('signature')
+    bucket = PostBody.getAttribute('bucket')
+    access_key = PostBody.getAttribute('access_key')
 
-    url = "https://ecrire_test.s3.amazonaws.com/"
+    url = "https://#{bucket}.s3.amazonaws.com/"
 
     data = new FormData()
-    data.append 'AWSAccessKeyId', 'AKIAJJ4TMZJMEQW4VYLQ'
+    data.append 'AWSAccessKeyId', access_key
     data.append 'success_action_status', 201
     data.append 'acl', 'private'
     data.append 'policy', policy
