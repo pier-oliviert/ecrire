@@ -225,20 +225,13 @@ Joint.bind 'Editor.Content', class @Editor
 
   toString: =>
     texts = []
-    elements = el.querySelectorAll('[contenteditable=false]')
-    walker = document.createTreeWalker el,
-      NodeFilter.SHOW_TEXT,
-      acceptNode: (node) ->
-        for el in elements
-          if el.contains(node)
-            return NodeFilter.FILTER_REJECT
-            break
-        return NodeFilter.FILTER_ACCEPT
+    body = @element().cloneNode(true)
+    elements = body.querySelectorAll('[contenteditable=false]')
+    el.remove() for el in elements
+    for line in body.children
+      texts.push line.textContent
 
-    while n = node.nextNode()
-      texts.push n
-
-    texts.join('\n')
+    texts.join '\n'
 
 
 Editor.Parsers = []
