@@ -113,7 +113,7 @@ class Editor.ImageUploader
     namespace = PostBody.getAttribute('namespace')
     access_key = PostBody.getAttribute('access_key')
 
-    url = "https://#{bucket}.s3.amazonaws.com/"
+    url = "https://s3.amazonaws.com/#{bucket}/"
     dir = [id]
     if namespace?
       dir.splice(0,0, namespace)
