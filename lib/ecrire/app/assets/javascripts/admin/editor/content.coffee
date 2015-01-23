@@ -100,14 +100,7 @@ Joint.bind 'Editor.Content', class @Editor
 
     elements = node.querySelectorAll('[contenteditable=false]')
 
-    walker = document.createTreeWalker node,
-      NodeFilter.SHOW_TEXT,
-      acceptNode: (node) ->
-        for el in elements
-          if el.contains(node)
-            return NodeFilter.FILTER_REJECT
-            break
-        return NodeFilter.FILTER_ACCEPT
+    walker = @walker(node)
 
     sel = window.getSelection()
     offset = sel.focusOffset
@@ -131,11 +124,15 @@ Joint.bind 'Editor.Content', class @Editor
 
 
   appended: (node) =>
-    textNode = node
-
     el = node
     while el? && el.parentElement != @element()
       el = el.parentElement
+
+    elements = el.querySelectorAll('[contenteditable=false]')
+
+    for element in elements
+      if element.contains(node)
+        return
 
     if node instanceof HTMLBRElement
       node.remove()
@@ -146,16 +143,7 @@ Joint.bind 'Editor.Content', class @Editor
 
     line = @parse(@line(node.textContent))
 
-    elements = node.querySelectorAll('[contenteditable=false]')
-
-    walker = document.createTreeWalker node,
-      NodeFilter.SHOW_TEXT,
-      acceptNode: (node) ->
-        for el in elements
-          if el.contains(node)
-            return NodeFilter.FILTER_REJECT
-            break
-        return NodeFilter.FILTER_ACCEPT
+    walker = @walker(node)
 
     sel = window.getSelection()
     offset = sel.focusOffset
@@ -177,14 +165,7 @@ Joint.bind 'Editor.Content', class @Editor
 
   positionCursor: (el, offset) ->
     elements = el.querySelectorAll('[contenteditable=false]')
-    walker = document.createTreeWalker el,
-      NodeFilter.SHOW_TEXT,
-      acceptNode: (node) ->
-        for el in elements
-          if el.contains(node)
-            return NodeFilter.FILTER_REJECT
-            break
-        return NodeFilter.FILTER_ACCEPT
+    walker = @walker(el)
 
     idx = 0
     sel = window.getSelection()
@@ -217,8 +198,12 @@ Joint.bind 'Editor.Content', class @Editor
     @line(text)
 
   parse: (node) =>
-    if node.nodeType == document.ELEMENT_NODE && (els = node.querySelectorAll('[contenteditable=false]')).length > 0
-      el.textContent = '' for el in els
+    if node.nodeType == document.ELEMENT_NODE 
+      els = node.querySelectorAll('[contenteditable=false]')
+      for el in els
+        walker = @walker(el)
+        while walker.nextNode()
+          walker.currentNode.textContent = ''
         
     line = @line(node.textContent)
 
@@ -226,6 +211,17 @@ Joint.bind 'Editor.Content', class @Editor
       line = new p(line, node).render()
 
     line
+
+  walker: (node) ->
+    elements = node.querySelectorAll('[contenteditable=false]')
+    document.createTreeWalker node,
+      NodeFilter.SHOW_TEXT,
+      acceptNode: (node) ->
+        for el in elements
+          if el.contains(node)
+            return NodeFilter.FILTER_REJECT
+            break
+        return NodeFilter.FILTER_ACCEPT
 
   toString: =>
     texts = []

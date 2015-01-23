@@ -3,51 +3,89 @@ Editor.Parsers.push class
 
   constructor: (node, @el) ->
     @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
-    node.querySelector('[contenteditable=false]')?.remove()
 
   render: =>
 
     match = @rule.exec(@walker.root.textContent)
     return @walker.root unless match?
 
+    if @el? && @el.nodeName == 'PICTURE'
+      @container = new Container(@el.querySelector('[contenteditable=false]'))
+    else
+      @container = new Container()
+
+    @uploader = new Editor.ImageUploader(@show)
+
 
     @picture = "<picture>".toHTML()
-    @input = "<input type='file'>".toHTML()
 
     @title = "<em></em>".toHTML()
     @title.appendChild document.createTextNode(match[1])
     @title.appendChild document.createTextNode(match[3])
-    @title.setAttribute('name', match[4])
+    if match[4]?
+      @title.setAttribute('name', match[4])
 
-    placeholder = "<p>Click here to upload a picture.</p>".toHTML()
-    @container = "<div contenteditable=false></div>".toHTML()
-    @container.appendChild(@input)
-
-    @container.addEventListener 'click', @open
-    @picture.appendChild @container
+    @picture.appendChild @container.toHTML(match[4])
     @picture.appendChild @title
 
-    uploader = new Editor.ImageUploader(@preview)
-    @input.addEventListener 'change', uploader.update
-    oldContainer = @el.querySelector('div')
-    if @el? && @el.nodeName == 'PICTURE' && oldContainer.getAttribute('name') == @title.getAttribute('name')
-      @picture.replaceChild(oldContainer, @container)
-      @container = oldContainer
-
-    if match[4]?
-      @container.style.backgroundImage = "url(#{match[4]})"
-    else
-      @container.appendChild(placeholder)
+    @container.input.addEventListener 'change', @update
 
     return @picture
+
+  show: (e, url) =>
+    @container.image(url)
+    @title.lastChild.textContent = "(#{url})"
+
+  update: (e) =>
+    @container.loading()
+    @uploader.send(e)
+
+
+class Container
+  constructor: (el) ->
+    if el?
+      @el = el
+    else
+      @el = "<div contenteditable=false></div>".toHTML()
+      @el.addEventListener 'click', @open
+
+    if !(@input = @el.querySelector('input'))?
+      @input = "<input type='file'>".toHTML()
+
+    @el.appendChild(@input)
+
+  image: (url) =>
+    @el.style.backgroundImage = "url(#{url})"
+    @el.innerHTML = ''
+    @el.classList.remove 'loading'
+
+  loading: =>
+    @loading = =>
+      @el.classList.add 'loading'
+      @el.innerHTML = ''
+
+    @loading()
+
+  placeholder: =>
+    el = "<p>Click here to upload a picture.</p>".toHTML()
+    @placeholder = =>
+      @el.innerHTML = ''
+      @el.appendChild(el)
+
+    @placeholder()
 
   open: (e) =>
     @input.click()
 
-  preview: (e, url) =>
-    @container.style.backgroundImage = "url(#{url})"
-    @container.innerHTML = ''
-    @title.lastChild.textContent = "(#{url})"
+  toHTML: (url) =>
+    if url?
+      @image(url)
+    else if @el.classList.contains('loading')
+      @loading()
+    else
+      @placeholder()
+
+    @el
 
 
 class Editor.ImageUploader
@@ -67,8 +105,7 @@ class Editor.ImageUploader
     url = xml.querySelector('Location').textContent
     @callback(e, url)
 
-
-  upload: (e) =>
+  send: (e) =>
     id = PostBody.getAttribute('postid')
     policy = PostBody.getAttribute('policy')
     signature = PostBody.getAttribute('signature')
