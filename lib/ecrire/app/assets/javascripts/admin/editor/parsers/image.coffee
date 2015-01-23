@@ -127,6 +127,7 @@ class Editor.ImageUploader
     data.append 'policy', policy
     data.append 'signature', signature
     data.append 'key', "#{dir}/#{e.target.files[0].name}"
+    data.append 'Content-Type', e.target.files[0].type
     data.append 'file', e.target.files[0]
 
     xhr = new XMLHttpRequest()

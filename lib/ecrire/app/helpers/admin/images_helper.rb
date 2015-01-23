@@ -22,6 +22,7 @@ module Admin
                       "conditions" => [
                         {"bucket" => Rails.application.secrets.s3['bucket']},
                         ["starts-with", "$key", "#{namespace.join('/')}/"],
+                        ["starts-with", "$Content-Type", ""],
                         {"acl" => "private"},
                         {'success_action_status' => '201'}
                       ]
