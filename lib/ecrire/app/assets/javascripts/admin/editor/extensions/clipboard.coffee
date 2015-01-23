@@ -96,7 +96,7 @@ Editor.Extensions.push class ClipBoard
           node = previousNode
           continue
 
-      previousNode = node.previousSibling || node.parentElement
+      previousNode = node.previousSibling || node.parentElement
       node.remove()
       node = previousNode
 

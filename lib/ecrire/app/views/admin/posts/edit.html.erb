@@ -58,7 +58,5 @@
 </div>
 
 <section>
-  <%= content_tag :div, id: 'PostBody', class: %w(content), as: 'Editor.Content', contenteditable: true, href: admin_post_path(@post.id) do %>
-    <%= @post.content %>
-  <% end %>
+  <%= post_edit_content(@post) %>
 </section>
