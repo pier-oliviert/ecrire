@@ -13,9 +13,9 @@ module Admin
     def image_form_policy(post)
       @policy ||= begin
                     policy = {
-                      "expiration" => "2019-01-01T00:00:00Z",
+                      "expiration" => (Time.now + 10.years).utc.to_s(:iso8601),
                       "conditions" => [
-                        {"bucket" => "ecrire_test"},
+                        {"bucket" => Rails.application.secrets.s3['bucket']},
                         ["starts-with", "$key", "#{post.id}/"],
                         {"acl" => "private"},
                         {'success_action_status' => '201'}
