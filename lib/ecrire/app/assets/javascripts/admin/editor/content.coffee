@@ -7,12 +7,15 @@ Joint.bind 'Editor.Content', class @Editor
     @extensions = Editor.Extensions.map (ext) =>
       new ext(this)
 
-    lines = @element().textContent.split('\n')
-    @element().textContent = ''
-    for text in lines
-      @element().appendChild(@parse(@line(text)))
+    while (offset = @element().lastChild.textContent.indexOf('\n')) > -1
+      node = @element().lastChild.splitText(offset)
+      node.textContent = node.textContent.substr(1)
 
-    @observer = new MutationObserver(@outdated);
+    for node in @element().childNodes
+      if node?
+        @element().replaceChild(@parse(node), node)
+
+    @observer = new MutationObserver(@outdated)
     observerSettings = {
       childList: true,
       subtree: true,
@@ -56,19 +59,22 @@ Joint.bind 'Editor.Content', class @Editor
       while line? && line.parentElement != @element()
         line = line.parentElement
 
+      walker = @walker(line)
+      text = new String()
+      textNode = sel.focusNode
+      found = false
+      while walker.nextNode()
+        text += walker.currentNode.textContent
+        if !found
+          if walker.currentNode == textNode
+            found = true
+          else
+            offset += walker.currentNode.length
+
       lines = [
-        @line(line.textContent),
+        @line(text),
         @line()
       ]
-
-      walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT) 
-      while walker.nextNode()
-        node = walker.currentNode
-        if node == sel.focusNode
-          break
-        else
-          offset += node.length
-
 
       if lines[0].childNodes.length > 0
         lines[0].childNodes[0].splitText(offset)
@@ -82,11 +88,23 @@ Joint.bind 'Editor.Content', class @Editor
         @element().insertBefore(lines[1], lines[0].nextSibling)
 
 
+      offset = lines[0].textContent.length
+
       for line in lines
         parsedLine = lines[lines.indexOf(line)] = @parse(line)
-        line.parentElement.replaceChild(parsedLine, line)
-
-      @positionCursor(lines[1], 0)
+        if line.parentElement?
+          line.parentElement.replaceChild(parsedLine, line)
+          walker = @walker(parsedLine)
+          if walker.currentNode.childNodes.length > 0
+            while walker.nextNode()
+              length = walker.currentNode.length
+              if offset < length
+                offset++ if walker.currentNode.textContent.indexOf("\n") > -1
+                @positionCursor(parsedLine, Math.max(offset, 0))
+                break
+              offset -= length
+          else
+            @positionCursor(parsedLine, 0)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)
@@ -128,6 +146,8 @@ Joint.bind 'Editor.Content', class @Editor
     while el? && el.parentElement != @element()
       el = el.parentElement
 
+    return unless el?
+
     elements = el.querySelectorAll('[contenteditable=false]')
 
     for element in elements
@@ -139,7 +159,6 @@ Joint.bind 'Editor.Content', class @Editor
 
     node = el
 
-    return unless node?
 
     line = @parse(@line(node.textContent))
 
@@ -208,7 +227,9 @@ Joint.bind 'Editor.Content', class @Editor
     line = @line(node.textContent)
 
     for p in @parsers
-      line = new p(line, node).render()
+      parser = new p(line, node)
+      if parser.isMatched()
+        line = parser.render()
 
     line
 

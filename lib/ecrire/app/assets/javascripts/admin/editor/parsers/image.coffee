@@ -4,11 +4,14 @@ Editor.Parsers.push class
   constructor: (node, @el) ->
     @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
 
+  isBlock: ->
+    false
+
+  isMatched: =>
+    @match = @rule.exec(@walker.root.textContent)
+    @match?
+
   render: =>
-
-    match = @rule.exec(@walker.root.textContent)
-    return @walker.root unless match?
-
     if @el? && @el.nodeName == 'PICTURE'
       @container = new Container(@el.querySelector('[contenteditable=false]'))
     else
@@ -20,12 +23,12 @@ Editor.Parsers.push class
     @picture = "<picture>".toHTML()
 
     @title = "<em></em>".toHTML()
-    @title.appendChild document.createTextNode(match[1])
-    @title.appendChild document.createTextNode(match[3])
-    if match[4]?
-      @title.setAttribute('name', match[4])
+    @title.appendChild document.createTextNode(@match[1])
+    @title.appendChild document.createTextNode(@match[3])
+    if @match[4]?
+      @title.setAttribute('name', @match[4])
 
-    @picture.appendChild @container.toHTML(match[4])
+    @picture.appendChild @container.toHTML(@match[4])
     @picture.appendChild @title
 
     @container.input.addEventListener 'change', @update
