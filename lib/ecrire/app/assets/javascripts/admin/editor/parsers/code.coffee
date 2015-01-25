@@ -1,44 +1,36 @@
 Editor.Parsers.push class
-  rules: {
-    opening: /^(`{3,})($|\s([a-z]+)?$)/mi
-    closing: /`{3,}$/i
-  }
+  rule: /^((~{3,})\s?([a-z]+)?$)(.+)?(~{3,}$)?/mi
 
   constructor: (node, el) ->
     @el = el
     @nodes = [node]
-    @closed = false
-
-  isBlock: ->
-    true
+    @tildeCount = 0
 
   isMatched: =>
-    @match = @rules.opening.exec(@nodes[0].textContent)
+    @match = @rule.exec(@nodes[0].textContent)
+    if @match? && @match[0]?
+      @tildeCount = @match[2].length
+      @collectSiblingsUntilMatched(@tildeCount, @el)
 
-    if @match?
-      if @hasClosingTag(@el)
-        return true
-      else
-        node = @el.nextSibling
-        while node? && !@closed
-          if @hasClosingTag(node)
-            @closed = true
+  collectSiblingsUntilMatched: (count, node) =>
+    node = node.nextSibling
+    while node
+      @nodes.push node
+      nextNode = node.nextSibling
+      node.remove()
 
-          @nodes.push(node)
-          sibling = node.nextSibling
-          node.remove()
-          node = sibling
-        return true
-    return false
+      match = @rule.exec(node.textContent)
 
-  hasClosingTag: (node) ->
-    @rules.closing.exec(node.textContent)?
+      if match? && match[2]? && match[2].length == count
+        break
+      node = nextNode
+
 
   render: =>
     pre = "<pre>".toHTML()
     code = "<code>\n".toHTML()
     if @match[3]?
-      code.setAttribute("language", @match[3])
+      code.classList.add("language-#{@match[3]}")
     texts = @nodes.map (n) -> n.textContent
     code.textContent = texts.join("\n")
     pre.appendChild(code)

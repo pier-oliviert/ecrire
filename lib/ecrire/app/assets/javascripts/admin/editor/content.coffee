@@ -53,64 +53,47 @@ Joint.bind 'Editor.Content', class @Editor
 
     @observer.hold =>
       sel = window.getSelection()
-      line = sel.focusNode
+      node = sel.focusNode
+      root = node
       offset = sel.focusOffset
 
-      while line? && line.parentElement != @element()
-        line = line.parentElement
+      while root? && root.parentElement != @element()
+        root = root.parentElement
 
-      walker = @walker(line)
+      walker = @walker(root)
       text = new String()
       textNode = sel.focusNode
-      found = false
       while walker.nextNode()
         text += walker.currentNode.textContent
-        if !found
-          if walker.currentNode == textNode
-            found = true
-          else
-            offset += walker.currentNode.length
+        if walker.currentNode == textNode
+          break
+        else
+          offset += walker.currentNode.length
 
-      lines = [
-        @line(text),
-        @line()
-      ]
+      str = node.textContent
+      node.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
 
-      if lines[0].childNodes.length > 0
-        lines[0].childNodes[0].splitText(offset)
-        lines[1].appendChild(lines[0].lastChild)
+      lines = @convertTextToLines(root)
 
-      @element().replaceChild(lines[0], line)
+      line = root
 
-      if @element().lastChild == lines[0]
-        @element().appendChild(lines[1])
-      else
-        @element().insertBefore(lines[1], lines[0].nextSibling)
+      for l in lines.reverse()
+        line.parentElement.insertBefore(l, line)
+        line = l
 
-
-      offset = lines[0].textContent.length
-
-      for line in lines
-        parsedLine = lines[lines.indexOf(line)] = @parse(line)
+      root.remove()
+      lines = lines.reverse().map (line) =>
         if line.parentElement?
-          line.parentElement.replaceChild(parsedLine, line)
-          walker = @walker(parsedLine)
-          if walker.currentNode.childNodes.length > 0
-            while walker.nextNode()
-              length = walker.currentNode.length
-              if offset < length
-                offset++ if walker.currentNode.textContent.indexOf("\n") > -1
-                @positionCursor(parsedLine, Math.max(offset, 0))
-                break
-              offset -= length
-          else
-            @positionCursor(parsedLine, 0)
+          el = @parse(line)
+          line.parentElement.replaceChild(el, line)
+          return el
+
+      @positionCursor(lines[0], offset + 1)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)
 
   update: (node) ->
-    textNode = node
     while node? && node.parentElement != @element()
       node = node.parentElement
 
@@ -129,11 +112,26 @@ Joint.bind 'Editor.Content', class @Editor
       else
         break
 
-    el = @parse(node)
-    if el.nodeName != node.nodeName || el.innerHTML != node.innerHTML
-      node.parentElement.replaceChild(el, node)
-      @positionCursor(el, offset)
+    lines = @convertTextToLines(node)
 
+    line = node
+
+    for l in lines.reverse()
+      line.parentElement.insertBefore(l, line)
+      line = l
+
+    node.remove()
+    lines = lines.reverse().map (line) =>
+      if line.parentElement?
+        el = @parse(line)
+        line.parentElement.replaceChild(el, line)
+        return el
+
+    @positionCursor(lines[0], offset)
+
+  convertTextToLines: (node) =>
+    node.textContent.split('\n').map (t) =>
+      @line(t)
 
   removed: (node) =>
     if node.nodeType != 1 || (node instanceof HTMLBRElement && node.parentElement?)
@@ -184,14 +182,14 @@ Joint.bind 'Editor.Content', class @Editor
 
   positionCursor: (el, offset) ->
     elements = el.querySelectorAll('[contenteditable=false]')
-    walker = @walker(el)
+    walker = @walker(@element())
+    walker.currentNode = el
 
     idx = 0
     sel = window.getSelection()
     range = document.createRange()
 
     while node = walker.nextNode()
-
       idx += node.length
       if offset <= idx
         range.setStart(node, node.length - (idx - offset))
