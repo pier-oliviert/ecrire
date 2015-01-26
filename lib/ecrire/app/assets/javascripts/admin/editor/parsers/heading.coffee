@@ -5,11 +5,14 @@ Editor.Parsers.push class
     @default = el
     @node = node
 
-  render: =>
+  isBlock: ->
+    false
+
+  isMatched: =>
     @match = @rule.exec(@node.textContent)
+    @match?
 
-    return @node unless @match?
-
+  render: =>
     header = "<h#{@match[1].length}>".toHTML()
 
     if header.nodeName == @node.nodeName

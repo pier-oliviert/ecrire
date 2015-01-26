@@ -4,6 +4,12 @@ Editor.Parsers.push class
   constructor: (node, el) ->
     @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
 
+  isBlock: ->
+    false
+
+  isMatched: =>
+    @matches().length > 0
+
   matches: () =>
     matches = []
     while node = @walker.nextNode()

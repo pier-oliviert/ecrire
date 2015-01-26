@@ -7,12 +7,15 @@ Joint.bind 'Editor.Content', class @Editor
     @extensions = Editor.Extensions.map (ext) =>
       new ext(this)
 
-    lines = @element().textContent.split('\n')
-    @element().textContent = ''
-    for text in lines
-      @element().appendChild(@parse(@line(text)))
+    while (offset = @element().lastChild.textContent.indexOf('\n')) > -1
+      node = @element().lastChild.splitText(offset)
+      node.textContent = node.textContent.substr(1)
 
-    @observer = new MutationObserver(@outdated);
+    for node in @element().childNodes
+      if node?
+        @element().replaceChild(@parse(node), node)
+
+    @observer = new MutationObserver(@outdated)
     observerSettings = {
       childList: true,
       subtree: true,
@@ -50,55 +53,55 @@ Joint.bind 'Editor.Content', class @Editor
 
     @observer.hold =>
       sel = window.getSelection()
-      line = sel.focusNode
+      node = sel.focusNode
+      root = node
       offset = sel.focusOffset
 
-      while line? && line.parentElement != @element()
-        line = line.parentElement
+      while root? && root.parentElement != @element()
+        root = root.parentElement
 
-      lines = [
-        @line(line.textContent),
-        @line()
-      ]
-
-      walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT) 
+      walker = @walker(root)
+      text = new String()
+      textNode = sel.focusNode
       while walker.nextNode()
-        node = walker.currentNode
-        if node == sel.focusNode
+        text += walker.currentNode.textContent
+        if walker.currentNode == textNode
           break
         else
-          offset += node.length
+          offset += walker.currentNode.length
 
+      str = new String()
+      walker = @walker(root)
+      while walker.nextNode()
+        str += walker.currentNode.textContent
 
-      if lines[0].childNodes.length > 0
-        lines[0].childNodes[0].splitText(offset)
-        lines[1].appendChild(lines[0].lastChild)
+      root.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
 
-      @element().replaceChild(lines[0], line)
+      lines = @convertTextToLines(root)
 
-      if @element().lastChild == lines[0]
-        @element().appendChild(lines[1])
-      else
-        @element().insertBefore(lines[1], lines[0].nextSibling)
+      line = root
 
+      for l in lines.reverse()
+        line.parentElement.insertBefore(l, line)
+        line = l
 
-      for line in lines
-        parsedLine = lines[lines.indexOf(line)] = @parse(line)
-        line.parentElement.replaceChild(parsedLine, line)
+      root.remove()
+      lines = lines.reverse().map (line) =>
+        if line.parentElement?
+          el = @parse(line)
+          line.parentElement.replaceChild(el, line)
+          return el
 
-      @positionCursor(lines[1], 0)
+      @positionCursor(lines[0], offset + 1)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)
 
   update: (node) ->
-    textNode = node
     while node? && node.parentElement != @element()
       node = node.parentElement
 
     return unless node?
-
-    elements = node.querySelectorAll('[contenteditable=false]')
 
     walker = @walker(node)
 
@@ -111,11 +114,31 @@ Joint.bind 'Editor.Content', class @Editor
       else
         break
 
-    el = @parse(node)
-    if el.nodeName != node.nodeName || el.innerHTML != node.innerHTML
-      node.parentElement.replaceChild(el, node)
-      @positionCursor(el, offset)
+    lines = @convertTextToLines(node)
 
+    line = node
+
+    for l in lines.reverse()
+      line.parentElement.insertBefore(l, line)
+      line = l
+
+    node.remove()
+    lines = lines.reverse().map (line) =>
+      if line.parentElement?
+        el = @parse(line)
+        line.parentElement.replaceChild(el, line)
+        return el
+
+    @positionCursor(lines[0], offset)
+
+  convertTextToLines: (node) =>
+    walker = @walker(node)
+    texts = new String()
+    while walker.nextNode()
+      texts += walker.currentNode.textContent
+
+    texts.split('\n').map (t) =>
+      @line(t)
 
   removed: (node) =>
     if node.nodeType != 1 || (node instanceof HTMLBRElement && node.parentElement?)
@@ -128,6 +151,8 @@ Joint.bind 'Editor.Content', class @Editor
     while el? && el.parentElement != @element()
       el = el.parentElement
 
+    return unless el?
+
     elements = el.querySelectorAll('[contenteditable=false]')
 
     for element in elements
@@ -136,10 +161,10 @@ Joint.bind 'Editor.Content', class @Editor
 
     if node instanceof HTMLBRElement
       node.remove()
+      return
 
     node = el
 
-    return unless node?
 
     line = @parse(@line(node.textContent))
 
@@ -165,22 +190,29 @@ Joint.bind 'Editor.Content', class @Editor
 
   positionCursor: (el, offset) ->
     elements = el.querySelectorAll('[contenteditable=false]')
+    while true
+      length = el.textContent.length
+
+      if length < offset
+        offset -= length + 1
+        el = el.nextElementSibling
+      else
+        break
+
     walker = @walker(el)
 
-    idx = 0
     sel = window.getSelection()
     range = document.createRange()
 
-    while node = walker.nextNode()
-
-      idx += node.length
-      if offset <= idx
-        range.setStart(node, node.length - (idx - offset))
-        break
-
-
-    if range.startContainer == document
-      range.setStart(el, 0)
+    if walker.root.textContent.length == 0
+      range.setStart(walker.root, 0)
+    else
+      idx = 0
+      while node = walker.nextNode()
+        idx += node.length
+        if offset <= idx
+          range.setStart(node, node.length - (idx - offset))
+          break
 
     range.collapse(true)
     sel.removeAllRanges()
@@ -208,14 +240,16 @@ Joint.bind 'Editor.Content', class @Editor
     line = @line(node.textContent)
 
     for p in @parsers
-      line = new p(line, node).render()
+      parser = new p(line, node)
+      if parser.isMatched()
+        line = parser.render()
 
     line
 
-  walker: (node) ->
+  walker: (node, filter = NodeFilter.SHOW_TEXT) ->
     elements = node.querySelectorAll('[contenteditable=false]')
     document.createTreeWalker node,
-      NodeFilter.SHOW_TEXT,
+      filter,
       acceptNode: (node) ->
         for el in elements
           if el.contains(node)
