@@ -28,7 +28,7 @@ Editor.Parsers.push class
 
   render: =>
     pre = "<pre>".toHTML()
-    code = "<code>\n".toHTML()
+    code = "<code>".toHTML()
     if @match[3]?
       code.classList.add("language-#{@match[3]}")
     texts = @nodes.map (n) -> n.textContent

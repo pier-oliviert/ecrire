@@ -70,8 +70,8 @@ Joint.bind 'Editor.Content', class @Editor
         else
           offset += walker.currentNode.length
 
-      str = node.textContent
-      node.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
+      str = root.textContent
+      root.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
 
       lines = @convertTextToLines(root)
 
@@ -182,22 +182,29 @@ Joint.bind 'Editor.Content', class @Editor
 
   positionCursor: (el, offset) ->
     elements = el.querySelectorAll('[contenteditable=false]')
-    walker = @walker(@element())
-    walker.currentNode = el
+    while true
+      length = Math.max(el.textContent.length, 1)
 
-    idx = 0
+      if length < offset
+        offset -= length + 1
+        el = el.nextElementSibling
+      else
+        break
+
+    walker = @walker(el)
+
     sel = window.getSelection()
     range = document.createRange()
 
-    while node = walker.nextNode()
-      idx += node.length
-      if offset <= idx
-        range.setStart(node, node.length - (idx - offset))
-        break
-
-
-    if range.startContainer == document
-      range.setStart(el, 0)
+    if walker.root.textContent.length == 0
+      range.setStart(walker.root, 0)
+    else
+      idx = 0
+      while node = walker.nextNode()
+        idx += node.length
+        if offset <= idx
+          range.setStart(node, node.length - (idx - offset))
+          break
 
     range.collapse(true)
     sel.removeAllRanges()
@@ -231,10 +238,10 @@ Joint.bind 'Editor.Content', class @Editor
 
     line
 
-  walker: (node) ->
+  walker: (node, filter = NodeFilter.SHOW_TEXT) ->
     elements = node.querySelectorAll('[contenteditable=false]')
     document.createTreeWalker node,
-      NodeFilter.SHOW_TEXT,
+      filter,
       acceptNode: (node) ->
         for el in elements
           if el.contains(node)
