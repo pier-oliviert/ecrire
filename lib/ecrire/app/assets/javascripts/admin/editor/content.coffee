@@ -165,27 +165,19 @@ Joint.bind 'Editor.Content', class @Editor
 
     node = el
 
-
-    line = @parse(@line(node.textContent))
-
-    walker = @walker(node)
-
     sel = window.getSelection()
     offset = sel.focusOffset
 
-    while walker.nextNode()
-      if walker.currentNode != sel.focusNode
-        offset += walker.currentNode.length
-      else
-        break
-
-    if line.nodeType == node.nodeType && line.innerHTML == node.innerHTML
-      return
-
     @observer.hold =>
+      line = @line(node.textContent)
+      line = @parse(node)
+
+      if line.nodeType == node.nodeType && line.innerHTML == node.innerHTML
+        return
+
       node.parentElement.replaceChild line, node
 
-    @positionCursor(line, offset)
+      @positionCursor(line, offset)
 
 
   positionCursor: (el, offset) ->
