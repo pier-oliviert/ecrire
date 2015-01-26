@@ -154,6 +154,7 @@ Joint.bind 'Editor.Content', class @Editor
 
     if node instanceof HTMLBRElement
       node.remove()
+      return
 
     node = el
 
