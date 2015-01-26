@@ -64,20 +64,13 @@ Joint.bind 'Editor.Content', class @Editor
         root = root.parentElement
 
       walker = @walker(root)
-      text = new String()
-      textNode = sel.focusNode
       while walker.nextNode()
-        text += walker.currentNode.textContent
-        if walker.currentNode == textNode
+        if walker.currentNode == node
           break
         else
           offset += walker.currentNode.length
 
-      str = new String()
-      walker = @walker(root)
-      while walker.nextNode()
-        str += walker.currentNode.textContent
-
+      str = root.textContent
       root.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
 
       lines = @convertTextToLines(root)
