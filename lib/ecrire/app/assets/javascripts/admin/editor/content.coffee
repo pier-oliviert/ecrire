@@ -70,7 +70,11 @@ Joint.bind 'Editor.Content', class @Editor
         else
           offset += walker.currentNode.length
 
-      str = root.textContent
+      str = new String()
+      walker = @walker(root)
+      while walker.nextNode()
+        str += walker.currentNode.textContent
+
       root.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
 
       lines = @convertTextToLines(root)
@@ -98,8 +102,6 @@ Joint.bind 'Editor.Content', class @Editor
       node = node.parentElement
 
     return unless node?
-
-    elements = node.querySelectorAll('[contenteditable=false]')
 
     walker = @walker(node)
 
@@ -130,7 +132,12 @@ Joint.bind 'Editor.Content', class @Editor
     @positionCursor(lines[0], offset)
 
   convertTextToLines: (node) =>
-    node.textContent.split('\n').map (t) =>
+    walker = @walker(node)
+    texts = new String()
+    while walker.nextNode()
+      texts += walker.currentNode.textContent
+
+    texts.split('\n').map (t) =>
       @line(t)
 
   removed: (node) =>
