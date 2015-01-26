@@ -183,7 +183,7 @@ Joint.bind 'Editor.Content', class @Editor
   positionCursor: (el, offset) ->
     elements = el.querySelectorAll('[contenteditable=false]')
     while true
-      length = Math.max(el.textContent.length, 1)
+      length = el.textContent.length
 
       if length < offset
         offset -= length + 1
