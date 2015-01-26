@@ -15,7 +15,7 @@ Joint.bind 'Editor.Content', class @Editor
       node.textContent = node.textContent.substr(1)
 
     for node in @element().childNodes
-      if node?
+      if node? && node.parentElement? && node.textContent.length > 0
         @element().replaceChild(@parse(node), node)
 
     @observer = new MutationObserver(@outdated)

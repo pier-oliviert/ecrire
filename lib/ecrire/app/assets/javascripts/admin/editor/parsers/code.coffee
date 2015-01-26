@@ -33,6 +33,7 @@ Editor.Parsers.push class
       code.classList.add("language-#{@match[3]}")
     texts = @nodes.map (n) -> n.textContent
     code.textContent = texts.join("\n")
+    Prism.highlightElement(code)
     pre.appendChild(code)
     pre
 
