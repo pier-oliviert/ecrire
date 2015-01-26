@@ -7,6 +7,9 @@ Joint.bind 'Editor.Content', class @Editor
     @extensions = Editor.Extensions.map (ext) =>
       new ext(this)
 
+    unless @element().lastChild?
+      @element().innerHTML = '<p></p>'
+
     while (offset = @element().lastChild.textContent.indexOf('\n')) > -1
       node = @element().lastChild.splitText(offset)
       node.textContent = node.textContent.substr(1)
@@ -143,7 +146,11 @@ Joint.bind 'Editor.Content', class @Editor
   removed: (node) =>
     if node.nodeType != 1 || (node instanceof HTMLBRElement && node.parentElement?)
       node.remove()
-      return
+
+    if @element().childNodes.length == 0
+      p = "<p>".toHTML()
+      @element().appendChild(p)
+      @positionCursor(p, 0)
 
 
   appended: (node) =>
