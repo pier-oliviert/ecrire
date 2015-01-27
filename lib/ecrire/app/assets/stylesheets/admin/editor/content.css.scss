@@ -39,8 +39,8 @@ body.edit.posts > main > section {
         @include display(flex);
         @include align-items(center);
         @include justify-content(center);
+        @include flex(1);
         cursor: pointer;
-        flex: 1;
         width: 100%;
         background-size: cover;
 
