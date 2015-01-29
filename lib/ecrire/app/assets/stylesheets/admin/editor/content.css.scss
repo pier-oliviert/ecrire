@@ -2,15 +2,15 @@ body.edit.posts > main > section {
   @include display(flex);
   @include flex-direction(column);
   @include flex(1);
+  width: 90%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0em 4em 12em 4em;
 
   div.content {
     @include flex(1);
-    padding: 1em 4em 12em 4em;
     outline: none;
     font-size: 1.2em;
-    width: 90%;
-    max-width: 960px;
-    margin: 0 auto;
 
     & > * {
       white-space: pre;
@@ -23,7 +23,7 @@ body.edit.posts > main > section {
       @include display(flex);
       @include flex-direction(column);
       @include transition(background-color 0.3s);
-      height: 400px;
+      height: 480px;
       background-color: #EEE;
 
       &:hover {

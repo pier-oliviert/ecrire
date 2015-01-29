@@ -3,10 +3,9 @@ require 's3'
 module Admin
   class Image < ::Image
     belongs_to :post, class_name: Admin::Post
-    before_create :upload_file
-    before_destroy :remove_file
+    before_save :update_file
 
-    attr_accessor :s3
+    attr_reader :s3
 
     def s3
       @s3 ||= S3.new(Rails.application.secrets.s3 || {})
@@ -17,13 +16,23 @@ module Admin
       @file.content = file
     end
 
+    def clear!
+      return if self.url.nil?
+
+      s3.bucket.objects.find(key).destroy
+      self.url = nil
+      self.key = nil
+      save!
+    end
 
     protected
 
-    def upload_file
-      @file.save unless @file.nil?
-      self.url = @file.url
-      self.key = @file.key
+    def update_file
+      unless @file.nil?
+        @file.save
+        self.url = @file.url
+        self.key = @file.key
+      end
     end
 
     def remove_file

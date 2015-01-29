@@ -1,14 +1,15 @@
-<%= form_for [post, image],
-  builder: Admin::ImageBuilder,
-  url: admin_post_images_path(post.id),
-  html: {
-    class: %w(image form),
-    id: "imageForm"
-  } do |f| %>
+<%= form_for post.header, url: admin_post_image_path(post), as: :image, html: {class: %w(update)} do |f| %>
 
-  <%= f.file_field :file %>
-  <div class="wrapper">
-    <p>You can upload a picture by either <strong>clicking</strong> here or <strong>dropping</strong> a picture here</p>
+  <div class='drop zone'>
   </div>
 
+  <p>You can drop an image here to set a header image for this post.</p>
+
+  <%= f.file_field :file %>
+
 <% end %>
+
+<%= form_for post.header, url: admin_post_image_path(post), remote: true, method: :delete, html: {class: %w(clear)} do |f| %>
+  Do you want to remove this header? <%= f.button 'Remove' %>
+<% end %>
+

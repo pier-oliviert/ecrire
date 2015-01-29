@@ -2,7 +2,7 @@ require 'kramdown'
 
 module Admin
   class Post < ::Post
-    has_many :images, class_name: Admin::Image
+    has_one :header, class_name: Admin::Image
     before_save :compile!
 
     def publish!(params = {})
@@ -25,6 +25,16 @@ module Admin
       super || ""
     end
 
+    def header
+      begin
+        header = super
+        if header.nil?
+          header = Admin::Image.create(post: self)
+        end
+        header
+      end
+    end
+
     def content
       read_attribute(:content) || ""
     end
@@ -36,5 +46,6 @@ module Admin
       html = Nokogiri::HTML(self.compiled_content).xpath("//body").children[0..20]
       self.compiled_excerpt = html.to_s
     end
+
   end
 end

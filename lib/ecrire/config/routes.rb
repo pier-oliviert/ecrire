@@ -17,7 +17,7 @@ Ecrire::Application.routes.draw do
       collection do
         get 'new/title', controller: :posts, action: :new
       end
-      resources :images, shallow: true
+      resource :image, shallow: true
       resource :properties, only: [:create, :destroy]
     end
 
