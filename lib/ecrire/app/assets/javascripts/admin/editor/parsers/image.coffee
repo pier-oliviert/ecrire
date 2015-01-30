@@ -1,7 +1,7 @@
 Editor.Parsers.push class
   rule: /^(!{1}\[([^\]]+)\])(\(([^\s]+)?\))$/i
 
-  constructor: (node, @el) ->
+  constructor: (node) ->
     @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
 
   isBlock: ->
@@ -12,10 +12,7 @@ Editor.Parsers.push class
     @match?
 
   render: =>
-    if @el? && @el.nodeName == 'PICTURE'
-      @container = new Container(@el.querySelector('[contenteditable=false]'))
-    else
-      @container = new Container()
+    @container = new Container()
 
     @uploader = new Editor.ImageUploader(@show)
 
@@ -45,12 +42,9 @@ Editor.Parsers.push class
 
 
 class Container
-  constructor: (el) ->
-    if el?
-      @el = el
-    else
-      @el = "<div contenteditable=false></div>".toHTML()
-      @el.addEventListener 'click', @open
+  constructor: ->
+    @el = "<div contenteditable=false></div>".toHTML()
+    @el.addEventListener 'click', @open
 
     if !(@input = @el.querySelector('input'))?
       @input = "<input type='file'>".toHTML()

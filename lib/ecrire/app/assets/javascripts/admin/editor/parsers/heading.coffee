@@ -1,8 +1,7 @@
 Editor.Parsers.push class
   rule: /^(#{1,6}) /i
 
-  constructor: (node, el) ->
-    @default = el
+  constructor: (node) ->
     @node = node
 
   isBlock: ->
