@@ -96,7 +96,8 @@ Joint.bind 'Editor.Content', class @Editor
 
     @observer.hold =>
       lines = @updateDOM(node, lines)
-      @setCursorAt(lines[0], offset)
+      unless node.parentElement?
+        @setCursorAt(lines[0], offset)
 
 
   removed: (node) =>
