@@ -6,13 +6,11 @@ module ApplicationHelper
 
   def title_tag
     content_tag :title do
-      title
-    end
-  end
-
-  def title
-    unless @post.nil?
-      @post.title
+      if @post.nil?
+        Rails.application.secrets.meta['title']
+      else
+        @post.title
+      end
     end
   end
 
