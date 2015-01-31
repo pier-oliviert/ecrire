@@ -1,8 +1,7 @@
 Editor.Parsers.push class
   rule: /^((~{3,})\s?([a-z]+)?$)(.+)?(~{3,}$)?/mi
 
-  constructor: (node, el) ->
-    @el = el
+  constructor: (node) ->
     @nodes = [node]
     @tildeCount = 0
 
@@ -10,7 +9,7 @@ Editor.Parsers.push class
     @match = @rule.exec(@nodes[0].textContent)
     if @match? && @match[0]?
       @tildeCount = @match[2].length
-      @collectSiblingsUntilMatched(@tildeCount, @el)
+      @collectSiblingsUntilMatched(@tildeCount, @nodes[0])
 
   collectSiblingsUntilMatched: (count, node) =>
     node = node.nextSibling
@@ -23,6 +22,7 @@ Editor.Parsers.push class
 
       if match? && match[2]? && match[2].length == count
         break
+
       node = nextNode
 
 

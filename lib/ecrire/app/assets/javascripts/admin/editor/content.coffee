@@ -1,4 +1,5 @@
 Joint.bind 'Editor.Content', class @Editor
+
   loaded: =>
     @on 'keydown', @linefeed
 
@@ -10,13 +11,13 @@ Joint.bind 'Editor.Content', class @Editor
     unless @element().lastChild?
       @element().innerHTML = '<p></p>'
 
-    while (offset = @element().lastChild.textContent.indexOf('\n')) > -1
-      node = @element().lastChild.splitText(offset)
-      node.textContent = node.textContent.substr(1)
-
-    for node in @element().childNodes
-      if node? && node.parentElement?
-        @element().replaceChild(@parse(node), node)
+    lines = @lines(@element())
+    @element().textContent = ''
+    fragment = document.createDocumentFragment()
+    fragment.appendChild(line) for line in lines
+    @parse(fragment)
+    while fragment.firstChild
+      @element().appendChild(fragment.firstChild)
 
     @observer = new MutationObserver(@outdated)
     observerSettings = {
@@ -36,6 +37,7 @@ Joint.bind 'Editor.Content', class @Editor
     @element().dispatchEvent(event)
 
 
+
   outdated: (mutations) =>
     @observer.hold =>
       for mutation in mutations
@@ -48,50 +50,36 @@ Joint.bind 'Editor.Content', class @Editor
     @element().dispatchEvent(event)
 
 
+
   linefeed: (e) =>
     return unless e.which == 13
 
     e.preventDefault()
     e.stopPropagation()
 
+    sel = window.getSelection()
+    node = focusNode = sel.focusNode
+    offset = sel.focusOffset
+
+    str = focusNode.textContent
+    focusNode.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
+
+    while node? && node.parentElement != @element()
+      node = node.parentElement
+    
+    offset = @lineOffset(node, focusNode, offset) + 1
+
+    lines = @parse(@cloneNodesFrom(node))
+
     @observer.hold =>
-      sel = window.getSelection()
-      node = sel.focusNode
-      root = node
-      offset = sel.focusOffset
+      lines = @updateDOM(node, lines)
+      @setCursorAt(lines[0], offset)
 
-      while root? && root.parentElement != @element()
-        root = root.parentElement
-
-      walker = @walker(root)
-      while walker.nextNode()
-        if walker.currentNode == node
-          break
-        else
-          offset += walker.currentNode.length
-
-      str = root.textContent
-      root.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
-
-      lines = @convertTextToLines(root)
-
-      line = root
-
-      for l in lines.reverse()
-        line.parentElement.insertBefore(l, line)
-        line = l
-
-      root.remove()
-      lines = lines.reverse().map (line) =>
-        if line.parentElement?
-          el = @parse(line)
-          line.parentElement.replaceChild(el, line)
-          return el
-
-      @positionCursor(lines[0], offset + 1)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)
+
+
 
   update: (node) ->
     while node? && node.parentElement != @element()
@@ -102,39 +90,14 @@ Joint.bind 'Editor.Content', class @Editor
     walker = @walker(node)
 
     sel = window.getSelection()
-    offset = sel.focusOffset
+    offset = @lineOffset(node, sel.focusNode, sel.focusOffset)
 
-    while walker.nextNode()
-      if walker.currentNode != sel.focusNode
-        offset += walker.currentNode.length
-      else
-        break
+    lines = @parse(@cloneNodesFrom(node))
+    focusNode = lines.firstChild
 
-    lines = @convertTextToLines(node)
+    @observer.hold =>
+      lines = @updateDOM(node, lines)
 
-    line = node
-
-    for l in lines.reverse()
-      line.parentElement.insertBefore(l, line)
-      line = l
-
-    node.remove()
-    lines = lines.reverse().map (line) =>
-      if line.parentElement?
-        el = @parse(line)
-        line.parentElement.replaceChild(el, line)
-        return el
-
-    @positionCursor(lines[0], offset)
-
-  convertTextToLines: (node) =>
-    walker = @walker(node)
-    texts = new String()
-    while walker.nextNode()
-      texts += walker.currentNode.textContent
-
-    texts.split('\n').map (t) =>
-      @line(t)
 
   removed: (node) =>
     if node.nodeType != 1 || (node instanceof HTMLBRElement && node.parentElement?)
@@ -143,7 +106,8 @@ Joint.bind 'Editor.Content', class @Editor
     if @element().childNodes.length == 0
       p = "<p>".toHTML()
       @element().appendChild(p)
-      @positionCursor(p, 0)
+      @setCursorAt(@element(), 0)
+
 
 
   appended: (node) =>
@@ -166,77 +130,153 @@ Joint.bind 'Editor.Content', class @Editor
     node = el
 
     sel = window.getSelection()
-    offset = sel.focusOffset
+    offset = @lineOffset(el, sel.focusNode, sel.focusOffset)
+
+    lines = @parse(@cloneNodesFrom(node))
 
     @observer.hold =>
-      line = @line(node.textContent)
-      line = @parse(node)
-
-      if line.nodeType == node.nodeType && line.innerHTML == node.innerHTML
-        return
-
-      node.parentElement.replaceChild line, node
-
-      @positionCursor(line, offset)
+      lines = @updateDOM(node, lines)
+      @setCursorAt(lines[0], offset)
 
 
-  positionCursor: (el, offset) ->
-    elements = el.querySelectorAll('[contenteditable=false]')
-    while true
-      length = el.textContent.length
 
-      if length < offset
-        offset -= length + 1
-        el = el.nextElementSibling
+  updateDOM: (current, fragment) =>
+    return unless current?
+    lines = []
+    while line = fragment.firstChild
+      if @same(current, line)
+        lines.push(current)
+        line.remove()
+        current = current.nextSibling
+        if current?
+          continue
+        else
+          break
+      else
+        current.parentElement.replaceChild(line, current)
+        lines.push(line)
+        sibling = line.nextSibling
+        if sibling?
+          current = sibling
+          continue
+        else
+          current = line
+          while line = fragment.firstChild
+            current.parentElement.appendChild(line)
+            lines.push(line)
+          current = null
+          break
+
+    if fragment.childNodes.length == 0
+      while current
+        node = current.nextSibling
+        current.remove()
+        current = node
+
+    lines
+
+
+  lineOffset: (line, node, offset) =>
+    if node.textContent.length == 0
+      return 0
+
+    walker = @walker(line)
+    while walker.nextNode()
+      if walker.currentNode != node
+        offset += walker.currentNode.length
       else
         break
 
-    walker = @walker(el)
+    offset
 
+
+
+  setCursorAt: (line, offset) ->
     sel = window.getSelection()
     range = document.createRange()
+    idx = line.textContent.length
 
-    if walker.root.textContent.length == 0
-      range.setStart(walker.root, 0)
+    while idx < offset
+      line = line.nextSibling
+      idx += Math.max(line.textContent.length, 1) + 1
+
+    if !line.firstChild?
+      range.setStart(line, 0)
     else
-      idx = 0
-      while node = walker.nextNode()
-        idx += node.length
-        if offset <= idx
-          range.setStart(node, node.length - (idx - offset))
-          break
+      remaining = line.textContent.length - (idx - offset)
+      walker = @walker(line)
+      while walker.nextNode()
+        if walker.currentNode.length < remaining
+          remaining -= walker.currentNode.length
+          continue
+
+        range.setStart(walker.currentNode, remaining)
+        break
 
     range.collapse(true)
     sel.removeAllRanges()
     sel.addRange(range)
 
-  line: (text) =>
+
+
+  cloneNodesFrom: (node) =>
+    fragment = document.createDocumentFragment()
+    while node
+      clone = node.cloneNode(true)
+      el.remove for el in clone.querySelectorAll('[contenteditable=false]')
+      fragment.appendChild(line) for line in @lines(clone)
+      node = node.nextSibling
+    fragment
+
+
+
+  lines: (node) =>
    cached = "<p></p>".toHTML()
-   @line = (text) ->
-     el = cached.cloneNode(true)
-     if text?
-       el.textContent = text
+   @lines = (node) =>
+     walker = @walker(node)
+     texts = new String()
+     while walker.nextNode()
+       texts += walker.currentNode.textContent
 
-     el
+     texts.split('\n').map (t) =>
+       el = cached.cloneNode(true)
+       el.textContent = t
+       el
 
-    @line(text)
+   @lines(node)
 
-  parse: (node) =>
-    if node.nodeType == document.ELEMENT_NODE 
-      els = node.querySelectorAll('[contenteditable=false]')
-      for el in els
-        walker = @walker(el)
-        while walker.nextNode()
-          walker.currentNode.textContent = ''
-        
-    line = @line(node.textContent)
 
+
+  same: (node1, node2) =>
+    w1 = @walker(node1, NodeFilter.SHOW_TEXT)
+    w2 = @walker(node2, NodeFilter.SHOW_TEXT)
+    n1 = w1.root
+    n2 = w2.root
+
+    while n1
+      if n1.isEqualNode(n2)
+        n1 = w1.nextNode()
+        n2 = w2.nextNode()
+      else
+        return false
+
+    !w2.nextNode()?
+
+
+
+  parse: (fragment) =>
     for p in @parsers
-      parser = new p(line, node)
-      if parser.isMatched()
-        line = parser.render()
+      line = fragment.firstChild
+      while line
+        parser = new p(line)
+        if parser.isMatched()
+          el = parser.render()
+          fragment.replaceChild(el, line)
+          line = el
+        line = line.nextSibling
+    fragment
 
-    line
+
 
   walker: (node, filter = NodeFilter.SHOW_TEXT) ->
     elements = node.querySelectorAll('[contenteditable=false]')
