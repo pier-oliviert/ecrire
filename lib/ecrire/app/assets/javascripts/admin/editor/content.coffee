@@ -93,10 +93,10 @@ Joint.bind 'Editor.Content', class @Editor
     offset = @lineOffset(node, sel.focusNode, sel.focusOffset)
 
     lines = @parse(@cloneNodesFrom(node))
-    focusNode = lines.firstChild
 
     @observer.hold =>
       lines = @updateDOM(node, lines)
+      @setCursorAt(lines[0], offset)
 
 
   removed: (node) =>
