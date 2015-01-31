@@ -137,42 +137,57 @@ Joint.bind 'Editor.Content', class @Editor
 
     @observer.hold =>
       lines = @updateDOM(node, lines)
-      @setCursorAt(lines[0], offset)
+      if node != lines[0]
+        @setCursorAt(lines[0], offset)
 
 
 
-  updateDOM: (current, fragment) =>
-    return unless current?
+  updateDOM: (anchor, fragment) =>
+    return unless anchor?
+    current = anchor.parentElement.lastChild
     lines = []
-    while line = fragment.firstChild
+    while (line = fragment.lastChild) && current != anchor
       if @same(current, line)
         lines.push(current)
         line.remove()
-        current = current.nextSibling
+        current = current.previousSibling
         if current?
           continue
         else
           break
       else
+        n = current.previousSibling
         current.parentElement.replaceChild(line, current)
         lines.push(line)
-        sibling = line.nextSibling
-        if sibling?
-          current = sibling
-          continue
-        else
-          current = line
-          while line = fragment.firstChild
-            current.parentElement.appendChild(line)
-            lines.push(line)
-          current = null
-          break
+        current = n
 
-    if fragment.childNodes.length == 0
-      while current
-        node = current.nextSibling
+    lines = lines.reverse()
+    return lines unless anchor.parentElement?
+
+    if fragment.childNodes.length == 1
+      current = anchor
+      line = fragment.lastChild
+      if !@same(current, line)
+        current.parentElement.replaceChild(line, current)
+        lines.splice(0, 0, line)
+      else
+        lines.splice(0,0, current)
+    else if fragment.childNodes.length > 1
+      current = anchor
+      while fragment.lastChild
+        line = fragment.lastChild
+        current.parentElement.insertBefore(line, current)
+        lines.splice(0, 0, line)
+        current = line
+      anchor.remove()
+    else if anchor != lines[0]
+      current = lines[0].previousSibling
+      while current != anchor
+        n = current.previousSibling
         current.remove()
-        current = node
+        current = n
+
+      anchor.remove()
 
     lines
 
@@ -249,19 +264,8 @@ Joint.bind 'Editor.Content', class @Editor
 
 
   same: (node1, node2) =>
-    w1 = @walker(node1, NodeFilter.SHOW_TEXT)
-    w2 = @walker(node2, NodeFilter.SHOW_TEXT)
-    n1 = w1.root
-    n2 = w2.root
-
-    while n1
-      if n1.isEqualNode(n2)
-        n1 = w1.nextNode()
-        n2 = w2.nextNode()
-      else
-        return false
-
-    !w2.nextNode()?
+    node1.nodeName == node2.nodeName &&
+    node1.innerHTML.trim() == node2.innerHTML.trim()
 
 
 
