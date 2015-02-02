@@ -48,8 +48,8 @@ module Admin
 
     def excerptize!
       html = Nokogiri::HTML(self.compiled_content).css("body > p")
-      html = html.filter(":not(img)")
-      self.compiled_excerpt = html[0..20].to_s
+      html = html[0..20].filter(":not(img)")
+      self.compiled_excerpt = html.join(&:to_html)
     end
 
   end
