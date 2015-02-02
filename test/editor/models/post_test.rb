@@ -54,6 +54,20 @@ class PostTest < ActiveSupport::TestCase
     assert @post.errors.has_key?(:title), 'There should be an error with the title'
   end
 
+  test "exerpt does not include images" do
+    post = Admin::Post.create!({
+      title: "A new post",
+      content: "Hello
+      ![a](http://google.com)"
+    })
+
+    html = Nokogiri::HTML(post.compiled_excerpt)
+
+    assert html.css('p').length > 0
+    assert_equal html.css('img').length, 0, "There shouldn't be image within excerpt"
+
+  end
+
   test "can't save a post if the slug already exists" do
     @old_post = Post.first
     @post = Post.new

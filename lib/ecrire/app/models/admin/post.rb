@@ -3,7 +3,8 @@ require 'kramdown'
 module Admin
   class Post < ::Post
     has_one :header, class_name: Admin::Image
-    before_save :compile!
+    before_save :compile!, prepend: true
+    before_save :excerptize!
 
     def publish!(params = {})
       self.assign_attributes(params)
@@ -43,8 +44,12 @@ module Admin
 
     def compile!
       self.compiled_content = Kramdown::Document.new(self.content).to_html
-      html = Nokogiri::HTML(self.compiled_content).xpath("//body").children[0..20]
-      self.compiled_excerpt = html.to_s
+    end
+
+    def excerptize!
+      html = Nokogiri::HTML(self.compiled_content).css("body > p")
+      html = html.filter(":not(img)")
+      self.compiled_excerpt = html[0..20].to_s
     end
 
   end
