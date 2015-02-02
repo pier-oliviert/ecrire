@@ -90,7 +90,7 @@ Joint.bind 'Editor.Content', class @Editor
     walker = @walker(node)
 
     sel = window.getSelection()
-    offset = @lineOffset(node, sel.focusNode, sel.focusOffset)
+    offset = @lineOffset(node, (sel.focusNode || node), sel.focusOffset)
 
     lines = @parse(@cloneNodesFrom(node))
 

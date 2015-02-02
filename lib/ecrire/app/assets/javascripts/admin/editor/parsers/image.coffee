@@ -17,7 +17,7 @@ Editor.Parsers.push class
     @uploader = new Editor.ImageUploader(@show)
 
 
-    @picture = "<picture>".toHTML()
+    @picture = "<picture as='Editor.Image'>".toHTML()
 
     @title = "<em></em>".toHTML()
     @title.appendChild document.createTextNode(@match[1])
@@ -29,6 +29,7 @@ Editor.Parsers.push class
     @picture.appendChild @title
 
     @container.input.addEventListener 'change', @update
+    @picture.addEventListener 'drop', @drop
 
     return @picture
 
@@ -37,8 +38,15 @@ Editor.Parsers.push class
     @title.lastChild.textContent = "(#{url})"
 
   update: (e) =>
+    unless e.file?
+      e.file = e.target.files[0]
     @container.loading()
     @uploader.send(e)
+
+  drop: (e) =>
+    e.preventDefault()
+    e.file = e.dataTransfer.files[0]
+    @update(e)
 
 
 class Container
@@ -64,7 +72,7 @@ class Container
     @loading()
 
   placeholder: =>
-    el = "<p>Click here to upload a picture.</p>".toHTML()
+    el = "<p>Drop an image or click here to upload a picture.</p>".toHTML()
     @placeholder = =>
       @el.innerHTML = ''
       @el.appendChild(el)
@@ -87,15 +95,6 @@ class Container
 
 class Editor.ImageUploader
   constructor: (@callback) ->
-
-  update: (e) =>
-    reader = new FileReader()
-    reader.onload = @updated
-    reader.image = e.target.files[0]
-    reader.readAsDataURL(reader.image)
-    @upload(e)
-
-  updated: (e) =>
 
   uploaded: (e) =>
     xml = new DOMParser().parseFromString(e.target.response, 'text/xml')
@@ -123,9 +122,9 @@ class Editor.ImageUploader
     data.append 'acl', 'private'
     data.append 'policy', policy
     data.append 'signature', signature
-    data.append 'key', "#{dir}/#{e.target.files[0].name}"
-    data.append 'Content-Type', e.target.files[0].type
-    data.append 'file', e.target.files[0]
+    data.append 'key', "#{dir}/#{e.file.name}"
+    data.append 'Content-Type', e.file.type
+    data.append 'file', e.file
 
     xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
