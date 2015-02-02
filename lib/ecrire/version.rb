@@ -1,3 +1,3 @@
 module Ecrire
-  VERSION = '0.14.8'
+  VERSION = '0.14.9'
 end
