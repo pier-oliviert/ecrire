@@ -4,9 +4,15 @@ Joint.bind 'Editor.Save', class
     @on 'Editor:updated', document, @update
     @on 'posts:update', document, @saved
     @on 'click', @save
+    @on 'beforeunload', window, @confirm
 
     @element().innerText = @element().getAttribute('persisted')
 
+
+  confirm: (e) =>
+    if @cache() != PostBody.innerHTML
+      e.returnValue = "You have unsaved changed."
+      return e.returnValue
 
   cache: =>
     cache = PostBody.innerHTML
