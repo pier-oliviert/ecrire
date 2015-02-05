@@ -17,17 +17,17 @@ Editor.Extensions.push class ClipBoard
     sel = {
       type: _sel.type
     }
-
-    if _sel.anchorNode.compareDocumentPosition(_sel.extentNode) == document.DOCUMENT_POSITION_PRECEDING
-      sel.anchorNode = _sel.extentNode
-      sel.anchorOffset = _sel.extentOffset
-      sel.extentNode = _sel.anchorNode
-      sel.extentOffset = _sel.anchorOffset
-    else
+    position = _sel.anchorNode.compareDocumentPosition(_sel.extentNode)
+    if _sel.anchorOffset <= _sel.extentOffset || position == document.DOCUMENT_POSITION_PRECEDING
       sel.anchorNode = _sel.anchorNode
       sel.anchorOffset = _sel.anchorOffset
       sel.extentNode = _sel.extentNode
       sel.extentOffset = _sel.extentOffset
+    else
+      sel.anchorNode = _sel.extentNode
+      sel.anchorOffset = _sel.extentOffset
+      sel.extentNode = _sel.anchorNode
+      sel.extentOffset = _sel.anchorOffset
 
     if sel.anchorNode == @editor.element()
       line = @editor.line()
@@ -40,74 +40,37 @@ Editor.Extensions.push class ClipBoard
       else
         @insert(texts, sel)
 
+
   replace: (texts, sel) =>
     
-    startingNode = @truncate(sel)
-
-    texts[0].textContent = "#{startingNode.textContent}#{texts[0].textContent}"
-    offset = texts[texts.length - 1].length
-
-    if startingNode.nextSibling? && startingNode.nextSibling.length > 0
-      texts[texts.length - 1].textContent += startingNode.nextSibling.textContent
-
-    lines = texts.map (text) =>
-      @editor.parse(@editor.line(text.textContent))
-
-    node = startingNode.parentElement
-
-    for line in lines
-      if lines.indexOf(line) == 0
-        node.parentElement.replaceChild(line, node)
-        node = line
-      else if node.nextElementSibling?
-        node.parentElement.insertBefore(line, node.nextElementSibling)
-        node = line
-      else
-        node.parentElement.appendChild(line)
-
-    @editor.positionCursor(lines[lines.length - 1], offset)
-
-
-  truncate: (sel) =>
     node = sel.extentNode
+    line = node
+    nodes = [node]
 
-    lastNode = null
+    while line.parentElement != @editor.element()
+      line = line.parentElement
 
-    if node.nodeType == Element.TEXT_NODE
-      lastNode = node.splitText(sel.extentOffset)
-      lastNode.previousSibling.remove()
-      node = lastNode.previousSibling || lastNode.parentElement
-    else
-      n = node.previousSibling
-      node.remove()
-      node = n
+    offsets = {
+      start: sel.anchorOffset
+      end: sel.extentOffset
+    }
 
-    if !sel.anchorNode.parentElement?
-      return node.childNodes[0]
+    offsets.start = @editor.lineOffset(line, sel.anchorNode, offsets.start)
+    offsets.end = @editor.lineOffset(line, sel.extentNode, offsets.end)
 
+    text = texts.map((t) ->
+      t.textContent
+    ).join()
 
-    while node != sel.anchorNode
-      if node.nodeType == Element.ELEMENT_NODE
-        previousNode = node.previousSibling
-        if previousNode.childNodes.length > 0
-          previousNode = previousNode.lastChild
+    
+    line.textContent = line.textContent.substr(0, offsets.start) + text + line.textContent.substr(offsets.end)
 
-          node.remove()
-          node = previousNode
-          continue
+    fragment = @editor.parse(@editor.cloneNodesFrom(line))
 
-      previousNode = node.previousSibling || node.parentElement
-      node.remove()
-      node = previousNode
+    @editor.updateDOM(line, fragment)
 
-    if sel.anchorNode.parentElement?
-      sel.anchorNode.splitText(sel.anchorOffset).remove()
-      if lastNode?
-        sel.anchorNode.parentElement.appendChild(lastNode)
-    else
-      sel.anchorNode = node.childNodes[0]
+    @editor.setCursorAt(line, offsets.start + text.length)
 
-    sel.anchorNode
 
   insert: (texts, sel) =>
 
@@ -125,23 +88,10 @@ Editor.Extensions.push class ClipBoard
     while node.parentElement != @editor.element()
       node = node.parentElement
 
-    texts[0].textContent = node.textContent
+    fragment = @editor.parse(@editor.cloneNodesFrom(node))
 
-    lines = texts.map (text) =>
-      @editor.parse(@editor.line(text.textContent))
+    @editor.updateDOM(node, fragment)
 
-
-    for line in lines
-      if lines.indexOf(line) == 0
-        node.parentElement.replaceChild(line, node)
-        node = line
-      else if node.nextElementSibling?
-        node.parentElement.insertBefore(line, node.nextElementSibling)
-        node = line
-      else
-        node.parentElement.appendChild(line)
-        node = line
-    
-    @editor.positionCursor(lines[lines.length - 1], offset)
+    @editor.setCursorAt(node, offset)
 
 
