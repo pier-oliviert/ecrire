@@ -9,7 +9,6 @@ Ecrire::Application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   resources :partials, only: [:show]
-  resources :images, only: [:show]
 
   namespace :admin do
     root 'posts#index'

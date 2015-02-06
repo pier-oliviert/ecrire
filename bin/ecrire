@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-ARGV << '--help' if ARGV.empty?
-
-require 'ecrire/commands_tasks'
-
-Ecrire::CommandsTasks.new(ARGV).run_command!(ARGV.shift)
