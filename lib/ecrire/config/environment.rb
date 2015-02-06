@@ -5,7 +5,7 @@ Rails.application.configure do
   config.paths.path = File.expand_path '../../', __FILE__
   config.paths.add 'app/strategies', eager_load: true
   config.paths.add 'app/forms', eager_load: true
-  config.paths.add 'app/decorators', eager_load: true
+  config.paths.add 'lib/tasks', with: 'tasks', glob: '**/*.rake'
 
   config.paths.add "config/locales", with: "locales", glob: "**/*.{rb,yml}"
 

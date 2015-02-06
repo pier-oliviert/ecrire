@@ -19,8 +19,6 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files -z`.split("\x0")
   s.files         += Dir['README.md']
-  s.bindir        = 'bin'
-  s.executables   = ['ecrire']
 
   s.require_path  = 'lib'
 
