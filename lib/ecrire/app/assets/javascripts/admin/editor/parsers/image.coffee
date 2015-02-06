@@ -4,9 +4,6 @@ Editor.Parsers.push class
   constructor: (node) ->
     @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
 
-  isBlock: ->
-    false
-
   isMatched: =>
     @match = @rule.exec(@walker.root.textContent)
     @match?

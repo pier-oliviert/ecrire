@@ -4,9 +4,6 @@ Editor.Parsers.push class
   constructor: (node) ->
     @node = node
 
-  isBlock: ->
-    false
-
   isMatched: =>
     @match = @rule.exec(@node.textContent)
     @match?
