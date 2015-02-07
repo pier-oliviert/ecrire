@@ -213,6 +213,7 @@ Joint.bind 'Editor.Content', class @Editor
     idx = line.textContent.length
 
     while idx < offset
+      break unless line.nextSibling?
       line = line.nextSibling
       idx += Math.max(line.textContent.length, 1) + 1
 

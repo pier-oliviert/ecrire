@@ -12,7 +12,7 @@ body.edit.posts > main > section {
     outline: none;
     font-size: 1.2em;
 
-    & > * {
+    & > *, & > ul > li, & > ol > li {
       white-space: normal;
       min-height: 1.6em;
       line-height: 1.6em;
