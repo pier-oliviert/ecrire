@@ -1,4 +1,4 @@
-Editor.Parsers.Block.push class
+Editor.Parsers.push class
   rule: /^(!{1}\[([^\]]+)\])(\(([^\s]+)?\))$/i
 
   constructor: (node) ->

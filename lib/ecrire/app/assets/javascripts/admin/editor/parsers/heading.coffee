@@ -1,4 +1,4 @@
-Editor.Parsers.Inline.push class
+Editor.Parsers.push class
   rule: /^(#{1,6}) /i
 
   constructor: (node) ->

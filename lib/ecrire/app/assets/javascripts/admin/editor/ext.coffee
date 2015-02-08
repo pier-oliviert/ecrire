@@ -14,5 +14,5 @@ HTMLUListElement::toString = ->
     li.textContent
   texts.join("\n")
 
-HTMLPreElement::toString = HTMLHeadingElement::toString = HTMLDivElement::toString = HTMLParagraphElement::toString = ->
+HTMLPictureElement::toString = HTMLPreElement::toString = HTMLHeadingElement::toString = HTMLDivElement::toString = HTMLParagraphElement::toString = ->
   @textContent

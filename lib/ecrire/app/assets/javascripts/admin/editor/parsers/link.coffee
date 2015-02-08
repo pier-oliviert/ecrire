@@ -1,4 +1,4 @@
-Editor.Parsers.Inline.push class
+Editor.Parsers.push class
   rule: /!{0}(\[([^\]]+)\])(\(([^\)]+)\))/gi
 
   constructor: (node, el) ->

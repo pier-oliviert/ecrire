@@ -1,4 +1,4 @@
-Editor.Parsers.Block.push class
+Editor.Parsers.push class
   rule: /^((~{3,})\s?([a-z]+)?$)(.+)?(~{3,}$)?/mi
 
   constructor: (node) ->

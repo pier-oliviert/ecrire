@@ -1,4 +1,4 @@
-Editor.Parsers.Inline.push class
+Editor.Parsers.push class
   rule: /((\*{1,2})[^\*]+(\*{1,2}))/gi
 
   constructor: (node, el) ->

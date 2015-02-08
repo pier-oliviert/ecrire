@@ -1,4 +1,4 @@
-Editor.Parsers.Block.push class
+Editor.Parsers.push class
   rule: /^(-\s)(.+)?$/i
 
   constructor: (node) ->

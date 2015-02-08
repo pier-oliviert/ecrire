@@ -268,7 +268,7 @@ Joint.bind 'Editor.Content', class @Editor
 
 
   parse: (fragment) =>
-    for p in @parsers.Block.concat(@parsers.Inline)
+    for p in @parsers
       line = fragment.firstChild
       while line
         parser = new p(line)
@@ -303,9 +303,6 @@ Joint.bind 'Editor.Content', class @Editor
     texts.join '\n'
 
 
-Editor.Parsers = {
-  Block: []
-  Inline: []
-}
+Editor.Parsers = []
 Editor.Extensions = []
 
