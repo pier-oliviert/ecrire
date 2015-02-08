@@ -19,6 +19,10 @@ body.edit.posts > main > section {
       margin: 0.3em 0;
     }
 
+    & > ul, & > ol {
+      margin-left: 2em;
+    }
+
     & > picture {
       @include display(flex);
       @include flex-direction(column);

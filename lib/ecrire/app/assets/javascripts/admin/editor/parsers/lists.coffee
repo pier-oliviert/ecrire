@@ -1,30 +1,27 @@
-Editor.Parsers.push class
-  rule: /^(-\s)(.+)?$/gi
+Editor.Parsers.Block.push class
+  rule: /^(-\s)(.+)?$/i
 
   constructor: (node) ->
     @nodes = [node]
-    @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
+    @match = @rule.exec(@nodes[0].textContent)
 
   isMatched: =>
-    @match = @rule.exec(@walker.root.textContent)
-
     if @match?
-      @collectMatchingSiblings(@walker.root)
+      @collectMatchingSiblings(@nodes[0])
+
+    @match?
 
   collectMatchingSiblings: (root) =>
     node = root.nextElementSibling
     while node
-      if node.textContent.length == 0
-        @nodes.push node
-        node.remove()
-        break
-
-      m = @rule.exec(node)
+      sibling = node.nextElementSibling
+      m = @rule.exec(node.textContent)
       if m?
         @nodes.push node
         node.remove()
-
-      node = node.nextElementSibling
+        node = sibling
+        continue
+      break
 
 
   render: =>

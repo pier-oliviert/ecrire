@@ -5,3 +5,14 @@ String::toHTML = ->
     el.children
   else
     el.children[0]
+
+Text::toString = ->
+  @textContent
+
+HTMLUListElement::toString = ->
+  texts = Array.prototype.slice.call(@children).map (li) ->
+    li.textContent
+  texts.join("\n")
+
+HTMLPreElement::toString = HTMLHeadingElement::toString = HTMLDivElement::toString = HTMLParagraphElement::toString = ->
+  @textContent

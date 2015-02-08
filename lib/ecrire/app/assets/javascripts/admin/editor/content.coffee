@@ -96,8 +96,10 @@ Joint.bind 'Editor.Content', class @Editor
 
     @observer.hold =>
       lines = @updateDOM(node, lines)
-      unless node.parentElement?
-        @setCursorAt(lines[0], offset)
+      for line in lines
+        if line.parentElement?
+          @setCursorAt(lines[0], offset)
+          break
 
 
   removed: (node) =>
@@ -250,12 +252,7 @@ Joint.bind 'Editor.Content', class @Editor
   lines: (node) =>
    cached = "<p></p>".toHTML()
    @lines = (node) =>
-     walker = @walker(node)
-     texts = new String()
-     while walker.nextNode()
-       texts += walker.currentNode.textContent
-
-     texts.split('\n').map (t) =>
+     node.toString().split('\n').map (t) =>
        el = cached.cloneNode(true)
        el.textContent = t
        el
@@ -271,7 +268,7 @@ Joint.bind 'Editor.Content', class @Editor
 
 
   parse: (fragment) =>
-    for p in @parsers
+    for p in @parsers.Block.concat(@parsers.Inline)
       line = fragment.firstChild
       while line
         parser = new p(line)
@@ -301,11 +298,14 @@ Joint.bind 'Editor.Content', class @Editor
     elements = body.querySelectorAll('[contenteditable=false]')
     el.remove() for el in elements
     for line in body.children
-      texts.push line.textContent
+      texts.push line.toString()
 
     texts.join '\n'
 
 
-Editor.Parsers = []
+Editor.Parsers = {
+  Block: []
+  Inline: []
+}
 Editor.Extensions = []
 
