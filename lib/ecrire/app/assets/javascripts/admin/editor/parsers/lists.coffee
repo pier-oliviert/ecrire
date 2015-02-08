@@ -1,9 +1,23 @@
 Editor.Parsers.push class
-  rule: /^(-\s)(.+)?$/i
+  rules: [
+    {
+      type: 'ul'
+      regex: /^(-\s)(.+)?$/i
+    },
+    {
+      type: 'ol'
+      regex: /^(\d+\.)(.+)?$/i
+    }
+  ]
 
   constructor: (node) ->
     @nodes = [node]
-    @match = @rule.exec(@nodes[0].textContent)
+    for rule in @rules
+      m = rule.regex.exec(@nodes[0].textContent)
+      if m?
+        @match = m
+        @type = rule.type
+        @rule = rule.regex 
 
   isMatched: =>
     if @match?
@@ -25,7 +39,7 @@ Editor.Parsers.push class
 
 
   render: =>
-    list = "<ul>".toHTML()
+    list = "<#{@type}>".toHTML()
     for node in @nodes
       li = '<li>'.toHTML()
       li.textContent = node.textContent

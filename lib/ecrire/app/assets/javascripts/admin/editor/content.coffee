@@ -92,6 +92,10 @@ Joint.bind 'Editor.Content', class @Editor
     sel = window.getSelection()
     offset = @lineOffset(node, (sel.focusNode || node), sel.focusOffset)
 
+    if node.previousElementSibling?
+      node = node.previousElementSibling
+      offset += node.toString().length + 1
+
     lines = @parse(@cloneNodesFrom(node))
 
     @observer.hold =>
@@ -199,40 +203,23 @@ Joint.bind 'Editor.Content', class @Editor
       return 0
 
     walker = @walker(line)
-    while walker.nextNode()
-      if walker.currentNode != node
-        offset += walker.currentNode.length
-      else
-        break
-
-    offset
+    offset += line.offset(node, walker)
 
 
 
   setCursorAt: (line, offset) ->
     sel = window.getSelection()
-    range = document.createRange()
-    idx = line.textContent.length
 
-    while idx < offset
-      break unless line.nextSibling?
-      line = line.nextSibling
-      idx += Math.max(line.textContent.length, 1) + 1
-
-    if !line.firstChild?
-      range.setStart(line, 0)
-    else
-      remaining = line.textContent.length - (idx - offset)
-      walker = @walker(line)
-      while walker.nextNode()
-        if walker.currentNode.length < remaining
-          remaining -= walker.currentNode.length
-          continue
-
-        range.setStart(walker.currentNode, remaining)
+    while line
+      length = line.toString().length
+      if length >= offset
         break
+      offset -= Math.max(length + 1, 1)
+      line = line.nextSibling
 
-    range.collapse(true)
+    walker = @walker(line)
+    range = line.getRange(offset , walker)
+
     sel.removeAllRanges()
     sel.addRange(range)
 
