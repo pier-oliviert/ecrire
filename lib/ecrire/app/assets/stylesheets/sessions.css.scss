@@ -1,7 +1,8 @@
-[id^='sessions'] {
-  min-height: 100vh;
+[id^='Sessions'] {
   @include display(flex);
-  section {
+
+  & > main {
+    @include justify-content(center);
     @include flex(1);
     @include display(flex);
     @include align-items(center);

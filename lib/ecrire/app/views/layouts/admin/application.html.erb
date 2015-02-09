@@ -7,7 +7,7 @@
   <%= javascript_include_tag "admin" %>
   <%= csrf_meta_tags %>
 </head>
-<%= content_tag :body, class: %W(#{action_name} #{controller_name}) do %>
+<%= content_tag :body, id: [action_name, controller_name].join, class: %W(#{action_name} #{controller_name}) do %>
 
   <main>
     <%= content_tag :nav, id: 'Menu', class: ['admin', controller_name] do %>

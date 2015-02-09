@@ -44,6 +44,7 @@ module ApplicationHelper
   end
 
   def body_tag(html_options = {}, &block)
+    html_options[:id] ||= [controller_name, action_name].map(&:capitalize).join
     content_tag :body, html_options, &block
   end
 
