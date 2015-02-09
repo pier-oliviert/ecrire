@@ -1,6 +1,5 @@
-<%= render 'navigation' %>
-
 <header>
+  <span class='toggle' as='Navigation.Toggle'></span>
   <%= form_for @post,
     as: 'post',
     remote: true,
@@ -19,8 +18,35 @@
 
 <section>
 
-  <div class='publish'>
-  </div>
+  <%= content_tag :div, class: %w(publish state), href: admin_post_path(@post.id) do |div| %>
+    <% if @post.published? %>
+
+      <% div[:as] = 'Editor.Published' %>
+      <div class='fieldset'>
+        <%= check_box_tag 'unpublish' %>
+        <%= label_tag 'unpublish', 'Remove from publication?' %>
+        <%= form_for @post, method: :put, html: { class: %w(hide button destroy) } do |f| %>
+          <%= f.button 'Remove from publication', value: 'unpublish'%>
+        <% end %>
+      </div>
+
+    <% else %>
+
+      <% div[:as] = 'Editor.Draft'  %>
+
+      <%= form_for @post, method: :put, html: { class: %w(button publish) } do |f| %>
+        <%= f.button 'Publish', value: 'publish'%>
+      <% end %>
+
+      <div class='fieldset'>
+        <%= check_box_tag 'delete' %>
+        <%= label_tag 'delete', 'Delete this post?' %>
+        <%= button_to 'Delete this post', @post, method: :delete, form_class: %w(hide destroy button) %>
+      </div>
+
+    <% end %>
+
+  <% end %>
 
   <article>
     <%= content_tag :header, as: "Post.Header" do |header| %>

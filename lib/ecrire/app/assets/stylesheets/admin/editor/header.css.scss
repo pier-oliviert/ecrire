@@ -1,11 +1,15 @@
 body.edit.posts > main > header {
+  @include display(flex);
+  @include flex-direction(column);
   background: #FAFAFA;
+  min-height: 200px;
 }
 
 body.edit.posts > main > header form.title {
   @include display(flex);
   @include flex(0 auto);
   position: relative;
+  margin: auto 0;
 
   &:after {
     position: absolute;
@@ -37,6 +41,24 @@ body.edit.posts > main > header form.title {
       text-decoration: none;
       background: rgb(239, 239, 239);
       box-shadow: 0 0 2px #FFF;
+
     }
+  }
+}
+
+body.posts > main [as='Navigation.Toggle'] {
+  @include flex(0 auto);
+  @include transition(transform 0.2s, color 0.2s);
+  font-family: entypo;
+  font-size: 3em;
+  cursor: pointer;
+  color: rgba(212, 228, 237, 1);
+  margin: 0 auto;
+  &:hover {
+    color: #73CDFF;
+  }
+  &.active {
+    @include transform(rotate(180deg));
+    color: #1A5371;
   }
 }
