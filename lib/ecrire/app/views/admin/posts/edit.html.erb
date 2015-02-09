@@ -18,7 +18,7 @@
 
 <section>
 
-  <%= content_tag :div, class: %w(publish state), href: admin_post_path(@post.id) do %>
+  <%= content_tag :div, class: %w(publish state), href: admin_post_path(@post.id), as: 'Post.Sticky' do %>
 
     <% if @post.published? %>
 
@@ -55,7 +55,7 @@
     <%= post_edit_content(@post) %>
   </article>
 
-  <div class='save'>
+  <div class='save' as='Post.Sticky'>
     <%= form_for @post, method: :put, remote: true, html: {as: 'Editor.Save', class: %w(save button)} do |f| %>
       <%= f.button '', dirty: 'Update', persisted: 'Up to date', disabled: true %>
       <%= content_tag :div, class: %w(update) do %>
