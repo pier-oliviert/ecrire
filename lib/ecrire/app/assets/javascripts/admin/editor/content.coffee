@@ -223,6 +223,12 @@ Joint.bind 'Editor.Content', class @Editor
     walker = @walker(line)
     range = line.getRange(offset , walker)
 
+    height = window.innerHeight
+    rect = line.getBoundingClientRect()
+
+    if rect.bottom > height
+      line.scrollIntoView()
+
     sel.removeAllRanges()
     sel.addRange(range)
 
