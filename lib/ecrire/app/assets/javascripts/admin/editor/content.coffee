@@ -210,12 +210,15 @@ Joint.bind 'Editor.Content', class @Editor
   setCursorAt: (line, offset) ->
     sel = window.getSelection()
 
-    while line
+    while true
       length = line.toString().length
       if length >= offset
         break
       offset -= Math.max(length + 1, 1)
-      line = line.nextSibling
+
+      if line.nextSibling?
+        line = line.nextSibling
+      break
 
     walker = @walker(line)
     range = line.getRange(offset , walker)
