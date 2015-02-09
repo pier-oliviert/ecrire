@@ -1,0 +1,40 @@
+body.posts > main > section > div.publish {
+  @include display(flex);
+  @include flex-direction(column);
+
+  button {
+    @include display(flex);
+    @include align-items(center);
+    @include transition(color 0.2s, background-color 0.2s);
+    padding: 4px 8px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    color: #FFF;
+    background: #688EB2;
+  }
+
+  form {
+    @include display(flex);
+    @include justify-content(center);
+    margin: 1em 0;
+
+    &.publish button:hover {
+      background: #68B2A7;
+    }
+
+    &.destroy button {
+      background: #A35858;
+      color: #FFF;
+      padding: 6px 6px;
+
+      input {
+        margin: 0 6px 2px 0;
+      }
+
+      &[disabled] {
+        background: #ddc0c0;
+        color: #B57272;
+      }
+    }
+  }
+}

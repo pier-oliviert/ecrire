@@ -1,0 +1,39 @@
+body.posts > main > section > div.save {
+  text-align: center;
+
+  form {
+    margin: 1em 0;
+  }
+
+  button {
+    @include transition(color 0.2s, background-color 0.2s);
+    border-radius: 2px;
+    padding: 4px 8px;
+    margin: 0 0 2em 0;
+    border: 1px solid transparent;
+    color: #FFF;
+    background: #688EB2;
+
+    &[disabled] {
+      border: 1px solid #DDE8F2;
+      color: #DDE8F2;
+      background: transparent;
+      cursor: default;
+    }
+
+    &:hover:not([disabled]) {
+      background: #68B2A7;
+    }
+  }
+
+  div.update {
+    text-transform: uppercase;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: #BABABA;
+    p {
+      color: $text-color;
+    }
+  }
+}
+

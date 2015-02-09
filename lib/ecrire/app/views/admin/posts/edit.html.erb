@@ -18,10 +18,10 @@
 
 <section>
 
-  <%= content_tag :div, class: %w(publish state), href: admin_post_path(@post.id) do |div| %>
+  <%= content_tag :div, class: %w(publish state), href: admin_post_path(@post.id) do %>
+
     <% if @post.published? %>
 
-      <% div[:as] = 'Editor.Published' %>
       <div class='fieldset'>
         <%= check_box_tag 'unpublish' %>
         <%= label_tag 'unpublish', 'Remove from publication?' %>
@@ -32,17 +32,16 @@
 
     <% else %>
 
-      <% div[:as] = 'Editor.Draft'  %>
-
-      <%= form_for @post, method: :put, html: { class: %w(button publish) } do |f| %>
+      <%= form_for @post, method: :put, html: { id: 'PublishPost', class: %w(button publish) } do |f| %>
         <%= f.button 'Publish', value: 'publish'%>
       <% end %>
 
-      <div class='fieldset'>
-        <%= check_box_tag 'delete' %>
-        <%= label_tag 'delete', 'Delete this post?' %>
-        <%= button_to 'Delete this post', @post, method: :delete, form_class: %w(hide destroy button) %>
-      </div>
+      <%= form_for @post, method: :delete, html: { id: 'DeletePost', class: %w(destroy button), as: 'Post.Delete' } do |f| %>
+        <%= f.button disabled: true do %>
+          <%= check_box_tag 'delete' %>
+          Delete this post
+        <% end %>
+      <% end %>
 
     <% end %>
 
