@@ -5,7 +5,7 @@ body.edit.posts > main > section {
     font-size: 1.2em;
 
     & > *, & > ul > li, & > ol > li {
-      white-space: normal;
+      white-space: pre-wrap;
       min-height: 1.6em;
       line-height: 1.6em;
       margin: 0.3em 0;
