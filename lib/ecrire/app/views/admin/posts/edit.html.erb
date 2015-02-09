@@ -22,13 +22,9 @@
 
     <% if @post.published? %>
 
-      <div class='fieldset'>
-        <%= check_box_tag 'unpublish' %>
-        <%= label_tag 'unpublish', 'Remove from publication?' %>
-        <%= form_for @post, method: :put, html: { class: %w(hide button destroy) } do |f| %>
-          <%= f.button 'Remove from publication', value: 'unpublish'%>
-        <% end %>
-      </div>
+      <%= form_for @post, method: :put, html: { class: %w(hide button destroy) } do |f| %>
+        <%= f.button 'Retract', value: 'unpublish'%>
+      <% end %>
 
     <% else %>
 
