@@ -1,27 +1,36 @@
 Joint.bind 'Editor.Save', class
   loaded: =>
+    @button = @element().querySelector('button')
+    @time = @element().querySelector('div.update > p')
+
     @on 'Editor:loaded', document, @cache
     @on 'Editor:updated', document, @update
     @on 'posts:update', document, @saved
-    @on 'click', @save
+    @on 'click', @button, @save
     @on 'beforeunload', window, @confirm
 
-    @element().innerText = @element().getAttribute('persisted')
+    @button.innerText = @button.getAttribute('persisted')
+    @refresh()
+    @cache()
+    @interval = setInterval(@refresh, 1000)
 
+  refresh: () =>
+    @time.textContent = moment(@time.getAttribute('time')).fromNow()
 
   confirm: (e) =>
-    if @cache() != PostBody.innerHTML
+    if @cache() != PostBody.instance.toString()
       e.returnValue = "You have unsaved changed."
       return e.returnValue
 
   cache: =>
-    cache = PostBody.innerHTML
+    cache = PostBody.instance.toString()
     @cache = (refresh) ->
       if refresh
-        cache = PostBody.innerHTML
-        @element().setAttribute('disabled', 'disabled')
-        @element().innerText = @element().getAttribute('persisted')
+        cache = PostBody.instance.toString()
+        @button.setAttribute('disabled', 'disabled')
+        @button.innerText = @button.getAttribute('persisted')
       cache
+    @cache()
 
   save: (e) =>
     e.preventDefault()
@@ -37,14 +46,16 @@ Joint.bind 'Editor.Save', class
       event = new CustomEvent('Editor:message', { bubbles: true})
       event.MessageHTML = e.MessageHTML
       @element().dispatchEvent(event)
+      @time.setAttribute('time', e.UpdatedAtTime)
+      @refresh()
       @cache(true)
 
   update: (e) =>
     return unless @cache()?
-    if @cache() != PostBody.innerHTML
-      @element().removeAttribute('disabled')
-      @element().innerText = @element().getAttribute('dirty')
+    if @cache() != PostBody.instance.toString()
+      @button.removeAttribute('disabled')
+      @button.innerText = @button.getAttribute('dirty')
     else
-      @element().setAttribute('disabled', 'disabled')
-      @element().innerText = @element().getAttribute('persisted')
+      @button.setAttribute('disabled', 'disabled')
+      @button.innerText = @button.getAttribute('persisted')
 

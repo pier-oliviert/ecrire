@@ -41,21 +41,6 @@ body.posts > main > nav.options > .publish.state {
 }
 
 
-body.posts > main > nav.options > .save {
-  @include display(flex);
-  @include justify-content(flex-end);
-  @include align-items(center);
-  .save.button {
-    margin: 0 1em;
-    background: #8FD8BA;
-    color: #00881C;
-
-    input[disabled] {
-      color: rgba(0,0,0,0.3);
-    }
-  }
-}
-
 body.posts > main > nav.options > .toggle {
   @include flex(0 auto);
   @include transition(transform 0.2s, color 0.2s);

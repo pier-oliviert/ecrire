@@ -32,11 +32,6 @@
 
   <span class='toggle' as='Navigation.Toggle'></span>
 
-  <div class='save'>
-    <%= form_for @post, method: :put, remote: true, html: {class: %w(save button)} do |f| %>
-      <%= f.button '', dirty: 'Save', persisted: 'Saved', as: 'Editor.Save', disabled: true %>
-    <% end %>
-  </div>
 </nav>
 
 

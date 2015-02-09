@@ -19,14 +19,29 @@
 
 <section>
 
-  <%= content_tag :header, as: "Post.Header" do |header| %>
-    <% if @post.header? %>
-      <% header[:style] = "background-image: url(#{@post.header.url});" %>
+  <div class='publish'>
+  </div>
+
+  <article>
+    <%= content_tag :header, as: "Post.Header" do |header| %>
+      <% if @post.header? %>
+        <% header[:style] = "background-image: url(#{@post.header.url});" %>
+      <% end %>
+
+      <%= render 'admin/images/form', post: @post %>
     <% end %>
 
-    <%= render 'admin/images/form', post: @post %>
-  <% end %>
+    <%= post_edit_content(@post) %>
+  </article>
 
-  <%= post_edit_content(@post) %>
+  <div class='save'>
+    <%= form_for @post, method: :put, remote: true, html: {as: 'Editor.Save', class: %w(save button)} do |f| %>
+      <%= f.button '', dirty: 'Update', persisted: 'Up to date', disabled: true %>
+      <%= content_tag :div, class: %w(update) do %>
+        Last updated
+        <%= content_tag :p, nil, time: @post.updated_at.iso8601 %>
+      <% end %>
+    <% end %>
+  </div>
 
 </section>

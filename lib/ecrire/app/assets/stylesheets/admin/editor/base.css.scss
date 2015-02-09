@@ -21,8 +21,8 @@ body.posts > main div.messages {
   @include align-items(center);
   @include justify-content(center);
   @include flex(0 3em);
-  border-top: double #FAFAFA;
   @include user-select(none);
+  border-top: double #FAFAFA;
 
   & > div {
     @include transition(opacity 1s);
@@ -46,4 +46,48 @@ body.posts > main div.messages {
 
 body.posts > main > section {
   @include flex(1);
+  @include display(flex);
+
+  & > div {
+    @include flex(0 180px);
+    margin: 0 auto
+  }
+
+  & > article {
+    width: 960px;
+  }
+}
+
+body.posts > main > section > div.save {
+  text-align: center;
+  button {
+    @include transition(color 0.2s, background-color 0.2s);
+    border-radius: 2px;
+    padding: 4px 8px;
+    margin: 2em 0;
+    border: 1px solid transparent;
+    color: #FFF;
+    background: #688EB2;
+
+    &[disabled] {
+      border: 1px solid #DDE8F2;
+      color: #DDE8F2;
+      background: transparent;
+      cursor: default;
+    }
+
+    &:hover:not([disabled]) {
+      background: #68B2A7;
+    }
+  }
+
+  div.update {
+    text-transform: uppercase;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: #BABABA;
+    p {
+      color: $text-color;
+    }
+  }
 }
