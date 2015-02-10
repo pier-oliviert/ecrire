@@ -1,6 +1,11 @@
 body.posts > main > section > div.save {
   text-align: center;
 
+  a.help {
+     text-transform: uppercase;
+     font-size: 0.6em;
+  }
+
   form {
     margin: 1em 0;
   }
