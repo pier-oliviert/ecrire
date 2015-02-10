@@ -16,7 +16,7 @@
 <div class='messages' as="Editor.Messages">
 </div>
 
-<section>
+<section as='Post.Documentation'>
 
   <%= content_tag :div, class: %w(publish state), href: admin_post_path(@post.id), as: 'Post.Sticky' do %>
 
@@ -63,6 +63,8 @@
         <%= content_tag :p, nil, time: @post.updated_at.iso8601 %>
       <% end %>
     <% end %>
+
+    <%= link_to 'ℹ', help_admin_posts_path, remote: true %>
   </div>
 
 </section>

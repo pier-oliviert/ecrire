@@ -15,6 +15,7 @@ Ecrire::Application.routes.draw do
     resources :posts do
       collection do
         get 'new/title', controller: :posts, action: :new
+        get 'help', controller: :posts, action: :help
       end
       resource :image, shallow: true
       resource :properties, only: [:create, :destroy]

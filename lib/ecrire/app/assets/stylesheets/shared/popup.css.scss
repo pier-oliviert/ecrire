@@ -24,19 +24,15 @@ div.popup {
   margin: 80px 0 80px 0;
   background: #DDE4EA;
   box-shadow: 0 0 3px #1a3642;
-  color: #AAA;
+  color: $text-color;
   z-index: 101;
-
-  p {
-    text-align: center;
-  }
 }
 
 div.popup header {
   @include flex(0 0 auto);
   @include display(flex);
   @include align-items(center);
-  padding: 0 1em;
+  padding: 0.5em 1em;
   color: #224056;
   border-bottom: 1px solid #B7C4CD;
   box-shadow: 0 1px 0 0 #E7EFF5;
@@ -49,11 +45,3 @@ div.popup header {
   }
 }
 
-div.popup ol {
-  @include flex(1 auto);
-  padding: 1em 0;
-  li {
-    padding: 0.5em 1em;
-    font-size: 1.3em;
-  }
-}
