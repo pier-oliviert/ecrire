@@ -29,9 +29,15 @@ module Admin
 
     def update_file
       unless @file.nil?
-        @file.save
-        self.url = @file.url
-        self.key = @file.key
+        begin
+          @file.save
+          self.url = @file.url
+          self.key = @file.key
+        rescue StandardError => e
+          errors.add :remote, e
+          return false
+        end
+        return true
       end
     end
 
@@ -78,7 +84,7 @@ module Admin
         begin
           @bucket.retrieve
           @connected = true
-        rescue Error::ResponseError, ArgumentError => e
+        rescue Error::ResponseError, ArgumentError, SocketError => e
           errors.add :remote, e
         end
       end

@@ -45,6 +45,21 @@ div.popup header {
   }
 }
 
+div.popup.errors {
+  background: rgb(200, 158, 158);
+
+  header {
+    background: rgb(229, 185, 185);
+    border-color: #542727;
+    color: rgb(116, 40, 40);
+    box-shadow: 0 1px 0 0 #DAB6B6;
+  }
+
+  ol {
+    margin: 1em;
+  }
+}
+
 #PostsListPopup {
   ol {
     font-size: 1.2em;

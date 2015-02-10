@@ -45,8 +45,13 @@ Joint.bind 'Post.Header', class
     @refresh()
 
   update: (e) =>
-    @element().style.backgroundImage = "url(#{e.headerURL})"
     @element().classList.remove 'loading'
+
+    if e.ErrorHTML
+      document.body.appendChild(e.ErrorHTML)
+      return
+
+    @element().style.backgroundImage = "url(#{e.headerURL})"
     @refresh()
 
 

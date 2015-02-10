@@ -9,8 +9,11 @@ module Admin
 
     def update
       @image = post.header
-      @image.update(image_params)
-      @image.touch
+      if @image.update(image_params)
+        @image.touch
+      else
+        render 'errors'
+      end
     end
 
     def destroy
