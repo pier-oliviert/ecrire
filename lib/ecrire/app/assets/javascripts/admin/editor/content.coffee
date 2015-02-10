@@ -41,8 +41,8 @@ Joint.bind 'Editor.Content', class @Editor
   outdated: (mutations) =>
     @observer.hold =>
       for mutation in mutations
-        @appended node for node in mutation.addedNodes
-        @removed node for node in mutation.removedNodes
+        @appended(node, mutation.target) for node in mutation.addedNodes
+        @removed(node, mutation.target) for node in mutation.removedNodes
         if mutation.type == 'characterData'
           @update mutation.target
 
@@ -106,9 +106,23 @@ Joint.bind 'Editor.Content', class @Editor
           break
 
 
-  removed: (node) =>
+  removed: (node, line) =>
+    while line? && line.parentElement != @element()
+      line = line.parentElement
+
     if node.nodeType != 1 || (node instanceof HTMLBRElement && node.parentElement?)
       node.remove()
+
+    if line?
+      sel = window.getSelection()
+      offset = @lineOffset(line, sel.focusNode, sel.focusOffset)
+
+      lines = @parse(@cloneNodesFrom(line))
+
+      @observer.hold =>
+        lines = @updateDOM(line, lines)
+        if line != lines[0]
+          @setCursorAt(lines[0], offset)
 
     if @element().childNodes.length == 0
       p = "<p>".toHTML()

@@ -76,22 +76,23 @@ Editor.Extensions.push class ClipBoard
 
     node = sel.anchorNode
     str = node.textContent
+    text = texts.map((t) ->
+      t.textContent
+    ).join("\n")
+
     node.textContent = str.substr(0, sel.anchorOffset)
-    node.textContent += texts[0].textContent 
+    node.textContent += text
     node.textContent += str.substr(sel.anchorOffset)
 
-    if texts.length > 1
-      offset = texts[texts.length - 1].length
-    else
-      offset = sel.anchorOffset + texts[0].length
+    offset = sel.anchorOffset + text.length
     
     while node.parentElement != @editor.element()
       node = node.parentElement
 
     fragment = @editor.parse(@editor.cloneNodesFrom(node))
 
-    @editor.updateDOM(node, fragment)
+    lines = @editor.updateDOM(node, fragment)
 
-    @editor.setCursorAt(node, offset)
+    @editor.setCursorAt(lines[0], offset)
 
 
