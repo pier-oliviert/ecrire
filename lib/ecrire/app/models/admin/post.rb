@@ -2,9 +2,17 @@ require 'kramdown'
 
 module Admin
   class Post < ::Post
+
+    class Callbacks
+      def after_create(record)
+        Admin::Image.create(post: record)
+      end
+    end
+
     has_one :header, class_name: Admin::Image
     before_save :compile!, prepend: true
     before_save :excerptize!
+    after_create Callbacks.new
 
     def publish!(params = {})
       self.assign_attributes(params)
@@ -24,16 +32,6 @@ module Admin
 
     def javascript
       super || ""
-    end
-
-    def header
-      begin
-        header = super
-        if header.nil?
-          header = Admin::Image.create(post: self)
-        end
-        header
-      end
     end
 
     def content

@@ -96,4 +96,14 @@ class PostTest < ActiveSupport::TestCase
   test 'labels are instance of Label' do
   end
 
+  test 'only 1 image can be associated with a post' do
+    post = Admin::Post.create!(title: 'A post with some image')
+    assert_equal 1, Image.where('post_id = ?', post.id).count
+
+    post.content = '# Hello world'
+    post.save!
+
+    assert_equal 1, Image.where('post_id = ?', post.id).count
+  end
+
 end
