@@ -4,6 +4,7 @@ Joint.bind 'Post.Header', class
     @on 'dragleave', @cancel
     @on 'drop', @drop
     @on 'click', @element().querySelector('div'), @open
+    @on 'submit', @element().querySelector('form.clear'), @loading
     input = @element().querySelector('input[type=file]')
     @on 'change', input, @submit
 
@@ -24,6 +25,7 @@ Joint.bind 'Post.Header', class
 
   drop: (e) =>
     @element().classList.remove 'dropping'
+    @loading()
     e.preventDefault()
     form = @element().querySelector('form.update')
     xhr = new Joint.XHR(form)
@@ -31,14 +33,20 @@ Joint.bind 'Post.Header', class
     xhr.send()
 
   submit: (e) =>
+    @loading()
     Joint.XHR.send(e.target.form)
+
+  loading: =>
+    @element().classList.add 'loading'
 
   clear: (e) =>
     @element().style.backgroundImage = null
+    @element().classList.remove 'loading'
     @refresh()
 
   update: (e) =>
     @element().style.backgroundImage = "url(#{e.headerURL})"
+    @element().classList.remove 'loading'
     @refresh()
 
 
