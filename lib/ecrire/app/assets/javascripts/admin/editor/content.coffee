@@ -232,6 +232,7 @@ Joint.bind 'Editor.Content', class @Editor
 
       if line.nextSibling?
         line = line.nextSibling
+        continue
       break
 
     walker = @walker(line)
