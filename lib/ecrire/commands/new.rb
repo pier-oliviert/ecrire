@@ -1,5 +1,7 @@
 require 'pathname'
 require 'fileutils'
+require 'yaml'
+require 'securerandom'
 
 require 'ecrire/commands/base'
 
@@ -30,7 +32,6 @@ module Ecrire
         Dir.chdir @path
         template = File.expand_path '../../template/*', __FILE__
         FileUtils.cp_r(Dir[template], @path)
-        secrets!
       end
 
       def ask_to_overwrite!
@@ -39,15 +40,6 @@ module Ecrire
         confirm = STDIN.gets.chomp
         if confirm != 'y'
           exit
-        end
-      end
-
-      def secrets!
-        File.open(Dir.pwd + '/secrets.yml', 'w') do |file|
-          secrets = Hash.new
-          secrets['production'] = secrets['development'] = secrets['defaults'] = Hash.new
-          secrets['defaults']['secret_key_base'] = SecureRandom.hex(64)
-          file.write(secrets.to_yaml)
         end
       end
     end
