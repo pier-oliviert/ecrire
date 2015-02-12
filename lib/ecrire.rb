@@ -17,7 +17,7 @@ module Ecrire
     require 'coffee-rails'
     require 'turbolinks'
 
-    Bundler.require(:default, :server, :assets, Rails.env)
+    Bundler.require(:required, :server, Rails.env)
   else
     require 'rails/all'
   end

@@ -1,9 +1,11 @@
 require 'pathname'
 require 'fileutils'
 
+require 'ecrire/commands/base'
+
 module Ecrire
   module Commands
-    class New
+    class New < Ecrire::Commands::Base
       attr_reader :path
       def initialize(options = {}, *args)
         if args[0].nil?

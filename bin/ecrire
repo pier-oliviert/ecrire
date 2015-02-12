@@ -6,7 +6,7 @@ ARGV << '--help' if ARGV.empty?
 COMMANDS = %w(new server console)
 
 options = {
-  port: 3000
+  Port: 3000
 }
 
 parser = OptionParser.new do |opts|
@@ -18,7 +18,7 @@ parser = OptionParser.new do |opts|
   opts.separator ''
   opts.separator 'ecrire server [options]:'
   opts.on '-p PORT', '--port=PORT', 'Run the server on a given port. Defaults to 3000' do |port|
-    @options[:port] = port
+    options[:Port] = port
   end
 
   opts.separator ''
@@ -34,7 +34,7 @@ if !COMMANDS.include?(ARGV[0])
   exit
 end
 
-require_relative '../lib/ecrire/commands'
+require 'ecrire/commands'
 
 parser.parse!
 

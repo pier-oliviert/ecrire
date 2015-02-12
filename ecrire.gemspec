@@ -23,22 +23,4 @@ Gem::Specification.new do |s|
 
   s.require_path  = 'lib'
 
-  s.add_dependency 'rails',             '~> 4.2'
-  s.add_dependency 'jointjs',           '~> 0.0'
-  s.add_dependency 'warden',            '~> 1.2'
-  s.add_dependency 'bcrypt',            '~> 3.1'
-  s.add_dependency 'nokogiri',          '~> 1.6'
-  s.add_dependency 's3',                '~> 0.3'
-  s.add_dependency 'pg',                '~> 0.17'
-  s.add_dependency 'kaminari',          '~> 0.15'
-  s.add_dependency 'kramdown',          '~> 1.5'
-
-  s.add_dependency 'sprockets-rails',   '~> 2.1'
-  s.add_dependency 'sass-rails',        '~> 4.0', '>= 4.0.3'
-  s.add_dependency 'coffee-rails',      '~> 4.0'
-  s.add_dependency 'turbolinks',        '~> 2.2'
-  s.add_dependency 'bourbon',           '~> 3.2'
-
-
-  s.add_development_dependency 'byebug', '~> 3.5'
 end

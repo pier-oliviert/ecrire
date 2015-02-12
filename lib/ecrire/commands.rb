@@ -1,6 +1,6 @@
-require_relative 'commands/server'
-require_relative 'commands/new'
-require_relative 'commands/console'
+require 'ecrire/commands/server'
+require 'ecrire/commands/new'
+require 'ecrire/commands/console'
 
 module Ecrire
   module Commands
