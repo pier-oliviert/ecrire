@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+ARGV << '--help' if ARGV.empty?
+COMMANDS = %w(new server console)
+
+options = {
+  port: 3000
+}
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: ecrire [ #{COMMANDS.join(' | ')} ] [options]:"
+
+  opts.separator ''
+  opts.separator 'ecrire new blog.domain.com'
+
+  opts.separator ''
+  opts.separator 'ecrire server [options]:'
+  opts.on '-p PORT', '--port=PORT', 'Run the server on a given port. Defaults to 3000' do |port|
+    @options[:port] = port
+  end
+
+  opts.separator ''
+  opts.separator 'ecrire console'
+
+  opts.on '-h', '--help', 'Show this menu' do 
+    puts opts
+  end
+end
+
+if !COMMANDS.include?(ARGV[0])
+  parser.parse! %w(-h)
+  exit
+end
+
+require_relative '../lib/ecrire/commands'
+
+parser.parse!
+
+command = Ecrire::Commands.send(ARGV[0]).new(options, *ARGV[1..-1])
+command.run!
