@@ -1,0 +1,4 @@
+require 'ecrire'
+
+Ecrire::Application.load_tasks
+
