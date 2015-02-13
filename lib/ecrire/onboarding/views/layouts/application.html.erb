@@ -2,12 +2,12 @@
 <html>
 
   <head>
-    <%= title_tag %>
+    <%= title_tag 'Before you start blogging...' %>
     <%= assets_tags %>
     <%= meta_informations_tags %>
   </head>
 
-  <%= body_tag class: 'onboarding', id: [controller_name, action_name].join('-') do %>
+  <%= body_tag class: 'onboarding' do %>
 
     <%= yield %>
 

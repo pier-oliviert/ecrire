@@ -1,0 +1,9 @@
+[as='Message'] {
+  @include animation(fadeOut 2s ease 1s forwards);
+}
+
+@include keyframes(fadeOut) {
+  to {
+    opacity: 0;
+  }
+}

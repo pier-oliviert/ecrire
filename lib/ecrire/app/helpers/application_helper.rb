@@ -4,12 +4,14 @@ module ApplicationHelper
     render 'sessions/navigation'
   end
 
-  def title_tag
+  def title_tag(title = 'Ecrire')
     content_tag :title do
-      if @post.nil?
-        Rails.application.secrets.meta['title']
-      else
+      if block_given?
+        yield
+      elsif !@post.nil?
         @post.title
+      else
+        title
       end
     end
   end

@@ -1,12 +1,4 @@
 <main class="databases">
-  <aside>
-    <h1>Ecrire</h1>
-    <ol>
-      <li class="current">Configure postgresql</li>
-      <li>Create a user</li>
-    </ol>
-  </aside>
-
   <section>
     <h2>Configure Postgresql</h2>
 
@@ -27,12 +19,7 @@
 
     <h2>Connect to your database</h2>
 
-    <%= form_tag onboarding_databases_path, method: :post do %>
-      <% unless @exception.nil? %>
-        <div class="error">
-          <%= content_tag :p, @exception %>
-        </div>
-      <% end %>
+    <%= form_tag onboarding_databases_path, method: :post, remote: true, as: 'Databases.Connect' do %>
 
       <%= text_field_tag 'database[name]', db_name, placeholder: "$ecrire_database" %>
       <%= text_field_tag 'database[user]', user[:name], placeholder: "$user" %>

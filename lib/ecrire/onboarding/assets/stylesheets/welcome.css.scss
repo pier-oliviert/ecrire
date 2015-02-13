@@ -1,0 +1,62 @@
+#OnboardingIndex {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+
+  h1 {
+    font-size: 6em;
+    font-family: courier;
+    font-weight: normal;
+    margin: 0;
+    opacity: 0;
+    @include animation(slideIn 3s ease forwards);
+  }
+
+  div.slogan {
+    font-size: 1.4em;
+    letter-spacing: 2px;
+
+    span {
+      opacity: 0;
+    }
+
+    span:nth-child(1) {
+      @include animation(fadeIn 1s ease 2.9s forwards);
+    }
+
+    span:nth-child(2) {
+      @include animation(fadeIn 1s ease 3.8s forwards);
+    }
+
+    span:nth-child(3) {
+      @include animation(fadeIn 1s ease 4.7s forwards);
+    }
+  }
+
+  & > section {
+    @include animation(fadeIn 2s ease 6s forwards);
+    opacity: 0;
+    margin: 1em;
+  }
+}
+
+@include keyframes(slideIn) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    margin-top: -1em;
+  }
+}
+
+@include keyframes(fadeIn) {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

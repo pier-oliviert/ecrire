@@ -26,9 +26,8 @@ module Onboarding
       rescue Exception => e
         @exception = e
         ActiveRecord::Base.clear_all_connections!
-        render 'index' and return
+        render 'error' and return
       end
-      redirect_to onboarding_users_path
     end
 
     protected
@@ -56,6 +55,7 @@ module Onboarding
       @db_params ||= {
         'adapter' => 'postgresql',
         'database' => params[:database]['name'],
+        'user' => params[:database]['user'],
         'password' => params[:database]['password'],
         'encoding' => 'utf8'
       }

@@ -1,6 +1,9 @@
 class RedirectFilter
+
   def self.before(controller)
-    new(controller).dispatch!
+    if OnboardingController.welcome?
+      new(controller).dispatch!
+    end
   end
 
   def initialize(controller)
@@ -37,12 +40,20 @@ class RedirectFilter
 end
 
 class OnboardingController < ApplicationController
+  @@welcomed = false
   rescue_from ActiveRecord::ActiveRecordError, with: :database_not_configured
   before_action ::RedirectFilter, only: :index
 
+  class << self
+    @welcome = false
+    def welcome?
+      !!@welcome
+    end
+
+  end
+
   def index
-    generate_secret_key_base!
-    render 'complete'
+    render 'welcome'
   end
 
   def configure_user!
