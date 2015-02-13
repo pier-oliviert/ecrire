@@ -1,31 +1,24 @@
-<main class="databases">
-  <section>
-    <h2>Configure Postgresql</h2>
+<h1>Ecrire</h1>
+<section>
+  <div class="terminal">
+    <code class="language-sql">$ psql -d postgres</code>
 
-    <div class="terminal">
-      <p>Start by launching postgresql command line environment:</p>
-      <code class="language-sql">$ psql -d postgres</code>
+    <code class="language-sql">> CREATE USER <%= user[:name] %> WITH PASSWORD '<%= user[:password] %>';</code>
 
-      <p>Let's start by creating a user for Ecrire to use.</p>
+    <code class="language-sql">> CREATE DATABASE <%= db_name %>;</code>
 
-      <code class="language-sql">> CREATE USER <%= user[:name] %> WITH PASSWORD '<%= user[:password] %>';</code>
+    <code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE <%= db_name %> to <%= user[:name] %>;</code>
+  </div>
 
-      <p>Then, create a database. This is where all the information will be stored.</p>
-      <code class="language-sql">> CREATE DATABASE <%= db_name %>;</code>
 
-      <p>Grant all privileges to your user so ecrire can connect to your database.</p>
-      <code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE <%= db_name %> to <%= user[:name] %>;</code>
-    </div>
+  <%= form_tag onboarding_databases_path, method: :post, remote: true, as: 'Databases.Connect' do %>
 
-    <h2>Connect to your database</h2>
+    <h2>Connect to your postgresql database</h2>
 
-    <%= form_tag onboarding_databases_path, method: :post, remote: true, as: 'Databases.Connect' do %>
+    <%= text_field_tag 'database[name]', db_name, placeholder: "$ecrire_database" %>
+    <%= text_field_tag 'database[user]', user[:name], placeholder: "$user" %>
+    <%= text_field_tag 'database[password]', user[:password], placeholder: "$password" %>
 
-      <%= text_field_tag 'database[name]', db_name, placeholder: "$ecrire_database" %>
-      <%= text_field_tag 'database[user]', user[:name], placeholder: "$user" %>
-      <%= text_field_tag 'database[password]', user[:password], placeholder: "$password" %>
-
-      <%= button_tag 'Connect to your database', value: 'connect' %>
-    <% end %>
-  </section>
-</main>
+    <%= button_tag 'Connect', value: 'connect' %>
+  <% end %>
+</section>

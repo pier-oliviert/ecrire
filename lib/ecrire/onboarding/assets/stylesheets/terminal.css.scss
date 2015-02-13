@@ -1,0 +1,16 @@
+div.terminal {
+  margin-top: 2em;
+  padding: 8px 0;
+  background: #000;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 0 #161616;
+  color: #8D8D8D;
+
+  code {
+    background: none;
+    color: #FFEDCD;
+    padding: 4px 8px;
+    display: block;
+  }
+}
+

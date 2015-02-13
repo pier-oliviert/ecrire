@@ -1,14 +1,32 @@
-body.onboarding main.databases section {
-  div.terminal {
-    padding: 4px 4px 24px 4px;
-    background: #000;
-    border-top: 10px solid #5A503C;
-    border-radius: 3px;
-    box-shadow: 0 1px 3px 0 #161616;
-    color: #8D8D8D;
+#DatabasesIndex {
+  h2 {
+    text-align: center;
+    font-family: courier;
+  }
 
-    code {
-      background: none;
+  form {
+    @include display(flex);
+    @include flex-direction(column);
+    margin: 2em 0;
+
+    input {
+      width: 100%;
+      font-size: 1.3em;
+      margin: 4px 0;
+      outline: none;
+      padding: 4px;
+    }
+
+    button {
+      margin-top: 1em;
+    }
+
+    [as='Message'] {
+      border-radius: 2px;
+      color: #F4E6E6;
+      font-size: 1.3em;
+      padding: 0 8px;
+      margin: 1em;
     }
   }
 }

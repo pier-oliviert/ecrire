@@ -3,5 +3,5 @@ Joint.bind 'Databases.Connect', class
     @on 'databases:create', @update
 
   update: (e) =>
-    @element().insertBefore(e.HTML, @element().firstElementChild)
+    @element().insertBefore(e.HTML, @element().lastElementChild)
 
