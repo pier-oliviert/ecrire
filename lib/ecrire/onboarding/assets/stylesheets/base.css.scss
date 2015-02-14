@@ -1,9 +1,6 @@
 @import 'bourbon';
-@import '**/*';
-
-$header-height: 46px;
-$color-dark: #4B482C;
-$color-light: rgb(201, 198, 183);
+@import 'variables';
+@import "*";
 
 * {
   box-sizing: border-box;
@@ -15,14 +12,44 @@ html, body {
   flex: 1 auto;
   margin: 0;
   padding: 0;
+  font-family: Baskerville;
 }
 
 html {
   height: 100vh;
 }
 
+body {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+}
+
 a {
   color: rgb(114, 153, 204);
+}
+
+a.button, button {
+  @include transition(box-shadow 0.3s);
+  padding: 14px 18px;
+  background: #9DCC72;
+  border-radius: 2px;
+  font-size: 1.4em;
+  color: #FFF;
+  text-decoration: none;
+  font-family: courier;
+  box-shadow: 0 0 0 0 #436E1C;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 2px 0 #436E1C;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 2px 0 #436E1C;
+  }
 }
 
 body {
@@ -32,87 +59,22 @@ body {
   flex-direction: column;
   display: flex;
 
-  main {
-    display: flex;
-    flex: 1;
-
-    section {
-      flex: 1 70%;
-      padding: 0 4%;
-      text-align: left;
-      overflow-y: scroll;
-
-      h2 {
-        color: $color-dark;
-        font-weight: lighter;
-        font-size: 1.8em;
-        margin: 3em 0 1em 0;
-      }
-
-      code {
-        color: #FFEDCD;
-      }
-
-      form {
-        margin: 2em 0 5em 0;
-      }
-
-      div.error {
-        padding: 2px 8px;
-        background: rgb(196, 109, 109);
-        p {
-          color: #F5ECEC;
-        }
-      }
-
-      input, button {
-        display: block;
-        border: none;
-        padding: 4px 8px;
-        line-height: 1.8em;
-        font-size: 1.3em;
-      }
-
-      input {
-        margin: 1em 0;
-        width: 100%;
-        border-radius: 2px;
-        background: #726F61;
-        color: $color-light;
-
-        @mixin placeholder {
-          font-style: italic;
-          color: $color-dark;
-        }
-
-        &::-webkit-input-placeholder {
-          @include placeholder;
-        }
-
-        &::-moz-placeholder {
-          @include placeholder;
-        }
-
-        &:-ms-input-placeholder {  
-          @include placeholder;
-        }
-      }
-
-      button {
-        outline: none;
-        color: rgb(68, 97, 65);
-        background: rgb(174, 202, 174);
-        border: 1px solid #20411D;
-        border-radius: 3px;
-        box-shadow: inset 0 1px 0 0 #D8F5D4;
-        width: 40%;
-        margin: 0 0 0 auto;
-        cursor: pointer;
-        &:active {
-          box-shadow: inset 0 1px 0 0 #A2B69F;
-        }
-      }
-    }
+  section {
+    margin: 0 auto;
+    max-width: 900px;
+    width: 80%;
   }
+}
+
+h1 {
+  font-size: 6em;
+  font-family: courier;
+  font-weight: normal;
+  margin: 0;
+}
+
+h2 {
+  text-align: center;
+  font-family: courier;
 }
 

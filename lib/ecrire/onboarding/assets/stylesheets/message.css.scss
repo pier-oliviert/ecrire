@@ -1,0 +1,11 @@
+[as='Message'] {
+  @include animation(fadeOut 2s ease 1s forwards);
+  background: rgb(213, 84, 84);
+  padding: 1em;
+}
+
+@include keyframes(fadeOut) {
+  to {
+    opacity: 0;
+  }
+}

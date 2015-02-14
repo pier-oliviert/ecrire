@@ -1,0 +1,25 @@
+form {
+  @include display(flex);
+  @include flex-direction(column);
+  margin: 2em auto;
+
+  input {
+    width: 100%;
+    font-size: 1.3em;
+    margin: 4px 0;
+    outline: none;
+    padding: 4px;
+  }
+
+  button {
+    margin-top: 1em;
+  }
+
+  [as='Message'] {
+    border-radius: 2px;
+    color: #F4E6E6;
+    font-size: 1.3em;
+    padding: 0 8px;
+    margin: 1em;
+  }
+}

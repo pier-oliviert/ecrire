@@ -1,8 +1,10 @@
 class Ecrire::Railtie
   module Onboarding
     extend ActiveSupport::Concern
-
     included do
+      Rails.application.config.active_record.migration_error = :none
+      ActiveRecord::Base.configurations = {}
+
       initializer 'ecrire.onboarding.dynamic_settings' do |app|
         app.config.secret_key_base = SecureRandom.hex(16)
       end
@@ -37,6 +39,24 @@ class Ecrire::Railtie
       def root_path
         Pathname.new(__FILE__).dirname + '../onboarding/'
       end
+
+      # This hack is done because ActiveRecord raise an error that makes
+      # Ecrire exit which makes it impossible to have an instance working without a
+      # database. By doing this, it becomes possible to Ecrire to load the server and
+      # serve the onboarding theme for the user.
+      ActiveRecord::Railtie.initializers.select do |initializer|
+        initializer.name.eql? 'active_record.initialize_database'
+      end.first.instance_variable_set :@block, Proc.new { |app|
+        ActiveSupport.on_load(:active_record) do
+          begin
+            establish_connection
+          rescue ActiveRecord::NoDatabaseError, ActiveRecord::AdapterNotSpecified => e
+            app.config.middleware.delete 'ActiveRecord::QueryCache'
+            app.config.middleware.delete 'ActiveRecord::ConnectionAdapters::ConnectionManagement'
+          end
+        end
+      }
+
 
     end
   end

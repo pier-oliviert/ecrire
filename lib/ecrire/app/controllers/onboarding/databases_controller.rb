@@ -2,44 +2,37 @@ require_relative '../onboarding_controller'
 
 module Onboarding
   class DatabasesController < OnboardingController
-    DB_NAME = 'ecrire'
-    USER = {
-      name: "ecrire#{SecureRandom.hex(2)}",
-      password: SecureRandom.hex(16)
-    }
 
-
-    helper_method :user, :db_name
+    helper_method :user, :password, :database
 
     def index; end;
 
     def create
+      info ||= {
+        'adapter' => 'postgresql',
+        'database' => database,
+        'user' => user,
+        'password' => password,
+        'encoding' => 'utf8'
+      }
       begin
         ActiveRecord::Base.configurations = {
-          'development' => db_params,
-          'production' => db_params
+          'development' => info,
+          'production' => info
         }
         ActiveRecord::Base.establish_connection
         ActiveRecord::Base.connection
-        save_configurations!
         migrate!
       rescue Exception => e
         @exception = e
         ActiveRecord::Base.clear_all_connections!
         render 'index' and return
       end
-      redirect_to onboarding_users_path
+
+      redirect_to :onboarding_users
     end
 
     protected
-
-    def user
-      Onboarding::DatabasesController::USER
-    end
-
-    def db_name
-      Onboarding::DatabasesController::DB_NAME
-    end
 
     private
 
@@ -53,20 +46,22 @@ module Onboarding
     end
 
     def db_params
-      @db_params ||= {
-        'adapter' => 'postgresql',
-        'database' => params[:database]['name'],
-        'password' => params[:database]['password'],
-        'encoding' => 'utf8'
-      }
+      params.fetch(:database, {})
     end
 
-    def save_configurations!
-      path = Dir.pwd + '/secrets.yml'
-      File.open(path, 'w') do |file|
-        file.write(ActiveRecord::Base.configurations.to_yaml)
-      end
+    def user
+      @user ||= "ecrire#{SecureRandom.hex(2)}"
+      db_params.fetch(:user, @user)
     end
 
+    def password
+      @password ||= SecureRandom.hex(16)
+      db_params.fetch(:password, @password)
+    end
+
+    def database
+      @database ||= "ecrire"
+      db_params.fetch(:name, @database)
+    end
   end
 end
