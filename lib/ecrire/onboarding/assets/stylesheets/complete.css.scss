@@ -1,16 +1,3 @@
-body.onboarding > main.completed {
-  display: block;
-  text-align: center;
-
-  h1 {
-  }
-
-  span.done {
-    font-family: entypo;
-    font-size: 10em;
-  }
-
-  p {
-    font-size: 1.3em;
-  }
+#OnboardingIndex section.complete {
+  font-size: 1.4em;
 }

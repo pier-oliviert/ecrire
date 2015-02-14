@@ -59,16 +59,10 @@ body {
   flex-direction: column;
   display: flex;
 
-  main {
-    display: flex;
-    flex: 1;
-
-    section {
-      flex: 1 70%;
-      padding: 0 4%;
-      text-align: left;
-      overflow-y: scroll;
-    }
+  section {
+    margin: 0 auto;
+    max-width: 900px;
+    width: 80%;
   }
 }
 
