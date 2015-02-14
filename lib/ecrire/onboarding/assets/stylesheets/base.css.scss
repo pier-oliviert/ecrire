@@ -68,41 +68,6 @@ body {
       padding: 0 4%;
       text-align: left;
       overflow-y: scroll;
-
-      h2 {
-        color: $color-dark;
-        font-weight: lighter;
-        font-size: 1.8em;
-        margin: 3em 0 1em 0;
-      }
-
-      form {
-        margin: 2em 0 5em 0;
-      }
-
-      div.error {
-        padding: 2px 8px;
-        background: rgb(196, 109, 109);
-        p {
-          color: #F5ECEC;
-        }
-      }
-
-      input, button {
-        display: block;
-        border: none;
-        padding: 4px 8px;
-        line-height: 1.8em;
-        font-size: 1.3em;
-      }
-
-      input {
-        margin: 1em 0;
-        width: 100%;
-        border-radius: 2px;
-        background: #726F61;
-        color: $color-light;
-      }
     }
   }
 }
@@ -113,3 +78,9 @@ h1 {
   font-weight: normal;
   margin: 0;
 }
+
+h2 {
+  text-align: center;
+  font-family: courier;
+}
+
