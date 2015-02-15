@@ -1,5 +1,6 @@
-//= require session
-//= require code
+@import 'bourbon';
+@import 'session';
+@import 'code';
 
 * {
   box-sizing: border-box;
@@ -11,8 +12,8 @@ html, body {
   background: #F3F0EA;
   color: #313126;
   text-align: center;
-  display: flex;
-  flex: 1;
+  @include display(flex);
+  @include flex(1);
 }
 
 html {
@@ -20,32 +21,11 @@ html {
 }
 
 body {
-  flex-direction: column;
-}
-
-aside {
-  flex: 1 30%;
-  background: rgb(226, 220, 207);
-  border-right: 1px solid #BABABA;
-  padding: 1em;
-  box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.5);
-
-  p.user.flash {
-    color: rgb(201, 80, 80);
+  main {
+    @include display(flex);
+    @include flex(1);
+    @include flex-direction(column);
   }
-
-  .button {
-    display: inline-block;
-    padding: 4px 8px;
-    background: rgb(187, 209, 221);
-    color: #132C52;
-    text-decoration: none;
-  }
-}
-
-main {
-  display: flex;
-  flex: 1;
 }
 
 main > div {
@@ -60,7 +40,7 @@ main > div {
 
     h2 {
       margin: 0;
-      color: #C28C47;
+      color: #242707;
       font-size: 2.2em;
       font-weight: lighter;
     }

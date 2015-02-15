@@ -3,17 +3,19 @@
 
   <head>
     <%= title_tag %>
+    <%= csrf_meta_tags %>
     <%= assets_tags %>
-    <%= meta_informations_tags %>
+    <%= description_meta_tag %>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed">
   </head>
 
-  <%= body_tag id: [controller_name, action_name].join('-') do %>
-
-    <%= admin_navigation %>
-
-    <%= yield %>
-
+  <%= body_tag do %>
+    <main>
+      <%= admin_navigation %>
+      <%= yield %>
+    </main>
   <% end %>
+
 </html>
 
 
