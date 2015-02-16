@@ -44,11 +44,6 @@ pre {
 	overflow: auto;
 }
 
-:not(pre) > code,
-pre {
-	background: rgba(245, 242, 240, 0.5);
-}
-
 /* Inline code */
 :not(pre) > code {
 	padding: .1em;
