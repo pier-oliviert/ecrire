@@ -26,5 +26,7 @@ Ecrire::Application.routes.draw do
     end
   end
 
+  get '/:view', to: 'static#show'
+
 end
 
