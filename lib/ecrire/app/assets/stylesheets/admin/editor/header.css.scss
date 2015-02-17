@@ -49,16 +49,16 @@ body.edit.posts > main > header form.title {
 body.posts > main [as='Navigation.Toggle'] {
   @include flex(0 auto);
   @include transition(transform 0.2s, color 0.2s);
-  font-family: entypo;
-  font-size: 3em;
+  width: 2em;
+  height: auto;
   cursor: pointer;
-  color: rgba(212, 228, 237, 1);
+  fill: rgba(212, 228, 237, 1);
   margin: 0 auto;
   &:hover {
-    color: #73CDFF;
+    fill: #73CDFF;
   }
   &.active {
     @include transform(rotate(180deg));
-    color: #1A5371;
+    fill: #1A5371;
   }
 }

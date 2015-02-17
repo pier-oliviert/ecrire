@@ -63,8 +63,14 @@ div.popup.errors {
 #PostsListPopup {
   ol {
     font-size: 1.2em;
+    padding: 0;
     li {
       margin: 1.2em 1em;
+      padding: 0;
     }
+  }
+
+  div.empty {
+    text-align: center;
   }
 }
