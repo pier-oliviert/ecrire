@@ -1,6 +1,7 @@
-<%= content_tag :h1, post.title %>
+<%= content_tag :h2, post.title %>
+<%= content_tag :time, l(post.published_at.to_date, format: :long) %>
 
-<article class="content">
-  <style scoped><%= @post.stylesheet %></style>
+<div class="content">
   <%= @post.content.html_safe %>
-</article>
+</div>
+

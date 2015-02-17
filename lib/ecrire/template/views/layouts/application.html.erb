@@ -3,19 +3,32 @@
 
   <head>
     <%= title_tag %>
-    <%= csrf_meta_tags %>
     <%= assets_tags %>
-    <%= description_meta_tag %>
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed">
+    <%= meta_informations_tags %>
   </head>
 
   <%= body_tag do %>
+
     <main>
       <%= admin_navigation %>
-      <%= yield %>
-    </main>
-  <% end %>
+      <header>
+        <h1><%= link_to 'E', :root %></h1>
+        <nav>
+          <%= link_to 'Customize', '/customize' %>
+          <%= link_to 'Going live', '/live' %>
+          <%= link_to 'Deploy to Heroku', '/heroku' %>
+        </nav>
+      </header>
 
+      <article>
+        <%= yield %>
+      </article>
+
+      <footer>
+      </footer>
+    </main>
+
+  <% end %>
 </html>
 
 

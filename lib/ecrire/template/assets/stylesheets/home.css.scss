@@ -1,0 +1,36 @@
+main > article {
+  h2, time {
+    text-align: center;
+  }
+
+  time {
+    font-size: 0.8em;
+    text-transform: uppercase;
+  }
+
+  ol.posts {
+    @include display(flex);
+    @include flex-direction(column);
+
+    li {
+      @include display(flex);
+      @include flex-direction(column);
+    }
+
+    div.content {
+      margin: 2em 0;
+      font-size: 1.1em;
+    }
+
+    a.read {
+      @include align-self(flex-end);
+    }
+  }
+
+  div.posts.empty {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+  }
+}
