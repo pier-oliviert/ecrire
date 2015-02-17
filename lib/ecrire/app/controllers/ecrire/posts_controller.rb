@@ -26,6 +26,10 @@ module Ecrire
 
     protected
 
+    def posts
+      @post ||= Post.published.order(:published_at)
+    end
+
     def post
       @post ||= Post.find_by_slug(params[:id])
     end

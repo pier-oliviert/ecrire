@@ -1,22 +1,12 @@
-<main>
-  <aside>
-    <h1>Ecrire is ready!</h1>
-
+<% if posts.any? %>
+  <ol class='posts'>
+    <%= render posts %>
+  </ol>
+<% else %>
+  <div class='posts empty'>
+    <p>You haven't published yet.</p>
     <% if signed_in? %>
-      <p>You can start writing new blog post</p>
-      <%= link_to 'New post', new_admin_post_path, class: %w(button) %>
-    <% else %>
-      <%= render 'sessions/form' %>
+      <%= link_to 'Create a new post', new_title_admin_posts_path %>
     <% end %>
-
-    <h2>Your blog's path</h2>
-    <p class="small"><code><%= Rails.root %></code></p>
-
-  </aside>
-
-  <% if posts.empty? && Rails.env.development? %>
-    <%= render 'onboarding' %>
-  <% else %>
-    <%= render 'posts' %>
-  <% end %>
-</main>
+  </div>
+<% end %>
