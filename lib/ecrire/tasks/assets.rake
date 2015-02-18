@@ -8,7 +8,7 @@ module Sprockets
   module Rails
     class Task < Rake::SprocketsTask
       def output
-        File.join(Ecrire::Railtie.paths['public'].existent.first, app.config.assets.prefix)
+        File.join(Ecrire::Railtie.paths['public'].expanded.first, app.config.assets.prefix)
       end
     end
   end
