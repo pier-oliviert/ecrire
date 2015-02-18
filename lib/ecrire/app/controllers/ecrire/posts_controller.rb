@@ -27,7 +27,7 @@ module Ecrire
     protected
 
     def posts
-      @post ||= Post.published.page(params[:page]).per(params[:per]).order(:published_at)
+      @posts ||= Post.published.page(params[:page]).per(params[:per]).order(:published_at)
     end
 
     def post
