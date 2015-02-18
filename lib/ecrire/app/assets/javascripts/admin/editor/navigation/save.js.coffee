@@ -9,7 +9,7 @@ Joint.bind 'Editor.Save', class
     @on 'click', @button, @save
     @on 'beforeunload', window, @confirm
 
-    @button.innerText = @button.getAttribute('persisted')
+    @button.textContent = @button.getAttribute('persisted')
     @refresh()
     @cache()
     @interval = setInterval(@refresh, 1000)
@@ -28,7 +28,7 @@ Joint.bind 'Editor.Save', class
       if refresh
         cache = PostBody.instance.toString()
         @button.setAttribute('disabled', 'disabled')
-        @button.innerText = @button.getAttribute('persisted')
+        @button.textContent = @button.getAttribute('persisted')
       cache
     @cache()
 
@@ -42,10 +42,7 @@ Joint.bind 'Editor.Save', class
     xhr.send()
 
   saved: (e) =>
-    if e.MessageHTML
-      event = new CustomEvent('Editor:message', { bubbles: true})
-      event.MessageHTML = e.MessageHTML
-      @element().dispatchEvent(event)
+    if e.UpdatedAtTime
       @time.setAttribute('time', e.UpdatedAtTime)
       @refresh()
       @cache(true)
@@ -54,8 +51,8 @@ Joint.bind 'Editor.Save', class
     return unless @cache()?
     if @cache() != PostBody.instance.toString()
       @button.removeAttribute('disabled')
-      @button.innerText = @button.getAttribute('dirty')
+      @button.textContent = @button.getAttribute('dirty')
     else
       @button.setAttribute('disabled', 'disabled')
-      @button.innerText = @button.getAttribute('persisted')
+      @button.textContent = @button.getAttribute('persisted')
 
