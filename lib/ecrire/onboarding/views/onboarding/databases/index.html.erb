@@ -1,0 +1,34 @@
+<h1>Ecrire</h1>
+<section as="Database.Information">
+  <div class="terminal">
+    <code class="language-sql">$ psql -d postgres</code>
+
+    <code class="language-sql">> CREATE USER <%= content_tag :span, user, class: %w(user) %> WITH PASSWORD '<%= content_tag :span, password, class: %w(password) %>';</code>
+
+    <code class="language-sql">> CREATE DATABASE <%= content_tag :span, database, class: %w(name) %>;</code>
+
+    <code class="language-sql">> GRANT ALL PRIVILEGES ON DATABASE <%= content_tag :span, database, class: %w(name) %> to <%= content_tag :span, user, class: %w(user) %>;</code>
+
+    <code class="language-sql">> \c <%= content_tag :span, database, class: %w(name) %></code>
+
+    <code class="language-sql">> CREATE EXTENSION IF NOT EXISTS hstore;</code>
+  </div>
+
+
+  <%= form_tag onboarding_databases_path, method: :post do %>
+
+    <% unless @exception.nil? %>
+      <div class='error' as='Message'>
+        <%= content_tag :p, @exception %>
+      </div>
+    <% end %>
+
+    <h2>Connect to your postgresql database</h2>
+
+    <%= text_field_tag 'database[name]', database, placeholder: "Database name", class: %w(name) %>
+    <%= text_field_tag 'database[user]', user, placeholder: "Database user", class: %w(user) %>
+    <%= text_field_tag 'database[password]', password, placeholder: "Database password", class: %w(password) %>
+
+    <%= button_tag 'Connect', value: 'connect' %>
+  <% end %>
+</section>

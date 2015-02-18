@@ -1,0 +1,14 @@
+<section class="configure">
+  <%= images_config_title %>
+
+  <%= form_for :s3 do |f| %>
+
+    <%= f.text_field :access_key, value: @s3.access_key, placeholder: "Access key" %>
+    <%= f.text_field :secret_key, value: @s3.secret_key, placeholder: "Secret key" %>
+    <%= f.text_field :bucket, value: @s3.bucket.name, placeholder: "Bucket name" %>
+    <%= f.text_field :path, value: @s3.path, placeholder: "Root path (Optional)" %>
+
+    <%= f.button "Connect & Save" %>
+
+  <% end %>
+</section>

@@ -1,0 +1,35 @@
+main > article {
+
+  time {
+    font-size: 0.8em;
+    text-transform: uppercase;
+  }
+
+  ol.posts {
+    @include display(flex);
+    @include flex-direction(column);
+
+    li {
+      @include display(flex);
+      @include flex-direction(column);
+      margin-bottom: 1em;
+
+      h2 {
+        margin-bottom: 0;
+      }
+    }
+
+    div.content {
+      margin: 1em 0;
+      font-size: 1.1em;
+    }
+
+  }
+
+  div.posts.empty {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+  }
+}

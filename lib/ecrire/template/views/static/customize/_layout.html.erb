@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+
+  <head>
+    <%= '<'.html_safe %>%= title_tag %>
+    <%= '<'.html_safe %>%= assets_tags %>
+    <%= '<'.html_safe %>%= meta_informations_tags %>
+  </head>
+
+  <%= '<'.html_safe %>%= body_tag id: [controller_name, action_name].join('-') do %>
+    <%= '<'.html_safe %>%= admin_navigation %>
+    <%= '<'.html_safe %>%= yield %>
+  <%= '<'.html_safe %>% end %>
+
+</html>

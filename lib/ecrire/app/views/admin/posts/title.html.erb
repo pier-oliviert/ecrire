@@ -1,0 +1,10 @@
+<%= form_for Admin::Post.new, as: 'post', html: { class: %w(post new title), as: 'Posts.New' } do |f| %>
+
+  <fieldset class="transparent">
+    <%= f.text_field :title, placeholder: t('admin.posts.new.title') %>
+  </fieldset>
+  <%= content_tag :p, t('admin.posts.new.editable'), class: %w(transparent) %>
+
+  <%= f.button :submit, class: %w(hidden) %>
+
+<% end %>

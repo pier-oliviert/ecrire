@@ -1,0 +1,14 @@
+en:
+  admin:
+    posts:
+      new:
+        title: "Title for your new post"
+        editable: "Don't worry, you will be able to change the title afterwards."
+      index:
+        new_idea: "Every great post starts small."
+        start_writing: "Start writing."
+      update:
+        successful: "Saved"
+      permalink:
+        editable: "The permalink will change if you change the title of your post"
+        permanent: "Your post is published. For accessibility reasons, the permalink won't change if you change your title"

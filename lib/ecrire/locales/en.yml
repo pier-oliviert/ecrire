@@ -1,0 +1,9 @@
+en:
+  posts:
+    edit: "Edit"
+  sessions:
+    email: "Email"
+    password: "Password"
+    home: "Go back"
+    submit: "Login"
+

@@ -1,0 +1,95 @@
+<section>
+  <h2>Customize your blog</h2>
+
+  <p>Ecrire generated a vanilla template for your blog. Everything you see in the folder is for you to modify. As you'll see below, there's already a lot that Ecrire comes with to help you make your blog yours.</p>
+
+  <p>Many of the features that are displayed here come directly from <a href="http://rubyonrails.org/">Ruby on Rails</a>. This is because Ecrire is built on top of it. That means that if you are already a user of Rails, you know <em>almost</em> everything there is to know about customizing your blog.</p>
+
+</section>
+
+<section class='customize'>
+  <h2>Views</h2>
+  <p>Views are where the HTML is built. It is built arount the concept of layout, views and partials. The three elements are nested together to create the HTML that will be sent to the browser &mdash; like this page.</p>
+
+  <h3>The layout</h3>
+  <p>The layout is where you put everything that is reused on <strong>every</strong> page. The layout is where you set the document type, the &lt;head&gt; element and everything else that you want to have on every page.</p>
+
+  <div class='file preview'>
+    <p><%= Rails.root %>/views/layouts/application.html.erb</p>
+  <pre><code class='language-ruby'><%= render('static/customize/layout').to_str %></code></pre>
+</div>
+
+  <p>One thing you <strong>must</strong> have in your layout is the <code class='language-ruby'>&lt;%= yield %&gt;</code> call. This call will inject the view into the layout. If you want to learn more about the layout, Ruby on rails has a <a href="http://guides.rubyonrails.org/layouts_and_rendering.html#understanding-yield">great guide that explains</a> the layout more thoroughly.</p>
+
+  <h3>Views</h3>
+  <p>The post views is where you can customize your HTML dependant of the URL access. Initially, there's two views configured: <code>posts/index.html.erb</code> and <code>posts/show.html.erb</code></p>
+
+  <p>This view is the home page of your blog. If you want to list your post entries, you can do it by adding this code snippet to your view:</p>
+
+  <div class='file preview'>
+    <p><%= Rails.root %>/views/posts/index.html.erb</p>
+    <pre><code class='language-ruby'><%= render('static/customize/index').to_str %></code></pre>
+  </div>
+
+  <p>And then add more HTML through a the partial.</p>
+
+  <div class='file preview'>
+    <p><%= Rails.root %>/views/posts/_post.html.erb</p>
+    <pre><code class='language-ruby'><%= render('static/customize/post').to_str %></code></pre>
+  </div>
+
+
+</section>
+
+<section class='customize'>
+  <h2>Helpers</h2>
+  <p>Helpers are modules you can create to define methods that can be used for different purposes.</p>
+  <div class='file preview'>
+    <p><%= Rails.root %>/helpers/your_helper.rb</p>
+    <pre><code class='language-ruby'><%= render('static/customize/helper').to_str %></code></pre>
+  </div>
+
+  <p>It is automatically available in your views.</p>
+
+  <div class='file preview'>
+    <p><%= Rails.root %>/helpers/your_helper.rb</p>
+    <pre><code class='language-html'><%= render('static/customize/helper_used').to_str %></code></pre>
+  </div>
+</section>
+
+<section class='customize'>
+  <h2>Assets</h2>
+  <p>The assets are the CSS, JS and any images you would like to show on your blog that aren't a part of a blog post. Ecrire &mdash; via Rails &mdash; provides a few mechanism to help you build customize your theme.</p>
+
+  <p>Everything that is described here can be found in use within your default theme. Just browse the code to see an example of what is documented here.</p>
+
+  <h3>Stylesheets</h3>
+  <p>Stylesheets can either be pure CSS or <a href='http://sass-lang.com/'>SASS</a>. Rails will use the SASS preprocessor if the file ends with .scss.</p>
+
+  <p>You will notice a file name base.css.scss with a few @import rules. These rules are necessary if you want to include other files besides the <em>required</em> base.css. Since it supports wildcard, you don't need to specify every file in your folder.</p>
+
+  <p>You can also add libraries that are available as gem. By default, Ecrire comes with <a href='http://bourbon.io/'>Bourbon</a>, which is imported by default. That means you can have access to all the bourbon mixins from <strong>any</strong> stylesheet.</p>
+
+  <h3>Javascripts</h3>
+  <p>Javascripts can either be pure Javascript or Coffeescript.</p>
+
+  <p>If you choose to use Coffeescript, you only need to append .coffee to your file to enable the pre-compiler. Similar to your stylesheets, javascript has an import rule. While the @import rule is specified within the <a href='https://developer.mozilla.org/en/docs/Web/CSS/@import'>CSS Standard</a>, ECMAScript doesn't have such a thing.</p>
+
+  <p>Sprockets uses a directive through commenting the top of the file. It uses a similar syntax it shouldn't be too hard to make modification. Also, there's an example from within this theme.</p>
+
+  <div class='file preview'>
+    <p><%= Rails.root %>/assets/javascripts/base.js.coffee</p>
+    <pre><code class='language-coffeescript'><%= render('static/customize/javascript').to_str %></code></pre>
+  </div>
+
+  <p>Note that if you want to use vanilla javascript, you will need to use the commenting syntax for javascript (//=).</p>
+
+  <h3>Images</h3>
+  <p>Images can be any format that are supported by the browser. However, you need to use a helper when you use images that you put in the assets/images folder.</p>
+
+  <div class='file preview'>
+    <p><%= Rails.root %>/assets/images/header.png</p>
+    <pre><code class='language-coffeescript'><%= render('static/customize/image').to_str %></code></pre>
+  </div>
+
+</section>

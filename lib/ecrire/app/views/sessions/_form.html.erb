@@ -1,0 +1,18 @@
+<%= form_for User.new, url: session_path, as: "session", html: { class: %w(session) } do |f| %>
+
+  <% unless warden.errors.empty? %>
+    <%= content_tag :p, warden.errors.full_messages.to_sentence, class: %w(errors) %>
+  <% end %>
+
+  <div class="fieldset">
+    <%= f.text_field :email, placeholder: t("sessions.email") %>
+    <%= f.password_field :password, placeholder: t("sessions.password") %>
+  </div>
+
+  <%= f.button do %>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+      <path d="M14,10L8,5v3H1v4h7v3L14,10z M17,17H9v2h8c1.1,0,2-0.9,2-2V3c0-1.1-0.9-2-2-2H9v2h8V17z"/>
+    </svg>
+  <% end %>
+
+<% end %>

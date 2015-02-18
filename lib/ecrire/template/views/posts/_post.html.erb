@@ -1,0 +1,9 @@
+<li class="post">
+  <%= content_tag :h2, link_to(post.title, post_path(post)) %>
+  <%= content_tag :time, l(post.published_at.to_date, format: :long) %>
+  <div class='content'>
+    <%= post.excerpt %>
+  </div>
+
+  <%= link_to 'Read more', post_path(post), class: %w(read) %>
+</li>

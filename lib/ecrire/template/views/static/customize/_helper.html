@@ -1,0 +1,7 @@
+module YourHelper
+  def tags_list
+    Post.all.pluck(&:tags).uniq!.map do |tag|
+      link_to posts_path(tag: tag)
+    end
+  end
+end

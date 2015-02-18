@@ -1,0 +1,14 @@
+<div class='overlay' as='Overlay'>
+  <div class='popup errors' id='Failure'>
+    <header>
+      <h5>Oops, something wrong just happened</h5>
+    </header>
+
+    <ol class='errors'>
+      <% errors.each do |attr, message| %>
+        <%= content_tag :li, message.to_s.capitalize %>
+      <% end %>
+    </ol>
+
+  </div>
+</div>

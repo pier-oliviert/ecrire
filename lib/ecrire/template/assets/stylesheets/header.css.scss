@@ -1,0 +1,18 @@
+main > header {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(space-between);
+
+  padding: 2em 1em;
+
+  h1 {
+    font-family: courier;
+  }
+
+  nav {
+    a {
+      margin: 0 1em;
+      font-size: 0.8em;
+    }
+  }
+}

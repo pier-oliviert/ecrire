@@ -1,0 +1,13 @@
+<% if posts.any? %>
+  <ol class='posts'>
+    <%= render posts %>
+    <%= paginate posts %>
+  </ol>
+<% else %>
+  <div class='posts empty'>
+    <p>You haven't published yet.</p>
+    <% if signed_in? %>
+      <%= link_to 'Create a new post', new_title_admin_posts_path %>
+    <% end %>
+  </div>
+<% end %>

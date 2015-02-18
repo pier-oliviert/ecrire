@@ -1,0 +1,28 @@
+#Documentation {
+  section {
+    margin: 1em;
+
+    h3 {
+      font-weight: bold;
+    }
+
+    picture {
+      display: block;
+      background: rgba(245, 242, 240, 0.5);
+      div {
+        height: 230px;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+      }
+      em {
+        display: block;
+        padding: 1em 0.6em;
+        background: rgba(197, 197, 197, 0.5);
+      }
+    }
+
+    & > pre, & > div, & > p, & > picture, & > ul, & > ol {
+      margin: 1em;
+    }
+  }
+}

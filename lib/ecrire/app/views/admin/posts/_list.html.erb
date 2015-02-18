@@ -1,0 +1,18 @@
+<div class='overlay' as='Overlay'>
+  <div class='popup' id='PostsListPopup'>
+    <header>
+      <%= content_tag :h5, params[:type].capitalize %>
+    </header>
+    <% if posts.any? %>
+      <ol>
+        <%= render posts %>
+      </ol>
+    <% else %>
+      <div class='empty'>
+        <p>You don't have any <%= params[:type] %> post.</p>
+
+        <p><%= link_to 'Do you want to create a new post?', new_title_admin_posts_path, class: %w(new button) %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+@import 'variables';
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+html, body {
+  @include display(flex);
+  @include flex(1);
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $fonts;
+  font-weight: 200;
+  font-size: 14px;
+  color: $text-color;
+}
+
+a {
+  color: rgb(114, 153, 204);
+}
+
+ol.list {
+  overflow-y: scroll;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 100;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li {
+    margin: 1em 0;
+  }
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  padding: 4px 8px;
+  font-family: Helvetica;
+  font-weight: lighter;
+  outline: none;
+}
+
+textarea {
+  font-family: Helvetica;
+}
+
+button, input[type=submit] {
+  border: 1px solid transparent;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  color: inherit;
+  outline: none;
+}
+
+main {
+  @include flex(1 100%);
+  @include display(flex);
+  position: relative;
+  z-index: 1;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.flash {
+  height: 100%;
+  line-height: 45px;
+  padding: 0 8px;
+  font-size: 1em;
+  text-align: center;
+  background: rgba(160, 207, 194, 0.5);
+  box-shadow: inset 0px 0px 3px 1px rgba(76, 120, 155, 1);
+  color: #FEFEFE;
+}
+

@@ -1,0 +1,26 @@
+en:
+  admin:
+    navigation:
+      posts: "Posts"
+      partials: "Partials"
+      logout: ""
+
+    form:
+      image:
+        drop_pad: "Drop your image here."
+      post:
+        title: "Your title here"
+        content: "Write"
+        stylesheet: "Style"
+        javascript: "Script"
+        slug: "Create your own slug. It will be build with the title otherwise."
+        options:
+          fields:
+            text: 'Write'
+            CSS: 'Stylesheet'
+            JS: 'Javascript'
+          preview: "Preview"
+          partials: "Partials"
+          images:
+            link: "Images"
+            post_not_persisted: "Images unavailable. Save your post first."

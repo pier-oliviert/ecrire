@@ -1,0 +1,76 @@
+div.overlay {
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  min-height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 5000;
+}
+
+main.overlayed {
+  position: fixed;
+}
+
+div.popup {
+  @include display(flex);
+  @include flex-direction(column);
+  border-radius: 2px;
+  max-width: 90vw;
+  width: 600px;
+  margin: 80px 0 80px 0;
+  background: #DDE4EA;
+  box-shadow: 0 0 3px #1a3642;
+  color: #15191B;
+  z-index: 101;
+}
+
+div.popup header {
+  @include flex(0 0 auto);
+  @include display(flex);
+  @include align-items(center);
+  padding: 0.5em 1em;
+  color: #224056;
+  border-bottom: 1px solid #B7C4CD;
+  box-shadow: 0 1px 0 0 #E7EFF5;
+  letter-spacing: 2px;
+  border-radius: 2px 2px 0 0;
+  background: rgb(203, 212, 219);
+  h5 {
+    margin: 8px 0;
+    font-size: 1.2em;
+  }
+}
+
+div.popup.errors {
+  background: rgb(200, 158, 158);
+
+  header {
+    background: rgb(229, 185, 185);
+    border-color: #542727;
+    color: rgb(116, 40, 40);
+    box-shadow: 0 1px 0 0 #DAB6B6;
+  }
+
+  ol {
+    margin: 1em;
+  }
+}
+
+#PostsListPopup {
+  ol {
+    font-size: 1.2em;
+    padding: 0;
+    li {
+      margin: 1.2em 1em;
+      padding: 0;
+    }
+  }
+
+  div.empty {
+    text-align: center;
+  }
+}

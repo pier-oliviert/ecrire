@@ -1,0 +1,64 @@
+body.images > main {
+  @include flex-direction(column);
+
+  section.configure, section.complete {
+    @include display(flex);
+    margin-top: 10em;
+
+    h1 {
+      text-align: center;
+      @include align-self(center);
+    }
+  }
+
+  section.configure {
+
+    h1, form {
+      @include flex(1);
+    }
+
+    h1 {
+      &.error {
+        color: $warning;
+      }
+    }
+
+    form {
+      margin: 0 3em;
+      font-size: 1.0em;
+      @include display(flex);
+      @include flex-wrap(wrap);
+
+      input {
+        width: 100%;
+        margin: 1em 0;
+        font-size: inherit;
+      }
+      button {
+        font-size: inherit;
+        margin-left: auto;
+        @include transition(color 0.2s, background-color 0.2s);
+        border-radius: 2px;
+        padding: 4px 8px;
+        margin: 0 0 2em 0;
+        border: 1px solid transparent;
+        color: #FFF;
+        background: #688EB2;
+
+        &:hover:not([disabled]) {
+          background: #68B2A7;
+        }
+      }
+    }
+  }
+}
+
+body.images > main {
+  section.complete {
+    @include flex-direction(column);
+
+    p {
+      text-align: center;
+    }
+  }
+}

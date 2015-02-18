@@ -1,0 +1,14 @@
+$header = $('aside.preview header')
+$old_form = $header.find('form.image.header')
+$form = $('<%= j render('admin/images/header', post: post) %>')
+$old_form.replaceWith($form)
+$image = $('aside.preview > div.image')
+
+if ($image.length) {
+  $image.attr('style', "background-image: url('<%= post.header.url %>')")
+}
+else {
+  $('aside.preview').prepend("<%= j editor_image_tag(post) %>")
+}
+
+$header.find('p.handler').click()

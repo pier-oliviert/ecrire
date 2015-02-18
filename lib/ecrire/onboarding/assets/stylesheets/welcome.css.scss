@@ -1,0 +1,62 @@
+#OnboardingIndex {
+  h1.welcome {
+    opacity: 0;
+    @include animation(slideIn 3s ease forwards);
+  }
+
+  div.slogan {
+    font-size: 1.4em;
+    letter-spacing: 2px;
+
+    span {
+      opacity: 0;
+    }
+
+    span:nth-child(1) {
+      @include animation(fadeIn 1s ease 2.9s forwards);
+    }
+
+    span:nth-child(2) {
+      @include animation(fadeIn 1s ease 3.8s forwards);
+    }
+
+    span:nth-child(3) {
+      @include animation(fadeIn 1s ease 4.7s forwards);
+    }
+  }
+
+  & > section {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    @include flex-direction(column);
+    margin: 3em 0 0 0;
+    min-height: 50vh;
+    min-width: 60vw;
+    &.welcome {
+      opacity: 0;
+      @include animation(fadeIn 2s ease 6s forwards);
+    }
+  }
+}
+
+@include keyframes(slideIn) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    margin-top: -1em;
+  }
+}
+
+@include keyframes(fadeIn) {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

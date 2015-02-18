@@ -1,0 +1,61 @@
+<div class='overlay' as='Overlay'>
+  <div class='popup' id="Documentation">
+    <header>
+      <h5>Available syntax when writing your post</h5>
+    </header>
+
+    <section class='words'>
+      <h3>Headers</h3>
+      <div>
+        <h1># Header 1</h1>
+        <h2># Header 2</h2>
+        <h3># Header 3</h3>
+        <h4># Header 4</h4>
+        <h5># Header 5</h5>
+      </div>
+    </section>
+
+    <section class='words'>
+      <h3>Italic & bold</h3>
+      <p>You <em>*can*</em> use asterisks(*) to style <strong>**words**</strong>.</p>
+
+    </section>
+
+    <section class='code'>
+      <h3>Code block</h3>
+      <pre><code>~~~ language
+  [1,2,3].each do |i|
+    puts i
+  end
+~~~</code></pre>
+    </section>
+
+    <section class='image'>
+      <h3>Images</h3>
+      <p>Images are block level in Ecrire. You can only add an image if it's at the start of a line.</p>
+      <p><strong>You can only use images if you have configured Ecrire to upload to your S3 bucket.</strong></p>
+      <picture>
+        <div style="background-image: url(https://www.google.com/images/srpr/logo11w.png);"></div>
+        <em name="An image">![An image](https://www.google.com/images/srpr/logo11w.png)</em>
+      </picture>
+    </section>
+
+    <section class='list'>
+      <h3>Ordered list</h3>
+      <ol>
+        <li>1. First</li>
+        <li>1. Second</li>
+        <li>1. Third</li>
+      </ol>
+
+      <h3>Unordered list</h3>
+      <ul>
+        <li>- First</li>
+        <li>- Second</li>
+        <li>- Third</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+

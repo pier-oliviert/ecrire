@@ -1,0 +1,3 @@
+class PostsHelperTest < BaseHelperTest
+end
+

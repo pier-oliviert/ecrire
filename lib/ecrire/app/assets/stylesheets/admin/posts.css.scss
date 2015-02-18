@@ -1,0 +1,46 @@
+@import 'mixins/form';
+
+form.post.new.title {
+  @include display(flex);
+  @include flex-direction(column);
+  @include flex(1);
+  @include justify-content(center);
+  @include align-content(center);
+
+  fieldset, p {
+    opacity: 1;
+    @include transition(opacity 1s);
+  }
+
+  .transparent {
+    opacity: 0;
+  }
+
+  fieldset {
+    @include textfield;
+    margin: -30vh 10vw 0;
+    position: relative;
+    input {
+      font-size: 1.1em;
+      border: none;
+      background: none;
+      margin: 0;
+      padding: 0 2em 0 0;
+      outline: none;
+      width: 100%;
+    }
+    &:after {
+      position: absolute;
+      width: 1em;
+      content: '↵';
+      right: 0.5em;
+      top: 0.5em;
+      color: #BABABA;
+      font-size: 1.4em;
+    }
+  }
+
+  p {
+    text-align: center;
+  }
+}

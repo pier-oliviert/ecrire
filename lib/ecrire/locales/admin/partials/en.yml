@@ -1,0 +1,18 @@
+en:
+  admin:
+    partials:
+
+      index:
+        new_idea: "Build small HTML snippet you can reuse in your blog posts. It can be anything: Mailing list form, Christmas HTML snippet, etc."
+        start_writing: "Create a partial."
+
+      form:
+        title: "Partial's title"
+        content: "Write your HTML"
+        stylesheet: "Write your CSS"
+        javascript: "Write your JavaScript"
+        options:
+          fields:
+            text: 'Write'
+            CSS: 'Stylesheet'
+            JS: 'Javascript'

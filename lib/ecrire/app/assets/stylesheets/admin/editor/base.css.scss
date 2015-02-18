@@ -1,0 +1,41 @@
+body.posts nav#Menu {
+  margin-top: -4em;
+  @include transition(margin-top 0.2s);
+}
+
+body.posts > main {
+  @include flex-direction(column);
+}
+
+
+body.posts > main > header {
+  @include flex(0 auto);
+  padding: 1em 0;
+
+}
+
+body.posts > main > section {
+  @include flex(1);
+  @include display(flex);
+  padding-top: 1em;
+
+  & > div {
+    @include flex(0 180px);
+    margin: 0 auto;
+    padding: 1em;
+  }
+
+  & > article {
+    @include display(flex);
+    @include flex-direction(column);
+    width: 960px;
+  }
+
+  div.configuration.missing {
+    padding: 3em 0;
+    line-height: 1.3em;
+    a {
+      @include animation(flash 1s infinite alternate);
+    }
+  }
+}

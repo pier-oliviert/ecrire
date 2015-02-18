@@ -1,0 +1,57 @@
+body.edit.posts > main > section {
+  div.content {
+    @include flex(1);
+    outline: none;
+    font-size: 1.2em;
+
+    & > *, & > ul > li, & > ol > li {
+      white-space: pre-wrap;
+      min-height: 1.6em;
+      line-height: 1.6em;
+      margin: 0.3em 0;
+    }
+
+    & > ul, & > ol {
+      margin-left: 2em;
+    }
+
+    & > picture {
+      @include display(flex);
+      @include flex-direction(column);
+      @include transition(background-color 0.3s);
+      height: 480px;
+      background-color: #EEE;
+
+      &:hover {
+        background-color: #CCC;
+      }
+
+      &.dropping {
+        background-color: #CCC;
+      }
+
+      & > em {
+        background-color: #EEE;
+        padding: 1em;
+      }
+
+      & > div {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        @include flex(1);
+        cursor: pointer;
+        width: 100%;
+        background-size: cover;
+
+        & > p {
+          text-align: center;
+        }
+
+        & > input[type=file] {
+          display: none;
+        }
+      }
+    }
+  }
+}

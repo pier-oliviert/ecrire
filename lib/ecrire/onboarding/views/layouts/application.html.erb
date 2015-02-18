@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <%= title_tag 'Before you start blogging...' %>
+    <%= assets_tags %>
+    <%= meta_informations_tags %>
+  </head>
+
+  <%= body_tag class: 'onboarding' do %>
+
+    <%= yield %>
+
+  <% end %>
+
+</html>
