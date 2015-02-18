@@ -14,7 +14,7 @@ Editor.Parsers.push class
     @uploader = new Editor.ImageUploader(@show)
 
 
-    @picture = "<picture as='Editor.Image'>".toHTML()
+    @picture = "<div class='image' as='Editor.Image'>".toHTML()
 
     @title = "<em></em>".toHTML()
     @title.appendChild document.createTextNode(@match[1])

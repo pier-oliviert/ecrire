@@ -14,10 +14,13 @@ HTMLOListElement::toString = HTMLUListElement::toString = ->
     li.textContent
   texts.join("\n")
 
-HTMLPictureElement::toString = ->
-  @lastChild.textContent
+HTMLDivElement::toString = ->
+  if @classList.contains('image')
+    @lastChild.textContent
+  else
+    @textContent
 
-HTMLPreElement::toString = HTMLHeadingElement::toString = HTMLDivElement::toString = HTMLParagraphElement::toString = ->
+HTMLPreElement::toString = HTMLHeadingElement::toString = HTMLParagraphElement::toString = ->
   @textContent
 
 HTMLElement::offset = (node, walker) ->

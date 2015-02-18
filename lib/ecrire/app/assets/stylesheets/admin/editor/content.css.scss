@@ -4,6 +4,30 @@ body.edit.posts > main > section {
     outline: none;
     font-size: 1.2em;
 
+    h1 {
+      font-size: 3em;
+    }
+
+    h2 {
+      font-size: 2.8em;
+    }
+
+    h3 {
+      font-size: 2.6em;
+    }
+
+    h4 {
+      font-size: 2.4em;
+    }
+
+    h5 {
+      font-size: 2.2em;
+    }
+
+    h6 {
+      font-size: 2em;
+    }
+
     & > *, & > ul > li, & > ol > li {
       white-space: pre-wrap;
       min-height: 1.6em;
@@ -15,7 +39,11 @@ body.edit.posts > main > section {
       margin-left: 2em;
     }
 
-    & > picture {
+    & > pre {
+      background: rgba(0,0,0, 0.1);
+    }
+
+    & > div.image {
       @include display(flex);
       @include flex-direction(column);
       @include transition(background-color 0.3s);
