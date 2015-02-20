@@ -59,21 +59,23 @@ Joint.bind 'Editor.Content', class @Editor
 
     sel = window.getSelection()
     node = focusNode = sel.focusNode
-    offset = sel.focusOffset
-
-    str = focusNode.textContent
-    focusNode.textContent = str.substr(0, offset) + "\n" + str.substr(offset)
 
     while node? && node.parentElement != @element()
       node = node.parentElement
     
-    offset = @lineOffset(node, focusNode, offset) + 1
+    offset = @lineOffset(node, focusNode, sel.focusOffset)
 
-    lines = @parse(@cloneNodesFrom(node))
+    lineFeed = new LineFeed(@cloneNodesFrom(node))
+    lineFeed.injectAt(offset)
+
+    cursor = new Cursor(offset + 1)
+
+    lines = @parse(lineFeed.fragment)
 
     @observer.hold =>
-      lines = @updateDOM(node, lines)
-      @setCursorAt(lines[0], offset)
+      line = cursor.focus(@updateDOM(node, lines)[0])
+      cursor.update(@walker(line))
+      @scrollLineIntoView(cursor.focus())
 
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
@@ -97,13 +99,12 @@ Joint.bind 'Editor.Content', class @Editor
       offset += node.toString().length + 1
 
     lines = @parse(@cloneNodesFrom(node))
+    cursor = new Cursor(offset)
 
     @observer.hold =>
-      lines = @updateDOM(node, lines)
-      for line in lines
-        if line.parentElement?
-          @setCursorAt(lines[0], offset)
-          break
+      line = cursor.focus(@updateDOM(node, lines)[0])
+      cursor.update(@walker(line))
+      @scrollLineIntoView(cursor.focus())
 
 
   removed: (node, line) =>
@@ -116,18 +117,19 @@ Joint.bind 'Editor.Content', class @Editor
     if line?
       sel = window.getSelection()
       offset = @lineOffset(line, sel.focusNode, sel.focusOffset)
+      cursor = new Cursor(offset)
 
       lines = @parse(@cloneNodesFrom(line))
 
       @observer.hold =>
-        lines = @updateDOM(line, lines)
-        if line != lines[0]
-          @setCursorAt(lines[0], offset)
+        line = cursor.focus(@updateDOM(line, lines)[0])
+        cursor.update(@walker(line))
 
     if @element().childNodes.length == 0
       p = "<p>".toHTML()
       @element().appendChild(p)
-      @setCursorAt(@element(), 0)
+      cursor = new Cursor(offset)
+      cursor.update(@walker(p), 0)
 
 
 
@@ -152,15 +154,24 @@ Joint.bind 'Editor.Content', class @Editor
 
     sel = window.getSelection()
     offset = @lineOffset(el, sel.focusNode, sel.focusOffset)
+    cursor = new Cursor(offset)
 
     lines = @parse(@cloneNodesFrom(node))
 
     @observer.hold =>
       lines = @updateDOM(node, lines)
       if node != lines[0]
-        @setCursorAt(lines[0], offset)
+        cursor.update(@walker(lines[0]))
+      @scrollLineIntoView(lines[0])
 
 
+
+  scrollLineIntoView: (line) =>
+    height = window.innerHeight
+    rect = line.getBoundingClientRect()
+
+    if rect.bottom > height
+      line.scrollIntoView()
 
   updateDOM: (anchor, fragment) =>
     return unless anchor?
@@ -213,39 +224,15 @@ Joint.bind 'Editor.Content', class @Editor
 
 
   lineOffset: (line, node, offset) =>
+
+    if node.nodeType == document.ELEMENT_NODE
+      return node.textContent.length
+
     if node.textContent.length == 0
       return 0
 
     walker = @walker(line)
     offset += line.offset(node, walker)
-
-
-
-  setCursorAt: (line, offset) ->
-    sel = window.getSelection()
-
-    while true
-      length = line.toString().length
-      if length >= offset
-        break
-      offset -= Math.max(length + 1, 1)
-
-      if line.nextSibling?
-        line = line.nextSibling
-        continue
-      break
-
-    walker = @walker(line)
-    range = line.getRange(offset , walker)
-
-    height = window.innerHeight
-    rect = line.getBoundingClientRect()
-
-    if rect.bottom > height
-      line.scrollIntoView()
-
-    sel.removeAllRanges()
-    sel.addRange(range)
 
 
 
@@ -312,6 +299,75 @@ Joint.bind 'Editor.Content', class @Editor
       texts.push line.toString()
 
     texts.join '\n'
+
+class Cursor
+  constructor: (offset) ->
+    @selection = window.getSelection()
+    @origin = @selection.focusNode
+
+    @offset = offset
+
+  focus: (line) ->
+    while true
+      length = line.toString().length
+      if length >= @offset
+        break
+      @offset -= Math.max(length + 1, 1)
+
+      if line.nextSibling?
+        line = line.nextSibling
+        continue
+      break
+
+    @focus = ->
+      line
+
+    @focus()
+
+  update: (walker) ->
+    line = walker.root
+
+    if @selection.focusNode == @origin && line.contains(@origin)
+      return
+
+    range = line.getRange(@offset, walker)
+
+    @selection.removeAllRanges()
+    @selection.addRange(range)
+
+class LineFeed
+  constructor: (@fragment) ->
+
+  injectAt: (offset) ->
+    node = @fragment.firstChild
+    while node && offset > 0 
+      length = node.textContent.length
+      if offset > length
+        offset -= length  + 1
+        node = node.nextSibling
+      else
+        break
+
+    if !node?
+      @append(@fragment.lastChild)
+    else
+      @insert(node, offset)
+
+  append: (lastChild) ->
+    node = lastChild.cloneNode(true)
+    node.textContent = ''
+    @fragment.appendChild(node)
+
+  insert: (root, offset) ->
+    node = root.cloneNode(true)
+
+    root.textContent = root.textContent.substr(0, offset)
+    node.textContent = node.textContent.substr(offset)
+
+    if root.nextSibling?
+      @fragment.insertBefore(node, root.nextSibling)
+    else
+      @fragment.appendChild(node)
 
 
 Editor.Parsers = []

@@ -20,7 +20,10 @@ HTMLDivElement::toString = ->
   else
     @textContent
 
-HTMLPreElement::toString = HTMLHeadingElement::toString = HTMLParagraphElement::toString = ->
+HTMLPreElement::toString = ->
+  @textContent
+
+HTMLHeadingElement::toString = HTMLParagraphElement::toString = ->
   @textContent
 
 HTMLElement::offset = (node, walker) ->

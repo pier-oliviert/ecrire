@@ -1,5 +1,5 @@
 Editor.Parsers.push class
-  rule: /^((~{3,})([a-z]+)?$)(.+)?(~{3,}$)?/mi
+  rule: /^((~{3,})([a-z]+)?)(.+)?(~{3,}$)?/mi
 
   constructor: (node) ->
     @nodes = [node]
@@ -28,11 +28,15 @@ Editor.Parsers.push class
 
   render: =>
     pre = "<pre>".toHTML()
-    code = "<code>".toHTML()
+    code = "<code as='Editor.Code'>".toHTML()
+
     if @match[3]?
       code.classList.add("language-#{@match[3]}")
+
     texts = @nodes.map (n) -> n.textContent
-    code.textContent = texts.join("\n")
+
+    code.textContent = texts.join('\n')
+
     Prism.highlightElement(code)
     pre.appendChild(code)
     pre
