@@ -68,7 +68,7 @@ Joint.bind 'Editor.Content', class @Editor
     lineFeed = new LineFeed(@cloneNodesFrom(node))
     lineFeed.injectAt(offset)
 
-    cursor = new Cursor(offset + 1)
+    cursor = new Editor.Cursor(offset + 1)
 
     lines = @parse(lineFeed.fragment)
 
@@ -99,7 +99,7 @@ Joint.bind 'Editor.Content', class @Editor
       offset += node.toString().length + 1
 
     lines = @parse(@cloneNodesFrom(node))
-    cursor = new Cursor(offset)
+    cursor = new Editor.Cursor(offset)
 
     @observer.hold =>
       line = cursor.focus(@updateDOM(node, lines)[0])
@@ -117,7 +117,7 @@ Joint.bind 'Editor.Content', class @Editor
     if line?
       sel = window.getSelection()
       offset = @lineOffset(line, sel.focusNode, sel.focusOffset)
-      cursor = new Cursor(offset)
+      cursor = new Editor.Cursor(offset)
 
       lines = @parse(@cloneNodesFrom(line))
 
@@ -128,7 +128,7 @@ Joint.bind 'Editor.Content', class @Editor
     if @element().childNodes.length == 0
       p = "<p>".toHTML()
       @element().appendChild(p)
-      cursor = new Cursor(offset)
+      cursor = new Editor.Cursor(offset)
       cursor.update(@walker(p), 0)
 
 
@@ -154,7 +154,7 @@ Joint.bind 'Editor.Content', class @Editor
 
     sel = window.getSelection()
     offset = @lineOffset(el, sel.focusNode, sel.focusOffset)
-    cursor = new Cursor(offset)
+    cursor = new Editor.Cursor(offset)
 
     lines = @parse(@cloneNodesFrom(node))
 
@@ -300,7 +300,7 @@ Joint.bind 'Editor.Content', class @Editor
 
     texts.join '\n'
 
-class Cursor
+class @Editor.Cursor
   constructor: (offset) ->
     @selection = window.getSelection()
     @origin = @selection.focusNode
@@ -324,10 +324,10 @@ class Cursor
 
     @focus()
 
-  update: (walker) ->
+  update: (walker, force = false) ->
     line = walker.root
 
-    if @selection.focusNode == @origin && line.contains(@origin)
+    if !force && @selection.focusNode == @origin && line.contains(@origin)
       return
 
     range = line.getRange(@offset, walker)

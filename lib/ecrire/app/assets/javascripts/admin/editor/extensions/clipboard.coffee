@@ -69,7 +69,9 @@ Editor.Extensions.push class ClipBoard
 
     @editor.updateDOM(line, fragment)
 
-    @editor.setCursorAt(line, offsets.start + text.length)
+    cursor = new Editor.Cursor(offsets.start + text.length)
+    line = cursor.focus(line)
+    cursor.update(@editor.walker(line), true)
 
 
   insert: (texts, sel) =>
@@ -93,6 +95,8 @@ Editor.Extensions.push class ClipBoard
 
     lines = @editor.updateDOM(node, fragment)
 
-    @editor.setCursorAt(lines[0], offset)
+    cursor = new Editor.Cursor(offset)
+    line = cursor.focus(lines[0])
+    cursor.update(@editor.walker(line), true)
 
 
