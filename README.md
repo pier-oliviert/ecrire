@@ -39,3 +39,26 @@ $ ecrire server
 ```
 
 From there, you can access your new blog via the browser and start configuring your database.
+
+## Heroku
+
+Once you have finished your changes in your local environment, here's how you can publish your blog on Heroku.
+
+~~~bash
+$ heroku git:remote -a name-of-your-app-on-heroku
+$ git push origin heroku
+$ heroku run rake db:migrate
+~~~
+
+Your blog is now up and running on Heroku! But you need to create a user on Heroku for now, here's how you do it.
+
+~~~ruby
+$ heroku run ecrire console
+irb(main)> user = User.new
+irb(main)> user.email = "your@email.com"
+irb(main)> user.password = "yourpassword"
+irb(main)> user.save!
+irb(main)> exit
+~~~
+
+You can now log in to your blog in production and start writing for real!
