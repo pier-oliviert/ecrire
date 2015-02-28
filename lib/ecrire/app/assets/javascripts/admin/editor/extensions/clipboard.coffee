@@ -42,7 +42,7 @@ Editor.Extensions.push class ClipBoard
 
 
   replace: (texts, sel) =>
-    
+
     node = sel.extentNode
     line = node
     nodes = [node]
@@ -62,7 +62,7 @@ Editor.Extensions.push class ClipBoard
       t.textContent
     ).join()
 
-    
+
     line.textContent = line.textContent.substr(0, offsets.start) + text + line.textContent.substr(offsets.end)
 
     fragment = @editor.parse(@editor.cloneNodesFrom(line))
@@ -70,8 +70,7 @@ Editor.Extensions.push class ClipBoard
     @editor.updateDOM(line, fragment)
 
     cursor = new Editor.Cursor(offsets.start + text.length)
-    line = cursor.focus(line)
-    cursor.update(@editor.walker(line), true)
+    cursor.update(@editor.walker(cursor.focus(line)), true)
 
 
   insert: (texts, sel) =>
@@ -86,17 +85,30 @@ Editor.Extensions.push class ClipBoard
     node.textContent += text
     node.textContent += str.substr(sel.anchorOffset)
 
-    offset = sel.anchorOffset + text.length
-    
-    while node.parentElement != @editor.element()
-      node = node.parentElement
+    line = node
+    while line.parentElement != @editor.element()
+      line = line.parentElement
 
-    fragment = @editor.parse(@editor.cloneNodesFrom(node))
+    offset = @nodeOffset(node,line) + sel.anchorOffset + text.length
 
-    lines = @editor.updateDOM(node, fragment)
+    fragment = @editor.parse(@editor.cloneNodesFrom(line))
+
+    lines = @editor.updateDOM(line, fragment)
 
     cursor = new Editor.Cursor(offset)
-    line = cursor.focus(lines[0])
-    cursor.update(@editor.walker(line), true)
+    cursor.update(@editor.walker(cursor.focus(lines[0])), true)
 
+  nodeOffset: (node, line) ->
+    if !line.contains(node)
+      raise "Looking for a node that is not inside the given line"
+      return
 
+    offset = 0
+
+    for n in line.childNodes
+      if n == node
+        break
+      else
+        offset += n.textContent.length
+
+    offset

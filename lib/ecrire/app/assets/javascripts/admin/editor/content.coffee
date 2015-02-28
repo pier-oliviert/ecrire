@@ -62,7 +62,7 @@ Joint.bind 'Editor.Content', class @Editor
 
     while node? && node.parentElement != @element()
       node = node.parentElement
-    
+
     offset = @lineOffset(node, focusNode, sel.focusOffset)
 
     lineFeed = new LineFeed(@cloneNodesFrom(node))
@@ -340,7 +340,7 @@ class LineFeed
 
   injectAt: (offset) ->
     node = @fragment.firstChild
-    while node && offset > 0 
+    while node && offset > 0
       length = node.textContent.length
       if offset > length
         offset -= length  + 1
@@ -372,4 +372,3 @@ class LineFeed
 
 Editor.Parsers = []
 Editor.Extensions = []
-
