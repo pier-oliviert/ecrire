@@ -19,7 +19,7 @@ module Admin
             end
           end
 
-          post.content
+          h(post.content)
         end
     end
   end
