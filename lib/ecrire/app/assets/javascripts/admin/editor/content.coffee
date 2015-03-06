@@ -260,8 +260,18 @@ Joint.bind 'Editor.Content', class @Editor
 
 
   same: (node1, node2) =>
+    node1 = node1.cloneNode(true)
+    node2 = node2.cloneNode(true)
+
+    for el in node1.querySelectorAll('[contenteditable=false]')
+      el.remove()
+
+    for el in node2.querySelectorAll('[contenteditable=false]')
+      el.remove()
+
     node1.nodeName == node2.nodeName &&
     node1.innerHTML.trim() == node2.innerHTML.trim()
+
 
 
 
