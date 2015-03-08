@@ -29,6 +29,11 @@ body.posts > main > section > div.save {
     &:hover:not([disabled]) {
       background: #68B2A7;
     }
+
+    &.nudge {
+      @include animation(nudge 0.1s ease);
+      @include animation-iteration-count(2);
+    }
   }
 
   div.update {
@@ -42,3 +47,24 @@ body.posts > main > section > div.save {
   }
 }
 
+@include keyframes(nudge) {
+  0% {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  25% {
+    margin-left: 10px;
+    margin-right: 0;
+  }
+
+  75% {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  100% {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

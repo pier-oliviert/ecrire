@@ -3,6 +3,7 @@ Joint.bind 'Editor.Save', class
     @button = @element().querySelector('button')
     @time = @element().querySelector('div.update > p')
 
+    @on 'keydown', document, @shouldSave
     @on 'Editor:loaded', document, @cache
     @on 'Editor:updated', document, @update
     @on 'posts:update', document, @saved
@@ -32,11 +33,36 @@ Joint.bind 'Editor.Save', class
       cache
     @cache()
 
+  dirty: =>
+    @cache()? && @cache() != PostBody.instance.toString()
+
+  shouldSave: (e) =>
+    if e.metaKey isnt true || e.which isnt 83
+      return
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    if @dirty()
+      @save(e)
+    else
+      @nudge()
+
+  nudge: =>
+    button = document.querySelector("[as='Editor.Save'] button")
+    clean = ->
+      button.classList.remove('nudge')
+
+    button.addEventListener 'animationend', clean
+    button.addEventListener 'webkitAnimationEnd', clean
+    button.classList.add('nudge')
+
   save: (e) =>
     e.preventDefault()
     e.stopPropagation()
 
-    xhr = new Joint.XHR(e.target.form)
+    form = document.querySelector("[as='Editor.Save']")
+    xhr = new Joint.XHR(form)
     xhr.data.set('post[content]', PostBody.instance.toString())
     xhr.data.set('context', 'content')
     xhr.send()
@@ -48,11 +74,9 @@ Joint.bind 'Editor.Save', class
       @cache(true)
 
   update: (e) =>
-    return unless @cache()?
-    if @cache() != PostBody.instance.toString()
+    if @dirty()
       @button.removeAttribute('disabled')
       @button.textContent = @button.getAttribute('dirty')
     else
       @button.setAttribute('disabled', 'disabled')
       @button.textContent = @button.getAttribute('persisted')
-
