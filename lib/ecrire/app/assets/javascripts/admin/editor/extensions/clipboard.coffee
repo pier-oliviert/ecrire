@@ -74,7 +74,6 @@ Editor.Extensions.push class ClipBoard
 
 
   insert: (texts, sel) =>
-
     node = sel.anchorNode
     str = node.textContent
     text = texts.map((t) ->
@@ -89,7 +88,9 @@ Editor.Extensions.push class ClipBoard
     while line.parentElement != @editor.element()
       line = line.parentElement
 
-    offset = @nodeOffset(node,line) + sel.anchorOffset + text.length
+    offset = sel.anchorOffset + text.length
+    if node != line
+      offset += @nodeOffset(node, line)
 
     fragment = @editor.parse(@editor.cloneNodesFrom(line))
 
