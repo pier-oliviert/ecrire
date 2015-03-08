@@ -74,7 +74,6 @@ Editor.Extensions.push class ClipBoard
 
 
   insert: (texts, sel) =>
-
     node = sel.anchorNode
     str = node.textContent
     text = texts.map((t) ->
@@ -89,7 +88,9 @@ Editor.Extensions.push class ClipBoard
     while line.parentElement != @editor.element()
       line = line.parentElement
 
-    offset = @nodeOffset(node,line) + sel.anchorOffset + text.length
+    offset = sel.anchorOffset + text.length
+    if node != line
+      offset += @nodeOffset(node, line)
 
     fragment = @editor.parse(@editor.cloneNodesFrom(line))
 
@@ -99,15 +100,13 @@ Editor.Extensions.push class ClipBoard
     cursor.update(@editor.walker(cursor.focus(lines[0])), true)
 
   nodeOffset: (node, line) ->
-    if !line.contains(node)
-      raise "Looking for a node that is not inside the given line"
-      return
-
     offset = 0
 
     for n in line.childNodes
       if n == node
         break
+      else if n.childNodes.length > 0
+        offset += @nodeOffset(node, n)
       else
         offset += n.textContent.length
 
