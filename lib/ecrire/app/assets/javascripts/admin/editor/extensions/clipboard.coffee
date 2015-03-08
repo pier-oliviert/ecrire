@@ -100,15 +100,13 @@ Editor.Extensions.push class ClipBoard
     cursor.update(@editor.walker(cursor.focus(lines[0])), true)
 
   nodeOffset: (node, line) ->
-    if !line.contains(node)
-      raise "Looking for a node that is not inside the given line"
-      return
-
     offset = 0
 
     for n in line.childNodes
       if n == node
         break
+      else if n.childNodes.length > 0
+        offset += @nodeOffset(node, n)
       else
         offset += n.textContent.length
 
