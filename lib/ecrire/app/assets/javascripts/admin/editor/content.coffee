@@ -111,7 +111,7 @@ Joint.bind 'Editor.Content', class @Editor
     while line? && line.parentElement != @element()
       line = line.parentElement
 
-    if node.nodeType != 1 || (node instanceof HTMLBRElement && node.parentElement?)
+    if node.nodeType != 1 && node instanceof HTMLBRElement
       node.remove()
 
     if line?
