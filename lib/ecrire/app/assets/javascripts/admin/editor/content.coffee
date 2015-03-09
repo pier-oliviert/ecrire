@@ -92,7 +92,10 @@ Joint.bind 'Editor.Content', class @Editor
     walker = @walker(node)
 
     sel = window.getSelection()
-    offset = @lineOffset(node, (sel.focusNode || node), sel.focusOffset)
+    if sel.type == 'None'
+      offset = 0
+    else
+      offset = @lineOffset(node, (sel.focusNode || node), sel.focusOffset)
 
     if node.previousElementSibling?
       node = node.previousElementSibling
@@ -116,7 +119,11 @@ Joint.bind 'Editor.Content', class @Editor
 
     if line?
       sel = window.getSelection()
-      offset = @lineOffset(line, sel.focusNode, sel.focusOffset)
+      if sel.type == 'None'
+        offset = 0
+      else
+        offset = @lineOffset(line, sel.focusNode, sel.focusOffset)
+        
       cursor = new Editor.Cursor(offset)
 
       lines = @parse(@cloneNodesFrom(line))
@@ -153,7 +160,11 @@ Joint.bind 'Editor.Content', class @Editor
     node = el
 
     sel = window.getSelection()
-    offset = @lineOffset(el, sel.focusNode, sel.focusOffset)
+    if sel.type == 'None'
+      offset = 0
+    else
+      offset = @lineOffset(el, sel.focusNode, sel.focusOffset)
+
     cursor = new Editor.Cursor(offset)
 
     lines = @parse(@cloneNodesFrom(node))
