@@ -38,13 +38,13 @@ Joint.bind 'Editor.Content', class @Editor
 
 
 
-  outdated: (mutations) =>
+  outdated: (observedMutations) =>
     @observer.hold =>
-      for mutation in mutations
-        @appended(node, mutation.target) for node in mutation.addedNodes
-        @removed(node, mutation.target) for node in mutation.removedNodes
-        if mutation.type == 'characterData'
-          @update mutation.target
+      mutations = new Mutations(observedMutations)
+      switch mutations.status()
+        when 'appended' then @appended(mutations)
+        when 'updated' then @updated(mutations)
+        when 'removed' then @removed(mutations)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)
@@ -83,7 +83,8 @@ Joint.bind 'Editor.Content', class @Editor
 
 
 
-  update: (node) ->
+  updated: (mutations) ->
+    node = mutations.target
     while node? && node.parentElement != @element()
       node = node.parentElement
 
@@ -110,7 +111,8 @@ Joint.bind 'Editor.Content', class @Editor
       @scrollLineIntoView(cursor.focus())
 
 
-  removed: (node, line) =>
+  removed: (mutations) =>
+    line = node = mutations.target
     while line? && line.parentElement != @element()
       line = line.parentElement
 
@@ -123,7 +125,7 @@ Joint.bind 'Editor.Content', class @Editor
         offset = 0
       else
         offset = @lineOffset(line, sel.focusNode, sel.focusOffset)
-        
+
       cursor = new Editor.Cursor(offset)
 
       lines = @parse(@cloneNodesFrom(line))
@@ -140,8 +142,8 @@ Joint.bind 'Editor.Content', class @Editor
 
 
 
-  appended: (node) =>
-    el = node
+  appended: (mutations) =>
+    el = mutations.target
     while el? && el.parentElement != @element()
       el = el.parentElement
 
@@ -390,6 +392,38 @@ class LineFeed
     else
       @fragment.appendChild(node)
 
+
+class Mutations
+  constructor: (mutations) ->
+    @removed = []
+    @appended = []
+    @updated = []
+
+    for mutation in mutations
+      @setTarget(mutation.target)
+      if mutation.addedNodes.length > 0
+        @appended.push mutation.target
+      else if mutation.type == 'characterData'
+        @updated.push mutation.target
+      else
+        @removed.push mutation.target
+
+  setTarget: (target) ->
+    return unless target.parentElement?
+    if @target? && @target.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING
+      @target = target
+    else
+      @target = target
+
+  status: =>
+    if @appended.length > 0
+      "appended"
+    else if @updated.length > 0
+      'updated'
+    else if @removed.length > 0
+      'removed'
+    else
+      'none'
 
 Editor.Parsers = []
 Editor.Extensions = []
