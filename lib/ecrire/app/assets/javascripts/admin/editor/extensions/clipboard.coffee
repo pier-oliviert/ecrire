@@ -105,8 +105,9 @@ Editor.Extensions.push class ClipBoard
     for n in line.childNodes
       if n == node
         break
-      else if n.childNodes.length > 0
+      else if n.contains(node)
         offset += @nodeOffset(node, n)
+        break
       else
         offset += n.textContent.length
 
