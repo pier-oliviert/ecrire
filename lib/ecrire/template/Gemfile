@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'ecrire',               git: 'https://github.com/pothibo/ecrire'
+gem 'ecrire',               path: '~/Develop/ecrire'
 
 group :required do
   gem 'rails',             '~> 4.2'
@@ -18,7 +18,8 @@ group :required do
   gem 'coffee-rails',      '~> 4.0'
   gem 'turbolinks',        '~> 2.2'
   gem 'bourbon',           '~> 3.2'
-  gem 'uglifier',         '~> 2.5'
+  gem 'uglifier',          '~> 2.5'
+  gem 'jbuilder'           '~> 2.2'
 end
 
 group :server do

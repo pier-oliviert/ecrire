@@ -7,12 +7,11 @@ module Admin
       end
     end
 
-    def update
-      @image = post.header
-      if @image.update(image_params)
-        @image.touch
-      else
-        render 'errors'
+    def create
+      @image = post.header || post.build_header
+
+      unless @image.update(image_params)
+        render 'errors', status: 500
       end
     end
 

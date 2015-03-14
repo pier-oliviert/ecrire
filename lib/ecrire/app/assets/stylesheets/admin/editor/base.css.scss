@@ -7,13 +7,6 @@ body.posts > main {
   @include flex-direction(column);
 }
 
-
-body.posts > main > header {
-  @include flex(0 auto);
-  padding: 1em 0;
-
-}
-
 body.posts > main > section {
   @include flex(1);
   @include display(flex);

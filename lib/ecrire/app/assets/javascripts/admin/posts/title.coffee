@@ -1,7 +1,14 @@
 Joint.bind 'Posts.Title', class
   loaded: =>
-    @title = @element().querySelector('input.title')
+    @on 'keydown', @submit
     @on 'posts:update', @update
+
+  submit: (e) =>
+    if e.keyCode == 13
+      e.preventDefault()
+      e.stopPropagation()
+      @element().blur()
+      return
 
   update: (e) =>
     @title.value = e.HTML
@@ -11,5 +18,3 @@ Joint.bind 'Posts.Title', class
       event = new CustomEvent('Editor:message', { bubbles: true})
       event.MessageHTML = e.MessageHTML
       @element().dispatchEvent(event)
-
-

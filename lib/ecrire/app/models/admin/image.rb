@@ -34,18 +34,16 @@ module Admin
           self.url = @file.url
           self.key = @file.key
         rescue StandardError => e
-          errors.add :remote, e
+          errors.add 's3', "Couldn't upload file to S3"
           return false
         end
         return true
       end
     end
 
-    def remove_file
-    end
-
     def path(file)
-      items = [post.id, file.original_filename]
+      puts self.post
+      items = [self.post.id, file.original_filename]
 
       items.prepend(s3.path) unless s3.path.blank?
 
@@ -56,7 +54,7 @@ module Admin
       include ::S3
 
       attr_reader :bucket, :access_key, :secret_key, :path, :errors
-      
+
       def initialize(options={})
         @errors = ActiveModel::Errors.new(self)
         @access_key = options.fetch('access_key', "")
@@ -85,7 +83,7 @@ module Admin
           @bucket.retrieve
           @connected = true
         rescue Error::ResponseError, ArgumentError, SocketError => e
-          errors.add :remote, e
+          errors.add :remote, "Couldn't connect to S3."
         end
       end
 

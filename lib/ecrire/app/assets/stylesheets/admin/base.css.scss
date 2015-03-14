@@ -24,7 +24,7 @@ body {
 }
 
 a {
-  color: rgb(114, 153, 204);
+  color: $link-color;
 }
 
 ol.list {
@@ -95,4 +95,3 @@ main {
   box-shadow: inset 0px 0px 3px 1px rgba(76, 120, 155, 1);
   color: #FEFEFE;
 }
-

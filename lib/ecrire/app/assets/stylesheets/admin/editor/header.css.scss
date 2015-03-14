@@ -1,45 +1,172 @@
 body.edit.posts > main > header {
   @include display(flex);
-  @include flex-direction(column);
+  @include flex(0 auto);
 }
 
-body.edit.posts > main > header form.title {
+body.edit.posts > main > header > div.title {
   @include display(flex);
-  @include flex(0 auto);
-  position: relative;
-  margin: auto 0;
-
-  &:after {
-    position: absolute;
-    width: 1em;
-    content: '↵';
-    right: 1em;
-    top: 1.1em;
-    color: #FAFAFA;
-    font-size: 1.4em;
+  @include flex-direction(column);
+  @include transition(opacity 0.2s linear);
+  text-align: center;
+  z-index: 5;
+  & > p {
+    @include transition(color 0.3s);
+    font-size: 0.7em;
+    cursor: pointer;
+    &:hover {
+      color: rgb(114, 153, 204);
+    }
   }
 
-  input.title {
-    width: 100%;
-    min-height: 60px;
-    font-size: 2em;
+  svg.clear {
+    @include transition(fill 0.3s);
+    width: 30px;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    fill: #D8ABAB;
     cursor: pointer;
-    text-decoration: underline;
-    text-align: center;
-    background: none;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 1px;
-    resize: none;
-    outline: none;
-    color: inherit;
+    &:hover {
+      fill: #C23131;
+    }
+  }
+}
 
-    &:focus {
-      cursor: text;
-      text-decoration: none;
-      background: rgb(239, 239, 239);
-      box-shadow: 0 0 2px #FFF;
+[as='Posts.Title'] {
+  @include flex(0 auto);
+  @include transition(box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease);
 
+  min-width: 30vw;
+  padding: 0.3em 1em;
+  margin: 0 0 0.5em 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 2.3em;
+  line-height: 1.4em;
+  box-shadow: 0 0 3px 0 transparent;
+
+  &:focus {
+    cursor: text;
+    background: rgb(239, 239, 239);
+    box-shadow: 0 0 3px 0 #CBCBCB;
+  }
+
+  &:hover:not(:focus) {
+    color: $link-color;
+  }
+
+}
+
+[as='Post.Header'] {
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(flex-start);
+  @include transition(background-color 0.3s ease);
+
+  background-color: rgb(232, 232, 232);
+  background-size: cover;
+  position: relative;
+
+  &.image {
+
+    & > div.drop {
+      background-color: rgb(122, 199, 122);
+      opacity: 1;
+      z-index: 6;
+    }
+
+    & > div.title {
+      opacity: 0;
+    }
+  }
+
+  input[type='file'] {
+    visibility: hidden;
+  }
+
+}
+
+[as='Post.Header'] div.drop {
+  @include transition(opacity 0.3s ease);
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(center);
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 1em;
+  text-align: center;
+  margin: 0;
+
+  svg {
+    width: 40px;
+    fill: rgb(66, 152, 66);
+  }
+
+  p {
+    color: rgb(66, 152, 66);
+    text-shadow: 0 1px 0 rgb(143, 213, 143);
+  }
+
+  div.progressbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+
+    & > span.progress {
+      @include transition(width 0.3s ease-out);
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: #245F42;
+    }
+  }
+}
+
+[as='Post.Header'] div.drop > div.status.error {
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(center);
+  width: 100%;
+  height: 100%;
+
+  background: rgb(169, 40, 40);
+  color: #2F0B0B;
+
+  &:not(.hidden) {
+    @include display(flex);
+  }
+
+  svg {
+    fill: rgb(89, 18, 18);
+  }
+
+  ul {
+    color: #2F0B0B;
+    text-shadow: 0 1px 0 #BD4141;
+    font-weight: bolder;
+  }
+
+  button {
+    @include transition(box-shadow 0.2s ease);
+    border: 1px solid #8B0B0B;
+    border-radius: 2px;
+    box-shadow: inset 0 0px 1px 0 #D85D5D;
+    padding: 6px 1em;
+
+    &:hover {
+      box-shadow: inset 0 0px 3px 0 #D85D5D;
+    }
+
+    &:active {
+      box-shadow: inset 0 0px 2px 0 #813131;
     }
   }
 }
@@ -51,7 +178,7 @@ body.posts > main [as='Navigation.Toggle'] {
   height: auto;
   cursor: pointer;
   fill: rgba(212, 228, 237, 1);
-  margin: 0 auto;
+  margin: 8px auto;
   &:hover {
     fill: #73CDFF;
   }
