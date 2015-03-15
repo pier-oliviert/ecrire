@@ -14,7 +14,6 @@ Ecrire::Application.routes.draw do
     root 'posts#index'
     resources :posts do
       collection do
-        get 'new/title', controller: :posts, action: :new
         get 'help', controller: :posts, action: :help
       end
       resource :image, shallow: true
@@ -29,4 +28,3 @@ Ecrire::Application.routes.draw do
   get '/:view', to: 'static#show'
 
 end
-

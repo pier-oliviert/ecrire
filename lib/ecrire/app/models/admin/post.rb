@@ -4,6 +4,8 @@ module Admin
   class Post < ::Post
 
     has_one :header, class_name: Admin::Image
+    has_many :titles
+
     before_save :compile!, prepend: true
     before_save :excerptize!
 

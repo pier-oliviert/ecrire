@@ -7,7 +7,7 @@ Joint.bind 'Posts.Title', class
     if e.keyCode == 13
       e.preventDefault()
       e.stopPropagation()
-      @element().blur()
+      @save()
       return
 
   update: (e) =>
@@ -18,3 +18,6 @@ Joint.bind 'Posts.Title', class
       event = new CustomEvent('Editor:message', { bubbles: true})
       event.MessageHTML = e.MessageHTML
       @element().dispatchEvent(event)
+
+  save: (e) =>
+    
