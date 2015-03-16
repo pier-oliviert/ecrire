@@ -1,2 +1,0 @@
-class ImagesControllerTest < BaseControllerTest
-end

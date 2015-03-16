@@ -13,6 +13,7 @@ class ActiveSupport::TestCase
     Dir.chdir Dir.pwd + '/test/themes/template' do
       Ecrire::Application.initialize!
       ::User.first_or_create!(email: 'test@test.ca', password: 123456)
+
     end
     exit!
   end
@@ -21,6 +22,7 @@ class ActiveSupport::TestCase
 
   Dir.chdir Dir.pwd + '/test/themes/template' do
     Ecrire::Application.initialize!
+    Rails.application.secrets['s3'] ||= {}
   end
 
   include Warden::Test::Helpers

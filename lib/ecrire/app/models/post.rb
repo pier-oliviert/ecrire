@@ -18,6 +18,8 @@ class Post < ActiveRecord::Base
   scope :drafted, lambda { status("drafted") }
   scope :without, lambda { |post| where("posts.id != ?", post.id) }
 
+  validates :titles, length: {minimum: 1}
+
   def title
     self.titles.first.name
   end
