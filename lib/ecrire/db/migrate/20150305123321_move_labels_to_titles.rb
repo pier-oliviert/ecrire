@@ -10,7 +10,7 @@ class MoveLabelsToTitles < ActiveRecord::Migration
     rename_table :labels, :titles
 
     add_column :titles, :slug, :string, index: true
-    change_column :titles, :name, unique: true, null: false
+    change_column :titles, :name, :string, unique: true, null: false
     add_reference :titles, :post, index: true
 
     Post.all.each do |post|
