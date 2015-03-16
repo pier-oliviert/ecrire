@@ -19,6 +19,12 @@ Joint.bind 'Post.Header', class
 
     @on 'images:create', @refresh
     @on 'images:destroy', @refresh
+    @on 'titles:index', @popup
+    @on 'titles:update', document, @updateTitle
+    @on 'titles:create', document, @updateTitle
+
+  popup: (e) =>
+    document.body.appendChild(e.HTML)
 
   show: (el) =>
     for status of @statuses
@@ -114,3 +120,7 @@ Joint.bind 'Post.Header', class
       @element().style.backgroundImage = null
 
     @clear()
+
+  updateTitle: (e) =>
+    unless e.Errors?
+      @element().querySelector('a.title').textContent = e.Title

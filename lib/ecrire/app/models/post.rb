@@ -2,6 +2,7 @@ require 'nokogiri'
 
 class Post < ActiveRecord::Base
   has_one :header, class_name: Image
+  has_many :titles, -> { order "titles.created_at DESC" }
 
   store_accessor :properties, :labels
 
@@ -15,13 +16,15 @@ class Post < ActiveRecord::Base
 
   scope :published, lambda { status("published") }
   scope :drafted, lambda { status("drafted") }
-  scope :slug, lambda { |slug| where("posts.slug is ?", slug) }
   scope :without, lambda { |post| where("posts.id != ?", post.id) }
 
-  validates :title, presence: true, uniqueness: true
-  validates :slug, presence: true, uniqueness: true
+  def title
+    self.titles.first.name
+  end
 
-  before_validation :create_slug_if_nil
+  def slug
+    self.titles.first.slug
+  end
 
   def status=(new_status)
     if new_status.eql? "publish"
@@ -69,22 +72,6 @@ class Post < ActiveRecord::Base
 
   def header?
     !self.header.nil? && !self.header.url.blank?
-  end
-
-  def labels
-    ids = super || ''
-    Label.where(id: ids.split(',')).to_a
-  end
-
-  def labels=(labels)
-    super(labels.map(&:id).join(','))
-  end
-
-  protected
-
-  def create_slug_if_nil
-    return unless self.slug.blank?
-    self.slug = self.title.parameterize
   end
 
 end

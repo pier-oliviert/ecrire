@@ -1,13 +1,10 @@
 module Ecrire
   class PostsController < ::ApplicationController
-    # TODO: This should be included. I have no idea why this isn't.
-    # It actually is loaded in dev as soon as the reloader reloads the files
-    include Rails.application.routes.url_helpers
 
     before_action :pagination, only: :index
     protect_from_forgery except: :index
 
-    helper_method :post
+    helper_method :post, :posts
 
     def index
       respond_to do |format|
@@ -22,6 +19,9 @@ module Ecrire
     def show
       redirect_to :root and return if post.nil?
       redirect_to :root and return unless post.published?
+      if post.titles.first != @title
+        redirect_to post_path(post), status: :moved_permanently
+      end
     end
 
     protected
@@ -31,7 +31,8 @@ module Ecrire
     end
 
     def post
-      @post ||= Post.find_by_slug(params[:id])
+      @title ||= Title.find_by_slug(params[:id])
+      @post ||= @title.post
     end
 
     def pagination

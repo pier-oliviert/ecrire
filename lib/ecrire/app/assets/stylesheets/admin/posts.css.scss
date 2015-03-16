@@ -38,9 +38,16 @@ form.post.new.title {
       color: #BABABA;
       font-size: 1.4em;
     }
+
+    &.errors {
+      border-color: $red-color;
+    }
   }
 
-  p {
+  p, ul {
     text-align: center;
+    &.errors {
+      color: $red-color;
+    }
   }
 }

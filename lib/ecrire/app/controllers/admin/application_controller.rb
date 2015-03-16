@@ -5,6 +5,12 @@ module Admin
     before_action :authenticate!
     before_action :pagination, only: [:index]
 
+    helper_method :posts
+
+    def posts
+      @posts ||= Post.all
+    end
+
     protected
 
     def pagination

@@ -1,0 +1,51 @@
+[as='Post.Title'] {
+  h3 {
+    padding: 0.2em;
+    text-align: center;
+  }
+
+  div.input {
+    outline: none;
+    background: #FFF;
+    font-size: 1.6em;
+    line-height: 1em;
+    padding: 0.3em 0.2em;
+    text-align: center;
+    box-shadow: inset 0 0 2px #375874;
+  }
+  & > p {
+    text-align: center;
+    font-size: 0.8em;
+    text-shadow: 0 1px 0 #E7EFF5;
+  }
+
+  ul.titles {
+    border-top: 1px solid #B2BCC3;
+
+    h4 {
+      text-align: center;
+      margin: 0.5em 0 0 0;
+    }
+
+    li {
+      margin: 0;
+      padding: 1em;
+      p.title {
+        font-size: 1.2em;
+        margin: 0;
+      }
+
+      p.url {
+        font-size: 0.8em;
+      }
+    }
+    li:nth-child(odd) {
+      background: #D1DAE0;
+    }
+  }
+
+  ul.errors {
+    text-align: center;
+    color: $red-color;
+  }
+}

@@ -4,6 +4,8 @@ module Admin
   class Post < ::Post
 
     has_one :header, class_name: Admin::Image
+    has_many :titles, -> { order "titles.created_at DESC" }, class_name: Admin::Title
+
     before_save :compile!, prepend: true
     before_save :excerptize!
 

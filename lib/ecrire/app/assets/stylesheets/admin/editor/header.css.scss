@@ -8,8 +8,9 @@ body.edit.posts > main > header > div.title {
   @include flex-direction(column);
   @include transition(opacity 0.2s linear);
   text-align: center;
+  width: 100%;
   z-index: 5;
-  & > p {
+  & > p.browse {
     @include transition(color 0.3s);
     font-size: 0.7em;
     cursor: pointer;
@@ -32,26 +33,19 @@ body.edit.posts > main > header > div.title {
   }
 }
 
-[as='Posts.Title'] {
+[as='Post.Header'] a.title {
   @include flex(0 auto);
   @include transition(box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease);
 
-  min-width: 30vw;
-  padding: 0.3em 1em;
-  margin: 0 0 0.5em 0;
-  outline: none;
-  cursor: pointer;
   font-size: 2.3em;
   line-height: 1.4em;
-  box-shadow: 0 0 3px 0 transparent;
+  padding: 0.3em 1em;
+  margin: 0.5em 0 0 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 
-  &:focus {
-    cursor: text;
-    background: rgb(239, 239, 239);
-    box-shadow: 0 0 3px 0 #CBCBCB;
-  }
-
-  &:hover:not(:focus) {
+  &:hover {
     color: $link-color;
   }
 
@@ -64,9 +58,10 @@ body.edit.posts > main > header > div.title {
   @include justify-content(flex-start);
   @include transition(background-color 0.3s ease);
 
-  background-color: rgb(232, 232, 232);
   background-size: cover;
   position: relative;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #E8E8E8;
 
   &.image {
 
@@ -112,21 +107,21 @@ body.edit.posts > main > header > div.title {
     color: rgb(66, 152, 66);
     text-shadow: 0 1px 0 rgb(143, 213, 143);
   }
+}
 
-  div.progressbar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
+[as='Post.Header'] div.progressbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
 
-    & > span.progress {
-      @include transition(width 0.3s ease-out);
-      display: block;
-      height: 100%;
-      width: 0%;
-      background: #245F42;
-    }
+  & > span.progress {
+    @include transition(width 0.3s ease-out);
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #245F42;
   }
 }
 
@@ -137,8 +132,8 @@ body.edit.posts > main > header > div.title {
   width: 100%;
   height: 100%;
 
-  background: rgb(169, 40, 40);
-  color: #2F0B0B;
+  background: $red-color;
+  color: $dark-red-color;
 
   &:not(.hidden) {
     @include display(flex);
@@ -149,7 +144,7 @@ body.edit.posts > main > header > div.title {
   }
 
   ul {
-    color: #2F0B0B;
+    color: $dark-red-color;
     text-shadow: 0 1px 0 #BD4141;
     font-weight: bolder;
   }

@@ -1,0 +1,23 @@
+<%= form_for @title, as: 'title', url: admin_posts_path, html: { class: %w(post new title), as: 'Posts.New' } do |f| %>
+
+  <%= content_tag :fieldset, class: %w(transparent) do |fieldset| %>
+    <% if @title.errors.any? %>
+      <% fieldset.css << 'errors' %>
+    <% end %>
+
+    <%= f.text_field :name, placeholder: t('admin.posts.new.title') %>
+  <% end %>
+
+  <% if @title.errors.any? %>
+    <ul class='errors'>
+      <% @title.errors.each do |key, message| %>
+        <%= content_tag :li, message %>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= content_tag :p, t('admin.posts.new.editable'), class: %w(transparent) %>
+  <% end %>
+
+  <%= f.button :submit, class: %w(hidden) %>
+
+<% end %>
