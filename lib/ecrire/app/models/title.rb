@@ -3,6 +3,7 @@ class Title < ActiveRecord::Base
     def validate(record)
       validate_length! record
       validate_uniqueness! record
+      validate_draft! record
     end
 
     def validate_length!(record)
@@ -19,6 +20,12 @@ class Title < ActiveRecord::Base
         record.errors['slug'] << "You already have a post with this name: #{title.name}"
       end
     end
+
+    def validate_draft!(record)
+      if record.post.published? && !record.new_record?
+        record.errors['post'] << "You cannot modify an existing title when a post is published"
+      end
+    end
   end
 
   include ActiveModel::Validations
@@ -32,10 +39,14 @@ class Title < ActiveRecord::Base
     where('titles.slug = ?', slug)
   }
 
+  def name=(new_name)
+    super new_name.strip
+  end
+
   protected
 
   def generate_slug
-    self.slug = self.name.parameterize
+    self.slug = self.name.parameterize.downcase
   end
 
 end

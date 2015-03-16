@@ -1,14 +1,11 @@
 module PostsHelper
   def post_path(post, options = {})
-    if post.published?
-      options[:year] = post.published_at.year
-      options[:month] = post.published_at.month
-    else
-      options[:year] = post.created_at.year
-      options[:month] = post.created_at.month
-    end
+    year = post.published_at.year
+    month = post.published_at.month
 
-    super(post.becomes(::Post), options)
+    title = options.delete(:title) || post.titles.last
+
+    url_for "/#{[year, month, title.slug].join('/')}"
   end
 
   def edit_post_link(options = {})

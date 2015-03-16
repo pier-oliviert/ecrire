@@ -26,6 +26,7 @@ div.popup {
   box-shadow: 0 0 3px #1a3642;
   color: #15191B;
   z-index: 101;
+  overflow: hidden;
 
   h1, h2, h3, h4, h5, h6 {
     font-family: initial;

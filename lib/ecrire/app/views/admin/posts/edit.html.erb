@@ -35,7 +35,8 @@
     	   l-3.061,3.06l-1.729-1.728L8.271,10L5.211,6.939l1.729-1.729L10,8.271l3.059-3.061l1.729,1.729L11.729,10l3.06,3.061L13.061,14.789z
     	    "/>
     <% end %>
-    <%= content_tag :div, @post.title, contenteditable: true, as: 'Posts.Title' %>
+
+    <%= link_to @post.title, admin_post_titles_path(@post), remote: true, class: %w(title) %>
     <input type='file' />
     <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
   </div>

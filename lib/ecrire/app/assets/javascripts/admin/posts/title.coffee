@@ -1,23 +1,44 @@
-Joint.bind 'Posts.Title', class
+Joint.bind 'Post.Title', class
   loaded: =>
-    @on 'keydown', @submit
-    @on 'posts:update', @update
+    @on 'keydown', @enter
+    @observer = new MutationObserver(@modified)
+    @observer.settings = {
+      childList: true,
+      subtree: true,
+    }
+    @input = @element().querySelector('div.input')
+    @errors = @element().querySelector('ul.errors')
+    @observe()
+    @on 'titles:update', @update
+    @on 'titles:create', @update
+    @input.focus()
 
-  submit: (e) =>
+  dismiss: =>
+    @element().parentElement.remove()
+
+  update: (e) =>
+    if e.Errors
+      @errors.appendChild(error) for error in e.Errors
+    else
+      @dismiss()
+
+  enter: (e) =>
     if e.keyCode == 13
-      e.preventDefault()
+      @errors.innerHTML = ''
       e.stopPropagation()
+      e.preventDefault()
       @save()
       return
 
-  update: (e) =>
-    @title.value = e.HTML
-    @title.blur()
+  modified: (observedMutations) =>
+    @observer.disconnect()
+    @input.innerHTML = @input.textContent
+    @observe()
 
-    if e.MessageHTML
-      event = new CustomEvent('Editor:message', { bubbles: true})
-      event.MessageHTML = e.MessageHTML
-      @element().dispatchEvent(event)
+  observe: =>
+    @observer.observe @input, @observer.settings
 
-  save: (e) =>
-    
+  save: =>
+    xhr = new Joint.XHR(@element())
+    xhr.data.set '[title]name', @input.textContent
+    xhr.send()

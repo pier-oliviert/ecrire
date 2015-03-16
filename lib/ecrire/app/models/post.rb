@@ -2,7 +2,7 @@ require 'nokogiri'
 
 class Post < ActiveRecord::Base
   has_one :header, class_name: Image
-  has_many :titles
+  has_many :titles, -> { order "titles.created_at DESC" }
 
   store_accessor :properties, :labels
 
@@ -19,7 +19,7 @@ class Post < ActiveRecord::Base
   scope :without, lambda { |post| where("posts.id != ?", post.id) }
 
   def title
-    self.titles.last.name
+    self.titles.first.name
   end
 
   def slug
