@@ -5,12 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 published:
-  title: "Test"
-  slug: "test"
   content: "Test"
   published_at: <%= 2.days.ago %>
 
 draft:
-  title: "A draft"
-  slug: "a-draft"
   content: "A draft"

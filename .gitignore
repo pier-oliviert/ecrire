@@ -15,6 +15,7 @@
 log
 /tmp
 
-secrets.yml
 .DS_Store
 Gemfile.lock
+
+/lib/ecrire/template/secrets.yml

@@ -42,7 +42,6 @@ module Admin
     end
 
     def path(file)
-      puts self.post
       items = [self.post.id, file.original_filename]
 
       items.prepend(s3.path) unless s3.path.blank?

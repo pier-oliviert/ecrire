@@ -38,7 +38,7 @@ namespace :database do
   end
 
   task :purge do
-    [User, Post, Image, Partial, Label].each(&:delete_all)
+    [User, Post, Image, Partial, Title].each(&:delete_all)
   end
 
 end

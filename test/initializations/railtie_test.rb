@@ -14,8 +14,8 @@ class RailtieTest < ActiveSupport::TestCase
     assert !Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
   end
 
-  test 'not configured if no user is present in the database' do
-    Dir.chdir 'test/themes/template' do
+  test 'load the normal railtie if a secrets.yml can be found' do
+    Dir.chdir 'test/themes/onboarding' do
 
       require 'ecrire'
       Ecrire::Application.initialize!

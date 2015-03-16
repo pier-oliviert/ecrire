@@ -1,4 +1,5 @@
 require 'editor/test_helper'
+require 'byebug'
 
 class BaseControllerTest < ActionController::TestCase
   include Warden::Test::Helpers

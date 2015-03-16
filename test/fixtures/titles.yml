@@ -1,0 +1,11 @@
+published_history_title:
+  name: "An old title"
+  post: published
+
+published_current_title:
+  name: "Current Title"
+  post: published
+
+draft_title:
+  name: "A draft"
+  post: draft
