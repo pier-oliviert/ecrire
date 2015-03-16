@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
   end
 
   def slug
-    self.titles.last.slug
+    self.titles.first.slug
   end
 
   def status=(new_status)
@@ -72,22 +72,6 @@ class Post < ActiveRecord::Base
 
   def header?
     !self.header.nil? && !self.header.url.blank?
-  end
-
-  def labels
-    ids = super || ''
-    Label.where(id: ids.split(',')).to_a
-  end
-
-  def labels=(labels)
-    super(labels.map(&:id).join(','))
-  end
-
-  protected
-
-  def create_slug_if_nil
-    return unless self.slug.blank?
-    self.slug = self.title.parameterize
   end
 
 end
