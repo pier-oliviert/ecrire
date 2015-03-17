@@ -1,5 +1,7 @@
 # Ecrire
 
+[![Build Status](https://travis-ci.org/pothibo/ecrire.svg?branch=master)](https://travis-ci.org/pothibo/ecrire)
+
 Ecrire is a blog built *on top* of Ruby on Rails. The goal of this blog engine is to make it **easy** to start a blog while keeping control over the content. You can see this as an alternative to WordPress.
 
 ## The editor
