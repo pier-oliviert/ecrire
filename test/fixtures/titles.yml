@@ -1,11 +1,11 @@
-published_history_title:
+published_history:
   name: "An old title"
   post: published
 
-published_current_title:
+published_current:
   name: "Current Title"
   post: published
 
-draft_title:
+draft:
   name: "A draft"
   post: draft

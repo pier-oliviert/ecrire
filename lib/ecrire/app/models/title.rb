@@ -15,9 +15,10 @@ class Title < ActiveRecord::Base
     end
 
     def validate_uniqueness!(record)
-      title = Title.slug(record.slug).first
+      title = Title.where('titles.slug = ? OR titles.name = ?', record.slug, record.name).first
       unless title.nil?
-        record.errors['slug'] << "You already have a post with this name: #{title.name}"
+        record.errors['uniqueness'] << "You already have a post with this title: #{title.name}"
+        return
       end
     end
 
@@ -26,6 +27,7 @@ class Title < ActiveRecord::Base
         record.errors['post'] << "You cannot modify an existing title when a post is published"
       end
     end
+
   end
 
   include ActiveModel::Validations
