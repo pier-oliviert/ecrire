@@ -20,6 +20,10 @@ class Post < ActiveRecord::Base
 
   validates :titles, length: {minimum: 1}
 
+  before_save :update_tags
+
+  attr_writer :tags
+
   def title
     self.titles.first.name
   end
@@ -74,6 +78,19 @@ class Post < ActiveRecord::Base
 
   def header?
     !self.header.nil? && !self.header.url.blank?
+  end
+
+  def tags
+    @tags ||= Tag.where("tags.id in (?)", super || [])
+  end
+
+  protected
+
+  def update_tags
+    ids = tags.map(&:id)
+    unless ids == read_attribute(:tags)
+      write_attribute(:tags, ids)
+    end
   end
 
 end
