@@ -16,6 +16,7 @@ Ecrire::Application.routes.draw do
       collection do
         get 'help', controller: :posts, action: :help
       end
+      resources :tags, only: [:index, :create, :update], module: 'posts'
       resources :titles, shallow: true
       resource :image, shallow: true
       resource :properties, only: [:create, :destroy]
