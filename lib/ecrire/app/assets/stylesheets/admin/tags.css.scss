@@ -21,17 +21,19 @@
       @include display(flex);
       @include flex(0 auto);
       @include align-items(center);
-      @include transition(border-color 0.3s, box-shadow 0.3s, opacity 0.2s);
+      @include transition(color 0.3s, border-color 0.3s, box-shadow 0.3s, opacity 0.2s);
+      @include user-select(none);
+
       margin: 1em;
       padding: 4px 8px;
       border-radius: 2px;
       border: 1px solid #C7D4DB;
       box-shadow: inset 0 2px 4px 0 #F5F8FA;
+      cursor: pointer;
 
       svg {
         @include transition(fill 0.3s);
         margin-left: 6px;
-        cursor: pointer;
         fill: rgb(219, 196, 196);
       }
 
@@ -42,6 +44,7 @@
       &:active {
         border-color: #B37878;
         box-shadow: inset 0 0px 4px 0 #DBC5C5;
+        color: #B37878;
       }
 
       &.remove {
@@ -53,8 +56,21 @@
 }
 
 [as='Tags.List'] {
+  h2, h3 {
+    text-align: center;
+  }
+
+  input {
+    font-size: 1.5em;
+  }
   li {
     cursor: pointer;
+    margin: 0;
+    padding: 1em;
+    font-size: 1.3em;
+    &:not(:last-child) {
+      border-bottom: 1px solid #C8D9E2;
+    }
   }
   li.tagged {
     border-left: 4px solid #AAA;

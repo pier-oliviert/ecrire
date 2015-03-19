@@ -18,6 +18,18 @@ module Admin
         @post.save!
       end
 
+      def create
+        @post = Admin::Post.find(params[:post_id])
+        @tag = Admin::Tag.find_or_create_by!(tag_params)
+      end
+
+      protected
+
+      def tag_params
+        params.require(:tag).permit('name')
+      end
+
+
     end
   end
 end

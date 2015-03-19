@@ -1,6 +1,6 @@
 Joint.bind 'Post.Tag', class
   loaded: =>
-    @on 'click', @element().querySelector('svg'), @submit
+    @on 'click', @submit
 
   submit: (e) =>
     @on 'tags:update', @remove

@@ -78,7 +78,7 @@
       </svg>
       <ul class='tags' as='Post.Tags'>
         <% @post.tags.each do |tag| %>
-          <%= render 'admin/posts/tag', tag: tag, post: @post %>
+          <%= render 'admin/posts/tags/tag', tag: tag, post: @post %>
         <% end %>
         <%= link_to "Add tags", admin_post_tags_path(@post), remote: true %>
       </ul>
