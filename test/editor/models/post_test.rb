@@ -1,6 +1,15 @@
 require 'editor/test_helper'
 
 class PostTest < ActiveSupport::TestCase
+  test 'post can have tags' do
+    tag = tags(:ruby)
+    post = posts(:published)
+    post.tags << tag
+    assert post.save, post.errors.full_messages.to_sentence
+    assert post.tags.include?(tag)
+    assert post.read_attribute(:tags).include?(tag.id)
+  end
+
   test "fetch published post" do
     @posts = Post.status("published")
     assert_equal @posts.count, Post.published.count
