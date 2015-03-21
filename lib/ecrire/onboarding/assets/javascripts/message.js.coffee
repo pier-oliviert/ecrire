@@ -1,4 +1,4 @@
-Joint.bind 'Message', class
+ObserveJS.bind 'Message', class
   loaded: =>
 
   remove: =>

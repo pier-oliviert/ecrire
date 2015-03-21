@@ -1,4 +1,4 @@
-Joint.bind 'Editor.Draft', class
+ObserveJS.bind 'Editor.Draft', class
   resetInterval: 4000
   loaded: =>
     @on 'Editor:updated', document, @update
@@ -38,5 +38,3 @@ Joint.bind 'Editor.Draft', class
     unless @cached?
       @cached = e.target.textContent
       return
-
-

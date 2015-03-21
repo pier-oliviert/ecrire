@@ -1,4 +1,4 @@
-Joint.bind 'Navigation.Toggle', class
+ObserveJS.bind 'Navigation.Toggle', class
   loaded: =>
     @on 'click', @toggle
 
@@ -7,4 +7,3 @@ Joint.bind 'Navigation.Toggle', class
       Menu.style.marginTop = '0'
     else
       Menu.style.marginTop = ''
-

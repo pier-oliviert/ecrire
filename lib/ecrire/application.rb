@@ -2,7 +2,7 @@ require 'warden'
 require 'pg'
 require 's3'
 require 'kaminari'
-require 'jointjs'
+require 'observejs'
 
 module Ecrire
   class Application < Rails::Application

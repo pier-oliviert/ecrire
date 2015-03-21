@@ -1,4 +1,4 @@
-Joint.bind 'Post.Title', class
+ObserveJS.bind 'Post.Title', class
   loaded: =>
     @on 'keydown', @enter
     @observer = new MutationObserver(@modified)
@@ -39,6 +39,6 @@ Joint.bind 'Post.Title', class
     @observer.observe @input, @observer.settings
 
   save: =>
-    xhr = new Joint.XHR(@element())
+    xhr = new ObserveJS.XHR(@element())
     xhr.data.set '[title]name', @input.textContent
     xhr.send()

@@ -1,4 +1,4 @@
-Joint.bind 'Editor.Image', class
+ObserveJS.bind 'Editor.Image', class
   loaded: =>
     @element().addEventListener 'dragover', @over
     @element().addEventListener 'dragleave', @cancel
@@ -15,5 +15,3 @@ Joint.bind 'Editor.Image', class
   drop: (e) =>
     e.preventDefault()
     @element().classList.remove 'dropping'
-
-

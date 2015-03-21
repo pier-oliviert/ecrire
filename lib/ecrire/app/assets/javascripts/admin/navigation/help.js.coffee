@@ -1,4 +1,4 @@
-Joint.bind 'Post.Documentation', class
+ObserveJS.bind 'Post.Documentation', class
   loaded: =>
     @on 'posts:help', @show
 

@@ -1,4 +1,4 @@
-Joint.bind 'Post.Tags', class
+ObserveJS.bind 'Post.Tags', class
   loaded: =>
     @on 'tags:index', @show
     @on 'tags:update', document, @update

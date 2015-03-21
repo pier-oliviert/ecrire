@@ -1,4 +1,4 @@
-Joint.bind 'Editor.Code', class
+ObserveJS.bind 'Editor.Code', class
   loaded: =>
     document.addEventListener 'keydown', @filter, true
 
@@ -7,4 +7,3 @@ Joint.bind 'Editor.Code', class
       when 13 then @linefeed(e)
 
   linefeed: (e) =>
-

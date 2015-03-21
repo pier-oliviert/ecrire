@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rails',             '~> 4.2'
-gem 'jointjs',           '~> 0.0'
+gem 'observejs',         git: 'https://github.com/pothibo/observejs.git'
 gem 'warden',            '~> 1.2'
 gem 'bcrypt',            '~> 3.1'
 gem 'nokogiri',          '~> 1.6'

@@ -1,4 +1,4 @@
-Joint.bind 'Editor.Content', class @Editor
+ObserveJS.bind 'Editor.Content', class @Editor
 
   loaded: =>
     @on 'keydown', @linefeed
