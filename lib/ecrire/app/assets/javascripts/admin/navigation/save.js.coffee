@@ -1,4 +1,4 @@
-Joint.bind 'Editor.Save', class
+ObserveJS.bind 'Editor.Save', class
   loaded: =>
     @button = @element().querySelector('button')
     @time = @element().querySelector('div.update > p')
@@ -62,7 +62,7 @@ Joint.bind 'Editor.Save', class
     e.stopPropagation()
 
     form = document.querySelector("[as='Editor.Save']")
-    xhr = new Joint.XHR(form)
+    xhr = new ObserveJS.XHR(form)
     xhr.data.set('post[content]', PostBody.instance.toString())
     xhr.data.set('context', 'content')
     xhr.send()

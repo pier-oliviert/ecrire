@@ -1,4 +1,4 @@
-Joint.bind 'Database.Information', class
+ObserveJS.bind 'Database.Information', class
   loaded: =>
     @on 'input', @element().querySelector('form'), @update
 

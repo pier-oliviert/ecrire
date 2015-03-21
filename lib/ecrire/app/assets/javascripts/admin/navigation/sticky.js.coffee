@@ -1,4 +1,4 @@
-Joint.bind 'Post.Sticky', class
+ObserveJS.bind 'Post.Sticky', class
   loaded: =>
     @on 'scroll', document, @scrolled
 
@@ -8,4 +8,3 @@ Joint.bind 'Post.Sticky', class
       @element().style.paddingTop = "#{Math.abs(top)}px"
     else
       @element().style.paddingTop = ''
-

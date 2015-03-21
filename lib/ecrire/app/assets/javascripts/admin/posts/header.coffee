@@ -1,4 +1,4 @@
-Joint.bind 'Post.Header', class
+ObserveJS.bind 'Post.Header', class
   loaded: =>
     @statuses = {
       uploading: @element().querySelector('div.uploading.status'),
@@ -13,7 +13,7 @@ Joint.bind 'Post.Header', class
     @on 'dragleave', @cancel
     @on 'drop', @drop
 
-    @on 'Joint:XHR:Failed', @failed
+    @on 'ObserveJS:XHR:Failed', @failed
 
     @on 'click', @statuses.error.querySelector('button'), @clear
 
@@ -58,7 +58,7 @@ Joint.bind 'Post.Header', class
     @element().querySelector('input[type=file]').click()
 
   remove: (e) =>
-    xhr = new Joint.XHR(e.currentTarget)
+    xhr = new ObserveJS.XHR(e.currentTarget)
     xhr.request.upload.onprogress = @progress
     xhr.send()
 
@@ -91,7 +91,7 @@ Joint.bind 'Post.Header', class
 
     @show(@statuses.uploading)
     @statuses.uploading.querySelector('.progressbar > span').style.width = '0%';
-    xhr = new Joint.XHR(@element())
+    xhr = new ObserveJS.XHR(@element())
     xhr.data.set 'image[file]', file
     xhr.request.upload.onprogress = @progress
     xhr.send()

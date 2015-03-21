@@ -1,4 +1,4 @@
-Joint.bind 'Post.Delete', class
+ObserveJS.bind 'Post.Delete', class
   loaded: =>
     @on 'change', @element().querySelector('input[type=checkbox]'), @toggle
 
@@ -8,4 +8,3 @@ Joint.bind 'Post.Delete', class
       button.removeAttribute('disabled')
     else
       button.setAttribute('disabled', 'disabled')
-

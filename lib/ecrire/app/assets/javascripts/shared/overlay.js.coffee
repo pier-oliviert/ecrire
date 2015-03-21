@@ -1,4 +1,4 @@
-Joint.bind 'Overlay', class
+ObserveJS.bind 'Overlay', class
   loaded: =>
     @on 'click', @clicked
     @on 'keyup', document, @escaped
@@ -26,4 +26,3 @@ Joint.bind 'Overlay', class
     window.scrollTo(0, @y)
     main.style.top = null
     @scrollTop = null
-

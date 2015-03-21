@@ -1,4 +1,4 @@
-Joint.bind 'Tags.List', class
+ObserveJS.bind 'Tags.List', class
   loaded: =>
     @on 'keypress', @element().querySelector('input'), @submit
     @on 'click', @element().querySelector('ul'), @update
@@ -9,14 +9,14 @@ Joint.bind 'Tags.List', class
     if e.keyCode != 13
       return
 
-    xhr = new Joint.XHR(e.target)
+    xhr = new ObserveJS.XHR(e.target)
     xhr.method = 'POST'
     xhr.data.set '[tag]name', e.target.value
     xhr.send()
 
   update: (e) =>
     return unless e.target instanceof HTMLLIElement
-    xhr = new Joint.XHR(e.target)
+    xhr = new ObserveJS.XHR(e.target)
     xhr.send()
 
   toggle: (e) =>
