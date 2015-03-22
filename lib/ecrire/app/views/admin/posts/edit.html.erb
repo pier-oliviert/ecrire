@@ -1,12 +1,14 @@
 <%= content_tag :header, as: "Post.Header", href: admin_post_image_path(@post), method: 'POST' do |header| %>
+  <template for='Post.Header'>
+    <%= render 'admin/posts/header/dropping', css: %w(status dropping hidden) %>
+    <%= render 'admin/posts/header/uploading', css: %w(status uploading hidden) %>
+    <%= render 'admin/posts/header/error', css: %w(status error hidden) %>
+  </template>
+
   <% if @post.header? %>
     <% header[:style] = "background-image: url(#{@post.header.url});" %>
   <% end %>
   <div class='drop'>
-
-    <%= render 'admin/posts/header/dropping', css: %w(status dropping hidden) %>
-    <%= render 'admin/posts/header/uploading', css: %w(status uploading hidden) %>
-    <%= render 'admin/posts/header/error', css: %w(status error hidden) %>
   </div>
 
   <div class='title'>
