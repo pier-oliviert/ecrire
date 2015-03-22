@@ -49,7 +49,7 @@ module Admin
           when 'publish'
             @post.publish!
             flash[:notice] = t(".successful", title: @post.title)
-            redirect_to post_path(@post.published_at.year, @post.published_at.month, @post.slug) and return
+            redirect_to post_path(@post) and return
           when 'unpublish'
             @post.unpublish!
           end
