@@ -1,5 +1,7 @@
 # Ecrire
 
+[![Join the chat at https://gitter.im/pothibo/ecrire](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pothibo/ecrire?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/pothibo/ecrire.svg?branch=master)](https://travis-ci.org/pothibo/ecrire)
 
 Ecrire is a blog built *on top* of Ruby on Rails. The goal of this blog engine is to make it **easy** to start a blog while keeping control over the content. You can see this as an alternative to WordPress.
