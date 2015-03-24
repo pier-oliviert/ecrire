@@ -41,7 +41,8 @@ ObserveJS.bind 'Editor.Content', class @Editor
   outdated: (observedMutations) =>
     @observer.hold =>
       mutations = new Mutations(observedMutations, @element())
-      @updated(mutations)
+      if mutations.target?
+        @updated(mutations)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)

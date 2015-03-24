@@ -85,7 +85,11 @@
         <%= link_to "Add tags", admin_post_tags_path(@post), remote: true %>
       </ul>
     </div>
+
     <%= post_edit_content(@post) %>
+
+    <template id='EditorElements'>
+      <figure as='Editor.Image'><template for='Editor.Image' contenteditable=false><p class='placeholder'>Drop an image or click here to upload a picture.</p><img><div class='progressbar'><span class='progress'></span></div></template><div contenteditable=false><input type='file' /></div><figcaption></figcaption></figure></template>
   </article>
 
   <div class='save' as='Post.Sticky'>
