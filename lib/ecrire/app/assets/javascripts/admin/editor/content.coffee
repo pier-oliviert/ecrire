@@ -40,11 +40,9 @@ ObserveJS.bind 'Editor.Content', class @Editor
 
   outdated: (observedMutations) =>
     @observer.hold =>
-      mutations = new Mutations(observedMutations)
-      switch mutations.status()
-        when 'appended' then @appended(mutations)
-        when 'updated' then @updated(mutations)
-        when 'removed' then @removed(mutations)
+      mutations = new Mutations(observedMutations, @element())
+      if mutations.target?
+        @updated(mutations)
 
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)
@@ -84,6 +82,9 @@ ObserveJS.bind 'Editor.Content', class @Editor
 
 
   updated: (mutations) ->
+    if mutations.target.contentEditable == 'false'
+      return
+
     node = mutations.target
     while node? && node.parentElement != @element()
       node = node.parentElement
@@ -109,75 +110,6 @@ ObserveJS.bind 'Editor.Content', class @Editor
       line = cursor.focus(@updateDOM(node, lines)[0])
       cursor.update(@walker(line))
       @scrollLineIntoView(cursor.focus())
-
-
-  removed: (mutations) =>
-    line = node = mutations.target
-    while line? && line.parentElement != @element()
-      line = line.parentElement
-
-    if node.nodeType != 1 && node instanceof HTMLBRElement
-      node.remove()
-
-    if line?
-      sel = window.getSelection()
-      if sel.type == 'None'
-        offset = 0
-      else
-        offset = @lineOffset(line, sel.focusNode, sel.focusOffset)
-
-      cursor = new Editor.Cursor(offset)
-
-      lines = @parse(@cloneNodesFrom(line))
-
-      @observer.hold =>
-        line = cursor.focus(@updateDOM(line, lines)[0])
-        cursor.update(@walker(line))
-
-    if @element().childNodes.length == 0
-      p = "<p>".toHTML()
-      @element().appendChild(p)
-      cursor = new Editor.Cursor(offset)
-      cursor.update(@walker(p), 0)
-
-
-
-  appended: (mutations) =>
-    el = mutations.target
-    while el? && el.parentElement != @element()
-      el = el.parentElement
-
-    return unless el?
-
-    elements = el.querySelectorAll('[contenteditable=false]')
-
-    for element in elements
-      if element.contains(node)
-        return
-
-    if node instanceof HTMLBRElement
-      node.remove()
-      return
-
-    node = el
-
-    sel = window.getSelection()
-    if sel.type == 'None'
-      offset = 0
-    else
-      offset = @lineOffset(el, sel.focusNode, sel.focusOffset)
-
-    cursor = new Editor.Cursor(offset)
-
-    lines = @parse(@cloneNodesFrom(node))
-
-    @observer.hold =>
-      lines = @updateDOM(node, lines)
-      if node != lines[0]
-        cursor.update(@walker(lines[0]))
-      @scrollLineIntoView(lines[0])
-
-
 
   scrollLineIntoView: (line) =>
     height = window.innerHeight
@@ -276,15 +208,8 @@ ObserveJS.bind 'Editor.Content', class @Editor
     node1 = node1.cloneNode(true)
     node2 = node2.cloneNode(true)
 
-    for el in node1.querySelectorAll('[contenteditable=false]')
-      el.remove()
-
-    for el in node2.querySelectorAll('[contenteditable=false]')
-      el.remove()
-
     node1.nodeName == node2.nodeName &&
     node1.innerHTML.trim() == node2.innerHTML.trim()
-
 
 
 
@@ -394,13 +319,13 @@ class LineFeed
 
 
 class Mutations
-  constructor: (mutations) ->
+  constructor: (mutations, editor) ->
     @removed = []
     @appended = []
     @updated = []
 
     for mutation in mutations
-      @setTarget(mutation.target)
+      @setTarget(mutation.target, editor)
       if mutation.addedNodes.length > 0
         @appended.push mutation.target
       else if mutation.type == 'characterData'
@@ -408,8 +333,8 @@ class Mutations
       else
         @removed.push mutation.target
 
-  setTarget: (target) ->
-    return unless target.parentElement?
+  setTarget: (target, editor) ->
+    return unless target.parentElement? && target != editor
     if @target? && @target.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING
       @target = target
     else

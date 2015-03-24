@@ -23,6 +23,9 @@ HTMLDivElement::toString = ->
 HTMLPreElement::toString = ->
   @textContent
 
+HTMLElement::toString = ->
+  @textContent
+
 HTMLHeadingElement::toString = HTMLParagraphElement::toString = ->
   @textContent
 

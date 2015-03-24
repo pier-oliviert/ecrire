@@ -46,36 +46,54 @@ body.edit.posts > main > section {
       background: rgba(0,0,0, 0.1);
     }
 
-    & > div.image {
+    & > figure {
       @include display(flex);
       @include flex-direction(column);
       @include transition(background-color 0.3s);
-      height: 480px;
       background-color: #EEE;
+      overflow: hidden;
 
-      &:hover {
-        background-color: #CCC;
+
+      &.dropping div[contenteditable] {
+        background-color: rgb(122, 199, 122);
       }
 
-      &.dropping {
-        background-color: #CCC;
-      }
-
-      & > em {
-        background-color: #EEE;
+      figcaption {
         padding: 1em;
       }
 
-      & > div {
+      & > div[contenteditable] {
         @include display(flex);
         @include align-items(center);
-        @include justify-content(center);
+        @include justify-content(flex-end);
+        @include flex-direction(column);
         @include flex(1);
         cursor: pointer;
         width: 100%;
-        background-size: cover;
+        box-shadow: 0 0 3px 0 #aaa;
+
+        &:hover {
+          background-color: #CCC;
+        }
+
+        & > .progressbar {
+          @include flex(0 auto);
+          width: 100%;
+          & > span.progress {
+            @include transition(width 0.3s ease-out);
+            display: block;
+            height: 2px;
+            width: 0%;
+            background: #B9C8BA;
+          }
+        }
+
+        & > img {
+          max-width: 100%;
+        }
 
         & > p {
+          padding: 2em 0;
           text-align: center;
         }
 
