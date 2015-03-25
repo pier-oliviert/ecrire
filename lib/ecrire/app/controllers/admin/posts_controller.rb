@@ -3,7 +3,7 @@ module Admin
     before_action :fetch_post, only: [:show, :edit, :update]
 
     def new
-      @title = Admin::Title.new
+      @post = Admin::Post.new
     end
 
     def index
@@ -16,15 +16,13 @@ module Admin
     end
 
     def create
-      @title = Admin::Title.create title_params do |title|
-        title.post = Admin::Post.new
-      end
+      @post = Admin::Post.create(title: title_params[:title])
 
-      if @title.errors.any?
+      if @post.errors.any?
         render 'new' and return
       end
 
-      redirect_to edit_admin_post_path(@title.post)
+      redirect_to edit_admin_post_path(@post)
     end
 
     def destroy
@@ -73,7 +71,7 @@ module Admin
     end
 
     def title_params
-      params.require(:title).permit(:name)
+      params.require(:post).permit(:title)
     end
 
 

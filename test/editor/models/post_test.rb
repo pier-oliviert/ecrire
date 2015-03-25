@@ -1,6 +1,17 @@
 require 'editor/test_helper'
 
 class PostTest < ActiveSupport::TestCase
+
+  test 'creation will bind a new title to this post' do
+    post = Post.new
+    post.title = "test"
+    assert post.save, post.errors.full_messages.to_sentence
+    assert post.titles.count == 1
+    post.titles.each do |title|
+      assert title.persisted?
+    end
+  end
+
   test 'post can have tags' do
     tag = tags(:ruby)
     post = posts(:published)

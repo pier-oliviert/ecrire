@@ -8,23 +8,31 @@ class Title < ActiveRecord::Base
 
     def validate_length!(record)
       if record.name.blank?
-        record.errors['name'] << "Your title can't be blank."
+        msg = "Your title can't be blank."
+        record.errors['title'] << msg
+        record.post.errors['title'] << msg
       elsif record.name.length < 1
-        record.errors['name'] << "Your title needs to be at least 1 character long."
+        msg = "Your title needs to be at least 1 character long."
+        record.errors['length'] << msg
+        record.post.errors['title'] << msg
       end
     end
 
     def validate_uniqueness!(record)
       title = Title.where('titles.slug = ? OR titles.name = ?', record.slug, record.name).first
       unless title.nil?
-        record.errors['uniqueness'] << "You already have a post with this title: #{title.name}"
+        msg = "You already have a post with this title: #{title.name}"
+        record.errors['uniqueness'] << msg
+        record.post.errors['title'] << msg
         return
       end
     end
 
     def validate_draft!(record)
       if record.post.published? && !record.new_record?
-        record.errors['post'] << "You cannot modify an existing title when a post is published"
+        msg = "You cannot modify an existing title when a post is published"
+        record.errors['draft'] << msg
+        record.post.errors['title'] << msg
       end
     end
 

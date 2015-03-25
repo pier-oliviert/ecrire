@@ -24,8 +24,18 @@ class Post < ActiveRecord::Base
 
   attr_writer :tags
 
+  def title=(new_title)
+    if self.published?
+      self.titles.new(name: new_title)
+    else
+      title = self.titles.first || self.titles.new
+      title.post = self
+      title.name = new_title
+    end
+  end
+
   def title
-    self.titles.first.name
+    (self.titles.first || self.titles.new).name
   end
 
   def slug
@@ -66,14 +76,6 @@ class Post < ActiveRecord::Base
 
   def excerpt
     (self.compiled_excerpt || "").html_safe
-  end
-
-
-  def title=(new_title)
-    super
-    if self.draft?
-      self.slug = nil
-    end
   end
 
   def header?

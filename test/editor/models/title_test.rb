@@ -27,4 +27,5 @@ class TitleTest < ActiveSupport::TestCase
     title.name = "Shouldn't change"
     assert !title.save
   end
+
 end
