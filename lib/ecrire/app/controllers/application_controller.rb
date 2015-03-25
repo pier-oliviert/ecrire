@@ -16,12 +16,14 @@ class ApplicationController < ::ActionController::Base
   # This is the less ugly hack I could find. The reason why this is here
   # is because helpers are hard to debug due to their anonymous Module use.
   def post_path(post, options = {})
-    year = post.published_at.year
-    month = post.published_at.month
+    options[:controller] = :posts
+    options[:action] = :show
+    options[:year] = post.published_at.year
+    options[:month] = post.published_at.month
 
-    title = options.delete(:title) || post.titles.first
+    options[:id] = (options.delete(:title) || post.titles.first).slug
 
-    url_for "/#{[year, month, title.slug].join('/')}"
+    url_for options
   end
 
 
