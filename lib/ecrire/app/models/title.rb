@@ -9,11 +9,11 @@ class Title < ActiveRecord::Base
     def validate_length!(record)
       if record.name.blank?
         msg = "Your title can't be blank."
-        record.errors['title'] << msg
+        record.errors['name'] << msg
         record.post.errors['title'] << msg
       elsif record.name.length < 1
         msg = "Your title needs to be at least 1 character long."
-        record.errors['length'] << msg
+        record.errors['name'] << msg
         record.post.errors['title'] << msg
       end
     end
