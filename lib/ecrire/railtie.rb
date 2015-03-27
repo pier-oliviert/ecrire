@@ -26,5 +26,11 @@ module Ecrire
       include Ecrire::Railtie::Onboarding
     end
 
+    class << self
+      def routes
+        ActionDispatch::Routing::RouteSet.new
+      end
+    end
+
   end
 end

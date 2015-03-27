@@ -1,5 +1,6 @@
 task routes: :environment do
   Rails.application.paths.add 'config/routes.rb', with: 'config/routes.rb', eager_load: true
+  Rails.application.paths['config/routes.rb'].unshift *Ecrire::Railtie.paths['user:routes'].existent
   Rails.application.paths['config/routes.rb'].existent.each do |path|
     require path
   end

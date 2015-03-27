@@ -10,6 +10,13 @@ class Ecrire::Railtie
         end
       end
 
+      initializer 'ecrire.routes' do |app|
+        routing_paths = paths['user:routes'].existent
+        if routing_paths.any?
+          app.routes_reloader.paths.unshift(*routing_paths)
+        end
+      end
+
       initializer 'ecrire.locales' do |app|
         config.i18n.railties_load_path.concat(paths['user:locales'].existent)
       end
@@ -42,6 +49,7 @@ class Ecrire::Railtie
           paths.add 'user:assets', with: 'assets', glob: '*'
           paths.add 'user:locales', with: 'locales', glob: '**/*.{rb,yml}'
           paths.add 'user:helpers', with: 'helpers', eager_load: true
+          paths.add 'user:routes', with: 'routes.rb'
           paths.add 'public', with: 'tmp/public'
           paths
         end
@@ -62,7 +70,6 @@ class Ecrire::Railtie
           pathname
         end
       end
-
 
     end
   end
