@@ -30,7 +30,7 @@ module Ecrire
       def generate!
         Dir.mkdir @path
         Dir.chdir @path
-        template = File.expand_path '../../template/*', __FILE__
+        template = File.expand_path '../../theme/template/*', __FILE__
         FileUtils.cp_r(Dir[template], @path)
       end
 
