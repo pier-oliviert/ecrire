@@ -1,12 +1,25 @@
 module Ecrire
   module Onboarding
     class Engine < Rails::Engine
+
       Rails.application.config.active_record.migration_error = :none
       ActiveRecord::Base.configurations = {}
 
       initializer 'ecrire.onboarding.dynamic_settings' do |app|
         app.config.secret_key_base = SecureRandom.hex(16)
       end
+
+      initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
+        ActiveSupport::Dependencies.autoload_paths.unshift(*self.paths.autoload_paths)
+        ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)
+      end
+
+      initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
+        app.config.eager_load_paths.unshift *paths.eager_load
+        app.config.autoload_once_paths.unshift *paths.autoload_once
+        app.config.autoload_paths.unshift *paths.autoload_paths
+      end
+
 
       def paths
         @paths ||= begin
@@ -30,8 +43,12 @@ module Ecrire
         end
       end
 
+      def has_migrations?
+        false
+      end
+
       def root_path
-        Pathname.new(__FILE__).dirname + '../onboarding/'
+        Pathname.new(__FILE__).dirname
       end
 
       # This hack is done because ActiveRecord raise an error that makes

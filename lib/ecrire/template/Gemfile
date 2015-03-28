@@ -4,7 +4,7 @@ gem 'ecrire',               path: '~/Develop/ecrire'
 
 group :required do
   gem 'rails',             '~> 4.2'
-  gem 'observejs',         '~> 0.0'
+  gem 'observejs',         git: 'https://github.com/pothibo/observejs'
   gem 'warden',            '~> 1.2'
   gem 'bcrypt',            '~> 3.1'
   gem 'nokogiri',          '~> 1.6'
@@ -19,7 +19,7 @@ group :required do
   gem 'turbolinks',        '~> 2.2'
   gem 'bourbon',           '~> 3.2'
   gem 'uglifier',          '~> 2.5'
-  gem 'jbuilder'           '~> 2.2'
+  gem 'jbuilder',          '~> 2.2'
 end
 
 group :server do

@@ -1,4 +1,5 @@
 class OnboardingController < ApplicationController
+  include Ecrire::Onboarding::Engine.routes.url_helpers
 
   def index
     if File.exist?(Rails.application.paths['config/secrets'].expanded.last)
@@ -18,3 +19,4 @@ class OnboardingController < ApplicationController
   end
 
 end
+

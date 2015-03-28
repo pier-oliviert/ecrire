@@ -1,2 +1,2 @@
-class PostsController < Ecrire::PostsController
+class PostsController < Ecrire::ThemeController
 end

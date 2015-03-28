@@ -1,5 +1,5 @@
 module Ecrire
-  class PostsController < ::ApplicationController
+  class ThemeController < ::ApplicationController
 
     before_action :pagination, only: :index
     protect_from_forgery except: :index
