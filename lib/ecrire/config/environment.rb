@@ -1,4 +1,4 @@
-Rails.application.configure do
+Ecrire::Application.configure do
   config = self.config
   config.eager_load = true
 

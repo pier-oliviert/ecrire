@@ -10,8 +10,8 @@ class RailtieTest < ActiveSupport::TestCase
   test 'Ecrire onboards by default' do
     require 'ecrire'
     Ecrire::Application.initialize!
-    assert Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-    assert !Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
+    assert defined?(Ecrire::Onboarding::Engine)
+    assert !defined?(Ecrire::Theme::Engine)
   end
 
   test 'load the normal railtie if a secrets.yml can be found' do
@@ -20,8 +20,8 @@ class RailtieTest < ActiveSupport::TestCase
       require 'ecrire'
       Ecrire::Application.initialize!
 
-      assert Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-      assert !Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
+      assert defined?(Ecrire::Onboarding::Engine)
+      assert !defined?(Ecrire::Theme::Engine)
     end
   end
 
@@ -37,8 +37,8 @@ class RailtieTest < ActiveSupport::TestCase
       require 'ecrire'
       Ecrire::Application.initialize!
 
-      assert !Ecrire::Railtie.include?(Ecrire::Railtie::Onboarding)
-      assert Ecrire::Railtie.include?(Ecrire::Railtie::Theme)
+      assert !defined?(Ecrire::Onboarding::Engine)
+      assert defined?(Ecrire::Theme::Engine)
       # Need to destroy the user here because parallelization is fubar'ed
       # and it's the most stable way I found it.
       # All other options seemed to introduce racing conditions.

@@ -1,4 +1,4 @@
-Ecrire::Application.routes.draw do
+Ecrire::Onboarding::Engine.routes.draw do
 
   root 'onboarding#index'
 
@@ -7,5 +7,4 @@ Ecrire::Application.routes.draw do
     resources :users, only: [:index, :create]
   end
 end
-
 

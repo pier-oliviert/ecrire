@@ -1,7 +1,6 @@
-class Ecrire::Railtie
+module Ecrire
   module Onboarding
-    extend ActiveSupport::Concern
-    included do
+    class Engine < Rails::Engine
       Rails.application.config.active_record.migration_error = :none
       ActiveRecord::Base.configurations = {}
 
@@ -9,29 +8,24 @@ class Ecrire::Railtie
         app.config.secret_key_base = SecureRandom.hex(16)
       end
 
-      initializer 'ecrire.onboarding.routes' do |app|
-        app.routes.clear!
-
-        app.paths.add 'config/routes.rb', with: 'config/onboarding_routes.rb'
-
-        paths = app.paths['config/routes.rb'].existent
-        app.routes_reloader.paths.clear.unshift(*paths)
-        app.routes_reloader.route_sets << app.routes
-      end
-
-      initializer 'ecrire.view_paths' do |app|
-        ActionController::Base.prepend_view_path paths['onboarding:views'].existent
-      end
-
-      initializer 'ecrire.assets' do |app|
-        app.config.assets.paths.concat paths['onboarding:assets'].existent
-      end
-
       def paths
         @paths ||= begin
           paths = Rails::Paths::Root.new(root_path)
-          paths.add 'onboarding:views', with: 'views'
-          paths.add 'onboarding:assets', with: 'assets', glob: '*'
+          paths.add 'config/routes.rb', with: 'routes.rb'
+          paths.add 'app/views', with: 'views'
+          paths.add 'app/controllers', with: 'controllers', eager_load: true
+          paths.add 'app/assets', with: 'assets', glob: '*'
+          paths.add 'app/helpers', with: 'helpers', eager_load: true
+
+          paths.add 'config/routes.rb', with: 'routes.rb'
+          paths.add 'config/locales', with: 'locales', glob: '**/*.{rb,yml}'
+          paths.add 'config/environments', with: 'environments', glob: "#{Rails.env}.rb"
+
+          paths.add 'public', with: 'tmp/public'
+
+          paths.add "lib/assets",          glob: "*"
+          paths.add "vendor/assets",       glob: "*"
+          paths.add "lib/tasks"
           paths
         end
       end
@@ -56,7 +50,6 @@ class Ecrire::Railtie
           end
         end
       }
-
 
     end
   end
