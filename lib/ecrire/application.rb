@@ -31,5 +31,9 @@ module Ecrire
        end
     end
 
+    def self.onboarding?
+      defined?(Ecrire::Onboarding::Engine)
+    end
+
   end
 end

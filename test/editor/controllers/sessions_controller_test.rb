@@ -1,4 +1,7 @@
-class SessionsControllerTest < BaseControllerTest
+require 'test_controller'
+require 'editor/test_helper'
+
+class SessionsControllerTest < TestController
   test 'should be able to log in' do
     post :create, session: {email: "pothibo@gmail.com", password: "123456789"}
     assert !proxy.user.nil?, "#{users(:pothibo).email} should be logged in"

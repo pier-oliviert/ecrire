@@ -1,5 +1,3 @@
-require "isolation"
-
 class RailtieTest < ActiveSupport::TestCase
   include ActiveSupport::Testing::Isolation
 

@@ -1,5 +1,5 @@
+require 'test_helper'
 require 'editor/test_helper'
-require 'byebug'
 
 class TitleTest < ActiveSupport::TestCase
   test "length of name" do

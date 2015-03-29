@@ -1,8 +1,12 @@
-require 'editor/test_helper'
-require 'byebug'
+require 'test_helper'
+require 'warden'
 
-class BaseControllerTest < ActionController::TestCase
-  include Warden::Test::Helpers
+class TestController < ActionController::TestCase
+
+  def setup
+    @routes = Rails.application.routes
+    @controller.env['warden'] = @request.env['warden'] = Warden::Proxy.new(@request.env, self.class.manager)
+  end
 
   def self.manager
     @manager ||= Warden::Manager.new(self,
@@ -10,10 +14,6 @@ class BaseControllerTest < ActionController::TestCase
         default_strategies: :password,
         failure_app: SessionsController.action(:failed)
       })
-  end
-
-  def setup
-    @controller.env['warden'] = @request.env['warden'] = Warden::Proxy.new(@request.env, self.class.manager)
   end
 
   def teardown
@@ -25,3 +25,4 @@ class BaseControllerTest < ActionController::TestCase
   end
 
 end
+
