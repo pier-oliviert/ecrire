@@ -10,18 +10,20 @@ class ActiveSupport::TestCase
     if ActiveRecord::Migrator.needs_migration?
       ActiveRecord::Migrator.migrate(path)
     end
-    ActiveRecord::Migration.maintain_test_schema!
-    include ActiveRecord::TestFixtures
-    self.fixture_path = "#{Dir.pwd}/test/fixtures/"
   rescue ActiveRecord::NoDatabaseError
     puts 'Database does not exist. Creating...'
     ActiveRecord::Tasks::DatabaseTasks.create_current
     puts 'Database created, migrating now...'
     ActiveRecord::Migrator.migrate(path)
     puts "Migration completed."
+  ensure
+    ActiveRecord::Migration.maintain_test_schema!
+    include ActiveRecord::TestFixtures
+    self.fixture_path = "#{Dir.pwd}/test/fixtures/"
+    fixtures :all
+    Post.reset_column_information
   end
 
-  fixtures :all
 
 end
 
