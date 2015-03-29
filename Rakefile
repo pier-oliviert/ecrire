@@ -27,6 +27,12 @@ namespace :test do
 
 end
 
+task :test do
+  %w(test:editor test:onboarding).each do |name|
+    Rake::Task[name].invoke
+  end
+end
+
 at_exit do
   unless Ecrire::Application.onboarding?
     Rake::Task['database:purge'].invoke
