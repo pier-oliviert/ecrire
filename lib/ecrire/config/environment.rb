@@ -18,7 +18,7 @@ Ecrire::Application.configure do
     lambda do |filename, path|
       path =~ /assets/ && !%w(.js .css).include?(File.extname(filename))
     end,
-    /^(admin|application|base)\.(css|js)$/
+    /^(admin|application)\.(css|js)$/
   ]
 
   Warden::Manager.serialize_into_session do |user|
