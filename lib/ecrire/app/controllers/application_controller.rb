@@ -23,7 +23,7 @@ class ApplicationController < ::ActionController::Base
 
     options[:id] = (options.delete(:title) || post.titles.first).slug
 
-    url_for options
+    theme.url_for options
   end
 
 

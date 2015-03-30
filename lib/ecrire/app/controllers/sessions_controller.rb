@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   before_action :authenticate!, except: [:failed, :new]
 
   def create
-    redirect_to :root
+    redirect_to '/'
   end
 
   def destroy

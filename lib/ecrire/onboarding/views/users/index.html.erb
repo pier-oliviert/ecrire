@@ -1,0 +1,16 @@
+<h1>Ecrire</h1>
+<section>
+  <h2>Create a user</h2>
+
+  <%= form_for user, method: :post do |f| %>
+    <% if user.errors.any? %>
+      <%= content_tag :div, class: %w(error), as: 'Message' do %>
+        <%= content_tag :p, user.errors.full_messages.first %>
+      <% end %>
+    <% end %>
+    <%= f.text_field :email, placeholder: 'E-mail' %>
+    <%= f.password_field :password, placeholder: 'Password' %>
+    <%= f.password_field :password_confirmation, placeholder: 'Confirm your password' %>
+    <%= button_tag 'Create' %>
+  <% end %>
+</section>

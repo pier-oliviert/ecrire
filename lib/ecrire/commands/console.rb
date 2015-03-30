@@ -12,7 +12,6 @@ module Ecrire
 
         shift_argv!
         Ecrire::Application.require_environment!
-        Ecrire::Application.initialize!
 
         Rails::Console.start(Ecrire::Application, *ARGV)
       end
