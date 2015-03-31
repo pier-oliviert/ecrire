@@ -16,13 +16,6 @@ module ApplicationHelper
     end
   end
 
-  def assets_tags
-    [
-      stylesheet_link_tag("application", "base", media: "all", "data-turbolinks-track" => true),
-      javascript_include_tag("application", "base", "data-turbolinks-track" => true)
-    ].join.html_safe
-  end
-
   def meta_informations_tags
     [
       content_tag(:link, nil, rel: 'alternate', type: 'application/rss+xml', title: 'RSS', href: '/feed'),
@@ -48,17 +41,6 @@ module ApplicationHelper
   def body_tag(html_options = {}, &block)
     html_options[:id] ||= [controller_name, action_name].map(&:capitalize).join
     content_tag :body, html_options, &block
-  end
-
-
-  def flash_messages
-    return if flash.empty?
-
-    flash.map do |name, msg|
-      content_tag :div, class: %W(flash #{name}) do
-        content_tag(:span, h(msg), class: %w(message))
-      end
-    end.join.html_safe
   end
 
 end
