@@ -26,7 +26,7 @@ module Ecrire
       @paths ||= begin
          paths = super
          paths.add 'config/routes.rb', with: 'routes.rb'
-         paths.add 'config/locales', with: 'locales', glob: "*.{rb,yml}"
+         paths.add 'config/locales', with: 'locales', glob: "**/*.{rb,yml}"
          paths
        end
     end
