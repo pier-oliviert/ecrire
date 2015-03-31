@@ -38,6 +38,14 @@ class Post < ActiveRecord::Base
     (self.titles.first || self.titles.new).name
   end
 
+  def year
+    published_at.year
+  end
+
+  def month
+    published_at.month
+  end
+
   def slug
     self.titles.first.slug
   end
