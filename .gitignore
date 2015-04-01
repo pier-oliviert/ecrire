@@ -13,7 +13,7 @@
 
 # Ignore all logfiles and tempfiles.
 log
-/tmp
+tmp
 
 .DS_Store
 Gemfile.lock

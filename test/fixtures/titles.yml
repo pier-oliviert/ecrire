@@ -1,11 +1,14 @@
 published_history:
   name: "An old title"
+  slug: 'an-old-title'
   post: published
 
 published_current:
   name: "Current Title"
+  slug: 'current-title'
   post: published
 
 draft:
   name: "A draft"
+  slug: 'a-draft'
   post: draft
