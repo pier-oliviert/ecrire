@@ -13,7 +13,7 @@ class PostsControllerTest < TestController
   test 'creating a new post should redirect to the editor' do
     log_in!
     post :create, post: {title: 'A new post'}
-    assert_redirected_to edit_admin_post_path(assigns(:post))
+    assert_redirected_to @controller.url('/admin/posts/:post.id/edit', post: assigns(:post))
   end
 
   test 'a new post with an existing title should render errors' do
@@ -27,6 +27,6 @@ class PostsControllerTest < TestController
   test "publishing a post redirect the user to the post's URL" do
     log_in!
     put :update, id: Post.status(:draft).first.id, button: :publish
-    assert_redirected_to Ecrire::Theme::Engine.routes.url_helpers.post_path(assigns(:post).year, assigns(:post).month, assigns(:post))
+    assert_redirected_to @controller.url(Ecrire::Theme::Engine.post_path, post: assigns(:post))
   end
 end

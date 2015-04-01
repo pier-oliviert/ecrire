@@ -70,14 +70,6 @@ class Post < ActiveRecord::Base
     published_at.nil?
   end
 
-  def to_param
-    if self.instance_of?(Admin::Post)
-      id.to_s
-    else
-      slug
-    end
-  end
-
   def content
     (self.compiled_content || super || '').html_safe
   end

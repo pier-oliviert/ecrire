@@ -1,6 +1,7 @@
 module Ecrire
   module Theme
     class Engine < Rails::Engine
+      attr_accessor :post_path
 
       initializer 'ecrire.logs', before: :initialize_logger do |app|
         unless Rails.env.test?

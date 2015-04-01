@@ -1,3 +1,5 @@
+Ecrire::Theme::Engine.post_path = '/:post.year/:post.month/:post.slug/'
+
 Ecrire::Theme::Engine.routes.draw do
   root 'posts#index'
   

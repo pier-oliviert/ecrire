@@ -22,7 +22,7 @@ module Admin
         render 'new' and return
       end
 
-      redirect_to edit_admin_post_path(@post)
+      redirect_to url('/admin/posts/:post.id/edit', post: @post)
     end
 
     def destroy
@@ -47,7 +47,7 @@ module Admin
           when 'publish'
             @post.publish!
             flash[:notice] = t(".successful", title: @post.title)
-            redirect_to theme.post_path(@post.year, @post.month, @post) and return
+            redirect_to url(Ecrire::Theme::Engine.post_path, post: @post) and return
           when 'unpublish'
             @post.unpublish!
           end
