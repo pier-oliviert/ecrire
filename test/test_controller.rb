@@ -8,6 +8,11 @@ class TestController < ActionController::TestCase
     @controller.env['warden'] = @request.env['warden'] = Warden::Proxy.new(@request.env, self.class.manager)
   end
 
+  def log_in!(user = nil)
+    user ||= User.first
+    proxy.set_user user
+  end
+
   def self.manager
     @manager ||= Warden::Manager.new(self,
       {
