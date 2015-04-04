@@ -2,7 +2,7 @@
 <section>
   <h2>Create a user</h2>
 
-  <%= form_for user, method: :post do |f| %>
+  <%= form_for user, method: :post, url: '/users' do |f| %>
     <% if user.errors.any? %>
       <%= content_tag :div, class: %w(error), as: 'Message' do %>
         <%= content_tag :p, user.errors.full_messages.first %>

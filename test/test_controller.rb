@@ -3,7 +3,7 @@ require 'warden'
 
 class TestController < ActionController::TestCase
 
-  def setup
+  setup do
     @routes = Rails.application.routes
     @controller.env['warden'] = @request.env['warden'] = Warden::Proxy.new(@request.env, self.class.manager)
   end

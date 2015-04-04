@@ -15,6 +15,7 @@ class DatabasesController < OnboardingController
     begin
       ActiveRecord::Base.configurations = {
         'development' => info,
+        'test' => info,
         'production' => info
       }
       ActiveRecord::Base.establish_connection
@@ -26,7 +27,7 @@ class DatabasesController < OnboardingController
       render 'index' and return
     end
 
-    redirect_to :users
+    redirect_to '/users'
   end
 
   protected

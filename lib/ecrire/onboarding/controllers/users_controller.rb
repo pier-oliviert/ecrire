@@ -10,7 +10,7 @@ class UsersController < OnboardingController
     
     if user.errors.blank?
       save_configurations!
-      redirect_to :root
+      redirect_to '/'
     else
       render 'index'
     end

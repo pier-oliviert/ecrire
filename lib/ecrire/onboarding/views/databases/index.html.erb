@@ -15,7 +15,7 @@
   </div>
 
 
-  <%= form_tag databases_path, method: :post do %>
+  <%= form_tag '/databases', method: :post do %>
 
     <% unless @exception.nil? %>
       <div class='error' as='Message'>
