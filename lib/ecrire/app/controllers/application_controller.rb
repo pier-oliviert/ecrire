@@ -1,8 +1,7 @@
 class ApplicationController < ::ActionController::Base
-
   protect_from_forgery with: :exception
-  helper_method :current_user, :signed_in?
 
+  helper_method :current_user, :signed_in?
   helper_method :warden, :post_path, :url
 
   def current_user
@@ -41,4 +40,5 @@ class ApplicationController < ::ActionController::Base
   def warden
     env['warden']
   end
+
 end
