@@ -3,7 +3,11 @@
 
   <head>
     <%= '<'.html_safe %>%= title_tag %>
-    <%= '<'.html_safe %>%= assets_tags %>
+    <%= '<'.html_safe %>%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= '<'.html_safe %>%= javascript_include_tag "application", "base", "data-turbolinks-track" => true %>
+
+    <%= '<'.html_safe %>%= stylesheet_link_tag "theme", media: "all", "data-turbolinks-track" => true %>
+    <%= '<'.html_safe %>%= javascript_include_tag "theme", "base", "data-turbolinks-track" => true %>
     <%= '<'.html_safe %>%= meta_informations_tags %>
   </head>
 
