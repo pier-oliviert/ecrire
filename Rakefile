@@ -16,7 +16,7 @@ namespace :database do
 end
 
 namespace :test do
-  ['editor', 'onboarding'].each do |name|
+  ['editor', 'onboarding', 'theme'].each do |name|
     task = Ecrire::TestTask.new(name) do |t|
       t.theme = Dir.pwd + "/test/#{name}/theme"
       t.libs << "test"
@@ -28,7 +28,7 @@ namespace :test do
 end
 
 task :test do
-  %w(test:editor test:onboarding).each do |name|
+  %w(test:editor test:onboarding test:theme).each do |name|
     Rake::Task[name].invoke
   end
 end
