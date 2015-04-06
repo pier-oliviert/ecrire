@@ -7,12 +7,16 @@ class Ecrire::TestTask < Rake::TestTask
     desc @description
     task @name do
       Rake::FileUtilsExt.verbose(@verbose) do
-        args =
-          "#{ruby_opts_string} #{run_code} " +
-          "#{file_list_string} #{option_list}" +
-          "#{theme}"
+        args = [
+          "#{ruby_opts_string} #{run_code} ",
+          "#{file_list_string} #{option_list}"
+        ]
 
-        ruby args do |ok, status|
+        if File.exists?(theme)
+          args << theme
+        end
+
+        ruby args.join do |ok, status|
           if !ok && status.respond_to?(:signaled?) && status.signaled?
             raise SignalException.new(status.termsig)
           elsif !ok
