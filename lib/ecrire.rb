@@ -1,6 +1,7 @@
 module Ecrire
 
   autoload :Application,        'ecrire/application'
+  autoload :Markdown,           'ecrire/markdown'
 
   def self.bundle?
     ENV['BUNDLE_GEMFILE'] ||= Dir.pwd + '/Gemfile'

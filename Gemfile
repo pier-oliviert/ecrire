@@ -10,7 +10,6 @@ gem 'nokogiri',          '~> 1.6'
 gem 's3',                '~> 0.3'
 gem 'pg',                '~> 0.17'
 gem 'kaminari',          '~> 0.15'
-gem 'kramdown',          '~> 1.5'
 
 gem 'sprockets-rails',   '~> 2.1'
 gem 'sass-rails',        '~> 4.0', '>= 4.0.3'

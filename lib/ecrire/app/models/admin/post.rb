@@ -1,5 +1,3 @@
-require 'kramdown'
-
 module Admin
   class Post < ::Post
 
@@ -36,7 +34,7 @@ module Admin
     private
 
     def compile!
-      self.compiled_content = Kramdown::Document.new(self.content).to_html
+      self.compiled_content = Ecrire::Markdown.parse(self.content).to_html
     end
 
     def excerptize!
