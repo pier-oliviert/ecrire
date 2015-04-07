@@ -4,14 +4,11 @@ module Ecrire::Markdown::Parsers
       private :new
     end
 
-    attr_reader :node
-
     def self.parse!(document)
       i = 0
       while !document.nodes[i].nil? do
-        node = document.nodes[i]
-        new(document, node, i).parse!
-        i += 1
+        node = new(document, document.nodes[i], i).parse!
+        i = document.nodes.index(node) + 1
       end
     end
 
@@ -21,9 +18,9 @@ module Ecrire::Markdown::Parsers
       @index = index
     end
 
-    private
-
-    attr_reader :document, :node, :index
+    def parse!
+      return @node
+    end
 
   end
 end

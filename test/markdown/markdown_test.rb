@@ -50,6 +50,11 @@ class MarkdownTest < Minitest::Test
     assert_equal '<ol><li>Ruby</li><li><strong>Go</strong></li></ol>', document.to_html
   end
 
+  def test_lists
+    document = Ecrire::Markdown.parse("1. Ruby\n2. **Go**\n- Test\n- 123")
+    assert_equal '<ol><li>Ruby</li><li><strong>Go</strong></li></ol><ul><li>Test</li><li>123</li></ul>', document.to_html
+  end
+
   def test_image
     document = Ecrire::Markdown.parse('![An Image](http://bla.com)')
     assert_equal "<figure><img src='http://bla.com' /><figcaption>An Image</figcaption></figure>", document.to_html

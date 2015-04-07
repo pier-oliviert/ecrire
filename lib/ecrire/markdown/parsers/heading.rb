@@ -3,10 +3,12 @@ module Ecrire::Markdown::Parsers
     RULE = /^(\#{1,6} )(.+)/i
 
     def parse!
-      if match = RULE.match(node.content)
+      if match = RULE.match(@node.content)
         size = match[1].length - 1
-        document.nodes[index] = Ecrire::Markdown::Nodes::Heading.new(size, match[2])
+        @node = Ecrire::Markdown::Nodes::Heading.new(size, match[2])
+        @document.nodes[@index] = @node
       end
+      return @node
     end
   end
 end
