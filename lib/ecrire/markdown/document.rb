@@ -8,7 +8,7 @@ module Ecrire::Markdown
 
     def initialize(content)
       @nodes = content.lines.map do |text|
-        Node.new(text.strip)
+        Node.new(text.chomp)
       end
     end
 

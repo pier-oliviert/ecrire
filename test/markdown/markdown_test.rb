@@ -5,7 +5,7 @@ require 'minitest/autorun'
 class MarkdownTest < Minitest::Test
 
   def test_paragraph
-    document = Ecrire::Markdown.parse("Hello world!\n\rThis is nice.")
+    document = Ecrire::Markdown.parse("Hello world!\nThis is nice.")
     assert_equal '<p>Hello world!</p><p>This is nice.</p>', document.to_html
   end
 
@@ -36,8 +36,11 @@ class MarkdownTest < Minitest::Test
   end
 
   def test_code_blocks
-    document = Ecrire::Markdown.parse("~~~ruby \nRails.application\n~~~")
-    assert_equal  "<pre><code language='ruby'>Rails.application</code></pre>", document.to_html
+    document = Ecrire::Markdown.parse("~~~ruby\n# A comment\nRails.application\n~~~")
+    assert_equal  "<pre><header></header><code class='language-ruby'># A comment\nRails.application</code></pre>", document.to_html
+
+    document = Ecrire::Markdown.parse("~~~ruby a title\n# A comment\nRails.application\n~~~")
+    assert_equal  "<pre><header>a title</header><code class='language-ruby'># A comment\nRails.application</code></pre>", document.to_html
   end
 
   def test_unordered_list

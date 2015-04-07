@@ -4,6 +4,11 @@ module Ecrire::Markdown::Parsers
     OL = /^(\d+\.\s)(.+)?$/i
 
     def parse!
+
+      unless @node.instance_of?(Ecrire::Markdown::Node)
+        return @node
+      end
+
       if match = UL.match(@node.content)
         list! match, Ecrire::Markdown::Nodes::UnorderedList
       elsif match = OL.match(@node.content)
