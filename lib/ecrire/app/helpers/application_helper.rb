@@ -40,6 +40,10 @@ module ApplicationHelper
 
   def body_tag(html_options = {}, &block)
     html_options[:id] ||= [controller_name, action_name].map(&:capitalize).join
+    html_options[:class] = [html_options[:class]].compact.flatten
+    if content_for?(:body_class)
+      html_options[:class].concat content_for(:body_class).split(' ')
+    end
     content_tag :body, html_options, &block
   end
 
