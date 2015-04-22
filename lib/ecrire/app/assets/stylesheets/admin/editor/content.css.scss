@@ -1,8 +1,10 @@
-body.edit.posts > main > section {
+main.edit.posts > section {
   div.content {
     @include flex(1);
+    font-family: 'Courier New', 'Courier';
+    font-weight: 200;
     outline: none;
-    font-size: 1.2em;
+    font-size: 1.5em;
     padding-bottom: 10em;
 
     h1 {

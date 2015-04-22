@@ -10,6 +10,7 @@ html, body {
   background: #F3F0EA;
   color: rgb(24, 27, 20);
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -65,15 +66,17 @@ h4 {
 }
 
 h5 {
+  font-style: italic;
   font-size: 1.7em;
 }
 
 h6 {
+  font-style: italic;
   font-size: 1.5em;
 }
 
 p {
-  line-height: 1.3em;
+  line-height: 1.5em;
 }
 
 main > article {

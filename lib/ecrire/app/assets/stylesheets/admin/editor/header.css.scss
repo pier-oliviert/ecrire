@@ -1,9 +1,9 @@
-body.edit.posts > main > header {
+main.edit.posts > header {
   @include display(flex);
   @include flex(0 auto);
 }
 
-body.edit.posts > main > header > div.title {
+main.edit.posts > header > div.title {
   @include display(flex);
   @include flex-direction(column);
   @include transition(opacity 0.2s linear);
@@ -166,7 +166,7 @@ body.edit.posts > main > header > div.title {
   }
 }
 
-body.posts > main [as='Navigation.Toggle'] {
+main.posts [as='Navigation.Toggle'] {
   @include flex(0 auto);
   @include transition(transform 0.2s, color 0.2s);
   width: 2em;
