@@ -1,0 +1,35 @@
+#PostsIndex ol.posts {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+
+  & > h2 {
+    margin: 3em 0;
+    text-align: center;
+  }
+
+  li.latest {
+    margin: 1em 0;
+    background: $light-gray-blue;
+    border-radius: 3px;
+    overflow: hidden;
+
+    div.content {
+      padding: 1em;
+    }
+
+    figure {
+      @include display(flex);
+      @include flex-direction(column);
+      @include align-items(center);
+      @include justify-content(center);
+
+      position: relative;
+      height: 300px;
+      background-color: $navy-blue;
+      color: $light-blue;
+      margin: 0;
+
+    }
+  }
+}

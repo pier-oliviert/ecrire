@@ -7,7 +7,7 @@ html, body {
   @include flex(1);
   margin: 0;
   padding: 0;
-  background: #F3F0EA;
+  background: $light-blue;
   color: rgb(24, 27, 20);
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
