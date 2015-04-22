@@ -1,4 +1,4 @@
-body.images > main {
+main.images {
   @include flex-direction(column);
 
   section.configure, section.complete {
@@ -53,7 +53,7 @@ body.images > main {
   }
 }
 
-body.images > main {
+main.images {
   section.complete {
     @include flex-direction(column);
 

@@ -1,13 +1,13 @@
-body.posts nav#Menu {
+main.posts nav#Menu {
   margin-top: -4em;
   @include transition(margin-top 0.2s);
 }
 
-body.posts > main {
+main.posts {
   @include flex-direction(column);
 }
 
-body.posts > main > section {
+main.posts > section {
   @include flex(1);
   @include display(flex);
   padding-top: 1em;

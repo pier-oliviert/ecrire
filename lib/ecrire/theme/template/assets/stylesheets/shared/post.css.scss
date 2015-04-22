@@ -1,21 +1,28 @@
-#PostsShow main header {
+#PostsShow header {
   height: 400px;
   h2, time {
     text-align: center;
   }
 }
 
-#PostsShow main article {
+#PostsShow article {
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
+  margin: 3em auto;
 
   section.content {
     max-width: 900px;
     width: 70%;
+
+    .suggestions {
+      h5 {
+        text-align: center;
+      }
+    }
   }
 
   aside {
+    padding: 2em 1em;
     max-width: 300px;
     width: 30%;
   }

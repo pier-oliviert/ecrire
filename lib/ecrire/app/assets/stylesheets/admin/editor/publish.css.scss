@@ -1,4 +1,4 @@
-body.posts > main > section > div.publish {
+main.posts > section > div.publish {
   @include display(flex);
   @include flex-direction(column);
 
