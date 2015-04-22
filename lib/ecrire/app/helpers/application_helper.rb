@@ -38,13 +38,13 @@ module ApplicationHelper
     end
   end
 
-  def body_tag(html_options = {}, &block)
+  def main_tag(html_options = {}, &block)
     html_options[:id] ||= [controller_name, action_name].map(&:capitalize).join
     html_options[:class] = [html_options[:class]].compact.flatten
-    if content_for?(:body_class)
-      html_options[:class].concat content_for(:body_class).split(' ')
+    if content_for?(:class)
+      html_options[:class].concat content_for(:class).split(' ')
     end
-    content_tag :body, html_options, &block
+    content_tag :main, html_options, &block
   end
 
 end

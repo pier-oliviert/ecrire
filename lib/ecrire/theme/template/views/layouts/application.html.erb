@@ -6,24 +6,38 @@
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "base", "data-turbolinks-track" => true %>
 
-    <%= stylesheet_link_tag "theme", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "theme", "base", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "browser", media: "(min-width: 1025px)", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "tablet", media: "(min-width: 641px) and (max-width: 1024px)", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "mobile", media: "(max-width: 640px)", "data-turbolinks-track" => true %>
 
     <%= meta_informations_tags %>
   </head>
 
-  <%= body_tag do %>
+  <body>
+    <%= main_tag do %>
 
-    <main>
       <%= admin_navigation %>
       <header>
-        <h1><%= link_to 'E', '/' %></h1>
+
         <nav>
-          <%= link_to 'Customize', '/customize' %>
-          <% if !signed_in? %>
-            <%= link_to 'Log in', new_session_path %>
-          <% end %>
+          <h1><%= link_to 'E', '/' %></h1>
+
+          <ol>
+            <li><%= link_to 'Customize', '/customize' %></li>
+
+            <% if !signed_in? %>
+              <li><%= link_to 'Log in', new_session_path %></li>
+            <% end %>
+          </ol>
         </nav>
+
+
+        <% if content_for?(:header) %>
+          <div class='content'>
+            <%= content_for :header %>
+          </div>
+        <% end %>
+
       </header>
 
       <article>
@@ -32,9 +46,6 @@
 
       <footer>
       </footer>
-    </main>
-
-  <% end %>
+    <% end %>
+  </body>
 </html>
-
-
