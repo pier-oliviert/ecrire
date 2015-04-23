@@ -3,8 +3,10 @@ class PostsController < Ecrire::ThemeController
 
   def index
     @posts = posts.published.includes(:titles).order('published_at DESC').page(params[:page]).per(params[:per])
-    @latest = @posts.first
-    @posts = @posts.where.not(id: @latest.id)
+    if params[:page] == 1
+      @latest = @posts.first
+      @posts = @posts.where.not(id: @latest.id)
+    end
     @tags = Tag.all
     super
   end

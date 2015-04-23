@@ -1,8 +1,9 @@
 <% if posts.any? %>
   <ol class='posts'>
-    <h2>Most recent post</h2>
-    <%= render 'latest', post: @latest %>
-    <h2>Other posts</h2>
+    <% unless @latest.nil? %>
+      <%= render 'latest', post: @latest %>
+      <h2>Other posts</h2>
+    <% end %>
     <%= render posts %>
     <%= paginate posts %>
   </ol>

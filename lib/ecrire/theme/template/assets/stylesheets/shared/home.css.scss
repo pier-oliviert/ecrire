@@ -9,7 +9,7 @@
   }
 
   li.latest {
-    margin: 1em 0;
+    margin: 6em 0;
     background: $light-gray-blue;
     border-radius: 3px;
     overflow: hidden;
@@ -29,7 +29,30 @@
       background-color: $navy-blue;
       color: $light-blue;
       margin: 0;
+      padding: 0 5em;
 
+      h3 {
+        text-align: center;
+      }
     }
+  }
+}
+
+#PostsIndex ol.posts li:not(.latest) {
+  @include display(flex);
+  @include flex-direction(row);
+
+  height: 200px;
+
+  figure {
+    @include flex(0 200px);
+    background-color: $navy-blue;
+  }
+
+  div.content {
+    @include flex(1);
+    @include display(flex);
+    @include justify-content(center);
+    @include flex-direction(column);
   }
 }
