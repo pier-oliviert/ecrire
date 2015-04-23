@@ -1,3 +1,5 @@
+<% content_for :class, 'customize' %>
+
 <section>
   <h2>Customize your blog</h2>
 
@@ -15,8 +17,7 @@
   <p>The layout is where you put everything that is reused on <strong>every</strong> page. The layout is where you set the document type, the &lt;head&gt; element and everything else that you want to have on every page.</p>
 
   <div class='file preview'>
-    <p><%= Rails.root %>/views/layouts/application.html.erb</p>
-  <pre><code class='language-ruby'><%= render('static/customize/layout').to_str %></code></pre>
+  <pre><header><%= Rails.root %>/views/layouts/application.html.erb</header><code class='language-ruby'><%= render('static/customize/layout').to_str %></code></pre>
 </div>
 
   <p>One thing you <strong>must</strong> have in your layout is the <code class='language-ruby'>&lt;%= yield %&gt;</code> call. This call will inject the view into the layout. If you want to learn more about the layout, Ruby on rails has a <a href="http://guides.rubyonrails.org/layouts_and_rendering.html#understanding-yield">great guide that explains</a> the layout more thoroughly.</p>
@@ -27,15 +28,13 @@
   <p>This view is the home page of your blog. If you want to list your post entries, you can do it by adding this code snippet to your view:</p>
 
   <div class='file preview'>
-    <p><%= Rails.root %>/views/posts/index.html.erb</p>
-    <pre><code class='language-ruby'><%= render('static/customize/index').to_str %></code></pre>
+    <pre><header><%= Rails.root %>/views/posts/index.html.erb</header><code class='language-ruby'><%= render('static/customize/index').to_str %></code></pre>
   </div>
 
   <p>And then add more HTML through a the partial.</p>
 
   <div class='file preview'>
-    <p><%= Rails.root %>/views/posts/_post.html.erb</p>
-    <pre><code class='language-ruby'><%= render('static/customize/post').to_str %></code></pre>
+    <pre><header><%= Rails.root %>/views/posts/_post.html.erb</header><code class='language-ruby'><%= render('static/customize/post').to_str %></code></pre>
   </div>
 
 
@@ -45,15 +44,13 @@
   <h2>Helpers</h2>
   <p>Helpers are modules you can create to define methods that can be used for different purposes.</p>
   <div class='file preview'>
-    <p><%= Rails.root %>/helpers/your_helper.rb</p>
-    <pre><code class='language-ruby'><%= render('static/customize/helper').to_str %></code></pre>
+    <pre><header><%= Rails.root %>/helpers/your_helper.rb</header><code class='language-ruby'><%= render('static/customize/helper').to_str %></code></pre>
   </div>
 
   <p>It is automatically available in your views.</p>
 
   <div class='file preview'>
-    <p><%= Rails.root %>/helpers/your_helper.rb</p>
-    <pre><code class='language-html'><%= render('static/customize/helper_used').to_str %></code></pre>
+    <pre><header><%= Rails.root %>/helpers/your_helper.rb</header><code class='language-html'><%= render('static/customize/helper_used').to_str %></code></pre>
   </div>
 </section>
 
@@ -78,8 +75,7 @@
   <p>Sprockets uses a directive through commenting the top of the file. It uses a similar syntax it shouldn't be too hard to make modification. Also, there's an example from within this theme.</p>
 
   <div class='file preview'>
-    <p><%= Rails.root %>/assets/javascripts/base.js.coffee</p>
-    <pre><code class='language-coffeescript'><%= render('static/customize/javascript').to_str %></code></pre>
+    <pre><header><%= Rails.root %>/assets/javascripts/base.js.coffee</header><code class='language-coffeescript'><%= render('static/customize/javascript').to_str %></code></pre>
   </div>
 
   <p>Note that if you want to use vanilla javascript, you will need to use the commenting syntax for javascript (//=).</p>
@@ -88,8 +84,7 @@
   <p>Images can be any format that are supported by the browser. However, you need to use a helper when you use images that you put in the assets/images folder.</p>
 
   <div class='file preview'>
-    <p><%= Rails.root %>/assets/images/header.png</p>
-    <pre><code class='language-coffeescript'><%= render('static/customize/image').to_str %></code></pre>
+    <pre><header><%= Rails.root %>/assets/images/header.png</header><code class='language-coffeescript'><%= render('static/customize/image').to_str %></code></pre>
   </div>
 
 </section>

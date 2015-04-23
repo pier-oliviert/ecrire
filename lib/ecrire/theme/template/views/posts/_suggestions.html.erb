@@ -1,8 +1,8 @@
 <div class='suggestions'>
   <h5>Other article you may be interested in</h5>
-  <ol>
+  <ol class='posts'>
     <% posts.each do |post| %>
-      <li><%= link_to post.title, url('/:post.year/:post.month/:post.slug', post: post) %></li>
+      <%= render post %>
     <% end %>
   </ol>
 </div>

@@ -1,5 +1,8 @@
 <% if posts.any? %>
   <ol class='posts'>
+    <% unless @latest.nil? %>
+      <%= render 'latest', post: @latest %>
+    <% end %>
     <%= render posts %>
     <%= paginate posts %>
   </ol>

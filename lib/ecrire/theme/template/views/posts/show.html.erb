@@ -1,6 +1,11 @@
 <% content_for :header do %>
   <%= content_tag :h2, post.title %>
   <%= content_tag :time, l(post.published_at.to_date, format: :long) %>
+
+  <% if signed_in? %>
+    <div class='admin'>
+    </div>
+  <% end %>
 <% end %>
 
 <section class="content">
