@@ -1,0 +1,17 @@
+<li class="post latest">
+  <figure>
+    <%= content_tag :h3, link_to(post.title, url('/:post.year/:post.month/:post.slug', post: post)) %>
+    <%= content_tag :time, l(post.published_at.to_date, format: :long) %>
+  </figure>
+
+  <div class='content'>
+    <%= post.excerpt %>
+  </div>
+
+  <section class='info'>
+
+    <%= render 'tags', tags: post.tags %>
+
+    <%= link_to 'Continue reading', url('/:post.year/:post.month/:post.slug/', post: post), class: %w(read) %>
+  </section>
+</li>

@@ -1,9 +1,9 @@
 <li class="post">
-  <%= content_tag :h2, link_to(post.title, url('/:post.year/:post.month/:post.slug', post: post)) %>
-  <%= content_tag :time, l(post.published_at.to_date, format: :long) %>
   <div class='content'>
-    <%= post.excerpt %>
-  </div>
+    <%= content_tag :h3, link_to(post.title, url('/:post.year/:post.month/:post.slug', post: post)) %>
 
-  <%= link_to 'Read more', url('/:post.year/:post.month/:post.slug/', post: post), class: %w(read) %>
+    <%= render 'posts/tags', tags: post.tags %>
+  </div>
+  <figure>
+  </figure>
 </li>

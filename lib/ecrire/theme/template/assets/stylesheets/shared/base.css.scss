@@ -1,0 +1,143 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  @include display(flex);
+  @include flex(1);
+  margin: 0;
+  padding: 0;
+  background: $light-blue;
+  color: rgb(24, 27, 20);
+  font-size: 16px;
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  @include flex-direction(column);
+}
+
+main {
+  @include display(flex);
+  @include flex(1);
+  @include flex-direction(column);
+
+  & > header, & > article {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  & > article {
+    @include display(flex);
+    @include flex(1);
+    padding: 0 3em 6em 3em;
+  }
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0.66em 0 0.33em 0;
+  font-weight: 200;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+h1 {
+  line-height: 1em;
+  font-weight: 100;
+  font-size: 3.0em;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2.6em;
+}
+
+h3 {
+  font-size: 2.2em;
+}
+
+h4 {
+  font-size: 2.0em;
+}
+
+h5 {
+  font-style: italic;
+  font-size: 1.7em;
+}
+
+h6 {
+  font-style: italic;
+  font-size: 1.5em;
+}
+
+p {
+  line-height: 1.5em;
+}
+
+main > article {
+
+  time {
+    font-size: 0.8em;
+    text-transform: uppercase;
+  }
+
+  ol.posts {
+    @include display(flex);
+    @include flex-direction(column);
+
+    li {
+      @include display(flex);
+      @include flex-direction(column);
+      margin-bottom: 1em;
+
+      h2 {
+        margin-bottom: 0;
+      }
+    }
+
+    div.content {
+      margin: 1em 0;
+      font-size: 1.1em;
+    }
+
+  }
+
+  div.posts.empty {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+  }
+}
+
+main.customize article {
+  @include flex-direction(column);
+  max-width:900px;
+  margin: 0 auto;
+
+  pre {
+    background-color: $gray-blue;
+    padding: 0;
+
+    header {
+      text-align: center;
+      font-size: 0.8em;
+      font-style: italic;
+      padding: 0.5em 1em;
+      background-color: $light-gray-blue;
+    }
+
+    code {
+      padding: 1em;
+      display: block;
+    }
+  }
+}

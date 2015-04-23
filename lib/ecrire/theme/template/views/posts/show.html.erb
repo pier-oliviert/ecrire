@@ -1,7 +1,29 @@
-<%= content_tag :h2, post.title %>
-<%= content_tag :time, l(post.published_at.to_date, format: :long) %>
+<% content_for :header do %>
+  <%= content_tag :h2, post.title %>
+  <%= content_tag :time, l(post.published_at.to_date, format: :long) %>
 
-<div class="content">
+  <% if signed_in? %>
+    <div class='admin'>
+    </div>
+  <% end %>
+<% end %>
+
+<section class="content">
   <%= @post.content.html_safe %>
-</div>
 
+  <% if @suggestions.count > 1 %>
+    <%= render 'suggestions', posts: @suggestions %>
+  <% end %>
+</section>
+
+<aside>
+  <section class='ecrire'>
+    <h3 class='logo'>Ecrire</h3>
+    <p>The sidebar is usually where you want to store information about yourself.</p>
+  </section>
+
+  <section class='mailing list'>
+    <h3>Mailing list</h3>
+    <p>You could also add a mailing list form so visitors can subscribe.</p>
+  </section>
+</aside>

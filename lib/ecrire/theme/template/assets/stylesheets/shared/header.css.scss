@@ -1,0 +1,42 @@
+main > header {
+  @include display(flex);
+  @include flex-direction(column);
+
+  padding: 2em 1em;
+  background-color: $navy-blue;
+  color: $light-blue;
+
+  nav {
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    h1, ol {
+      margin: 0;
+    }
+
+    h1 {
+      font-family: courier;
+    }
+
+    ol {
+      @include flex(0 auto);
+      @include display(flex);
+      font-size: 0.8em;
+      padding: 0;
+      list-style-type: none;
+
+      li {
+        margin: 0 1em;
+      }
+    }
+
+  }
+
+  div.content {
+    @include display(flex);
+    @include flex-direction(column);
+    @include flex(1);
+    @include justify-content(center);
+  }
+}

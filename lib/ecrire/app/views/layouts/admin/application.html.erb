@@ -7,9 +7,8 @@
     <%= javascript_include_tag "admin" %>
     <%= csrf_meta_tags %>
   </head>
-  <%= body_tag class: %W(#{action_name} #{controller_name}) do %>
-
-    <main>
+  <body>
+    <%= main_tag class: [action_name, controller_name] do %>
       <%= content_tag :nav, id: 'Menu', class: ['admin', controller_name] do %>
         <section>
           <div class='back'>
@@ -41,7 +40,7 @@
       <% end %>
 
       <%= yield %>
-    </main>
+    <% end %>
 
-  <% end %>
+  </body>
 </html>

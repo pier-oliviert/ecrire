@@ -44,6 +44,13 @@ ObserveJS.bind 'Editor.Content', class @Editor
       if mutations.target?
         @updated(mutations)
 
+      if @element().children.length == 0
+        line = @lines('')[0]
+        @element().appendChild(line)
+        cursor = new Editor.Cursor(0)
+        cursor.update(@walker(line), 0)
+
+
     event = new CustomEvent('Editor:updated', {bubbles: true})
     @element().dispatchEvent(event)
 

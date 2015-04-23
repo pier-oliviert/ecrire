@@ -3,6 +3,10 @@ class PostsController < Ecrire::ThemeController
 
   def index
     @posts = posts.published.includes(:titles).order('published_at DESC').page(params[:page]).per(params[:per])
+    if params[:page] == 1
+      @latest = @posts.first
+      @posts = @posts.where.not(id: @latest.id)
+    end
     @tags = Tag.all
     super
   end
@@ -13,6 +17,8 @@ class PostsController < Ecrire::ThemeController
     if post.titles.first != @title
       redirect_to theme.post_path(post.year, post.month, post), status: :moved_permanently
     end
+
+    @suggestions = Post.published.limit(5).where.not(id: post.id)
   end
 
   protected
