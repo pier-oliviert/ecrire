@@ -1,8 +1,7 @@
 <li class="post">
   <div class='content'>
     <%= content_tag :h3, link_to(post.title, url('/:post.year/:post.month/:post.slug', post: post)) %>
-
-    <%= render 'posts/tags', tags: post.tags %>
+    <%= content_tag :time, l(post.published_at, format: "%B %Y") %>
   </div>
   <figure>
   </figure>

@@ -1,0 +1,151 @@
+ol.posts {
+  max-width: 900px;
+  margin: 4em auto;
+  width: 100%;
+
+  li {
+    svg {
+      width: 16px;
+      fill: $gray-blue;
+    }
+
+    div.tags {
+      @include display(flex);
+      @include align-items(center);
+      span {
+        font-size: 0.8em;
+        margin: 0 0.5em;
+
+        &.empty {
+          color: $gray-blue;
+        }
+      }
+
+    }
+  }
+}
+
+ol.posts li.latest {
+  margin: 6em 0;
+  background: $light-gray-blue;
+  border-radius: 3px;
+  overflow: hidden;
+
+  div.content {
+    padding: 1em;
+  }
+
+  svg {
+    margin: 0 0.5em;
+  }
+
+  figure {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    @include justify-content(center);
+
+    position: relative;
+    height: 300px;
+    background-color: $navy-blue;
+    color: $light-blue;
+    margin: 0;
+    padding: 0 5em;
+
+    h3 {
+      text-align: center;
+    }
+  }
+
+
+}
+
+ol.posts li.latest section.info {
+  @include display(flex);
+  @include justify-content(space-between);
+
+  border-top: 1px solid $gray-blue;
+
+  div.tags {
+    & > span.empty {
+      border-radius: 3px;
+    }
+  }
+
+  a {
+    @include transition(background-color 0.2s, color 0.2s, box-shadow 0.2s);
+    padding: 4px 8px;
+    border: 1px solid $gray-blue;
+    border-radius: 3px;
+    margin: 0.5em;
+    text-decoration: none;
+    box-shadow: inset 0 1px 0px 0 #FFF;
+
+    &:hover {
+      background-color: $navy-blue;
+      color: $light-blue;
+      box-shadow: none;
+      border-color: $navy-blue;
+    }
+  }
+}
+
+
+ol.posts li:not(.latest) {
+  @include display(flex);
+  @include flex-direction(row);
+
+  height: 200px;
+
+  figure {
+    @include flex(0 200px);
+    background-color: $navy-blue;
+  }
+
+  div.content {
+    @include flex(1);
+    @include display(flex);
+    @include justify-content(center);
+    @include flex-direction(column);
+  }
+
+  svg {
+    margin-right: 0.5em;
+  }
+
+  div.tags {
+    margin: 0.5em 0;
+  }
+
+}
+
+#PostsShow header {
+  height: 400px;
+  h2, time {
+    text-align: center;
+  }
+}
+
+#PostsShow article {
+  max-width: 1200px;
+  width: 100%;
+  margin: 3em auto;
+
+  section.content {
+    max-width: 900px;
+    width: 70%;
+
+    .suggestions {
+      h5 {
+        text-align: center;
+      }
+    }
+  }
+
+  aside {
+    padding: 2em 1em;
+    max-width: 300px;
+    width: 30%;
+  }
+
+}
