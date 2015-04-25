@@ -38,12 +38,19 @@ class Title < ActiveRecord::Base
 
   end
 
+  include PgSearch
   include ActiveModel::Validations
   validates_with Title::Validator
 
   before_validation :generate_slug
 
   belongs_to :post, required: true
+
+  pg_search_scope :search_by_name,
+    against: :name,
+    :using => {
+      :tsearch => {:prefix => true}
+    }
 
   scope :slug, lambda { |slug|
     where('titles.slug = ?', slug)

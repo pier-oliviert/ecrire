@@ -5,6 +5,7 @@ Ecrire::Application.routes.draw do
 
     namespace :admin do
       root 'posts#index'
+      resources :tags
       resources :posts do
         collection do
           get 'help', controller: :posts, action: :help
@@ -26,4 +27,3 @@ Ecrire::Application.routes.draw do
   end
 
 end
-

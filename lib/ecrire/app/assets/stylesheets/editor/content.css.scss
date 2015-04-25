@@ -1,0 +1,41 @@
+article.content {
+  @include flex(1);
+  font-family: 'Courier New', 'Courier';
+  font-weight: 200;
+  outline: none;
+  font-size: 1.3em;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+
+  h1 { font-size: 2.4em; }
+  h2 { font-size: 2.1em; }
+  h3 { font-size: 1.8em; }
+  h4 { font-size: 1.6em; }
+  h5 { font-size: 1.4em; }
+  h6 { font-size: 1.2em; }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 2em 0 1em 0;
+    font-weight: bold;
+  }
+
+  & > * {
+    white-space: pre-wrap;
+    min-height: 1.6em;
+    line-height: 1.6em;
+    margin: 0.3em 0;
+  }
+
+  & > p, & > ol, & > ul, & > figure {
+    margin: 1.8em 0;
+  }
+
+  & > ul, & > ol {
+    margin-left: 2em;
+    li {
+      margin: 0.2em 0;
+    }
+  }
+
+}

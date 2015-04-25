@@ -1,18 +1,7 @@
 <nav id="Menu" class="admin">
 
   <section>
-    <div class='posts'>
-      <%= link_to 'New post', new_admin_post_path, class: %w(new button) %>
-      <%= link_to admin_posts_path(type: :draft), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
-        <span class='type'>Drafts</span>
-        <%= content_tag :span, Post.drafted.count, class: %w(count) %>
-      <% end %>
-
-      <%= link_to admin_posts_path(type: :published), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
-        <span class='type'>Published</span>
-        <%= content_tag :span, Post.published.count, class: %w(count) %>
-      <% end %>
-    </div>
+    <%= link_to 'Posts', admin_posts_path, class: %w(button) %>
   </section>
 
 

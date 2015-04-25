@@ -1,0 +1,11 @@
+#Help {
+  @include transition(fill 0.3s);
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  width: 32px;
+  fill: $light-blue;
+  &:hover {
+    fill: darken($light-blue, 50%);
+  }
+}

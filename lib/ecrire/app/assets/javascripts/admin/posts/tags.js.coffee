@@ -1,15 +1,32 @@
-ObserveJS.bind 'Post.Tags', class
+ObserveJS.bind 'Posts.Filter.Tags', class
   loaded: =>
     @on 'tags:index', @show
-    @on 'tags:update', document, @update
+    @on 'click', @action
+    @element().appendChild(@retrieve('svg.placeholder'))
 
   show: (e) =>
     document.body.appendChild(e.HTML)
-    e.HTML.querySelector('input').focus()
+    @on 'click', e.HTML, @select
 
-  update: (e) =>
-    target = @element().querySelector("[oid='#{e.HTML.getAttribute('oid')}']")
-    if target?
-      target.remove()
+  select: (e) =>
+    span = @retrieve('span.tag')
+    span.textContent = e.target.textContent
+    @retrieve('svg.placeholder').remove()
+    @element().appendChild(span)
+    @element().appendChild(@retrieve('svg.clear'))
+    @element().setAttribute('tid', e.target.getAttribute('oid'))
+    @element().classList.add 'tagged'
+    document.querySelector("[as='Overlay']").instance.remove()
+    document.querySelector("[as='Posts.Filter']").instance.search()
+
+  action: =>
+    if @element().classList.contains('tagged')
+      @retrieve('svg.clear').remove()
+      @retrieve('span.tag').remove()
+      @element().appendChild(@retrieve('svg.placeholder'))
+      @element().classList.remove('tagged')
+      @element().removeAttribute('tid')
     else
-      @element().insertBefore(e.HTML, @element().lastElementChild)
+      xhr = new ObserveJS.XHR(@element())
+      xhr.send()
+    document.querySelector("[as='Posts.Filter']").instance.search()

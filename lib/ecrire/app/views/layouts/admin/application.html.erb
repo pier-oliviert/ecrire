@@ -9,35 +9,8 @@
   </head>
   <body>
     <%= main_tag class: [action_name, controller_name] do %>
-      <%= content_tag :nav, id: 'Menu', class: ['admin', controller_name] do %>
-        <section>
-          <div class='back'>
-            <%= link_to 'Home', '/' %>
-          </div>
-          <div class='posts'>
-            <h4>
-              <%= link_to 'New post', new_admin_post_path, class: %w(new button) %>
-            </h4>
-            <%= link_to admin_posts_path(type: :draft), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
-              <span class='type'>Drafts</span>
-              <%= content_tag :span, posts.drafted.count, class: %w(count) %>
-            <% end %>
 
-            <%= link_to admin_posts_path(type: :published), class: %w(drafts), remote: true, as: 'Posts.Popup' do %>
-              <span class='type'>Published</span>
-              <%= content_tag :span, posts.published.count, class: %w(count) %>
-            <% end %>
-          </div>
-        </section>
-
-        <%= yield :menu %>
-
-        <%= button_to session_path, method: :delete, class: %w(logout), form_class: %w(form logout) do %>
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="logout" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-            <path d="M19,10l-6-5v3H6v4h7v3L19,10z M3,3h8V1H3C1.9,1,1,1.9,1,3v14c0,1.1,0.9,2,2,2h8v-2H3V3z"/>
-          </svg>
-        <% end %>
-      <% end %>
+      <%= render 'sessions/navigation' %>
 
       <%= yield %>
     <% end %>

@@ -1,6 +1,11 @@
 main.edit.posts > header {
   @include display(flex);
   @include flex(0 auto);
+  @include align-items(center);
+  @include justify-content(center);
+  background-color: $bright-blue;
+  color: lighten($bright-blue, 50%);
+  min-height: 200px;
 }
 
 main.edit.posts > header > div.title {
@@ -132,7 +137,7 @@ main.edit.posts > header > div.title {
   width: 100%;
   height: 100%;
 
-  background: $red-color;
+  background: $red;
   color: $dark-red-color;
 
   &:not(.hidden) {

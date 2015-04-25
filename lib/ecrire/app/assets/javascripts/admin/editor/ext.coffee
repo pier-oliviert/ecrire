@@ -24,7 +24,10 @@ HTMLPreElement::toString = ->
   @textContent
 
 HTMLElement::toString = ->
-  @textContent
+  if @nodeName == 'FIGURE'
+    @querySelector('figcaption').textContent
+  else
+    @textContent
 
 HTMLHeadingElement::toString = HTMLParagraphElement::toString = ->
   @textContent

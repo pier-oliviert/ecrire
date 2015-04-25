@@ -1,0 +1,53 @@
+#SavePost {
+  @include transition(opacity 0.6s, height 0.3s, background-color 0.3s);
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+  position: fixed;
+  padding: 1em;
+  bottom: 10vh;
+  left: calc(50% - 150px);
+  width: 300px;
+  z-index: 1000;
+  overflow: hidden;
+  background-color: rgba(128, 218, 128, 0.90);
+  font-size: 1.5em;
+  border-radius: 2px;
+  box-shadow: 0 0 2px 0 darken(green, 5%);
+  color: darken(green, 5%);
+  text-shadow: lighten(green, 5%);
+
+  &.saving {
+    height: 3px;
+    div.progress {
+      @include transition(width 0.3s);
+
+    }
+  }
+
+  &.fade {
+    opacity: 0;
+  }
+
+  &.success {
+    height: 4em;
+    text-align: center;
+    background-color: lighten(green, 50%);
+  }
+
+  div.progress {
+    position: absolute;
+    @include transition(width 0.2s ease-in);
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: lighten(green, 5%);
+  }
+
+  p.message {
+    margin: 0;
+    line-height: 1em;
+    font-weight: thin;
+  }
+}
