@@ -26,23 +26,29 @@ nav#Menu.admin {
   }
 }
 
-nav#Menu.admin .logout {
-  border: none;
-  background: none;
+nav#Menu.admin form.logout {
+  @include transition(color 0.3s,background-color 0.3s, border 0.3s, box-shadow 0.3s);
+  border: 1px solid lighten($red, 5%);
+  border-radius: 2px;
+  color: lighten($red, 5%);
   margin: 0;
-  padding: 0;
+  padding: 4px 8px;
   cursor: pointer;
   outline: none;
 
-  svg.logout {
-    @include transition(fill 0.3s ease);
-    margin: 0;
-    width: 1em;
-    height: 1em;
-    fill: darken(red, 5%);
-
-    &:hover {
-      fill: lighten(red, 15%);
-    }
+  &:hover {
+    background-color: lighten($red, 5%);
+    color: lighten($red, 30%);
+    box-shadow: 0 1px 1px darken($red, 20%);
   }
+
+  &:active {
+    box-shadow: none;
+  }
+
+  input {
+    padding: 0;
+    margin: 0;
+  }
+
 }

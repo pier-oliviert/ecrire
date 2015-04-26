@@ -3,7 +3,7 @@ ObserveJS.bind 'Posts.Filter', class
     @on 'input', @search
     @on 'posts:index', @update
 
-    @element().querySelector('input').focus()
+    @element().querySelector('input.search').focus()
 
   search: =>
     xhr = new ObserveJS.XHR(@element())

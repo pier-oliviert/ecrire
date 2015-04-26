@@ -135,3 +135,24 @@ main.posts div.publish {
   }
 
 }
+
+#PostsIndex ~ div.overlay #TagsList {
+  h2 {
+    text-align: center;
+    margin: 0;
+    padding: 1em 0;
+    background-color: $gray-blue;
+    border-bottom: 1px solid lighten($light-blue, 25%);
+    color: lighten($light-blue, 25%);
+  }
+
+  li {
+    @include transition(background-color 0.2s ease);
+    padding: 1em;
+    margin: 0;
+    cursor: pointer;
+    &:hover {
+      background-color: $light-blue;
+    }
+  }
+}
