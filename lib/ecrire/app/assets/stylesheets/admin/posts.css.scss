@@ -1,6 +1,5 @@
 main.posts {
   @include display(flex);
-  @include flex-direction(column);
 }
 
 main.posts > section {
@@ -229,10 +228,10 @@ main.posts.view > header > nav > div.publish.state {
     text-shadow: 0 -1px darken($green, 10%);
     text-decoration: none;
     background-color: darken($green, 5%);
-    box-shadow: inset 0 1px 1px 0 lighten($green, 15%);
+    box-shadow: inset 0 1px 1px 0 lighten($green, 15%), 0 1px 1px transparent;
 
     &:hover {
-      box-shadow: inset 0 0 0 0 lighten($green, 15%), 0 1px 1px darken($green, 25%);
+      box-shadow: inset 0 1px 1px 0 transparent, 0 1px 1px darken($green, 25%);
     }
 
     &:active {
@@ -368,6 +367,7 @@ main.posts.view > section:not(.preview) {
 }
 
 main.posts.view > section.preview {
+  @include justify-content(flex-start);
   max-width: 800px;
   width: 100%;
   margin: 3em auto;

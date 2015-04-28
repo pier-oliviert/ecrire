@@ -17,5 +17,5 @@
 
 <section class='preview'>
   <%= link_to 'Edit this post', edit_admin_post_path(@post) %>
-  <%= content_tag :article, @post.compiled_content.html_safe %>
+  <%= content_tag :article, @post.compiled_content.try(:html_safe) %>
 <section>

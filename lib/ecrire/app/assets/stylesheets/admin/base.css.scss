@@ -81,6 +81,7 @@ button, input {
 main {
   @include flex(1 100%);
   @include display(flex);
+  @include flex-direction(column);
   position: relative;
   z-index: 1;
 }
@@ -130,5 +131,6 @@ main {
   &:active:not(.selected) {
     box-shadow: none;
     color: lighten($navy-blue, 100%);
+    text-shadow: 0 1px lighten($navy-blue, 25%);
   }
 }

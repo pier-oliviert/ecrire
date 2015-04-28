@@ -1,3 +1,154 @@
+#TagsIndex, #TagsCreate {
+  header > form {
+    @include display(flex);
+    @include align-items(flex-start);
+    @include justify-content(center);
+    @include flex(1);
+
+    margin: 5em auto 2em auto;
+    width: 100%;
+    max-width: 500px;
+    margin: 5em auto 0 auto;
+
+    div.fieldset {
+      @include display(flex);
+      @include flex-direction(column);
+      width: 100%;
+    }
+
+    input {
+      @include flex(1);
+      border: 1px solid lighten($gray-blue, 25%);
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    div.fieldset, ul.errors {
+      @include flex(1);
+      max-width: 500px;
+      width: 100%;
+      margin: 0 1em 0 0;
+      input {
+        width: 100%;
+      }
+    }
+
+    button {
+      @include flex(0 0 auto);
+      @include transition(box-shadow 0.2s);
+      text-transform: uppercase;
+      font-size: 0.8em;
+      font-weight: bold;
+      padding: 4px 8px;
+      margin-top: 2px;
+      border-radius: 2px;
+      color: lighten($green, 35%);
+      text-shadow: 0 -1px darken($green, 10%);
+      text-decoration: none;
+      background-color: darken($green, 5%);
+      box-shadow: inset 0 1px 0 0 lighten($green, 15%), 0 1px 1px transparent;
+
+      &:hover {
+        box-shadow: inset 0 1px 0 0 transparent, 0 1px 1px darken($green, 25%);
+      }
+
+      &:active {
+        box-shadow: none;
+      }
+    }
+
+    div.fieldset.errors {
+
+      input {
+        border: 1px solid darken($red, 5%);
+        border-radius: 2px 2px 0 0;
+      }
+
+      input + ul.errors {
+        font-size: 0.8em;
+        margin: 0;
+        padding: 0 1em;
+        background-color: $red;
+        border-radius: 0px 0px 2px 2px;
+        border-left: 1px solid darken($red, 5%);
+        border-right: 1px solid darken($red, 5%);
+        border-bottom: 1px solid darken($red, 5%);
+
+        box-shadow: 0 1px 1px darken($red, 15%);
+
+        color: darken($red, 50%);
+        text-shadow: 0 1px lighten($red, 5%);
+
+        li {
+          @include justify-content(center);
+        }
+      }
+    }
+  }
+}
+
+#TagsIndex > ol.tags {
+  width: 100%;
+  max-width: 500px;
+  margin: 2em auto;
+
+  li {
+    @include display(flex);
+    @include align-items(stretch);
+    @include transition(border-left 0.2s);
+
+    margin: 3em 0;
+    padding: 0.5em 1em;
+    border-left: 3px solid transparent;
+
+    & > div {
+      @include flex(1);
+      margin-right: 1em;
+    }
+
+    &:hover {
+      border-color: lighten($navy-blue, 35%);
+    }
+
+    h3 {
+      font-weight: bolder;
+      margin: 0;
+      font-size: 1.3em;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    form {
+      @include flex(0 auto);
+      @include display(flex);
+      @include flex-direction(column);
+      @include justify-content(flex-start);
+    }
+
+    button {
+      margin-top: 2px;
+      border-color: $red;
+      font-weight: bold;
+      color: $red;
+
+      &:hover:not(:active) {
+        color: darken($red, 25%);
+        background-color: lighten($red, 15%);
+        text-shadow: 0 1px lighten($red, 25%);
+        box-shadow: inset 0 1px 0 0 lighten($red, 25%), 0 1px 1px darken($red, 15%);
+      }
+
+      &:active {
+        background-color: lighten($red, 15%);
+        text-shadow: 0 1px lighten($red, 25%);
+        color: darken($red, 25%);
+      }
+    }
+  }
+}
+
 #TagsIndex > section ul li input {
   @include appearance(none);
   position: relative;
@@ -49,4 +200,77 @@
   & + label {
     cursor: pointer;
   }
+}
+
+#TagsDestroy button {
+  margin: 1em 0;
+  font-size: 1em;
+  border-color: $red;
+  color: $red;
+  font-weight: bold;
+
+  &:hover:not(:active) {
+    color: darken($red, 25%);
+    background-color: lighten($red, 15%);
+    text-shadow: 0 1px lighten($red, 25%);
+    box-shadow: inset 0 1px 0 0 lighten($red, 25%), 0 1px 1px darken($red, 15%);
+  }
+
+  &:active {
+    background-color: lighten($red, 15%);
+    text-shadow: 0 1px lighten($red, 25%);
+    color: darken($red, 25%);
+  }
+}
+
+
+#TagsDestroy header {
+  margin: 5em 0 0 0;
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+
+  h2 {
+    font-size: 2em;
+    font-weight: bolder;
+    margin: 0;
+    svg {
+      width: 0.8em;
+    }
+  }
+
+  form {
+    margin: 1em 0;
+  }
+}
+
+#TagsDestroy > section {
+  @include flex(1);
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  margin: 5em 0;
+
+  h3 {
+    font-size: 1.4em;
+    margin: 0;
+  }
+
+  ul.tags {
+    @include display(flex);
+    @include flex-direction(column);
+    font-weight: bolder;
+    margin: 1em 0;
+
+    li {
+      @include display(flex);
+      @include align-items(center);
+    }
+
+    label {
+      margin: 0 1em;
+      cursor: pointer;
+    }
+  }
+
 }

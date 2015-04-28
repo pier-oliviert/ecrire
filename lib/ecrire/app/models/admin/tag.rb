@@ -1,4 +1,4 @@
 module Admin
-  class Tag < ActiveRecord::Base
+  class Tag < ::Tag
   end
 end

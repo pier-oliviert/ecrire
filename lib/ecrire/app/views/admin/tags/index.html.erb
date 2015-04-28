@@ -1,20 +1,17 @@
 <header>
-  <% if @post.published? %>
-    <h2>Published</h2>
-  <% else %>
-    <h2>Draft</h2>
-  <% end %>
-  <nav>
-    <div class='meta'>
-      <%= link_to 'Preview', admin_post_path(@post) %>
-      <%= link_to 'Tags', admin_post_tags_path(@post) %>
-      <%= link_to 'Title', admin_post_titles_path(@post) %>
-    </div>
-
-    <% if @post.published? %>
-      <%= link_to 'Retract', admin_post_retract_path(@post), method: :put %>
-    <% else %>
-      <%= link_to 'Publish', admin_post_publish_path(@post), method: :put %>
-    <% end %>
-  </nav>
+  <%= render 'form', tag: @tag %>
 </header>
+
+<ol class='tags'>
+  <% @tags.each do |tag| %>
+    <%= content_tag :li do %>
+      <div>
+        <%= content_tag :h3, tag.name %>
+        <%= content_tag :p, "#{tag.posts.count} posts" %>
+      </div>
+      <%= form_for tag, url: url('/admin/tags/:tag.id', tag: tag), method: :delete do |f| %>
+        <%= f.button 'Delete', class: %w(button) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</ol>

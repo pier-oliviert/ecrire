@@ -1,0 +1,32 @@
+<header>
+
+  <h2>You have <%= @tag.posts.count %> posts tagged <svg version="1.1" class="tag icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+      <path d="M18.662,5.521L5.237,19l0.707-4.967l-4.945,0.709L14.424,1.263c0.391-0.392,1.133-0.308,1.412,0l2.826,2.839 C19.162,4.575,19.053,5.128,18.662,5.521z"/>
+    </svg><%= @tag.name %></h2>
+
+  <p>You can transfer them to another tag.</p>
+
+  <%= form_for @tag, method: :delete, url: url('/admin/tags/:tag.id', tag: @tag), as: 'tag' do |f| %>
+    <%= hidden_field_tag :confirmed, value: true %>
+    <%= f.button "No, Just remove #{@tag.name}", class: %w(button) %>
+  <% end %>
+
+</header>
+
+<section>
+  <h3>Transfer <%= @tag.posts.count %> posts to the following tag</h3>
+
+  <%= form_for @tag, method: :delete, url: url('/admin/tags/:tag.id', tag: @tag, as: 'tag') do |f| %>
+    <%= hidden_field_tag :confirmed, value: true %>
+    <ul class='tags'>
+      <% @tags.each do |tag| %>
+        <li>
+          <%= content_tag :input, '', type: 'radio', name: 'transfer_tag_id', id: "MigrateTag-#{tag.id}", value: tag.id %>
+          <%= content_tag :label, tag.name, for: "MigrateTag-#{tag.id}" %>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= f.button "Remove #{@tag.name} and transfer the posts", class: %w(button) %>
+  <% end %>
+</section>

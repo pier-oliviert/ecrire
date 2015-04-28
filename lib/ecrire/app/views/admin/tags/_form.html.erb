@@ -1,0 +1,20 @@
+<%= form_for tag, as: 'tag' do |f| %>
+  <%= content_tag :div, class: %w(fieldset) do |div| %>
+
+    <% if tag.errors.any? %>
+      <% div.css << 'errors' %>
+    <% end %>
+
+    <%= f.text_field :name, placeholder: "Create a new tag" %>
+
+    <% if tag.errors.any? %>
+      <ul class='errors'>
+        <% tag.errors.each do |key, message| %>
+          <%= content_tag :li, message %>
+        <% end %>
+      </ul>
+    <% end %>
+
+  <% end %>
+  <%= f.button 'Create this tag' %>
+<% end %>
