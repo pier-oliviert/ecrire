@@ -20,13 +20,23 @@ class PostsControllerTest < TestController
     log_in!
     post :create, post: {title: Post.first.title}
     assert_select 'ul.errors' do
-      assert_select 'li[key=title]'
+      assert_select 'li[key=uniqueness]'
     end
   end
 
-  test "publishing a post redirect the user to the post's URL" do
+  test "toggling a draft will make it published" do
     log_in!
-    put :update, id: Post.status(:draft).first.id, button: :publish
-    assert_redirected_to @controller.url(Ecrire::Theme::Engine.post_path, post: assigns(:post))
+    @post = Post.status(:draft).first
+    put :toggle, post_id: @post.id, format: :js
+    assert_response 200
+    assert @post.reload.published?
+  end
+
+  test "toggling a published post will make it a draft" do
+    log_in!
+    @post = Post.published.first
+    put :toggle, post_id: @post.id, format: :js
+    assert_response 200
+    assert !@post.reload.published?
   end
 end
