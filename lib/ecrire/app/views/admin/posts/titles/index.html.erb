@@ -3,9 +3,9 @@
   <%= content_tag :h2, @post.title %>
   <nav>
     <div class='meta'>
-      <%= link_to 'Preview', admin_post_path(@post) %>
-      <%= link_to 'Tags', admin_post_tags_path(@post) %>
-      <%= link_to 'Title', admin_post_titles_path(@post), class: %w(selected) %>
+      <%= link_to 'Preview', admin_post_path(@post), class: %w(button) %>
+      <%= link_to 'Tags', admin_post_tags_path(@post), class: %w(button) %>
+      <%= link_to 'Title', admin_post_titles_path(@post), class: %w(selected button) %>
     </div>
 
     <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>

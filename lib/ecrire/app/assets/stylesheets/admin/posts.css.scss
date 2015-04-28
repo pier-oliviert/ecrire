@@ -195,12 +195,20 @@ main.posts.view > header > nav > div.publish.state {
   margin: 2em 0;
 
   li {
+    @include display(flex);
+    @include flex-direction(column);
     @include flex(1 1 100%);
+    @include justify-content(space-between);
     max-width: 400px;
     padding: 1em;
     margin: 0.1em;
     background-color: lighten($gray-blue, 30%);
     color: $navy-blue;
+
+    h3 {
+      font-weight: bold;
+      margin: 0 0 1em 0;
+    }
 
     a {
       color: inherit;
@@ -313,35 +321,6 @@ main.posts.view > header {
     @include flex(1);
     padding: 0 1em 1em 1em;
     border-bottom: 1px solid lighten($gray-blue, 25%);
-  }
-
-  div.meta a {
-    @include transition(border-color 0.3s, background-color 0.3s, box-shadow 0.3s, color 0.3s);
-    border: 1px solid lighten($navy-blue, 25%);
-    border-radius: 2px;
-    text-decoration: none;
-    padding: 4px 8px;
-    margin: 0 0.5em;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    font-weight: bolder;
-
-    &.selected {
-      background-color: lighten($navy-blue, 25%);
-      border-color: lighten($navy-blue, 25%);
-      color: lighten($navy-blue, 100%);
-    }
-
-    &:hover:not(.selected) {
-      background-color: lighten($navy-blue, 25%);
-      box-shadow: inset 0 1px 0 lighten($navy-blue, 30%), 0 1px 1px darken($navy-blue, 25%);
-      color: lighten($navy-blue, 60%);
-    }
-
-    &:active:not(.selected) {
-      box-shadow: none;
-      color: lighten($navy-blue, 100%);
-    }
   }
 
 }
