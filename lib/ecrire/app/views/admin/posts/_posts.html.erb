@@ -1,0 +1,11 @@
+<ol class='posts'>
+  <% posts.each do |post| %>
+    <li>
+      <%= content_tag :h3, post.title %>
+      <div class='actions'>
+        <%= link_to 'Preview', admin_post_path(post), class: %w(button) %>
+        <%= link_to 'Edit', edit_admin_post_path(post), class: %w(button) %>
+      </div>
+    </li>
+  <% end %>
+</ol>

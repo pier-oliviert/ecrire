@@ -1,4 +1,33 @@
 class Tag < ActiveRecord::Base
+  class Validator < ActiveModel::Validator
+    def validate(record)
+      validate_presence! record
+      validate_uniqueness! record
+    end
+
+    def validate_presence!(record)
+      if record.name.blank?
+        msg = "Your tag can't be blank."
+        record.errors['name'] << msg
+      elsif record.name.length < 1
+        msg = "Your tag needs to be at least 1 character long."
+        record.errors['name'] << msg
+      end
+    end
+
+    def validate_uniqueness!(record)
+      tag = Tag.where('tags.name = ?', record.name).first
+      unless tag.nil?
+        msg = "You already have a tag with this name: #{tag.name}"
+        record.errors['uniqueness'] << msg
+        return
+      end
+    end
+  end
+
+  include ActiveModel::Validations
+  validates_with Tag::Validator
+
   def ==(other)
     self.class.table_name == other.class.table_name && self.id == other.id
   end

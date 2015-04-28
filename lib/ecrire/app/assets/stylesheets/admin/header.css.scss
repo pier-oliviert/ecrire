@@ -1,0 +1,189 @@
+main.edit.posts > header {
+  @include display(flex);
+  @include flex(0 auto);
+  @include align-items(center);
+  @include justify-content(center);
+  background-color: $bright-blue;
+  color: lighten($bright-blue, 50%);
+  min-height: 200px;
+}
+
+main.edit.posts > header > div.title {
+  @include display(flex);
+  @include flex-direction(column);
+  @include transition(opacity 0.2s linear);
+  text-align: center;
+  width: 100%;
+  z-index: 5;
+  & > p.browse {
+    @include transition(color 0.3s);
+    font-size: 0.7em;
+    cursor: pointer;
+    &:hover {
+      color: rgb(114, 153, 204);
+    }
+  }
+
+  svg.clear {
+    @include transition(fill 0.3s);
+    width: 30px;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    fill: #D8ABAB;
+    cursor: pointer;
+    &:hover {
+      fill: #C23131;
+    }
+  }
+}
+
+[as='Post.Header'] a.title {
+  @include flex(0 auto);
+  @include transition(box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease);
+
+  font-size: 2.3em;
+  line-height: 1.4em;
+  padding: 0.3em 1em;
+  margin: 0.5em 0 0 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    color: $link-color;
+  }
+
+}
+
+[as='Post.Header'] {
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(flex-start);
+  @include transition(background-color 0.3s ease);
+
+  background-size: cover;
+  position: relative;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #E8E8E8;
+
+  &.image {
+
+    & > div.drop {
+      background-color: rgb(122, 199, 122);
+      opacity: 1;
+      z-index: 6;
+    }
+
+    & > div.title {
+      opacity: 0;
+    }
+  }
+
+  input[type='file'] {
+    visibility: hidden;
+  }
+
+}
+
+[as='Post.Header'] div.drop {
+  @include transition(opacity 0.3s ease);
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(center);
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 1em;
+  text-align: center;
+  margin: 0;
+
+  svg {
+    width: 40px;
+    fill: rgb(66, 152, 66);
+  }
+
+  p {
+    color: rgb(66, 152, 66);
+    text-shadow: 0 1px 0 rgb(143, 213, 143);
+  }
+}
+
+[as='Post.Header'] div.progressbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+
+  & > span.progress {
+    @include transition(width 0.3s ease-out);
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #5FFF6A;
+  }
+}
+
+[as='Post.Header'] div.drop > div.status.error {
+  @include flex-direction(column);
+  @include align-items(center);
+  @include justify-content(center);
+  width: 100%;
+  height: 100%;
+
+  background: $red;
+  color: $dark-red-color;
+
+  &:not(.hidden) {
+    @include display(flex);
+  }
+
+  svg {
+    fill: rgb(89, 18, 18);
+  }
+
+  ul {
+    color: $dark-red-color;
+    text-shadow: 0 1px 0 #BD4141;
+    font-weight: bolder;
+  }
+
+  button {
+    @include transition(box-shadow 0.2s ease);
+    border: 1px solid #8B0B0B;
+    border-radius: 2px;
+    box-shadow: inset 0 0px 1px 0 #D85D5D;
+    padding: 6px 1em;
+
+    &:hover {
+      box-shadow: inset 0 0px 3px 0 #D85D5D;
+    }
+
+    &:active {
+      box-shadow: inset 0 0px 2px 0 #813131;
+    }
+  }
+}
+
+main.posts [as='Navigation.Toggle'] {
+  @include flex(0 auto);
+  @include transition(transform 0.2s, color 0.2s);
+  width: 2em;
+  height: auto;
+  cursor: pointer;
+  fill: rgba(212, 228, 237, 1);
+  margin: 8px auto;
+  &:hover {
+    fill: #73CDFF;
+  }
+  &.active {
+    @include transform(rotate(180deg));
+    fill: #1A5371;
+  }
+}

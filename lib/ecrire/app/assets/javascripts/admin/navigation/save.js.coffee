@@ -1,22 +1,10 @@
 ObserveJS.bind 'Editor.Save', class
   loaded: =>
-    @button = @element().querySelector('button')
-    @time = @element().querySelector('div.update > p')
-
-    @on 'keydown', document, @shouldSave
+    @on 'keydown', window, @save
     @on 'Editor:loaded', document, @cache
     @on 'Editor:updated', document, @update
     @on 'posts:update', document, @saved
-    @on 'click', @button, @save
     @on 'beforeunload', window, @confirm
-
-    @button.textContent = @button.getAttribute('persisted')
-    @refresh()
-    @cache()
-    @interval = setInterval(@refresh, 1000)
-
-  refresh: () =>
-    @time.textContent = moment(@time.getAttribute('time')).fromNow()
 
   confirm: (e) =>
     if @cache() != PostBody.instance.toString()
@@ -28,55 +16,52 @@ ObserveJS.bind 'Editor.Save', class
     @cache = (refresh) ->
       if refresh
         cache = PostBody.instance.toString()
-        @button.setAttribute('disabled', 'disabled')
-        @button.textContent = @button.getAttribute('persisted')
       cache
     @cache()
 
-  dirty: =>
-    @cache()? && @cache() != PostBody.instance.toString()
-
-  shouldSave: (e) =>
+  save: (e) =>
+    @cache()
     if e.metaKey isnt true || e.which isnt 83
       return
 
     e.preventDefault()
     e.stopPropagation()
 
-    if @dirty()
-      @save(e)
-    else
-      @nudge()
-
-  nudge: =>
-    button = document.querySelector("[as='Editor.Save'] button")
-    clean = ->
-      button.classList.remove('nudge')
-
-    button.addEventListener 'animationend', clean
-    button.addEventListener 'webkitAnimationEnd', clean
-    button.classList.add('nudge')
-
-  save: (e) =>
-    e.preventDefault()
-    e.stopPropagation()
-
-    form = document.querySelector("[as='Editor.Save']")
-    xhr = new ObserveJS.XHR(form)
-    xhr.data.set('post[content]', PostBody.instance.toString())
-    xhr.data.set('context', 'content')
-    xhr.send()
+    dialog = @element().content.querySelector('#SavePost').cloneNode(true)
+    document.body.appendChild(dialog)
 
   saved: (e) =>
-    if e.UpdatedAtTime
-      @time.setAttribute('time', e.UpdatedAtTime)
-      @refresh()
-      @cache(true)
+    @cache(true)
 
-  update: (e) =>
-    if @dirty()
-      @button.removeAttribute('disabled')
-      @button.textContent = @button.getAttribute('dirty')
+ObserveJS.bind 'Editor.Save.Dialog', class
+  loaded: =>
+    @on 'posts:update', document, @saved
+    xhr = new ObserveJS.XHR(@element())
+    xhr.data.set('post[content]', PostBody.instance.toString())
+    xhr.data.set('context', 'content')
+    xhr.request.upload.addEventListener 'progress', @upload
+    xhr.request.addEventListener 'progress', @download
+    xhr.send()
+
+  remove: =>
+    if @element().classList.contains 'fade'
+      @element().remove()
+      return
+
+    @element().classList.add 'fade'
+    @on 'webkitTransitionEnd', @remove
+    @on 'transitionEnd', @remove
+
+  saved: (e) =>
+    msg = @element().querySelector('.message')
+    msg.innerHTML = e.MessageHTML
+    window.setTimeout @remove, 400
+
+  download: (e) =>
+    if e.lengthComputable
+      @element().querySelector('.progress').style.width = "#{50 + e.total / e.loaded * 50}%"
     else
-      @button.setAttribute('disabled', 'disabled')
-      @button.textContent = @button.getAttribute('persisted')
+      @element().querySelector('.progress').style.width = "100%"
+
+  upload: (e) =>
+    @element().querySelector('.progress').style.width = "#{e.total / e.loaded * 50}%"

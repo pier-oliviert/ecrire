@@ -10,7 +10,7 @@
 
   <% if @post.errors.any? %>
     <ul class='errors'>
-      <% @post.errors.each do |key, message| %>
+      <% @post.titles.first.errors.each do |key, message| %>
         <%= content_tag :li, message, key: key %>
       <% end %>
     </ul>

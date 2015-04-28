@@ -1,3 +1,12 @@
+<template as='Editor.Save'>
+  <%= content_tag :div, as: 'Editor.Save.Dialog', id: 'SavePost', href: admin_post_path(@post), method: 'PUT' do %>
+    <div class='progress'></div>
+    <p class='message'>
+      Saving...
+    </p>
+  <% end %>
+</template>
+
 <%= content_tag :header, as: "Post.Header", href: admin_post_image_path(@post), method: 'POST' do |header| %>
   <template for='Post.Header'>
     <%= render 'admin/posts/header/dropping', css: %w(status dropping hidden) %>
@@ -13,9 +22,6 @@
 
   <div class='title'>
 
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class='toggle', as='Navigation.Toggle' x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-      <path d="M4.516,7.548c0.436-0.446,1.043-0.481,1.576,0L10,11.295l3.908-3.747c0.533-0.481,1.141-0.446,1.574,0  c0.436,0.445,0.408,1.197,0,1.615c-0.406,0.418-4.695,4.502-4.695,4.502C10.57,13.888,10.285,14,10,14s-0.57-0.112-0.789-0.335  c0,0-4.287-4.084-4.695-4.502C4.107,8.745,4.08,7.993,4.516,7.548z"/>
-    </svg>
     <%= content_tag :svg,
       method: 'DELETE',
       href: admin_post_image_path(@post),
@@ -38,7 +44,7 @@
     	    "/>
     <% end %>
 
-    <%= link_to @post.title, admin_post_titles_path(@post), remote: true, class: %w(title) %>
+    <%= link_to @post.title, admin_post_titles_path(@post), class: %w(title) %>
     <input type='file' />
     <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
   </div>
@@ -47,67 +53,28 @@
 
 <section>
 
-  <%= content_tag :div, class: %w(publish state), href: admin_post_path(@post.id), as: 'Post.Sticky' do %>
-
-    <% if @post.published? %>
-
-      <%= form_for @post, method: :put, html: { class: %w(hide button destroy) } do |f| %>
-        <%= f.button 'Retract', value: 'unpublish'%>
-      <% end %>
-
-    <% else %>
-
-      <%= form_for @post, method: :put, html: { id: 'PublishPost', class: %w(button publish) } do |f| %>
-        <%= f.button 'Publish', value: 'publish'%>
-      <% end %>
-
-      <%= form_for @post, method: :delete, html: { id: 'DeletePost', class: %w(destroy button), as: 'Post.Delete' } do |f| %>
-        <%= f.button disabled: true do %>
-          <%= check_box_tag 'delete' %>
-          Delete this post
-        <% end %>
-      <% end %>
-
-    <% end %>
-
+  <%= edit_content_tag(@post) do %>
+    <%= h @post.content %>
   <% end %>
-
-  <article>
-
-    <div id='TagsList'>
-      <svg version="1.1" id="Tag" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-        <path d="M18.662,5.521L5.237,19l0.707-4.967l-4.945,0.709L14.424,1.263c0.391-0.392,1.133-0.308,1.412,0l2.826,2.839 C19.162,4.575,19.053,5.128,18.662,5.521z"/>
-      </svg>
-      <ul class='tags' as='Post.Tags'>
-        <% @post.tags.each do |tag| %>
-          <%= render 'admin/posts/tags/tag', tag: tag, post: @post %>
-        <% end %>
-        <%= link_to "Add tags", admin_post_tags_path(@post), remote: true %>
-      </ul>
-    </div>
-
-    <%= post_edit_content(@post) %>
-
-    <template id='EditorElements'>
-      <figure as='Editor.Image'><template for='Editor.Image' contenteditable=false><p class='placeholder'>Drop an image or click here to upload a picture.</p><img><div class='progressbar'><span class='progress'></span></div></template><div contenteditable=false><input type='file' /></div><figcaption></figcaption></figure></template>
-  </article>
-
-  <div class='save' as='Post.Sticky'>
-    <%= form_for @post, method: :put, remote: true, html: {as: 'Editor.Save', class: %w(save button)} do |f| %>
-      <%= f.button '', dirty: 'Update', persisted: 'Up to date', disabled: true %>
-      <%= content_tag :div, class: %w(update) do %>
-        Last updated
-        <%= content_tag :p, nil, time: @post.updated_at.iso8601 %>
-      <% end %>
-    <% end %>
-
-    <%= link_to 'Syntax', help_admin_posts_path, remote: true, class: %w(help), as: 'Post.Documentation' %>
-
-    <% unless Rails.application.secrets.has_key?(:s3) %>
-      <div class='s3 configuration missing'>
-        <%= link_to 'Configure S3 to upload images.', admin_configurations_images_path %>
-      </div>
-    <% end %>
+  
+  <div class='done'>
+    <h6>Done?</h6>
+    <p><%= link_to 'Look at the preview and publish it!', admin_post_path(@post) %></p>
   </div>
 
 </section>
+
+<template id='EditorElements'>
+  <figure as='Editor.Image'><template for='Editor.Image' contenteditable=false><p class='placeholder'>Drop an image or click here to upload a picture.</p><img><div class='progressbar'><span class='progress'></span></div></template><div contenteditable=false><input type='file' /></div><figcaption></figcaption></figure></template>
+
+<svg id="Help" viewBox="0 0 20 20" enable-background="new 0 0 20 20">
+<path d="M10,0.4c-5.302,0-9.6,4.298-9.6,9.6s4.298,9.6,9.6,9.6c5.301,0,9.6-4.298,9.6-9.601C19.6,4.698,15.301,0.4,10,0.4z
+	 M9.849,15.599H9.798c-0.782-0.023-1.334-0.6-1.311-1.371c0.022-0.758,0.587-1.309,1.343-1.309l0.046,0.002
+	c0.804,0.023,1.35,0.594,1.327,1.387C11.18,15.068,10.625,15.599,9.849,15.599z M13.14,9.068c-0.184,0.26-0.588,0.586-1.098,0.983
+	l-0.562,0.387c-0.308,0.24-0.494,0.467-0.563,0.688c-0.056,0.174-0.082,0.221-0.087,0.576v0.09H8.685l0.006-0.182
+	c0.027-0.744,0.045-1.184,0.354-1.547c0.485-0.568,1.555-1.258,1.6-1.287c0.154-0.115,0.283-0.246,0.379-0.387
+	c0.225-0.311,0.324-0.555,0.324-0.793c0-0.334-0.098-0.643-0.293-0.916c-0.188-0.266-0.545-0.398-1.061-0.398
+	c-0.512,0-0.863,0.162-1.072,0.496c-0.216,0.341-0.325,0.7-0.325,1.067v0.092H6.386L6.39,7.841c0.057-1.353,0.541-2.328,1.435-2.897
+	C8.388,4.583,9.089,4.4,9.906,4.4c1.068,0,1.972,0.26,2.682,0.772c0.721,0.519,1.086,1.297,1.086,2.311
+	C13.673,8.05,13.494,8.583,13.14,9.068z"/>
+</svg>

@@ -2,8 +2,8 @@ module Admin
   module PostsHelper
     include ::PostsHelper
 
-    def post_edit_content(post)
-      content_tag :div, id: 'PostBody', postid: @post.id,
+    def edit_content_tag(post)
+      content_tag :article, id: 'PostBody', postid: @post.id,
         class: %w(content),
         as: 'Editor.Content',
         contenteditable: true,
@@ -19,7 +19,7 @@ module Admin
             end
           end
 
-          h(post.content)
+          yield if block_given?
         end
     end
   end

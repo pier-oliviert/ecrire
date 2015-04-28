@@ -2,6 +2,10 @@ Ecrire::Application.configure do
   config = self.config
   config.eager_load = true
 
+  config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+    html_tag
+  end
+  
   config.paths.path = File.expand_path '../../', __FILE__
   config.paths.add 'app/strategies', eager_load: true
   config.paths.add 'app/forms', eager_load: true

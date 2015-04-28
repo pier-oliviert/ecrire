@@ -1,0 +1,17 @@
+<header>
+  <%= render 'form', tag: @tag %>
+</header>
+
+<ol class='tags'>
+  <% @tags.each do |tag| %>
+    <%= content_tag :li do %>
+      <div>
+        <%= content_tag :h3, tag.name %>
+        <%= content_tag :p, "#{tag.posts.count} posts" %>
+      </div>
+      <%= form_for tag, url: url('/admin/tags/:tag.id', tag: tag), method: :delete do |f| %>
+        <%= f.button 'Delete', class: %w(button) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</ol>

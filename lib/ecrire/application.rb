@@ -3,6 +3,7 @@ require 'pg'
 require 's3'
 require 'kaminari'
 require 'observejs'
+require 'pg_search'
 
 module Ecrire
   class Application < Rails::Application

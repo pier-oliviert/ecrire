@@ -9,6 +9,7 @@ gem 'bcrypt',            '~> 3.1'
 gem 'nokogiri',          '~> 1.6'
 gem 's3',                '~> 0.3'
 gem 'pg',                '~> 0.17'
+gem 'pg_search'
 gem 'kaminari',          '~> 0.15'
 
 gem 'sprockets-rails',   '~> 2.1'

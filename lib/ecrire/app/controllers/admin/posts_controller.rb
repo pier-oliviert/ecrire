@@ -7,10 +7,21 @@ module Admin
     end
 
     def index
-      params[:type] ||= "drafted"
-      @posts = Admin::Post.status params[:type]
-      @posts = @posts.order('posts.created_at')
+      @posts = Admin::Post
+
+      if params.has_key?(:q) && !params[:q].blank?
+        @titles = Admin::Title.search_by_name(params[:q])
+        @posts = @posts.where('id in (?)', @titles.pluck(:post_id).uniq.compact)
+      end
+
+      if params.has_key?(:tid) && !params[:tid].blank?
+        @posts = @posts.where('? = ANY(posts.tags)', params[:tid])
+      end
+
+      @posts = @posts.order('posts.created_at').includes(:titles)
+
       respond_to do |format|
+        format.html
         format.js
       end
     end
@@ -35,24 +46,9 @@ module Admin
     end
 
     def update
-      if params.has_key?(:post)
-        @post.update!(post_params)
-      end
+      @post.update!(post_params)
       respond_to do |format|
-        format.js do
-          render_context and return
-        end
-        format.html do
-          case params[:button]
-          when 'publish'
-            @post.publish!
-            flash[:notice] = t(".successful", title: @post.title)
-            redirect_to url(Ecrire::Theme::Engine.post_path, post: @post) and return
-          when 'unpublish'
-            @post.unpublish!
-          end
-          redirect_to edit_admin_post_path(@post) and return
-        end
+        format.js
       end
     end
 
@@ -64,28 +60,33 @@ module Admin
       end
     end
 
-    protected
+    def toggle
+      @post = Admin::Post.find(params[:post_id])
+      if @post.published?
+        @post.unpublish!
+      else
+        @post.publish!
+      end
 
-    def post_params
-      params.require(:post).permit(:content, :status, :stylesheet, :javascript, :slug)
+      respond_to do |format|
+        format.js
+      end
     end
+
+    protected
 
     def title_params
       params.require(:post).permit(:title)
     end
 
 
+    def post_params
+      params.require(:post).permit(:content, :status, :stylesheet, :javascript, :slug)
+    end
+
     def fetch_post
       @post = Admin::Post.find(params[:id])
     end
 
-    def render_context
-      available_contexts = %w(title content)
-      if params.has_key?(:context) && available_contexts.include?(params[:context])
-        render "admin/posts/update/#{params[:context]}" and return
-      else
-        render nothing: true
-      end
-    end
   end
 end

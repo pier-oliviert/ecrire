@@ -14,7 +14,7 @@ ObserveJS.bind 'Post.Title', class
     @input.focus()
 
   dismiss: =>
-    @element().parentElement.remove()
+    @element().parentElement.instance.remove()
 
   update: (e) =>
     if e.Errors

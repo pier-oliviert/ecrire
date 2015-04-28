@@ -1,7 +1,11 @@
 ObserveJS.bind 'Post.Tag', class
   loaded: =>
-    @on 'click', @submit
+    @on 'change', @update
+    @on 'tags:toggle', @refresh
 
-  submit: (e) =>
-    @on 'tags:update', @remove
-    ObserveJS.XHR.send(@element())
+  update: (e) =>
+    xhr = new ObserveJS.XHR(@element())
+    xhr.send()
+
+  refresh: (e) =>
+    @element().querySelector('input').checked = e.TagIncluded
