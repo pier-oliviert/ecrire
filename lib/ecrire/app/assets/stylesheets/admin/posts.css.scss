@@ -45,6 +45,78 @@ main.posts div.done {
   }
 }
 
+main.posts.view > header > nav > div.publish.state {
+  @include transition(background-color 0.2s);
+  position: relative;
+  padding: 2px;
+  margin: 0 2em;
+  width: 10em;
+  height: 30px;
+  background-color: #dddddd;
+  border-radius: 60px;
+  cursor: pointer;
+  overflow: hidden;
+
+  &:hover label:last-child {
+    background-color: darken(white, 2%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  label {
+    display: block;
+    position: absolute;
+    font-weight: bold;
+    line-height: 2em;
+    text-indent: 0;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    cursor: pointer;
+    padding: 0 1em;
+  }
+
+  label:first-child {
+    @include transition(background 0.2s, text-indent 0.2s);
+    right: 1px;
+    background-color: #f1f1f1;
+    border-radius: 30px;
+    text-indent: 0;
+  }
+
+  label:last-child {
+    @include transition(background 0.2s, box-shadow 0.2s, margin 0.2s);
+    width: 28px;
+    background-color: white;
+    border-radius: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-indent: 30px;
+  }
+
+  &[published='true'] {
+    background-color: lighten($gray-blue, 5%);
+
+    label:first-child {
+      background-color: lighten($navy-blue, 25%);
+      color: darken($navy-blue, 25%);
+    }
+
+    label:last-child {
+      margin-left: calc(10em - 30px);
+      text-indent: 10em;
+    }
+  }
+
+  &:not([published='true']) {
+    label:first-child {
+      text-indent: -20em;
+    }
+
+    label:last-child {
+    }
+  }
+
+}
+
 #PostsIndex header {
   min-height: 200px;
   @include display(flex);
@@ -237,21 +309,22 @@ main.posts.view > header {
   nav {
     @include display(flex);
     @include justify-content(space-between);
+    @include align-items(center);
     @include flex(1);
     padding: 0 1em 1em 1em;
     border-bottom: 1px solid lighten($gray-blue, 25%);
   }
 
   div.meta a {
-    @include transition(background-color 0.3s, box-shadow 0.3s);
-    border: 1px solid lighten($navy-blue, 50%);
+    @include transition(border-color 0.3s, background-color 0.3s, box-shadow 0.3s, color 0.3s);
+    border: 1px solid lighten($navy-blue, 25%);
     border-radius: 2px;
     text-decoration: none;
     padding: 4px 8px;
     margin: 0 0.5em;
     font-size: 0.8em;
     text-transform: uppercase;
-    box-shadow: 0 0 0 0 transparent;
+    font-weight: bolder;
 
     &.selected {
       background-color: lighten($navy-blue, 25%);
@@ -260,12 +333,14 @@ main.posts.view > header {
     }
 
     &:hover:not(.selected) {
-      background-color: lighten($navy-blue, 50%);
-      box-shadow: inset 0 1px 0 lighten($navy-blue, 55%);
+      background-color: lighten($navy-blue, 25%);
+      box-shadow: inset 0 1px 0 lighten($navy-blue, 30%), 0 1px 1px darken($navy-blue, 25%);
+      color: lighten($navy-blue, 60%);
     }
 
     &:active:not(.selected) {
-      box-shadow: inset 0 1px 2px 0 lighten($navy-blue, 45%);
+      box-shadow: none;
+      color: lighten($navy-blue, 100%);
     }
   }
 

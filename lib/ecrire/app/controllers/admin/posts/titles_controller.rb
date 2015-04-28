@@ -4,7 +4,7 @@ module Admin
 
       def index
         @post = Admin::Post.find(params[:post_id])
-        if @post.persisted?
+        if @post.published?
           @title = @post.titles.new
         else
           @title = @post.titles.first

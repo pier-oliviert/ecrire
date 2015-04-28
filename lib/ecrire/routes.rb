@@ -7,8 +7,7 @@ Ecrire::Application.routes.draw do
       root 'posts#index'
       resources :tags
       resources :posts do
-        put :publish
-        put :retract
+        put :toggle
 
         collection do
           get 'help', controller: :posts, action: :help

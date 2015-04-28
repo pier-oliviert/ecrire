@@ -8,6 +8,11 @@
       <%= link_to 'Title', admin_post_titles_path(@post), class: %w(selected) %>
     </div>
 
+    <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>
+      <label>Published</label>
+      <label>Draft</label>
+    <% end %>
+
   </nav>
 </header>
 
@@ -18,9 +23,9 @@
     <%= render 'admin/posts/titles/form', title: @title, url: admin_post_title_path(@post, @title) %>
   <% end %>
 
-  <h3>Current titles for this post</h3>
+  <h3>Titles for this post</h3>
   <ul class='titles'>
-    <% @post.titles.each do |title| %>
+    <% @post.titles.select(&:persisted?).each do |title| %>
       <%= render 'admin/posts/titles/title', title: title %>
     <% end %>
   </ul>

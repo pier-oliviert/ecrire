@@ -60,6 +60,19 @@ module Admin
       end
     end
 
+    def toggle
+      @post = Admin::Post.find(params[:post_id])
+      if @post.published?
+        @post.unpublish!
+      else
+        @post.publish!
+      end
+
+      respond_to do |format|
+        format.js
+      end
+    end
+
     protected
 
     def title_params

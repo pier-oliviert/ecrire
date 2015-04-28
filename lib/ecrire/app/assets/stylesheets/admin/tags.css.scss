@@ -9,6 +9,10 @@
   border-radius: 60px;
   cursor: pointer;
 
+  &:hover:after {
+    background-color: darken(white, 5%);
+  }
+
   &:before, &:after {
     display: block;
     position: absolute;
@@ -26,11 +30,12 @@
   }
 
   &:after {
+    @include transition(margin 0.2s, background-color 0.2s);
     width: 28px;
     background-color: #fff;
     border-radius: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: margin 0.2s;
+
   }
 
   &:checked:before {

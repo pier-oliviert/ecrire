@@ -56,7 +56,8 @@
   <%= edit_content_tag(@post) do %>
     <%= h @post.content %>
   <% end %>
-  <div class='done' contenteditable=false>
+  
+  <div class='done'>
     <h6>Done?</h6>
     <p><%= link_to 'Look at the preview and publish it!', admin_post_path(@post) %></p>
   </div>
