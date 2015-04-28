@@ -2,7 +2,7 @@
   <% posts.each do |post| %>
     <li>
       <h2>
-        <%= link_to post.title, edit_admin_post_path(post) %>
+        <%= link_to post.title, admin_post_path(post) %>
       </h2>
     </li>
   <% end %>

@@ -1,7 +1,5 @@
 <%= content_tag :header, as: 'Posts.Filter', href: admin_posts_path do %>
   <section class='status'>
-    <a>Published</a>
-    <a>Draft</a>
   </section>
 
   <section class='search'>
@@ -28,7 +26,7 @@
   </section>
 
   <section class='new'>
-    <%= link_to 'New post', new_admin_post_path, remote: true %>
+    <%= link_to 'New post', new_admin_post_path %>
   </section>
 <% end %>
 

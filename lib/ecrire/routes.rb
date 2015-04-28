@@ -7,13 +7,22 @@ Ecrire::Application.routes.draw do
       root 'posts#index'
       resources :tags
       resources :posts do
+        put :publish
+        put :retract
+
         collection do
           get 'help', controller: :posts, action: :help
         end
-        resources :tags, only: [:index, :create, :update], module: 'posts'
-        resources :titles, shallow: true
+
+        resources :tags, only: [:index], module: 'posts' do
+          put :toggle
+        end
+
+        resources :titles, only: [:index, :update, :create], module: 'posts' do
+
+        end
+
         resource :image, shallow: true
-        resource :properties, only: [:create, :destroy]
       end
 
       namespace :configurations do

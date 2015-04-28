@@ -1,14 +1,15 @@
 module Admin
   module Posts
     class TagsController < Admin::ApplicationController
+
       def index
         @post = Admin::Post.find(params[:post_id])
-        @tags = Admin::Tag.where.not(id: @post.tags.map(&:id))
+        @tags = Admin::Tag.all
       end
 
-      def update
+      def toggle
         @post = Admin::Post.find(params[:post_id])
-        @tag = Admin::Tag.find(params[:id])
+        @tag = Admin::Tag.find(params[:tag_id])
         if @post.tags.include? @tag
           @post.tags = @post.tags.where.not(id: @tag.id)
         else
@@ -17,18 +18,6 @@ module Admin
 
         @post.save!
       end
-
-      def create
-        @post = Admin::Post.find(params[:post_id])
-        @tag = Admin::Tag.find_or_create_by!(tag_params)
-      end
-
-      protected
-
-      def tag_params
-        params.require(:tag).permit('name')
-      end
-
 
     end
   end

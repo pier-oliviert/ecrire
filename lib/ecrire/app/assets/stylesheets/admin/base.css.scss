@@ -43,6 +43,10 @@ ul, ol {
   }
 }
 
+input {
+  border: none;
+}
+
 fieldset {
   border: none;
   padding: 0;
@@ -68,6 +72,10 @@ button, input[type=submit] {
   cursor: pointer;
   color: inherit;
   outline: none;
+}
+
+button, input {
+  border-radius: 2px;
 }
 
 main {

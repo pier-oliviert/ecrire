@@ -44,7 +44,7 @@
     	    "/>
     <% end %>
 
-    <%= link_to @post.title, admin_post_titles_path(@post), remote: true, class: %w(title) %>
+    <%= link_to @post.title, admin_post_titles_path(@post), class: %w(title) %>
     <input type='file' />
     <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
   </div>
@@ -56,9 +56,9 @@
   <%= edit_content_tag(@post) do %>
     <%= h @post.content %>
   <% end %>
-  <div class='publish' contenteditable=false>
+  <div class='done' contenteditable=false>
     <h6>Done?</h6>
-    <p><a>Look at the preview and publish it!</a></p>
+    <p><%= link_to 'Look at the preview and publish it!', admin_post_path(@post) %></p>
   </div>
 
 </section>

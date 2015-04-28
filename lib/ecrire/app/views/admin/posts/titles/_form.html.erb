@@ -1,0 +1,29 @@
+<%= form_for title, url: url, as: 'title' do |form| %>
+  <%= content_tag :div, class: %w(fieldset) do |div| %>
+    <% if title.errors.any? %>
+      <% div.css << 'errors' %>
+    <% end %>
+
+    <%= form.text_field :name, placeholder: 'Create a new title for this post', tabindex: 1 %>
+
+    <% if title.errors.any? %>
+      <ul class='errors'>
+        <% title.errors.each do |key, message| %>
+          <%= content_tag :li, message %>
+        <% end %>
+      </ul>
+    <% end %>
+
+  <% end %>
+
+  <% if title.persisted? %>
+    <%= form.button 'Update the title' %>
+  <% else %>
+    <%= form.button 'Add this title' %>
+  <% end %>
+
+<% end %>
+
+<% unless title.persisted? %>
+  <p>The old URLS will be <strong>redirected to this new title</strong>.</p>
+<% end %>

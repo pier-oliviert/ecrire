@@ -1,0 +1,47 @@
+#TagsIndex > section ul li input {
+  @include appearance(none);
+  position: relative;
+  padding: 2px;
+  margin: 0 2em;
+  width: 60px;
+  height: 30px;
+  background-color: #dddddd;
+  border-radius: 60px;
+  cursor: pointer;
+
+  &:before, &:after {
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    content: "";
+  }
+
+  &:before {
+    right: 1px;
+    background-color: #f1f1f1;
+    border-radius: 30px;
+    transition: background 0.2s;
+  }
+
+  &:after {
+    width: 28px;
+    background-color: #fff;
+    border-radius: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: margin 0.2s;
+  }
+
+  &:checked:before {
+    background-color: #8ce196;
+  }
+
+  &:checked:after {
+    margin-left: 30px;
+  }
+
+  & + label {
+    cursor: pointer;
+  }
+}
