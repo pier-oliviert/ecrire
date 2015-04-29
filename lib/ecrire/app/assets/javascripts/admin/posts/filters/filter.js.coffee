@@ -15,5 +15,7 @@ ObserveJS.bind 'Posts.Filter', class
     xhr.send()
 
   update: (e) =>
-    posts = @element().nextElementSibling
-    posts.innerHTML = e.HTML.innerHTML
+    for list in e.HTML
+      el = @element().parentElement.querySelector(".#{Array.prototype.join.call(list.classList, '.')}")
+      if el?
+        el.parentElement.replaceChild(list.cloneNode(true), el)

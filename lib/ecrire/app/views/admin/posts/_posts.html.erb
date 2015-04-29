@@ -1,11 +1,17 @@
-<ol class='posts'>
-  <% posts.each do |post| %>
+<ol class='posts drafted'>
+  <h3>Drafts</h3>
+  <% drafted.each do |post| %>
     <li>
-      <%= content_tag :h3, post.title %>
-      <div class='actions'>
-        <%= link_to 'Preview', admin_post_path(post), class: %w(button) %>
-        <%= link_to 'Edit', edit_admin_post_path(post), class: %w(button) %>
-      </div>
+      <%= link_to post.title, url('/admin/posts/:post.id', post: post), class: %w(title) %>
+    </li>
+  <% end %>
+</ol>
+
+<ol class='posts published'>
+  <h3>Published</h3>
+  <% published.each do |post| %>
+    <li>
+      <%= link_to post.title, url('/admin/posts/:post.id', post: post), class: %w(title) %>
     </li>
   <% end %>
 </ol>

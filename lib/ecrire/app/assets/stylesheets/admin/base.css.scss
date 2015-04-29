@@ -80,6 +80,7 @@ main {
   @include display(flex);
   @include flex-direction(column);
   position: relative;
+  width: 100%;
   z-index: 1;
 }
 

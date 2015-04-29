@@ -7,18 +7,18 @@ module Admin
     end
 
     def index
-      @posts = Admin::Post
+      posts = Admin::Post
 
       if params.has_key?(:q) && !params[:q].blank?
         @titles = Admin::Title.search_by_name(params[:q])
-        @posts = @posts.where('id in (?)', @titles.pluck(:post_id).uniq.compact)
+        posts = posts.where('id in (?)', @titles.pluck(:post_id).uniq.compact)
       end
 
       if params.has_key?(:tid) && !params[:tid].blank?
-        @posts = @posts.where('? = ANY(posts.tags)', params[:tid])
+        posts = posts.where('? = ANY(posts.tags)', params[:tid])
       end
 
-      @posts = @posts.order('posts.created_at').includes(:titles)
+      @posts = posts.order('posts.created_at').includes(:titles)
 
       respond_to do |format|
         format.html

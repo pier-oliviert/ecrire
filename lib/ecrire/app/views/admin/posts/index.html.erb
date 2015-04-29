@@ -30,4 +30,6 @@
   </section>
 <% end %>
 
-<%= render 'admin/posts/posts', posts: @posts %>
+<section class='posts'>
+  <%= render 'admin/posts/posts', published: @posts.published, drafted: @posts.drafted %>
+</section>

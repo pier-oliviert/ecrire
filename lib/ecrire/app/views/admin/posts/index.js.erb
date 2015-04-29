@@ -1,1 +1,1 @@
-e.HTML = "<%= j render('posts', posts: @posts) %>".toHTML()
+e.HTML = "<%= j render('posts', published: @posts.published, drafted: @posts.drafted) %>".toHTML()
