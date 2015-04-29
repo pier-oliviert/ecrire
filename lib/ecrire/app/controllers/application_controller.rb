@@ -15,7 +15,7 @@ class ApplicationController < ::ActionController::Base
   def url(path, options = {})
     records = options.with_indifferent_access
     regex = /(:([a-z]+)\.([a-z]+))/i
-    path.gsub! regex do |match|
+    path = path.gsub regex do |match|
       records[$2].send($3)
     end
 
