@@ -6,6 +6,7 @@
 html, body {
   @include display(flex);
   @include flex(1);
+  -webkit-font-smoothing: antialiased;
 }
 
 html {
@@ -57,10 +58,6 @@ input {
   padding: 4px 8px;
   font-weight: lighter;
   outline: none;
-}
-
-textarea {
-  font-family: Helvetica;
 }
 
 button, input[type=submit] {

@@ -1,16 +1,20 @@
 [id^='Sessions'] {
   @include display(flex);
+  @include justify-content(center);
+  @include flex(1);
 
-  & > main {
-    @include justify-content(center);
-    @include flex(1);
+  & > section {
     @include display(flex);
+    @include flex(1);
+    @include flex-direction(column);
     @include align-items(center);
     @include justify-content(center);
   }
 
   form {
-    min-width: 250px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
     @include display(flex);
     @include flex-wrap(wrap);
 
@@ -23,7 +27,7 @@
       border-radius: 2px 0 0 2px;
       background: #FFF;
     }
-    
+
     p {
       @include flex(1 100%);
       padding: 0 1em;
@@ -94,4 +98,3 @@
     }
   }
 }
-
