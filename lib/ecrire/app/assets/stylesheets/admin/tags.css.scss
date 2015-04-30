@@ -132,18 +132,19 @@
       border-color: $red;
       font-weight: bold;
       color: $red;
+      background-color: lighten($red, 15%);
+      text-shadow: 0 1px lighten($red, 25%);
+      box-shadow: inset 0 1px 0 0 lighten($red, 25%), 0 1px 1px darken($red, 15%);
 
       &:hover:not(:active) {
         color: darken($red, 25%);
-        background-color: lighten($red, 15%);
-        text-shadow: 0 1px lighten($red, 25%);
-        box-shadow: inset 0 1px 0 0 lighten($red, 25%), 0 1px 1px darken($red, 15%);
       }
 
       &:active {
         background-color: lighten($red, 15%);
         text-shadow: 0 1px lighten($red, 25%);
         color: darken($red, 25%);
+        box-shadow: inset 0 1px 2px 0 darken($red, 5%), 0 1px 1px transparent;
       }
     }
   }
@@ -208,18 +209,19 @@
   border-color: $red;
   color: $red;
   font-weight: bold;
+  background-color: lighten($red, 15%);
+  text-shadow: 0 1px lighten($red, 25%);
+  box-shadow: inset 0 1px 0 0 lighten($red, 25%), 0 1px 1px darken($red, 15%);
 
   &:hover:not(:active) {
     color: darken($red, 25%);
-    background-color: lighten($red, 15%);
-    text-shadow: 0 1px lighten($red, 25%);
-    box-shadow: inset 0 1px 0 0 lighten($red, 25%), 0 1px 1px darken($red, 15%);
   }
 
   &:active {
     background-color: lighten($red, 15%);
     text-shadow: 0 1px lighten($red, 25%);
     color: darken($red, 25%);
+    box-shadow: inset 0 1px 2px 0 darken($red, 5%), 0 1px 1px transparent;
   }
 }
 

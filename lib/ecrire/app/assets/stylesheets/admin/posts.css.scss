@@ -201,11 +201,15 @@ main.posts.view > header > nav > div.publish.state {
   @include justify-content(flex-start);
 
   margin: 2em 1em;
+  max-width: 400px;
+  width: 100%;
 
   & > h3 {
+    @include align-self(center);
     text-align: center;
     font-size: 3em;
     font-weight: bolder;
+    border-bottom: 1px solid $gray-blue;
   }
 
   li {
@@ -213,19 +217,23 @@ main.posts.view > header > nav > div.publish.state {
     @include flex-direction(column);
     @include flex(0 0 auto);
     @include justify-content(space-between);
-    max-width: 400px;
     padding: 1em;
     margin: 0.1em;
     color: darken($navy-blue, 25%);
 
     .title {
-      margin: 1em 0;
+      margin: 0.5em 0;
       font-weight: bolder;
-      font-size: 1.3em;
+      font-size: 1.7em;
       text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    svg {
+      width: 12px;
+      fill: $gray-blue;
     }
 
     a {

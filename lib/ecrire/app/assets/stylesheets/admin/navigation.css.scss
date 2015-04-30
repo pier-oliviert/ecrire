@@ -18,8 +18,8 @@ nav#Menu.admin {
   text-shadow: 0 -1px darken($light-blue, 75%);
 
   .button {
-    @include transition(text-shadow 0.3s ease-in, border-color 0.3s, background-color 0.3s, box-shadow 0.3s, color 0.3s);
-    border: 1px solid lighten($gray-blue, 15%);
+    @include transition(text-shadow 0.2s ease-in, border-color 0.2s, background-color 0.2s, box-shadow 0.2s, color 0.2s);
+    border: 1px solid darken($navy-blue, 5%);
     border-radius: 2px;
     text-decoration: none;
     padding: 4px 8px;
@@ -27,9 +27,10 @@ nav#Menu.admin {
     font-size: 0.8em;
     text-transform: uppercase;
     font-weight: bolder;
-    box-shadow: inset 0 1px 0 transparent;
-    text-shadow: 0 1px 0 transparent;
-    color: inherit;
+    background-color: lighten($navy-blue, 25%);
+    box-shadow: inset 0 1px 0 lighten($navy-blue, 35%), 0 1px 1px darken($navy-blue, 15%);
+    color: lighten($navy-blue, 60%);
+    text-shadow: 0 1px lighten($navy-blue, 25%);
 
     &.selected {
       background-color: lighten($navy-blue, 25%);
@@ -38,17 +39,14 @@ nav#Menu.admin {
     }
 
     &:hover:not(.selected) {
-      background-color: lighten($navy-blue, 25%);
-      box-shadow: inset 0 1px 0 lighten($navy-blue, 25%), 0 1px 1px darken($navy-blue, 15%);
-      color: lighten($navy-blue, 60%);
-      text-shadow: 0 1px lighten($navy-blue, 25%);
-      border-color: lighten($navy-blue, 25%);
+      border-color: darken($navy-blue, 25%);
     }
 
     &:active:not(.selected) {
-      box-shadow: none;
       color: lighten($navy-blue, 100%);
       text-shadow: 0 1px lighten($navy-blue, 25%);
+      box-shadow: inset 0 0 2px darken($navy-blue, 15%), 0 1px 1px transparent;
+      border-color: darken($navy-blue, 15%);
     }
 
     &.home {
@@ -61,16 +59,16 @@ nav#Menu.admin form.logout {
   @include transition(color 0.3s,background-color 0.3s, border 0.3s, box-shadow 0.3s);
   border: 1px solid lighten($red, 5%);
   border-radius: 2px;
-  color: lighten($red, 5%);
   margin: 0;
   padding: 4px 8px;
   cursor: pointer;
   outline: none;
+  background-color: lighten($red, 5%);
+  color: lighten($red, 30%);
+  box-shadow: inset 0 1px 0 0 lighten($red, 10%), 0 1px 1px darken($red, 20%);
 
   &:hover {
-    background-color: lighten($red, 5%);
-    color: lighten($red, 30%);
-    box-shadow: inset 0 1px 0 0 lighten($red, 10%), 0 1px 1px darken($red, 20%);
+    border-color: darken($red, 10%);
   }
 
   &:active {

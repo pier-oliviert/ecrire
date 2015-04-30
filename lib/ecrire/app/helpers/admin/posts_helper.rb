@@ -2,6 +2,13 @@ module Admin
   module PostsHelper
     include ::PostsHelper
 
+    def post_tags(post)
+      tags = post.tags.map do |tag|
+        tag.name.capitalize
+      end
+      tags.join(', ')
+    end
+
     def edit_content_tag(post)
       content_tag :article, id: 'PostBody', postid: @post.id,
         class: %w(content),
