@@ -8,6 +8,7 @@ article.content > figure {
 
   &.dropping div[contenteditable] {
     background-color: rgb(122, 199, 122);
+    padding: 1em;
   }
 
   figcaption {
