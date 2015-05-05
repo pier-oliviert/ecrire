@@ -1,8 +1,9 @@
-main.edit.posts > header {
+main.posts > header {
   @include display(flex);
   @include flex(0 auto);
   @include align-items(center);
   @include justify-content(center);
+  @include flex-direction(column);
   background-color: $bright-blue;
   color: lighten($bright-blue, 50%);
   min-height: 200px;

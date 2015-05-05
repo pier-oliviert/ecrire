@@ -52,6 +52,7 @@ main.posts.view > header > nav > div.publish.state {
   width: 10em;
   height: 30px;
   background-color: #dddddd;
+  color: darken($bright-blue, 25%);
   border-radius: 60px;
   cursor: pointer;
   overflow: hidden;
@@ -92,11 +93,11 @@ main.posts.view > header > nav > div.publish.state {
   }
 
   &[published='true'] {
-    background-color: lighten($gray-blue, 5%);
+    background-color: darken($bright-blue, 15%);
 
     label:first-child {
-      background-color: lighten($navy-blue, 25%);
-      color: darken($navy-blue, 25%);
+      background-color: darken($bright-blue, 25%);
+      color: lighten($bright-blue, 50%);
     }
 
     label:last-child {
@@ -117,9 +118,9 @@ main.posts.view > header > nav > div.publish.state {
 }
 
 #PostsIndex header {
+  @include flex-direction(row);
+
   min-height: 200px;
-  @include display(flex);
-  @include align-items(center);
 
   & > section {
     @include flex(1);
@@ -131,8 +132,10 @@ main.posts.view > header > nav > div.publish.state {
   @include display(flex);
   @include align-items(stretch);
 
-  border: 1px solid lighten($gray-blue, 25%);
+  border: 1px solid darken($bright-blue, 10%);
   border-radius: 2px;
+  overflow: hidden;
+  background-color: lighten($gray-blue, 50%);
 
   input {
     @include flex(1);
@@ -141,6 +144,8 @@ main.posts.view > header > nav > div.publish.state {
     font-size: 1.0em;
     margin: 0 auto;
     border: none;
+    border-radius: 0;
+    background-color: inherit;
   }
 
   svg {
@@ -155,6 +160,7 @@ main.posts.view > header > nav > div.publish.state {
     @include transition(background-color 0.3s ease, box-shadow 0.3s ease);
     border-right: 1px solid lighten($gray-blue, 25%);
     cursor: pointer;
+    color: darken($bright-blue, 15%);
 
     &:hover, &.tagged {
       background-color: $light-blue;
@@ -334,18 +340,21 @@ main.posts.view > header > nav > div.publish.state {
 main.posts.view > header {
 
   h2 {
+    font-size: 2.3em;
     margin: 2em 0;
     text-align: center;
-    text-transform: uppercase;
-    color: lighten($gray-blue, 5%);
+    color: lighten($gray-blue, 50%);
   }
 
   nav {
     @include display(flex);
     @include justify-content(space-between);
     @include align-items(center);
-    @include flex(1);
+    @include flex(0 auto);
+
+    width: 100%;
     padding: 0 1em 1em 1em;
+    margin-top: auto;
     border-bottom: 1px solid lighten($gray-blue, 25%);
   }
 
