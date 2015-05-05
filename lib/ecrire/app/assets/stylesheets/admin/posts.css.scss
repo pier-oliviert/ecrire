@@ -44,7 +44,7 @@ main.posts div.done {
   }
 }
 
-main.posts.view > header > nav > div.publish.state {
+main.posts > header > nav > div.publish.state {
   @include transition(background-color 0.2s);
   position: relative;
   padding: 2px;
@@ -337,7 +337,7 @@ main.posts.view > header > nav > div.publish.state {
   }
 }
 
-main.posts.view > header {
+main.posts > header {
 
   h2 {
     font-size: 2.3em;
@@ -352,10 +352,10 @@ main.posts.view > header {
     @include align-items(center);
     @include flex(0 auto);
 
+    z-index: 100;
     width: 100%;
     padding: 0 1em 1em 1em;
     margin-top: auto;
-    border-bottom: 1px solid lighten($gray-blue, 25%);
   }
 
 }

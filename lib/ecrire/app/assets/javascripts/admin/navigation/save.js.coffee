@@ -1,6 +1,7 @@
 ObserveJS.bind 'Editor.Save', class
   loaded: =>
-    @on 'keydown', window, @save
+    @on 'click', @save
+    @on 'keydown', window, @shouldSave
     @on 'Editor:loaded', document, @cache
     @on 'Editor:updated', document, @update
     @on 'posts:update', document, @saved
@@ -19,15 +20,18 @@ ObserveJS.bind 'Editor.Save', class
       cache
     @cache()
 
-  save: (e) =>
+  shouldSave: (e) =>
     @cache()
     if e.metaKey isnt true || e.which isnt 83
       return
 
+    @save(e)
+
+  save: (e) =>
     e.preventDefault()
     e.stopPropagation()
 
-    dialog = @element().content.querySelector('#SavePost').cloneNode(true)
+    dialog = @retrieve('#SavePost').cloneNode(true)
     document.body.appendChild(dialog)
 
   saved: (e) =>

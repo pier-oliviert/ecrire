@@ -1,12 +1,3 @@
-<template as='Editor.Save'>
-  <%= content_tag :div, as: 'Editor.Save.Dialog', id: 'SavePost', href: admin_post_path(@post), method: 'PUT' do %>
-    <div class='progress'></div>
-    <p class='message'>
-      Saving...
-    </p>
-  <% end %>
-</template>
-
 <%= content_tag :header, as: "Post.Header", href: admin_post_image_path(@post), method: 'POST' do |header| %>
   <template for='Post.Header'>
     <%= render 'admin/posts/header/dropping', css: %w(status dropping hidden) %>
@@ -49,6 +40,24 @@
     <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
   </div>
 
+  <nav class='actions'>
+    <button class='button' as='Editor.Save'>
+      Save
+      <template for='Editor.Save'>
+        <%= content_tag :div, as: 'Editor.Save.Dialog', id: 'SavePost', href: admin_post_path(@post), method: 'PUT' do %>
+          <div class='progress'></div>
+          <p class='message'>
+            Saving...
+          </p>
+        <% end %>
+      </template>
+    </button>
+
+    <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>
+      <label>Published</label>
+      <label>Draft</label>
+    <% end %>
+  </nav>
 <% end %>
 
 <section>
