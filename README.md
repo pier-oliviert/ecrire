@@ -1,13 +1,26 @@
 # Ecrire
-
 [![Build Status](https://travis-ci.org/pothibo/ecrire.svg?branch=master)](https://travis-ci.org/pothibo/ecrire)
 
-Ecrire is a blog built *on top* of Ruby on Rails. The goal of this blog engine is to make it **easy** to start a blog while keeping control over the content. You can see this as an alternative to WordPress.
+Ecrire is a blog engine built for web professionals. Most best practices comes builtin for you to quickly create powerful websites.
+
+## How does it work?
+Essentially, Ecrire is a blog engine. It provides a powerful Markdown editor, tags support, drafts, permalinks, image uploads, and everything else you would need to create a website.
+
+Ecrire is built around the concept of themes. When you create a project with Ecrire, you are actually creating a new theme for you to customize to your needs.
+
+## How flexible is a theme?
+You can do pretty much anything you want inside a theme. It is based on Rails::Engine, a foundation block of Ruby on Rails. You can add gems, routes, controllers, views, javascript files, anything.
+
+By default, a theme has 3 type of routes: posts, tags and static. While the first two serve dynamic contents (posts and tags), the third one is a route that handles static pages. This is useful when you want to add an about/FAQ/Contact page that doesn't change much and you want to use normal HTML to render it instead of the Markdown Editor.
+
+Views(HTML) uses by default ERB, a Ruby + HTML template to build dynamic pages. The default theme provides tons of example on how to use ERB to build pages with content written in Markdown.
+
 
 ## The editor
-The editor was built around the Markdown syntax. The content change as you type to offer you a very good approximation of how your post will look like once publish.
 
-Here's the available feature:
+The editor uses Markdown as its syntax. The advantage is to format your text as you type. The syntax is easy to understand and is powerful enough to let you structure your text as you type so you can focus on the content.
+
+Here's the different structures available to you in the editor:
 - Headers
 - Unordered list
 - Ordered list
@@ -16,35 +29,23 @@ Here's the available feature:
 - Links
 - Bold and Italic words
 
-More feature will be implemented as the Editor mature.
+You can learn more about the syntax on [Ecrire.io](http://ecrire.io/markdown)
 
-## Theme
-When you start a new blog with Ecrire, it will generate a folder for you. Everything in that folder is for you to modify. You won't break anything. It also features a few characteristic that you may recognize if you are a Rails developer.
+## Get started
+First, you need to install ecrire as a gem and then create a new theme.
 
-- SASS
-- Coffeescript
-- Assets caching through Sprockets
-- View using layouts, views and partials
-- Controllers
-- Helpers
-- Static pages
-
-When you install your theme, the documentation will be available direclty within your blog so you can go back to it when you need it.
-
-## How to install
-
-```bash
+~~~bash
 $ gem install ecrire
 $ ecrire new my.blog.com
 $ cd my.blog.com/
 $ ecrire server
-```
+~~~
 
-From there, you can access your new blog via the browser and start configuring your database.
+Once the server is started, you can load your browser at **http://localhost:3000** to finish the configuration.
 
-## Heroku
+## Go live on Heroku
 
-Once you have finished your changes in your local environment, here's how you can publish your blog on Heroku.
+Once you're ready to go live, you can use Heroku to deploy your application in production:
 
 ~~~bash
 $ heroku git:remote -a name-of-your-app-on-heroku
@@ -63,4 +64,4 @@ irb(main)> user.save!
 irb(main)> exit
 ~~~
 
-You can now log in to your blog in production and start writing for real!
+
