@@ -2,7 +2,7 @@
   <h3>Drafts</h3>
   <% drafted.each do |post| %>
     <li>
-      <%= link_to post.title, url('/admin/posts/:post.id', post: post), class: %w(title) %>
+      <%= link_to post.title, url('/admin/posts/:post.id/edit', post: post), class: %w(title) %>
     </li>
   <% end %>
 </ol>
@@ -11,7 +11,7 @@
   <h3>Published</h3>
   <% published.each do |post| %>
     <li>
-      <%= link_to post.title, url('/admin/posts/:post.id', post: post), class: %w(title) %>
+      <%= link_to post.title, url('/admin/posts/:post.id/edit', post: post), class: %w(title) %>
       <% if post.tags.any? %>
         <%= content_tag :div, class: %w(tags) do %>
           <svg version="1.1" class="tag icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">

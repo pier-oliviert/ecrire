@@ -1,8 +1,9 @@
 <% content_for :class, 'post view' %>
-<header>
-  <%= content_tag :h2, @post.title %>
+
+<%= content_tag :header do |header| %>
   <nav>
     <div class='meta'>
+      <%= link_to 'Edit', edit_admin_post_path(@post), class: %w(button) %>
       <%= link_to 'Preview', admin_post_path(@post), class: %w(selected button) %>
       <%= link_to 'Tags', admin_post_tags_path(@post), class: %w(button) %>
       <%= link_to 'Title', admin_post_titles_path(@post), class: %w(button) %>
@@ -13,9 +14,14 @@
       <label>Draft</label>
     <% end %>
   </nav>
-</header>
+
+  <%= content_tag :h2, @post.title %>
+
+  <% if @post.header? %>
+    <% header[:style] = "background-image: url(#{@post.header.url});" %>
+  <% end %>
+<% end %>
 
 <section class='preview'>
-  <%= link_to 'Edit this post', edit_admin_post_path(@post) %>
   <%= content_tag :article, @post.compiled_content.try(:html_safe) %>
 <section>

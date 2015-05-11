@@ -340,8 +340,10 @@ main.posts > header > nav > div.publish.state {
 main.posts > header {
 
   h2 {
+    @include display(flex);
+    @include flex(1);
     font-size: 2.3em;
-    margin: 2em 0;
+    margin: 1em 0;
     text-align: center;
     color: lighten($gray-blue, 50%);
   }
@@ -354,8 +356,8 @@ main.posts > header {
 
     z-index: 100;
     width: 100%;
-    padding: 0 1em 1em 1em;
-    margin-top: auto;
+    margin: 2em 0 0 0;
+    padding: 0 1em;
   }
 
 }

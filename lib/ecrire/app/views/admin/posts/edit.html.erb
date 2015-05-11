@@ -1,4 +1,30 @@
 <%= content_tag :header, as: "Post.Header", href: admin_post_image_path(@post), method: 'POST' do |header| %>
+  <nav class='actions'>
+    <div class='meta'>
+      <button class='button' as='Editor.Save'>
+        Save
+        <template for='Editor.Save'>
+          <%= content_tag :div, as: 'Editor.Save.Dialog', id: 'SavePost', href: admin_post_path(@post), method: 'PUT' do %>
+            <div class='progress'></div>
+            <p class='message'>
+              Saving...
+            </p>
+          <% end %>
+        </template>
+      </button>
+
+      <%= link_to 'Edit', edit_admin_post_path(@post), class: %w(selected button) %>
+      <%= link_to 'Preview', admin_post_path(@post), class: %w(button) %>
+      <%= link_to 'Tags', admin_post_tags_path(@post), class: %w(button) %>
+      <%= link_to 'Title', admin_post_titles_path(@post), class: %w(button) %>
+    </div>
+
+
+    <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>
+      <label>Published</label>
+      <label>Draft</label>
+    <% end %>
+  </nav>
   <template for='Post.Header'>
     <%= render 'admin/posts/header/dropping', css: %w(status dropping hidden) %>
     <%= render 'admin/posts/header/uploading', css: %w(status uploading hidden) %>
@@ -40,24 +66,6 @@
     <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
   </div>
 
-  <nav class='actions'>
-    <button class='button' as='Editor.Save'>
-      Save
-      <template for='Editor.Save'>
-        <%= content_tag :div, as: 'Editor.Save.Dialog', id: 'SavePost', href: admin_post_path(@post), method: 'PUT' do %>
-          <div class='progress'></div>
-          <p class='message'>
-            Saving...
-          </p>
-        <% end %>
-      </template>
-    </button>
-
-    <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>
-      <label>Published</label>
-      <label>Draft</label>
-    <% end %>
-  </nav>
 <% end %>
 
 <section>
