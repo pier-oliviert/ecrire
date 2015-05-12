@@ -10,6 +10,7 @@ nav#Menu.admin {
   font-size: 16px;
   font-weight: bold;
   padding: 0 0.5em;
+  z-index: 10;
 
   background-color: darken($gray-blue, 25%);
   color: lighten($gray-blue, 15%);
