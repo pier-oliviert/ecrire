@@ -25,6 +25,37 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_select node(html), "#TestIndex"
   end
 
+  test 'title_tag should always render the tag' do
+    html = title_tag
+    assert_select node(html), 'title', 1
+  end
+
+  test 'title_tag content should always prioritize content_for' do
+    @post = Post.first
+    title = "A new title"
+    content_for :title, title
+    html = title_tag
+
+    assert_select node(html), 'title', title
+  end
+
+  test 'title_tag should render the post if content_for(:title) is not set' do
+    @post = Post.first
+    html = title_tag('yada')
+
+    assert_select node(html), 'title', @post.title
+
+  end
+
+  test 'title_tag should render the argument passed if nothing else is set' do
+    html = title_tag
+    assert_select node(html), 'title', 'Ecrire'
+
+    html = title_tag('Oops')
+    assert_select node(html), 'title', 'Oops'
+  end
+
+
   def node(html)
     Nokogiri::HTML::Document.parse(html)
   end
