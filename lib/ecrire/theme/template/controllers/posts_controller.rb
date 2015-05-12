@@ -8,7 +8,14 @@ class PostsController < Ecrire::ThemeController
       @posts = @posts.where.not(id: @latest.id)
     end
     @tags = Tag.all
-    super
+
+    respond_to do |format|
+      format.html
+      format.rss
+      format.json do
+        headers['Access-Control-Allow-Origin'] = '*'
+      end
+    end
   end
 
   def show

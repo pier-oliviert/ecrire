@@ -1,4 +1,16 @@
 module Ecrire
+  ##
+  # The class any controller in a theme needs to inherit from
+  #
+  # +ThemeController+ provides boilerplate code so the blog handles a few cases
+  # for you.
+  #
+  # Ecrire will try to redirect to the homepage when it meets selected exceptions
+  # Currently, the following 3 exceptions are handled:
+  # - ActiveRecord::RecordNotFound
+  # - ActionController::RoutingError
+  # - ActionView::ActionViewError
+  #
   class ThemeController < ::ApplicationController
 
     unless Rails.env.development?
@@ -7,23 +19,10 @@ module Ecrire
       rescue_from ActionView::ActionViewError, with: :redirect_home
     end
 
+
     before_action :pagination, only: :index
-    protect_from_forgery except: :index
 
-    def index
-      respond_to do |format|
-        format.html
-        format.rss
-        format.json do
-          headers['Access-Control-Allow-Origin'] = '*'
-        end
-      end
-    end
-
-    def show
-    end
-
-    protected
+    private
 
     def pagination
       params[:per] ||= 10

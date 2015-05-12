@@ -45,7 +45,7 @@ module ApplicationHelper
   # Ecrire will render an absolute path using the +relative_path+
   #
   def rss_tag(relative_path = '/feed')
-    content_tag :link, nil, rel: 'alternate', type: 'application/rss+xml', title: 'RSS', href: url(relative_path, full_path: true)
+    content_tag :link, nil, rel: 'alternate', type: 'application/rss+xml', title: 'RSS', href: url(relative_path, absolute_path: true)
   end
 
 

@@ -1,5 +1,5 @@
 <% post = Post.new(titles: [title], published_at: title.post.published_at) %>
 <li>
   <%= content_tag :p, title.name %>
-  <%= link_to url(Ecrire::Theme::Engine.post_path, post: post, full_path: true), url(Ecrire::Theme::Engine.post_path, post: post, full_path: true) %>
+  <%= link_to url(Ecrire::Theme::Engine.post_path, post: post, absolute_path: true), url(Ecrire::Theme::Engine.post_path, post: post, absolute_path: true) %>
 </li>
