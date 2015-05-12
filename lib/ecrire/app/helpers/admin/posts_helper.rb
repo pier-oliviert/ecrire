@@ -1,6 +1,5 @@
 module Admin
   module PostsHelper
-    include ::PostsHelper
 
     def post_tags(post)
       tags = post.tags.map do |tag|
