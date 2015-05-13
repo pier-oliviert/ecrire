@@ -22,6 +22,18 @@ class PostTest < ActiveSupport::TestCase
     assert post.read_attribute(:tags).include?(tag.id)
   end
 
+  test 'find post by title' do
+    keyword = 'title'
+
+    posts = Title.search_by_name(keyword).map(&:post).uniq
+
+    assert posts.count == Post.search_by_title(keyword).count
+
+    Post.search_by_title(keyword).each do |post|
+      assert posts.include?(post)
+    end
+  end
+
   test "fetch published post" do
     @posts = Post.status("published")
     assert_equal @posts.count, Post.published.count
