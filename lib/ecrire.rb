@@ -3,6 +3,10 @@ module Ecrire
   autoload :Application,        'ecrire/application'
   autoload :Markdown,           'ecrire/markdown'
 
+  ##
+  # Returns true if Ecrire could find 
+  # a Gemfile in the current working directory
+  #
   def self.bundle?
     ENV['BUNDLE_GEMFILE'] ||= Dir.pwd + '/Gemfile'
     File.exists?(ENV['BUNDLE_GEMFILE'])

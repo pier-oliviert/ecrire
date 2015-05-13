@@ -1,25 +1,47 @@
 module Ecrire
+  ##
+  # Theme module links the user's theme with 
+  # Ecrire::Application. It uses Rails::Engine to hook
+  # itself up and split the codebase between the Gem and the user's
+  # Theme.
+  #
   module Theme
+
+    ##
+    # Engine is the foundation of Rails. It can be used
+    # to encapsulate part of the application and this is 
+    # exactly what it does here.
+    #
+    # Ecrire::Theme::Engine is the block that hooks into Ecrire::Application
+    # to provide Theme support.
+    #
+    # This class is the only element that the Gem includes at runtime.
+    # 
+    # Everything else is defined in the user's theme folder.
+    #
+    # This engine is the reason why it's possible to have 
+    # Ecrire as a gem and theme as user's folder.
+    #
     class Engine < Rails::Engine
+
+      ##
+      # +post_path+ needs to be defined so Ecrire can link from the admin
+      # to a post. This is also needed when listing all the titles a post has
+      # and the URL they represent.
+      #
       attr_accessor :post_path
 
-      initializer 'ecrire.logs', before: :initialize_logger do |app|
-        unless Rails.env.test?
-          app.paths.add "log", with: "log/#{Rails.env}.log"
-        end
-      end
-
-      initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
-        ActiveSupport::Dependencies.autoload_paths.unshift(*self.paths.autoload_paths)
-        ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)
-      end
-
-      initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
-        app.config.eager_load_paths.unshift *paths.eager_load
-        app.config.autoload_once_paths.unshift *paths.autoload_once
-        app.config.autoload_paths.unshift *paths.autoload_paths
-      end
-
+      ##
+      # Return paths for a theme. The paths
+      # follow the structure of the default theme.
+      #
+      # It creates a new Rails::Paths because 
+      # it's highly customized and it was less readable to
+      # disable and changes every paths.
+      #
+      # This could be modified in the user's theme.
+      #
+      #
       def paths
         @paths ||= begin
           paths = Rails::Paths::Root.new(root_path)
@@ -42,10 +64,30 @@ module Ecrire
         end
       end
 
+      ##
+      # Disables migration for now.
+      # Any Rails::Engine instance can support migrations
+      # which means that Theme could have their own
+      # models.
+      #
+      # It's likely that at some point this behavior is resumed but
+      # I want to make sure that I understand the implication before
+      # turning this back on.
+      #
+      # For example, I would like to make sure that the Admin is shelled from
+      # those future migrations. 
       def has_migrations?
         false
       end
 
+      ##
+      # Return the root_path for the current theme
+      #
+      # The method starts at the current working directory and moves from parent
+      # to parent until it either finds +config.ru+ or it reaches the root.
+      #
+      # Raise an error if it reaches the root and can't find +config.ru+.
+      #
       def root_path(file = 'config.ru')
         begin
           pathname = Pathname.pwd
@@ -61,6 +103,24 @@ module Ecrire
           pathname
         end
       end
+
+      initializer 'ecrire.logs', before: :initialize_logger do |app|
+        unless Rails.env.test?
+          app.paths.add "log", with: "log/#{Rails.env}.log"
+        end
+      end
+
+      initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
+        ActiveSupport::Dependencies.autoload_paths.unshift(*self.paths.autoload_paths)
+        ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)
+      end
+
+      initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
+        app.config.eager_load_paths.unshift *paths.eager_load
+        app.config.autoload_once_paths.unshift *paths.autoload_once
+        app.config.autoload_paths.unshift *paths.autoload_paths
+      end
+
 
     end
   end
