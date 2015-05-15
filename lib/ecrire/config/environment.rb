@@ -22,7 +22,9 @@ Ecrire::Application.configure do
     lambda do |filename, path|
       path =~ /assets/ && !%w(.js .css).include?(File.extname(filename))
     end,
-    /^(admin|ecrire)\.(css|js)$/
+    /^(admin|ecrire)\.(css|js)$/,
+    /^(application).(js|coffee)$/,
+    /^(browser|tablet|mobile).(css|scss)$/
   ]
 
   Warden::Manager.serialize_into_session do |user|
