@@ -51,7 +51,7 @@ main.posts > header > nav > div.publish.state {
   margin: 0 2em;
   width: 10em;
   height: 30px;
-  background-color: #dddddd;
+  background-color: rgba(black, 0.2);
   color: darken($bright-blue, 25%);
   border-radius: 60px;
   cursor: pointer;
@@ -93,7 +93,7 @@ main.posts > header > nav > div.publish.state {
   }
 
   &[published='true'] {
-    background-color: darken($bright-blue, 15%);
+    background-color: rgba(black, 0.5);
 
     label:first-child {
       background-color: darken($bright-blue, 25%);
