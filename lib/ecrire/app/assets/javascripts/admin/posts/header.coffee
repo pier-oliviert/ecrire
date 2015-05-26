@@ -9,8 +9,6 @@ ObserveJS.bind 'Post.Header', class
 
     @on 'ObserveJS:XHR:Failed', @failed
 
-    @on 'click', @retrieve('div.error.status').querySelector('button'), @clear
-
     @on 'images:create', @refresh
     @on 'images:destroy', @refresh
     @on 'titles:index', @popup
@@ -50,6 +48,7 @@ ObserveJS.bind 'Post.Header', class
     @hide(@retrieve('div.status.uploading'))
     @show(@retrieve('div.error.status'))
     ul = @retrieve('div.error.status').querySelector('ul')
+    @on 'click', @retrieve('div.error.status').querySelector('button'), @clear
     for error in errors
       ul.insertAdjacentHTML('beforeend', "<li>#{error}</li>")
 
