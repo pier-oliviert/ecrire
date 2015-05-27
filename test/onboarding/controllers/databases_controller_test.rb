@@ -16,12 +16,12 @@ class DatabasesControllerTest < TestController
   end
 
   test 'even if the connection to the server is done, secrets.yml is not yet generated' do
-    post :create, database: {user: 'postgres', password: '', name: 'ecrire_test'}
+    post :create, database: {user: 'ecrire_test', password: '', name: 'ecrire_test'}
     assert Rails.application.paths['config/secrets'].existent.empty?
   end
 
   test 'redirect to users if the connection is successful' do
-    post :create, database: {user: 'postgres', password: '', name: 'ecrire_test'}
+    post :create, database: {user: 'ecrire_test', password: '', name: 'ecrire_test'}
     assert_redirected_to '/users'
   end
 
