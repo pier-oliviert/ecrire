@@ -42,7 +42,14 @@ module Admin
       html.xpath("//img").each do |img|
         img.remove
       end
-      self.compiled_excerpt = html.xpath('//body').children[0..20].to_s
+
+      valid_elements = %w(p ul ol li).freeze
+
+      elements = html.xpath('//body').children[0..19].take_while do |el|
+        valid_elements.include?(el.name)
+      end
+
+      self.compiled_excerpt = elements.map(&:to_s).join
     end
 
   end
