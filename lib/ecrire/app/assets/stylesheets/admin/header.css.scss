@@ -4,11 +4,15 @@ main.posts > header {
   @include align-items(center);
   @include justify-content(center);
   @include flex-direction(column);
+
   background-color: $bright-blue;
   background-size: cover;
+  background-position: top left;
+
   color: lighten($bright-blue, 50%);
-  max-height: 200px;
+
   height: 30vh;
+  min-height: 200px;
 }
 
 main.edit.posts > header > div.title {
