@@ -45,7 +45,7 @@ module Admin
 
       valid_elements = %w(p ul ol li).freeze
 
-      elements = html.xpath('//body').children[0..19].take_while do |el|
+      elements = html.xpath('//body').children[0..4].take_while do |el|
         valid_elements.include?(el.name)
       end
 

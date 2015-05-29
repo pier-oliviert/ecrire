@@ -89,7 +89,7 @@ class PostTest < ActiveSupport::TestCase
 
   end
 
-  test "excerpt is generated until it reaches 20 elements" do
+  test "excerpt is generated until it reaches 5 elements" do
     post = Admin::Post.new({
       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Nunc malesuada diam id fringilla varius.
@@ -120,7 +120,7 @@ Cras molestie tellus id convallis lobortis."
 
     html = Nokogiri::HTML(post.compiled_excerpt)
 
-    assert html.css('body > *').length == 20
+    assert html.css('body > *').length == 5
 
   end
 
@@ -128,10 +128,6 @@ Cras molestie tellus id convallis lobortis."
     post = Admin::Post.new({
       content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 [Nunc](http://google.com) malesuada diam id fringilla varius.
-Suspendisse ultricies sem ac enim pulvinar luctus.
-Pellentesque a nunc in libero convallis fringilla.
-Praesent nec ipsum ut turpis feugiat semper.
-Integer quis magna quis nisi porta hendrerit in a lorem.
 Nam dignissim sapien nec feugiat cursus.
 - In tincidunt orci eget est scelerisque, a consequat massa consectetur.
 - Donec et nunc at justo facilisis congue.
@@ -155,7 +151,7 @@ Cras molestie tellus id convallis lobortis."
 
     html = Nokogiri::HTML(post.compiled_excerpt)
 
-    assert html.css('body > *').length == 10
+    assert html.css('body > *').length == 5
   end
 
 end
