@@ -13,6 +13,7 @@ module Ecrire
 
         @server = Rails::Server.new
         @server.options[:Port] = options[:Port]
+        @server.options[:Host] = options[:Host]
       end
 
       def run!
