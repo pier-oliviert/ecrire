@@ -15,6 +15,8 @@
 log
 tmp
 
+Dockerfile
+docker-compose.yml
 .DS_Store
 Gemfile.lock
 
