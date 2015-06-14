@@ -1,4 +1,4 @@
-Editor.Parsers.push class
+Editor.Parsers.add 'code', class
   rule: /^((~{3,})([a-z]+)?)(.+)?(~{3,}$)?/mi
 
   constructor: (node) ->
