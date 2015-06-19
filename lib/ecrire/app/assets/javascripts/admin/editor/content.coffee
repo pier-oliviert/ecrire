@@ -3,7 +3,7 @@ ObserveJS.bind 'Editor.Content', class @Editor
   loaded: =>
     @on 'keydown', @linefeed
 
-    @parsers = Editor.Parsers
+    @parsers = Editor.Parsers.sort()
 
     @extensions = Editor.Extensions.map (ext) =>
       new ext(this)
@@ -357,5 +357,23 @@ class Mutations
     else
       'none'
 
-Editor.Parsers = []
+class Parsers
+  constructor: ->
+    @store = {}
+
+  add: (name, kls) =>
+    @store[name] = kls
+
+  sort: =>
+    [
+      @store.code
+      @store.lists
+      @store.image
+      @store.headers
+      @store.link
+      @store.word
+    ]
+
+Editor.Parsers = new Parsers()
+
 Editor.Extensions = []

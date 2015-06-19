@@ -1,4 +1,4 @@
-Editor.Parsers.push class
+Editor.Parsers.add 'lists', class
   rules: [
     {
       type: 'ul'
