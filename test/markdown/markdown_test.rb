@@ -35,6 +35,14 @@ class MarkdownTest < Minitest::Test
     assert_equal  "<p><strong>bold</strong> and <em>italic</em></p>", document.to_html
   end
 
+  def test_code_inline
+    document = Ecrire::Markdown.parse("This is a ~~~ruby inline code~~~ snippet")
+    assert_equal  "<p>This is a <code class='language-ruby'>inline code</code> snippet</p>", document.to_html
+
+    document = Ecrire::Markdown.parse("This is a ~~~ruby inline code~~~ snippet. Multiple ~~~ruby instance~~~ can coexist on the same line")
+    assert_equal  "<p>This is a <code class='language-ruby'>inline code</code> snippet. Multiple <code class='language-ruby'>instance</code> can coexist on the same line</p>", document.to_html
+  end
+
   def test_code_blocks
     document = Ecrire::Markdown.parse("~~~ruby\n# A comment\nRails.application\n~~~")
     assert_equal  "<pre><header></header><code class='language-ruby'># A comment\nRails.application</code></pre>", document.to_html
