@@ -3,7 +3,7 @@ module Ecrire::Markdown
     autoload :Image,                   'ecrire/markdown/nodes/image'
     autoload :UnorderedList,           'ecrire/markdown/nodes/unordered_list'
     autoload :OrderedList,             'ecrire/markdown/nodes/ordered_list'
-    autoload :CodeBlock,               'ecrire/markdown/nodes/code_block'
+    autoload :Code,                    'ecrire/markdown/nodes/code'
     autoload :Heading,                 'ecrire/markdown/nodes/heading'
   end
 

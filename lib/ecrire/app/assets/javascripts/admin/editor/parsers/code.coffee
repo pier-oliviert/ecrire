@@ -1,43 +1,97 @@
 Editor.Parsers.add 'code', class
-  rule: /^((~{3,})([a-z]+)?)(.+)?(~{3,}$)?/mi
+  rules:
+    start: /((~{3,})([a-z]+)?)(.+)?/i
 
   constructor: (node) ->
-    @nodes = [node]
-    @tildeCount = 0
+    @walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT)
 
   isMatched: =>
-    @match = @rule.exec(@nodes[0].textContent)
-    if @match? && @match[0]?
-      @tildeCount = @match[2].length
-      @collectSiblingsUntilMatched(@tildeCount, @nodes[0])
+    @matches().length > 0 
 
-  collectSiblingsUntilMatched: (count, node) =>
-    node = node.nextSibling
+  matches: =>
+    matches = []
+    while node = @walker.nextNode()
+      match = @extract(node)
+      if match?
+        matches.push match
+        @walker.currentNode = match.contentNodes[match.contentNodes.length - 1]
+
+    @matches = ->
+      matches
+    @matches()
+
+  extract: (node) =>
+    match = @rules.start.exec(node.textContent)
+
+    if !match?
+      return null
+
+    return @split(match, node)
+
+  split: (match, node) ->
+    node = node.splitText(match.index)
+    match.contentNodes = [node]
+
+    if match.index > 0
+      match.inline = true
+
+    match.node = node
+    match.tildeCount = match[2].length
+    match.contentNodes.push node.splitText(match.tildeCount)
+
+    if m = @findCloseTag(match.contentNodes[1], match.tildeCount)
+      match.contentNodes[1].splitText(m.index + m[0].length)
+      match.closeNode = match.contentNodes[match.contentNodes.length - 1]
+
+    if match.closeNode?
+      match.inline = true
+      return match
+
+    node = @walker.root.nextSibling
     while node
-      @nodes.push node
-      nextNode = node.nextSibling
+
+      sibling = node.nextSibling
       node.remove()
 
-      match = @rule.exec(node.textContent)
+      textNode = document.createTextNode('\n' + node.textContent)
+      match.contentNodes.push textNode
 
-      if match? && match[2]? && match[2].length == count
+      if m = @findCloseTag(textNode, match.tildeCount)
+        match.closeNode = node
         break
 
-      node = nextNode
+      node = sibling
+
+    return match
+
+  findCloseTag: (node, tildeCount) =>
+    rule = new RegExp("(~{#{tildeCount},})", 'i')
+    rule.exec(node.textContent)
+
 
 
   render: =>
-    pre = "<pre>".toHTML()
-    code = "<code as='Editor.Code'>".toHTML()
+    root = @walker.root
 
-    if @match[3]?
-      code.classList.add("language-#{@match[3]}")
+    for match in @matches()
 
-    texts = @nodes.map (n) -> n.textContent
+      code = "<code as='Editor.Code'>".toHTML()
+      match.node.parentElement.replaceChild(code, match.node)
 
-    code.textContent = texts.join('\n')
+      if match.inline?
+        parent = match.node.parentElement
 
-    Prism.highlightElement(code)
-    pre.appendChild(code)
-    pre
+      code.appendChild(line) for line in match.contentNodes
 
+
+      if match[3]?
+        code.classList.add("language-#{match[3]}")
+
+      Prism.highlightElement(code)
+
+      if !match.inline?
+        pre = "<pre>".toHTML()
+        pre.appendChild(code)
+        root = pre
+
+    root

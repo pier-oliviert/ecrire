@@ -157,6 +157,7 @@ class Post < ActiveRecord::Base
 
   protected
 
+  #:nodoc:
   def update_tags
     ids = tags.map(&:id)
     unless ids == read_attribute(:tags)
