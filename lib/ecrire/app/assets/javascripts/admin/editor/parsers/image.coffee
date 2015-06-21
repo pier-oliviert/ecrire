@@ -1,4 +1,4 @@
-Editor.Parsers.push class
+Editor.Parsers.add 'image', class
   rule: /^(!{1}\[([^\]]+)\])(\(([^\s]+)?\))$/i
 
   constructor: (node) ->

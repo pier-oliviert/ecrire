@@ -1,4 +1,4 @@
-Editor.Parsers.push class
+Editor.Parsers.add 'link', class
   rule: /!{0}(\[([^\]]+)\])(\(([^\)]+)\))/gi
 
   constructor: (node, el) ->

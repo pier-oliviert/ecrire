@@ -1,4 +1,4 @@
-Editor.Parsers.push class
+Editor.Parsers.add 'code', class
   rules:
     start: /((~{3,})([a-z]+)?)(.+)?/i
 
