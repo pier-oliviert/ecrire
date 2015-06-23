@@ -37,19 +37,6 @@ code::selection, code ::selection {
 	}
 }
 
-/* Code blocks */
-pre {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
-}
-
-/* Inline code */
-:not(pre) > code {
-	padding: .1em;
-	border-radius: .3em;
-}
-
 .token.comment,
 .token.prolog,
 .token.doctype,
