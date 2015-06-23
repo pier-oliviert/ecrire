@@ -1,4 +1,23 @@
-article.content pre {
+article.content code, article.content pre {
+	border-radius: .3em;
+}
+
+article.content code {
   font-size: 0.7em;
-  background: $light-blue;
+}
+
+article.content pre {
+  background: lighten($light-blue, 5%);
+  border-top: 1px solid $light-blue;
+  padding: 0.7em;
+}
+
+article.content pre > code {
+  background: none;
+}
+
+article.content :not(pre) > code {
+  background: lighten($light-blue, 5%);
+  border-top: 1px solid $light-blue;
+  padding: 0.2em 0.5em;
 }
