@@ -366,8 +366,8 @@ class Parsers
 
   sort: =>
     [
-      @store.code
       @store.lists
+      @store.code
       @store.image
       @store.headers
       @store.link
