@@ -3,7 +3,7 @@ class CreateLabels < ActiveRecord::Migration
     create_table :labels do |t|
 
       t.string :name, null: false
-      t.timestamps
+      t.timestamps null: false
 
     end
     add_index :labels, :name, unique: false

@@ -6,7 +6,7 @@ class CreateImages < ActiveRecord::Migration
 
       t.references :post
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

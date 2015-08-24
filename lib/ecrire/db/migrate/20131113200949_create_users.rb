@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.string :email, null: false
       t.string :encrypted_password, null: false
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :users, :email, unique: true
