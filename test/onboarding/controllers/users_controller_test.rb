@@ -11,8 +11,8 @@ class UsersControllerTest < TestController
   setup do
     info ||= {
       'adapter' => 'postgresql',
+      'user' => 'ecrire_test',
       'database' => 'ecrire_test',
-      'user' => 'postgres',
       'password' => 'password',
       'encoding' => 'utf8'
     }

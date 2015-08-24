@@ -1,20 +1,26 @@
 require 'rake/testtask'
 
-class Ecrire::TestTask < Rake::TestTask
-  attr_accessor :theme
+class Ecrire::Test::Task < Rake::TestTask
+
+  def before(&block)
+    @callback = block
+  end
 
   def define
     desc @description
     task @name do
+
+      unless @callback.nil?
+        @callback.call
+      end
+
       Rake::FileUtilsExt.verbose(@verbose) do
         args = [
           "#{ruby_opts_string} #{run_code} ",
           "#{file_list_string} #{option_list}"
         ]
 
-        if File.exists?(theme)
-          args << theme
-        end
+        args << @name
 
         ruby args.join do |ok, status|
           if !ok && status.respond_to?(:signaled?) && status.signaled?

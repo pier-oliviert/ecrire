@@ -1,5 +1,4 @@
 require 'test_controller'
-require 'editor/test_helper'
 
 class PostsControllerTest < TestController
   tests Admin::PostsController

@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'editor/test_helper'
 
 class TitleTest < ActiveSupport::TestCase
   test "length of name" do
