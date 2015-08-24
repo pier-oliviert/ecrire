@@ -1,8 +1,3 @@
-namespace :assets do
-  task :environment do
-  end
-end
-
 module Sprockets
   module Rails
     class Task < Rake::SprocketsTask
@@ -12,3 +7,12 @@ module Sprockets
     end
   end
 end
+
+Rake::Task['assets:environment'].clear
+
+namespace :assets do
+  task :environment do
+    Ecrire::Application.initialize!
+  end
+end
+
