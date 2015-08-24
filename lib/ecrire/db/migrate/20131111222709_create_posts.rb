@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :stylesheet
 
       t.datetime :published_at
-      t.timestamps
+      t.timestamps null: false
 
     end
     add_index :posts, :title, unique: true

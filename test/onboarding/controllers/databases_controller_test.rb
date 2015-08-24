@@ -21,7 +21,7 @@ class DatabasesControllerTest < TestController
   end
 
   test 'redirect to users if the connection is successful' do
-    post :create, database: {user: 'postgres', password: '', name: 'ecrire_test'}
+    post :create, database: {name: 'ecrire_test', user: 'ecrire_test'}
     assert_redirected_to '/users'
   end
 

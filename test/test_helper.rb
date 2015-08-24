@@ -11,14 +11,7 @@ require 'rails/generators/test_case'
 require 'warden'
 require 'byebug'
 
-Dir.chdir ARGV.pop do
-  Ecrire::Application.initialize!
-end
-
-
-class ActiveSupport::TestCase
-  ActiveSupport.test_order = :sorted
-end
+require_relative "#{ARGV.pop}/initializers"
 
 class ActionController::TestCase
   include Warden::Test::Helpers
@@ -27,5 +20,3 @@ class ActionController::TestCase
     @routes = Rails.application.routes
   end
 end
-
-

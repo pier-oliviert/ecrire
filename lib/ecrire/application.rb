@@ -26,16 +26,32 @@ module Ecrire
 
     alias :require_environment! :initialize!
 
-    initializer 'ecrire.secrets', before: :bootstrap_hook do |app|
-      app.paths.add 'config/secrets', with: Dir.pwd + '/secrets.yml'
+    config.before_initialize do
+      if paths['config/database'].existent.any?
+        require 'ecrire/theme/engine'
+      else
+        require 'ecrire/onboarding/engine'
+      end
     end
 
-    Rails.application.paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
+    ##
+    # There seems to be a crack between when the configuration
+    # is loaded and when the initializer collection is built.
+    #
+    # Ecrire requires the configuration to be loaded before
+    # knowing which module it should load based on the current
+    # configuration.
+    #
+    # For that reason, this method is overloaded.
+    #
+    def initialize!(group=:default) #:nodoc:
+      raise "Application has been already initialized." if @initialized
 
-    if File.exist?(Dir.pwd + '/secrets.yml')
-      require 'ecrire/theme/engine'
-    else
-      require 'ecrire/onboarding/engine'
+      ActiveSupport.run_load_hooks(:before_initialize, self)
+
+      run_initializers(group, self)
+      @initialized = true
+      self
     end
 
     ##
@@ -48,6 +64,8 @@ module Ecrire
     def paths
       @paths ||= begin
          paths = super
+         paths.add 'config/secrets', with: Dir.pwd + '/secrets.yml'
+         paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
          paths.add 'config/routes.rb', with: 'routes.rb'
          paths.add 'config/locales', with: 'locales', glob: "**/*.{rb,yml}"
          paths
@@ -62,5 +80,10 @@ module Ecrire
       defined?(Ecrire::Onboarding::Engine)
     end
 
+    Rails::Application::Bootstrap.initializers.select do |initializer|
+      initializer.name.eql? :bootstrap_hook
+    end.first.instance_variable_set :@block, Proc.new {}
+
   end
+
 end

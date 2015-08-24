@@ -1,5 +1,3 @@
-require 'editor/test_helper'
-
 class BaseHelperTest < ActionView::TestCase
   include Rails.application.routes.url_helpers
 
