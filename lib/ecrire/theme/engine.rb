@@ -113,6 +113,10 @@ module Ecrire
       initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
         ActiveSupport::Dependencies.autoload_paths.unshift(*self.paths.autoload_paths)
         ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)
+
+        if self.paths['public'].existent.any?
+          app.paths.add 'public', with: self.paths['public'].existent
+        end
       end
 
       initializer 'ecrire.append_paths', before: :set_autoload_paths do |app|
