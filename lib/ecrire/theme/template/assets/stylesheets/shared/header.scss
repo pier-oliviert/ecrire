@@ -2,7 +2,7 @@ main > header {
   @include display(flex);
   @include flex-direction(column);
 
-  padding: 2em 1em;
+  padding: 0 1em 2em 0;
   font-size: 1.2em;
   background-color: $navy-blue;
   color: $light-blue;
@@ -25,6 +25,7 @@ main > header {
       font-size: 10em;
       text-decoration: none;
       margin: auto 0;
+      line-height: 100%;
       color: lighten($navy-blue, 10%);
     }
 
