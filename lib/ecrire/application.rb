@@ -24,8 +24,6 @@ module Ecrire
   class Application < Rails::Application
     require 'ecrire/config/environment'
 
-    alias :require_environment! :initialize!
-
     config.before_initialize do
       if paths['config/database'].existent.any?
         require 'ecrire/theme/engine'
