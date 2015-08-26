@@ -31,7 +31,7 @@
     @include align-items(center);
     @include justify-content(center);
     @include flex-direction(column);
-    margin: 3em 0 0 0;
+    margin: 3em auto 0 auto;
     min-height: 50vh;
     min-width: 60vw;
     &.welcome {

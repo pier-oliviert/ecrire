@@ -66,18 +66,21 @@ namespace :test do
     t.verbose = true
   end
 
-  desc 'Run a test server set to use the template theme'
-  task :server do
-    require 'ecrire/commands/server'
-    Dir.chdir 'lib/ecrire/theme/template'
-    Rails.env = ENV['RAILS_ENV'] = 'development'
-    Ecrire::Commands::Server.new(Port: 3000).run!
-  end
 
 end
 
 task :test do
   %w(test:markdown test:editor test:onboarding test:theme).each do |name|
     Rake::Task[name].invoke
+  end
+end
+
+namespace :template do
+  desc 'Run a server set to use the template theme'
+  task :server do
+    require 'ecrire/commands/server'
+    Dir.chdir 'lib/ecrire/theme/template'
+    Rails.env = ENV['RAILS_ENV'] = 'development'
+    Ecrire::Commands::Server.new(Port: 3000).run!
   end
 end
