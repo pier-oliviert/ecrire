@@ -66,10 +66,10 @@ namespace :test do
     t.verbose = true
   end
 
-  desc 'Run a test server'
+  desc 'Run a test server set to use the template theme'
   task :server do
     require 'ecrire/commands/server'
-    Dir.chdir 'test/theme/theme'
+    Dir.chdir 'lib/ecrire/theme/template'
     Rails.env = ENV['RAILS_ENV'] = 'development'
     Ecrire::Commands::Server.new(Port: 3000).run!
   end
