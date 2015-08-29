@@ -1,9 +1,33 @@
+pre {
+  background-color: $gray-blue;
+  padding: 0;
+
+  header {
+    text-align: center;
+    font-size: 0.8em;
+    font-style: italic;
+    padding: 0.5em 1em;
+    background-color: $light-gray-blue;
+  }
+
+  code {
+    padding: 1em;
+    display: block;
+  }
+}
+
+:not(pre) > code {
+  background-color: $gray-blue;
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
 pre > code, pre > header {
   font-size: 0.8em;
 }
 
 pre > header {
   word-wrap: break-word;
-  text-align:right;
 }
 
