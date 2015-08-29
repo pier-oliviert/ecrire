@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+}
+
 html, body {
   @include display(flex);
   @include flex(1);
@@ -122,22 +126,4 @@ main.customize article {
   @include flex-direction(column);
   max-width:900px;
   margin: 0 auto;
-
-  pre {
-    background-color: $gray-blue;
-    padding: 0;
-
-    header {
-      text-align: center;
-      font-size: 0.8em;
-      font-style: italic;
-      padding: 0.5em 1em;
-      background-color: $light-gray-blue;
-    }
-
-    code {
-      padding: 1em;
-      display: block;
-    }
-  }
 }

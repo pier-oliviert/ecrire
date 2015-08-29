@@ -23,10 +23,10 @@
       <header>
 
         <nav>
-          <h1><%= link_to 'E', '/' %></h1>
+          <%= link_to 'E', '/', class: %w(logo) %>
 
           <ol>
-            <li><%= link_to 'Customize', '/customize' %></li>
+            <li><%= link_to 'Get started', '/customize' %></li>
 
             <% if !signed_in? %>
               <li><%= link_to 'Log in', new_session_path %></li>
