@@ -18,6 +18,6 @@ gem 'coffee-rails',      '~> 4.0'
 gem 'turbolinks',        '~> 2.2'
 gem 'bourbon',           '~> 3.2'
 gem 'uglifier',          '~> 2.5'
-gem 'jbuilder',          '~> 2.2'
+gem 'jbuilder'
 
 gem 'byebug'
