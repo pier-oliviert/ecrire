@@ -1,3 +1,9 @@
+#PostEditContent > div.tags {
+  color: $gray-blue;
+  text-align: center;
+  max-width: 900px;
+}
+
 #TagsIndex, #TagsCreate {
   header > form {
     @include display(flex);

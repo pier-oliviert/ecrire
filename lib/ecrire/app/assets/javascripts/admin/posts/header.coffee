@@ -11,12 +11,24 @@ ObserveJS.bind 'Post.Header', class
 
     @on 'images:create', @refresh
     @on 'images:destroy', @refresh
-    @on 'titles:index', @popup
-    @on 'titles:update', document, @updateTitle
-    @on 'titles:create', document, @updateTitle
 
-  popup: (e) =>
-    document.body.appendChild(e.HTML)
+    @on 'scroll', window, @resize
+
+    @maxHeight = parseFloat(window.getComputedStyle(this.element())['height'])
+
+    @resize()
+
+  resize:  =>
+    height = @maxHeight - window.scrollY
+    if height < 0
+      height = 0
+
+    if height != @maxHeight
+      @element().querySelector('nav').classList.add 'hidden'
+    else
+      @element().querySelector('nav').classList.remove 'hidden'
+
+    @element().style.height = "#{height}px"
 
   show: (el) =>
     @show.container ||= @element().querySelector('div.drop')
@@ -118,7 +130,3 @@ ObserveJS.bind 'Post.Header', class
       @element().style.backgroundImage = null
 
     @clear()
-
-  updateTitle: (e) =>
-    unless e.Errors?
-      @element().querySelector('a.title').textContent = e.Title

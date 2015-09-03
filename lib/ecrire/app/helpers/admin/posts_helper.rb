@@ -2,10 +2,14 @@ module Admin
   module PostsHelper
 
     def post_tags(post)
-      tags = post.tags.map do |tag|
-        tag.name.capitalize
+      if post.tags.any?
+        tags = post.tags.map(&:name).map(&:capitalize).join(', ')
+      else
+        tags = 'No tag yet.'
       end
-      tags.join(', ')
+
+      tags << ' ' << link_to('Change tags', admin_post_tags_path(post), remote: true)
+      content_tag :div, tags.html_safe, class: %w(tags)
     end
 
     def edit_content_tag(post)
