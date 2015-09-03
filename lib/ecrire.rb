@@ -16,6 +16,7 @@ module Ecrire
     require 'bundler/setup'
     require 'rails/all'
 
+    require 'jbuilder'
     require 'bourbon'
     require 'sass-rails'
     require 'sprockets'
