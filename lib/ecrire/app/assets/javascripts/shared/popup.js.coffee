@@ -1,6 +1,19 @@
-ObserveJS.bind 'Posts.Popup', class
+ObserveJS.bind 'Popup', class
   loaded: =>
-    @on 'posts:index', @show
+    @on 'click', document, @clicked
+    @on 'keyup', document, @escaped
 
-  show: (e) =>
-    document.body.appendChild(e.HTML)
+  clicked: (e) =>
+    el = e.target
+    while el != @element() && el?
+      el = el.parentElement
+
+    unless el?
+      @remove()
+
+  escaped: (e) =>
+    if e.keyCode == 27
+      @remove()
+
+  remove: (e) =>
+    @element().remove()
