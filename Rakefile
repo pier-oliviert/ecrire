@@ -75,6 +75,7 @@ task :test do
   end
 end
 
+
 namespace :template do
   desc 'Run a server set to use the template theme'
   task :server do
@@ -82,5 +83,15 @@ namespace :template do
     Dir.chdir 'lib/ecrire/theme/template'
     Rails.env = ENV['RAILS_ENV'] = 'development'
     Ecrire::Commands::Server.new(Port: 3000).run!
+  end
+
+  task :routes do
+    Dir.chdir 'lib/ecrire/theme/template'
+    Rails.env = ENV['RAILS_ENV'] = 'development'
+    Ecrire::Application.initialize!
+    all_routes = Ecrire::Application.routes.routes
+    require 'action_dispatch/routing/inspector'
+    inspector = ActionDispatch::Routing::RoutesInspector.new(all_routes)
+    puts inspector.format(ActionDispatch::Routing::ConsoleFormatter.new, ENV['CONTROLLER'])
   end
 end
