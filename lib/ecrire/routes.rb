@@ -13,7 +13,7 @@ Ecrire::Application.routes.draw do
           get 'help', controller: :posts, action: :help
         end
 
-        resources :tags, only: [:index], module: 'posts' do
+        resources :tags, only: [:index, :create], module: 'posts' do
           put :toggle
         end
 

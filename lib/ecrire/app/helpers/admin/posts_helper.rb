@@ -3,13 +3,13 @@ module Admin
 
     def post_tags(post)
       if post.tags.any?
-        tags = post.tags.map(&:name).map(&:capitalize).join(', ')
+        tags = post.tags.map(&:name).join(', ') << '.'
       else
         tags = 'No tag yet.'
       end
 
       tags << ' ' << link_to('Change tags', admin_post_tags_path(post), remote: true)
-      content_tag :div, tags.html_safe, class: %w(tags)
+      content_tag :div, tags.html_safe, class: %w(tags), as: 'Post.Tags'
     end
 
     def edit_content_tag(post)

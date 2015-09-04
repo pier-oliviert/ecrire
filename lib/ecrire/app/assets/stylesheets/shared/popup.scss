@@ -1,4 +1,4 @@
-div.overlay {
+[as='Overlay'] {
   @include display(flex);
   @include justify-content(center);
   @include align-items(center);
@@ -15,7 +15,7 @@ main.overlayed {
   position: fixed;
 }
 
-div.popup {
+[as='Popup'] {
   @include display(flex);
   @include flex-direction(column);
   border-radius: 2px;
@@ -33,7 +33,7 @@ div.popup {
   }
 }
 
-div.popup header {
+[as='Popup'] header {
   @include flex(0 0 auto);
   @include display(flex);
   @include align-items(center);
@@ -50,7 +50,7 @@ div.popup header {
   }
 }
 
-div.popup.errors {
+[as='Popup'].errors {
   background: rgb(200, 158, 158);
 
   header {
@@ -62,21 +62,5 @@ div.popup.errors {
 
   ol {
     margin: 1em;
-  }
-}
-
-#PostsListPopup {
-  ol {
-    list-style-type: none;
-    font-size: 1.2em;
-    padding: 0;
-    li {
-      margin: 1.2em 1em;
-      padding: 0;
-    }
-  }
-
-  div.empty {
-    text-align: center;
   }
 }

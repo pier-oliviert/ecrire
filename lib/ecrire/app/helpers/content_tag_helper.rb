@@ -41,6 +41,10 @@ module ContentTagHelper
       @attributes[:class]
     end
 
+    def [](k)
+      @attributes[k]
+    end
+
     def []=(k,v)
       @attributes[k] = v
     end

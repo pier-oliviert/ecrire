@@ -97,4 +97,24 @@ module ApplicationHelper
     content_tag :main, html_options, &block
   end
 
+  ##
+  # Render a popup tag
+  #
+  def popup_tag(partial = nil, html_options = {}, &block)
+    html_options.reverse_merge!({
+      as: 'Popup',
+      id: 'Popup',
+      class: 'popup',
+      overlay: true
+    })
+
+    if html_options.delete(:overlay) == true
+      content_tag :div, class: %w(overlay), as: 'Overlay' do
+        content_tag :div, partial, html_options, &block
+      end
+    else
+      content_tag :div, partial, html_options, &block
+    end
+  end
+
 end

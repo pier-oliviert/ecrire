@@ -1,4 +1,13 @@
-<%= content_tag :li, as: 'Post.Tag', oid: tag.id, href: admin_post_tag_toggle_path(@post, tag), method: :put do %>
-	<%= content_tag :input, nil, id: "label_#{tag.id}", type: 'checkbox', checked: @post.tags.include?(tag) %>
+<%= content_tag :li do |li| %>
+
+  <% li[:class] << 'tag' %>
+  <% li[:tabindex] = tag.id %>
+  <% li[:as] = 'Post.Tags.Tag' %>
+  <% li[:method] = :put %>
+  <% li[:oid] = tag.id %>
+  <% li[:href] = admin_post_tag_toggle_path(post, tag) %>
+
+  <%= content_tag :input, nil, id: "label_#{tag.id}", type: 'checkbox', checked: post.tags.include?(tag) %>
+
   <%= content_tag :label, tag.name, for: "label_#{tag.id}" %>
 <% end %>

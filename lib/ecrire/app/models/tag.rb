@@ -25,8 +25,16 @@ class Tag < ActiveRecord::Base
     end
   end
 
+  include PgSearch
   include ActiveModel::Validations
   validates_with Tag::Validator
+
+  pg_search_scope :search_by_name,
+    against: :name,
+    :using => {
+      :tsearch => {:prefix => true}
+    }
+
 
   def ==(other)
     self.class.table_name == other.class.table_name && self.id == other.id
