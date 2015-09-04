@@ -6,10 +6,9 @@ main.posts > section {
   @include flex(1);
   @include display(flex);
   @include flex-direction(column);
-  @include justify-content(center);
 }
 
-main.posts > #PostEditContent {
+main.posts > header + section {
   margin-top: 260px;
 }
 

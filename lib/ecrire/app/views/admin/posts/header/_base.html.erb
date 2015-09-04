@@ -1,21 +1,7 @@
-<%= content_tag :header, as: "Post.Header", id: 'postheader', href: admin_post_image_path(post), method: 'post' do |header| %>
+<%= content_tag :header, as: "Post.Header", id: 'PostHeader', href: admin_post_image_path(post), method: 'post' do |header| %>
 
   <nav class='actions'>
-    <div class='meta'>
-      <button class='button' as='Editor.Save'>
-        Save
-        <template for='Editor.Save'>
-          <%= content_tag :div, as: 'Editor.Save.Dialog', id: 'SavePost', href: admin_post_path(@post), method: 'PUT' do %>
-            <div class='progress'></div>
-            <p class='message'>
-              Saving...
-            </p>
-          <% end %>
-        </template>
-      </button>
-
-    </div>
-
+    <%= content_tag :div, yield(:post_buttons), class: %w(buttons) %>
 
     <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>
       <label>Published</label>

@@ -1,3 +1,30 @@
+<%= content_for :post_buttons do %>
+  <%= content_tag :button do |button|%>
+
+    <% button[:class] << 'button' %>
+    <% button[:as] = 'Editor.Save' %>
+
+    Save & Preview
+
+    <template for='Editor.Save'>
+    <%= content_tag :div do |div| %>
+
+      <% div[:as] = 'Editor.Save.Dialog' %>
+      <% div[:id] = 'SavePost' %>
+      <% div[:href] = admin_post_path(@post) %>
+      <% div[:method] = 'PUT' %>
+
+      <div class='progress'></div>
+      <p class='message'>
+        Saving...
+      </p>
+
+    <% end %>
+    </template>
+
+  <% end %>
+<% end %>
+
 <%= render 'admin/posts/header/base', post: @post %>
 
 <section id='PostEditContent'>

@@ -31,7 +31,11 @@ ObserveJS.bind 'Editor.Save', class
     e.preventDefault()
     e.stopPropagation()
 
-    dialog = @retrieve('#SavePost').cloneNode(true)
+    dialog = @retrieve('#SavePost')
+
+    if e.type == 'click'
+      dialog.dataset.preview = true
+
     document.body.appendChild(dialog)
 
   saved: (e) =>
@@ -59,7 +63,10 @@ ObserveJS.bind 'Editor.Save.Dialog', class
   saved: (e) =>
     msg = @element().querySelector('.message')
     msg.innerHTML = e.MessageHTML
-    window.setTimeout @remove, 400
+    if @element().dataset.preview == 'true'
+      window.location = @element().getAttribute('href')
+    else
+      window.setTimeout @remove, 400
 
   download: (e) =>
     if e.lengthComputable

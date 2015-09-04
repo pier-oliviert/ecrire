@@ -1,0 +1,25 @@
+#PostPreviewContent > article {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.2em;
+  padding: 0 1em 6em 1em;
+}
+
+#PostPreviewContent pre {
+  background-color: $light-blue;
+  font-size: 0.8em;
+  border-radius: 2px;
+  overflow: hidden;
+
+  header {
+    padding: 0.2em 1em;
+    background-color: $navy-blue;
+    color: $light-blue;
+    font-style: italic;
+  }
+
+  code {
+    padding: 1em;
+    display: inline-block;
+  }
+}

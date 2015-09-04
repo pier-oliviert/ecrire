@@ -48,7 +48,7 @@ main.posts > header {
 
 }
 
-main.edit.posts > header > div.title {
+main.posts > header > div.title {
   @include display(flex);
   @include flex(1);
   @include flex-direction(column);
