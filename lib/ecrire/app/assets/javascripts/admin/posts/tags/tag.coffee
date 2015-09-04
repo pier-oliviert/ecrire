@@ -2,6 +2,7 @@ ObserveJS.bind 'Post.Tags.Tag', class
   loaded: =>
     @on 'change', @submit
     @on 'tags:toggle', @update
+    @on 'keypress', @submit
 
   submit: (e) =>
     ObserveJS.XHR.send(@element())

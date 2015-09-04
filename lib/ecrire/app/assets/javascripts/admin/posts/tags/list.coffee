@@ -2,7 +2,6 @@ ObserveJS.bind 'Post.Tags.List', class
   loaded: =>
     @on 'mouseover', @clear
     @on 'keydown', @element().parentElement, @navigate
-    @on 'keypress', @toggle
 
   navigate: (e) =>
     switch e.keyCode
@@ -26,6 +25,3 @@ ObserveJS.bind 'Post.Tags.List', class
     if el.getAttribute('as') == 'Post.Tags.Tag'
       el.blur()
 
-  toggle: (e) =>
-    if e.keyCode == 13
-      ObserveJS.XHR.send(@element().querySelector('li:focus'))
