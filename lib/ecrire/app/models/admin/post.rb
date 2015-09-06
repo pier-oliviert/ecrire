@@ -7,6 +7,25 @@ module Admin
     before_save :compile!, prepend: true
     before_save :excerptize!
 
+    def self.search(params = {})
+      rel = self
+
+      if params.has_key?(:tag) && !params[:tag].blank?
+        rel = rel.where('? = ANY(posts.tags)', params[:tag])
+      end
+
+      if params.has_key?(:title) && !params[:title].blank?
+        titles = Admin::Title.search_by_name(params[:title])
+        rel = rel.where('id in (?)', titles.pluck(:post_id).uniq.compact)
+      end
+
+      if params.has_key?(:status)
+        rel = rel.status(params[:status])
+      end
+
+      rel
+    end
+
     def publish!(params = {})
       self.assign_attributes(params)
       self.published_at = DateTime.now

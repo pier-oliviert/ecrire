@@ -1,9 +1,8 @@
-<%= content_tag :header, as: 'Posts.Filter', href: admin_posts_path do %>
-  <section class='status'>
-  </section>
+<%= content_tag :header, href: admin_posts_path do %>
 
   <section class='search'>
     <%= content_tag :div, href: admin_tags_path, as: 'Posts.Filter.Tags' do %>
+      <input type='hidden' name='posts[tag]' form='PostsFilter' />
       <template for='Posts.Filter.Tags'>
         <svg class='placeholder' x="0px" y="0px" viewBox='0 0 20 20'>
           viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
@@ -21,15 +20,36 @@
       </template>
     <% end %>
 
-    <input type='text' placeholder='Search for a post' class='search' />
+    <input type='text' name='posts[title]' placeholder='Search for a post' class='search' form='PostsFilter' />
 
-  </section>
-
-  <section class='new'>
-    <%= link_to 'New post', new_admin_post_path %>
   </section>
 <% end %>
 
 <section class='posts'>
-  <%= render 'admin/posts/posts', published: @posts.published, drafted: @posts.drafted %>
+  <aside>
+    <%= link_to 'New post', new_admin_post_path, class: %w(new post) %>
+
+    <ul class='status'>
+      <li>
+        <%= radio_button_tag 'posts[status]', 'drafted', 'drafted' == search_posts_params[:status], form: 'PostsFilter' %>
+        <%= label_tag 'posts_status_drafted', 'Draft' %>
+      </li>
+      <li>
+        <%= radio_button_tag 'posts[status]', 'published', 'published' == search_posts_params[:status], form: 'PostsFilter' %>
+        <%= label_tag 'posts_status_published', 'Published' %>
+      </li>
+      <li>
+        <%= radio_button_tag 'posts[status]', 'all', 'all' == search_posts_params[:status], form: 'PostsFilter' %>
+        <%= label_tag 'posts_status_all', 'All Posts' %>
+      </li>
+    </ul>
+
+  </aside>
+
+  <ul class='posts' as='Posts.List'>
+    <%= render @posts %>
+  </ul>
 </section>
+
+<%= form_for :posts, url: admin_posts_path, method: 'GET', html: {name: 'posts', id: 'PostsFilter', as: 'Posts.Filter'} do |f| %>
+<% end %>

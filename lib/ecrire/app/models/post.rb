@@ -26,7 +26,7 @@ class Post < ActiveRecord::Base
   scope :status, lambda {|status|
     if status.eql?("published")
       where "posts.published_at IS NOT NULL"
-    else
+    elsif status.eql?('drafted')
       where "posts.published_at IS NULL"
     end
   }
