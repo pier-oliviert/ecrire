@@ -1,6 +1,7 @@
 module Admin
   class PostsController < Admin::ApplicationController
     before_action :fetch_post, only: [:show, :edit, :update]
+    helper_method :search_posts_params
 
     def new
       @post = Admin::Post.new
@@ -9,15 +10,7 @@ module Admin
     def index
       posts = Admin::Post
 
-      if params.has_key?(:q) && !params[:q].blank?
-        @titles = Admin::Title.search_by_name(params[:q])
-        posts = posts.where('id in (?)', @titles.pluck(:post_id).uniq.compact)
-      end
-
-      if params.has_key?(:tid) && !params[:tid].blank?
-        posts = posts.where('? = ANY(posts.tags)', params[:tid])
-      end
-
+      posts = posts.search search_posts_params
       @posts = posts.order('posts.created_at').includes(:titles)
 
       respond_to do |format|
@@ -75,10 +68,17 @@ module Admin
 
     protected
 
+    def search_posts_params
+      params.require(:posts).permit(:title, :tag, :status)
+    rescue ActionController::ParameterMissing
+      {
+        status: 'all'
+      }
+    end
+
     def title_params
       params.require(:post).permit(:title)
     end
-
 
     def post_params
       params.require(:post).permit(:content, :status, :stylesheet, :javascript, :slug)

@@ -1,18 +1,48 @@
 #PostPreviewContent > article {
+  @include justify-content(flex-start);
+
   max-width: 900px;
   margin: 0 auto;
-  font-size: 1.2em;
   padding: 0 1em 6em 1em;
+  width: 100%;
+
+  font-size: 1.3em;
+  line-height: 1.6em;
+
+  h1,h2,h3,h4,h5,h6 {
+    font-weight: bolder;
+  }
+
+  ul, ol {
+    padding-left: 1em;
+  }
+
+  ul {
+    list-style-type: circle;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li {
+    margin: 0.3em 0;
+  }
+
+  p {
+    margin: 1.5em 0;
+  }
 }
 
 #PostPreviewContent pre {
   background-color: $light-blue;
-  font-size: 0.8em;
+  font-size: 0.7em;
   border-radius: 2px;
   overflow: hidden;
+  padding: 0;
 
   header {
-    padding: 0.2em 1em;
+    padding: 0.3em 1em;
     background-color: $navy-blue;
     color: $light-blue;
     font-style: italic;

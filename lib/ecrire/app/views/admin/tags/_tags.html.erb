@@ -1,10 +1,6 @@
-<div class='overlay' as='Overlay'>
-  <div class='popup' id='TagsList'>
-    <h2>Tags</h2>
-    <ul>
-      <% tags.each do |tag| %>
-        <%= render 'admin/tags/tag', tag: tag %>
-      <% end %>
-    </ul>
-  </div>
-</div>
+<h2>Tags</h2>
+<ul>
+  <% tags.each do |tag| %>
+    <%= render 'admin/tags/tag', tag: tag %>
+  <% end %>
+</ul>

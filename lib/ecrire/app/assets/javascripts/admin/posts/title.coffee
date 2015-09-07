@@ -1,44 +1,11 @@
 ObserveJS.bind 'Post.Title', class
   loaded: =>
-    @on 'keydown', @enter
-    @observer = new MutationObserver(@modified)
-    @observer.settings = {
-      childList: true,
-      subtree: true,
-    }
-    @input = @element().querySelector('div.input')
-    @errors = @element().querySelector('ul.errors')
-    @observe()
-    @on 'titles:update', @update
-    @on 'titles:create', @update
-    @input.focus()
+    @on 'titles:index', @show
+    @on 'titles:update', document, @refresh
 
-  dismiss: =>
-    @element().parentElement.instance.remove()
+  show: (e) =>
+    document.body.appendChild(e.HTML)
 
-  update: (e) =>
-    if e.Errors
-      @errors.appendChild(error) for error in e.Errors
-    else
-      @dismiss()
+  refresh: (e) =>
+    @element().textContent = e.HTML.children[0].textContent
 
-  enter: (e) =>
-    if e.keyCode == 13
-      @errors.innerHTML = ''
-      e.stopPropagation()
-      e.preventDefault()
-      @save()
-      return
-
-  modified: (observedMutations) =>
-    @observer.disconnect()
-    @input.innerHTML = @input.textContent
-    @observe()
-
-  observe: =>
-    @observer.observe @input, @observer.settings
-
-  save: =>
-    xhr = new ObserveJS.XHR(@element())
-    xhr.data.set '[title]name', @input.textContent
-    xhr.send()

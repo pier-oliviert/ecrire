@@ -42,7 +42,7 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "fetch draft post" do
-    @posts = Post.status("draft")
+    @posts = Post.status("drafted")
     assert_equal @posts.count, Post.drafted.count
     @posts.each do |post|
       assert post.draft?

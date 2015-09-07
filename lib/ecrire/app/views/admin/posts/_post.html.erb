@@ -1,0 +1,9 @@
+<li>
+  <%= content_tag :h3, link_to(post.title, edit_admin_post_path(post)), class: %w(title) %>
+  <%= content_tag :span, class: %w(status) do %>
+    <%= content_tag :span, post.status.capitalize, class: %W(status #{post.status}) %>
+    <% if post.published? %>
+      <%= content_tag :span, time_ago_in_words(post.published_at).capitalize, class: %w(published date) %>
+    <% end %>
+  <% end %>
+</li>

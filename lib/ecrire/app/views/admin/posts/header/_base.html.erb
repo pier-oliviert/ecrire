@@ -45,7 +45,7 @@
     	    "/>
     <% end %>
 
-    <%= link_to @post.title, admin_post_titles_path(@post), class: %w(title) %>
+    <%= link_to @post.title, admin_post_titles_path(@post), class: %w(title), remote: true, as: 'Post.Title' %>
     <input type='file' />
     <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
   </div>

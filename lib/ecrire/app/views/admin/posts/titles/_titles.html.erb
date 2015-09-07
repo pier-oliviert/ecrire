@@ -1,0 +1,6 @@
+<ul class='titles' as='Post.Titles'>
+  <% post.titles.select(&:persisted?).each do |title| %>
+    <%= render 'admin/posts/titles/title', title: title %>
+  <% end %>
+</ul>
+

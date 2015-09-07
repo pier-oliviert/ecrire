@@ -1,1 +1,1 @@
-e.HTML = "<%= j render('posts', published: @posts.published, drafted: @posts.drafted) %>".toHTML()
+e.HTML = "<%= j content_tag(:ul, render(@posts)) %>".toHTML()

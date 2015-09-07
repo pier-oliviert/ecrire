@@ -302,3 +302,24 @@ main.posts > header > div.title {
 
 }
 
+#PostsIndex header {
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  @include align-items(center);
+  @include align-content(center);
+  @include justify-content(center);
+
+  position: relative;
+  min-height: 200px;
+
+  & > h1 {
+    text-align: center;
+    width: 100%;
+  }
+
+  & > section {
+    @include flex(0 auto);
+    @include display(flex);
+  }
+}
+

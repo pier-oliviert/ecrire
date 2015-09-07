@@ -15,26 +15,35 @@ ObserveJS.bind 'Posts.Filter.Tags', class
 
     return unless el?
 
+    input = @element().querySelector('input[type=hidden]')
     span = @retrieve('span.tag')
     span.textContent = el.textContent
+    input.value = el.getAttribute('oid')
+
     @retrieve('svg.placeholder').remove()
     @element().appendChild(span)
     @element().appendChild(@retrieve('svg.clear'))
-    @element().setAttribute('tid', el.getAttribute('oid'))
     @element().classList.add 'tagged'
+
     document.querySelector("[as='Overlay']").instance.remove()
-    document.querySelector("[as='Posts.Filter']").instance.search()
-    document.querySelector("[as='Posts.Filter'] input.search").focus()
+
+    @changed(input)
 
   action: =>
+    input = @element().querySelector('input[type=hidden]')
     if @element().classList.contains('tagged')
       @retrieve('svg.clear').remove()
       @retrieve('span.tag').remove()
       @element().appendChild(@retrieve('svg.placeholder'))
       @element().classList.remove('tagged')
-      @element().removeAttribute('tid')
+      input.value = null
+      @changed(input)
     else
       xhr = new ObserveJS.XHR(@element())
       xhr.send()
-    document.querySelector("[as='Posts.Filter']").instance.search()
-    document.querySelector("[as='Posts.Filter'] input.search").focus()
+
+
+  changed: (el) =>
+    event = new Event('input')
+    el.dispatchEvent(event)
+
