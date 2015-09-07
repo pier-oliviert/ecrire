@@ -162,6 +162,10 @@ main.posts.view > section:not(.preview) {
   @include display(flex);
 }
 
+#PostsIndex > section.posts ul.filters li {
+  margin: 12px 24px 12px 0;
+}
+
 #PostsIndex > section.posts ul.posts {
   @include display(flex);
   @include flex-direction(column);
