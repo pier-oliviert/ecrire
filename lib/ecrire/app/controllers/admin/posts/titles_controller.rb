@@ -18,16 +18,21 @@ module Admin
           redirect_to admin_post_titles_path(@title.post) and return
         end
 
-        render 'index'
+        respond_to do |format|
+          format.html { render 'index' }
+          format.js
+        end
       end
 
       def update
+        @post = Admin::Post.find(params[:post_id])
         @title = Admin::Title.find(params[:id])
-        if @title.update(title_params)
-          redirect_to admin_post_titles_path(@title.post) and return
-        end
+        @title.update(title_params)
 
-        render 'index'
+        respond_to do |format|
+          format.html { render 'index' }
+          format.js
+        end
       end
 
       protected

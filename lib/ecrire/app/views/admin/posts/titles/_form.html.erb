@@ -1,10 +1,10 @@
-<%= form_for title, url: url, as: 'title' do |form| %>
+<%= form_for title, url: url, as: 'title', remote: request.xhr? do |form| %>
   <%= content_tag :div, class: %w(fieldset) do |div| %>
     <% if title.errors.any? %>
       <% div.css << 'errors' %>
     <% end %>
 
-    <%= form.text_field :name, placeholder: 'Create a new title for this post', tabindex: 1 %>
+    <%= form.text_field :name, placeholder: 'Create a new title for this post', tabindex: 1, autocomplete: :off %>
 
     <% if title.errors.any? %>
       <ul class='errors'>

@@ -50,6 +50,10 @@ module Admin
       read_attribute(:content) || ""
     end
 
+    def status
+      published? ? 'published' : 'draft'
+    end
+
     private
 
     def compile!
