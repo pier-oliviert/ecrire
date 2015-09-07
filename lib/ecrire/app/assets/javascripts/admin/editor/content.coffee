@@ -3,6 +3,9 @@ ObserveJS.bind 'Editor.Content', class @Editor
   loaded: =>
     @on 'keydown', @linefeed
 
+    if @parsers?
+      return
+
     @parsers = Editor.Parsers.sort()
 
     @extensions = Editor.Extensions.map (ext) =>
