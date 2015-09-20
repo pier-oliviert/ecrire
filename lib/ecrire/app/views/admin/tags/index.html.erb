@@ -1,17 +1,27 @@
-<header>
-  <%= render 'form', tag: @tag %>
-</header>
+<% content_for 'Navigation::Tags' do %>
+  <%= link_to 'Used', admin_tags_path %>
+  <%= link_to 'Not used', admin_tags_path %>
+<% end %>
 
-<ol class='tags'>
-  <% @tags.each do |tag| %>
-    <%= content_tag :li do %>
-      <div>
-        <%= content_tag :h3, tag.name %>
-        <%= content_tag :p, "#{tag.posts.count} posts" %>
-      </div>
-      <%= form_for tag, url: url('/admin/tags/:tag.id', tag: tag), method: :delete do |f| %>
-        <%= f.button 'Delete', class: %w(button) %>
+<%= render 'admin/navigation' %>
+
+<section>
+  <header>
+    <%= render 'form', tag: @tag %>
+  </header>
+
+  <ol class='tags'>
+    <% @tags.each do |tag| %>
+      <%= content_tag :li do %>
+        <div>
+          <%= content_tag :h3, tag.name %>
+          <%= content_tag :p, "#{tag.posts.drafted.count} draft posts" %>
+          <%= content_tag :p, "#{tag.posts.published.count} published posts" %>
+        </div>
+        <%= form_for tag, url: url('/admin/tags/:tag.id', tag: tag), method: :delete do |f| %>
+          <%= f.button 'Delete', class: %w(button) %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</ol>
+  </ol>
+</section>

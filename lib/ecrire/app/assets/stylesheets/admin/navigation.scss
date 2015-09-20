@@ -1,106 +1,171 @@
-nav#Menu.admin section {
+#AdminNavigation {
   @include display(flex);
-  height: 100%;
+  @include flex-direction(column);
+  min-width: 180px;
+  width: 20vw;
+  max-width: 400px;
+  color: $light-blue;
 }
 
-nav#Menu.admin {
+#AdminNavigation > a.home {
   @include display(flex);
-  @include align-content(flex-start);
-  @include align-items(center);
-  @include justify-content(space-between);
-  @include flex-wrap(wrap);
-
-  height: 3em;
-  font-family: $fonts;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 0 2em;
-  z-index: 1000;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-
-  background-color: lighten($gray-blue, 25%);
-  color: darken($gray-blue, 30%);
-  border-bottom: 1px solid darken($gray-blue, 75%);
-
-  .button {
-    @include display(flex);
-    @include flex(0 0 auto);
-    @include align-items(center);
-    @include justify-content(center);
-
-    border-radius: 0;
-    border: none;
-    background: none;
-
-    height: 100%;
-
-    text-decoration: none;
-    padding: 4px 2em;
-    margin: 0;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    font-weight: lighter;
-    color: inherit;
-    text-shadow: none;
-
-    &.selected {
-      color: lighten($navy-blue, 100%);
-    }
-
-    &:hover:not(.selected) {
-      text-decoration: underline;
-      box-shadow: none;
-    }
-
-    &:active:not(.selected) {
-      color: lighten($navy-blue, 100%);
-      text-decoration: underline;
-      box-shadow: none;
-    }
-  }
-}
-
-nav#Menu.admin form.logout {
-  @include display(flex);
-  @include flex(0 0 auto);
   @include align-items(center);
   @include justify-content(center);
+  @include transition(box-shadow 0.2s ease-in);
 
-  margin: 0;
-  height: 100%;
+  padding: 8px 12px;
+  margin-top: auto;
+  box-shadow: 0 0 3px 0 $navy-blue;
 
-  input {
-    @include transition(box-shadow 0.1s ease, background-color 0.1s ease);
-
-    background-color: lighten($red, 15%);
-    color: darken($red, 25%);
-
-    cursor: pointer;
-    outline: none;
-
-    padding: 6px 10px;
-    margin: 0;
-
-    border: none;
-    border-radius: 2px;
-
-    font-size: 0.9em;
-    font-family: inherit;
-    font-weight: bold;
-
-    box-shadow: 0 1px 1px 0 transparent;
-
-    &:hover {
-      box-shadow: 0 0.5px 0.5px 0 darken($red, 15%);
-    }
-
-    &:active {
-      box-shadow: 0 1px 1px 0 transparent;
-      background-color: darken($red, 5%);
-    }
+  &:hover {
+    box-shadow: 0 0 3px 0 lighten($navy-blue, 5%);
+  }
+  &:hover > svg {
+    fill: lighten($light-blue, 45%);
   }
 
+  & > svg {
+    @include transition(fill 0.2s ease-in);
+    width: 14px;
+    height: 14px;
+    margin-right: 12px;
+
+    fill: $light-blue;
+  }
 }
+
+#AdminNavigation > div.current.user {
+  position: relative;
+  margin-bottom: 1vh;
+}
+
+#AdminNavigation > div.current.user > a.home {
+  text-align: center;
+  display: block;
+  font-size: 0.8em;
+}
+
+#AdminNavigation > div.current.user > a.profile.menu {
+  @include display(flex);
+  @include align-items(center);
+  @include align-content(center);
+  @include justify-content(space-between);
+
+  border-radius: 2px;
+  margin: 2vh 1vw 0 1vw;
+  background-color: rgba(darken($bright-blue, 25%), 0.2);
+  padding: 4px 8px;
+}
+
+#AdminNavigation > div.current.user > a.profile.menu > span {
+  text-align: center;
+}
+
+#AdminNavigation > div.current.user > a.profile.menu > svg {
+  width: 18px;
+  height: 18px;
+  fill: rgba(darken($bright-blue, 25%), 0.7);
+}
+
+#AdminNavigation h2 {
+  @include display(flex);
+  @include align-items(center);
+
+  font-size: 1.2em;
+  padding: 8px;
+  margin: 0 1vw;
+  font-weight: bold;
+
+}
+
+#AdminNavigation h2 + div {
+  @include display(flex);
+  @include flex-direction(column);
+
+  margin: 0 1vw 1vh 1vw;
+}
+
+#AdminNavigation h2 + div > a {
+  padding: 8px 20px;
+  color: $light-blue;
+  font-size: 0.8em;
+}
+
+#AdminNavigation a {
+  color: $light-blue;
+  &:hover {
+    color: lighten($light-blue, 45%);
+  }
+}
+
+#AdminNavigation form.logout {
+  margin-top: auto;
+  border-top: 1px solid $light-blue;
+  text-align: center;
+}
+
+#AdminNavigation form.logout input[type=submit] {
+  width: 100%;
+}
+
+#AdminNavigation [as='Popup'] {
+  position: absolute;
+  margin: 2vh 1vw;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+
+  background-color: $light-blue;
+}
+
+#AdminNavigation [as='Popup'] > div.current.user {
+  @include display(flex);
+  @include align-items(center);
+  @include align-content(center);
+  @include justify-content(space-between);
+
+  padding: 4px 8px;
+}
+
+#AdminNavigation [as='Popup'] > div.current.user > a {
+  @include display(flex);
+  @include flex(0 auto);
+  padding: 0;
+  cursor: pointer;
+}
+
+#AdminNavigation [as='Popup'] > div.current.user > a > svg {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  fill: rgba(darken($bright-blue, 25%), 0.7);
+}
+
+#AdminNavigation [as='Popup'] > form.logout {
+  margin: 8px 0;
+  color: $red;
+}
+
+#AdminNavigation [as='Popup'] > form.logout > button {
+  @include display(flex);
+  @include align-items(center);
+  @include align-content(center);
+
+  width: 100%;
+  padding: 4px 8px;
+  font-weight: bold;
+  border-radius: 0;
+
+  &:active {
+    background-color: rgba($red, 0.5);
+  }
+}
+
+#AdminNavigation [as='Popup'] > form.logout > button > svg {
+  width: 12px;
+  height: 12px;
+  fill: $red;
+  margin: 1px 4px 0 0;
+}
+

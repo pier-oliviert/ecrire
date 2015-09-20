@@ -7,6 +7,10 @@
 published:
   content: "Test"
   published_at: <%= 2.days.ago %>
+  tags:
+    - <%= Tag.first %>
 
 draft:
   content: "A draft"
+  tags:
+    - <%= Tag.first %>

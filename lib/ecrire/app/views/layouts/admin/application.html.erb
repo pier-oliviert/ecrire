@@ -7,13 +7,9 @@
     <%= javascript_include_tag "admin" %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
-    <%= main_tag class: [action_name, controller_name] do %>
-
-      <%= render 'sessions/navigation' %>
-
+  <%= content_tag :body, class: [action_name, controller_name] do %>
+    <%= main_tag do %>
       <%= yield %>
     <% end %>
-
-  </body>
+  <% end %>
 </html>

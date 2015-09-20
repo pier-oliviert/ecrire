@@ -1,0 +1,18 @@
+<div class='profile menu' id='ProfileMenu' as='Popup'>
+  <div class='current user'>
+    <%= content_tag :span, current_user.email %>
+    <a class='close dialog'><svg x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+      <path d="M10,1.6c-4.639,0-8.4,3.761-8.4,8.4c0,4.639,3.761,8.4,8.4,8.4s8.4-3.761,8.4-8.4C18.4,5.361,14.639,1.6,10,1.6z   M14.789,13.061l-1.729,1.729L10,11.729l-3.061,3.06l-1.729-1.729L8.272,10L5.211,6.939L6.94,5.211L10,8.271l3.061-3.061  l1.729,1.729L11.728,10L14.789,13.061z"/>
+    </svg>
+  </a>
+  </div>
+
+  <%= form_for current_user, url: session_path, method: :delete, html: { class: %w(logout), id: 'UserLogoutForm' } do |f| %>
+    <%= f.button do %>
+      <svg x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+        <path d="M19,10l-6-5v3H6v4h7v3L19,10z M3,3h8V1H3C1.9,1,1,1.9,1,3v14c0,1.1,0.9,2,2,2h8v-2H3V3z"/>
+      </svg>
+      Logout
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,39 @@
+<nav id='AdminNavigation'>
+
+  <div class='current user' as='Profiles.Menu'>
+    <%= link_to admin_profile_path, class: %w(profile menu), remote: true do %>
+      <%= content_tag :span, current_user.email %>
+      <svg x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+        <path d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83  c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z  "/>
+      </svg>
+    <% end %>
+  </div>
+
+  <%= content_tag :h2 do |header| %>
+    <% if content_for?('Navigation::Posts') %>
+      <% header.css << 'selected' %>
+    <% end %>
+    <%= link_to('Posts', admin_posts_path) %>
+  <% end %>
+  <div>
+    <%= yield('Navigation::Posts') if content_for?('Navigation::Posts') %>
+  </div>
+
+  <%= content_tag :h2 do |header| %>
+    <% if content_for?('Navigation::Tags') %>
+      <% header.css << 'selected' %>
+    <% end %>
+
+    <%= link_to('Tags', admin_tags_path) %>
+  <% end %>
+  <div>
+    <%= yield('Navigation::Tags') if content_for?('Navigation::Tags') %>
+  </div>
+
+  <%= link_to '/', class: %w(home) do %>
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Arrow_circled_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+      <path d="M10,0.4c-5.303,0-9.601,4.298-9.601,9.6c0,5.303,4.298,9.601,9.601,9.601c5.301,0,9.6-4.298,9.6-9.601  C19.6,4.698,15.301,0.4,10,0.4z M9.999,17.6c-4.197,0-7.6-3.402-7.6-7.6s3.402-7.6,7.6-7.6S17.6,5.803,17.6,10  S14.196,17.6,9.999,17.6z M10,5.5L5.5,10l4.5,4.5V12h4V8h-4V5.5z"/>
+    </svg>
+    Back to your blog
+  <% end %>
+</nav>

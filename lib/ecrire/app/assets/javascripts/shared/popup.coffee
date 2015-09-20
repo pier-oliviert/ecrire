@@ -1,5 +1,6 @@
 ObserveJS.bind 'Popup', class
   loaded: =>
+    @on 'click', @element().querySelector('.close'), @remove
     @on 'click', document, @clicked
     @on 'keyup', document, @escaped
 

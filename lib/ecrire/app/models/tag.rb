@@ -52,7 +52,7 @@ class Tag < ActiveRecord::Base
 
   class PostsAssociation < ActiveRecord::Associations::HasManyAssociation
     def scope(opts = {})
-      Post.where('? = ANY (posts.tags)', owner.id).published.order('published_at DESC')
+      Post.where('? = ANY (posts.tags)', owner.id).order('published_at DESC')
     end
   end
 

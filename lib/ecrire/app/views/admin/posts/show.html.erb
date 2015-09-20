@@ -1,4 +1,5 @@
 <%= content_for :post_buttons do %>
+  <%= link_to 'Back', admin_root_path, class: %w(button) %>
   <%= link_to 'Edit', edit_admin_post_path(@post), class: %w(button) %>
 <% end %>
 
