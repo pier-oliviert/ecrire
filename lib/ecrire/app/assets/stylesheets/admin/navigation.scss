@@ -143,6 +143,7 @@
 }
 
 #AdminNavigation [as='Popup'] > form.logout {
+  @include display(flex);
   margin: 8px 0;
   color: $red;
 }
@@ -154,18 +155,20 @@
 
   width: 100%;
   padding: 4px 8px;
+  margin: 8px;
   font-weight: bold;
-  border-radius: 0;
+  background: $red;
+  color: darken($red, 25%);
 
-  &:active {
-    background-color: rgba($red, 0.5);
+  &:hover {
+    color: lighten($red, 50%);
   }
 }
 
 #AdminNavigation [as='Popup'] > form.logout > button > svg {
   width: 12px;
   height: 12px;
-  fill: $red;
-  margin: 1px 4px 0 0;
+  fill: darken($red, 15%);
+  margin: 1px 8px 0 0;
 }
 

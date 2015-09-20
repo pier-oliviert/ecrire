@@ -1,4 +1,4 @@
-<%= content_tag :header, as: 'Post.Header', id: 'PostHeader', href: admin_post_image_path(@post), method: 'post'  do %>
+<%= content_tag :header, as: 'Post.Header', id: 'PostHeader', href: admin_post_image_path(@post), method: 'post' do %>
   <% content_for :post_buttons do %>
     <%= link_to 'Back', admin_root_path, class: %w(button) %>
 
@@ -38,11 +38,6 @@
     <%= h @post.content %>
   <% end %>
   
-  <div class='done'>
-    <h6>Done?</h6>
-    <p><%= link_to 'Look at the preview and publish it!', admin_post_path(@post) %></p>
-  </div>
-
 </section>
 
 <template id='EditorElements'>

@@ -1,84 +1,13 @@
-main.posts > section {
-  @include flex(1);
-  @include display(flex);
-  @include flex-direction(column);
-
+body.posts:not(.index):not(.new) main > section {
+  margin-right: 0;
 }
 
-#PostsEdit {
+#PostsEdit, #PostsShow {
   background-color: white;
 }
 
-#PostsEdit > header + section {
+#PostsEdit > header + section, #PostsShow > header + section {
   margin-top: 214px;
-}
-
-main.posts div.done {
-  @include transition(color 0.3s ease);
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
-  font-size: 1.5em;
-  text-align: center;
-  padding: 2em 0;
-  color: lighten($light-blue, 5%);
-  &:hover {
-    color: darken($light-blue, 25%);
-    a {
-      text-decoration: underline;
-    }
-  }
-
-  h6 {
-    font-size: 1.4em;
-    margin: 0;
-  }
-
-  a {
-    color: inherit;
-    cursor: pointer;
-  }
-}
-
-main.posts.view > section:not(.preview) {
-  @include flex-direction(column);
-  @include align-items(center);
-  @include justify-content(flex-start);
-
-  & > section {
-    @include display(flex);
-    @include flex-direction(column);
-    @include justify-content(center);
-    @include align-items(center);
-  }
-
-  svg.tag.icon {
-    width: 3em;
-    margin: 3em 0 0 0;
-    fill: lighten($gray-blue, 25%);
-  }
-
-  h3 {
-    @include display(flex);
-    @include align-items(center);
-    color: lighten($gray-blue, 15%);
-    font-size: 2em;
-    margin: 0;
-  }
-
-  ul {
-    max-width: 600px;
-    width: 100%;
-    margin: 1em 0;
-
-    li {
-      @include display(flex);
-      @include align-items(center);
-      font-size: 1.3em;
-      font-weight: bold;
-    }
-
-  }
 }
 
 #PostsIndex > section.posts ul.posts {

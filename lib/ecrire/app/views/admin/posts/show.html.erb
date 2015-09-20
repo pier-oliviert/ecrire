@@ -1,9 +1,12 @@
-<%= content_for :post_buttons do %>
-  <%= link_to 'Back', admin_root_path, class: %w(button) %>
-  <%= link_to 'Edit', edit_admin_post_path(@post), class: %w(button) %>
-<% end %>
+<%= content_tag :header, as: 'Post.Header', id: 'PostHeader', href: admin_post_image_path(@post), method: 'post' do %>
 
-<%= render 'admin/posts/header/base', post: @post %>
+  <%= content_for :post_buttons do %>
+    <%= link_to 'Back', admin_root_path, class: %w(button) %>
+    <%= link_to 'Edit', edit_admin_post_path(@post), class: %w(button) %>
+  <% end %>
+
+  <%= render 'admin/posts/header/base', post: @post %>
+<% end %>
 
 <section class='preview' id='PostPreviewContent'>
   <%= content_tag :article, @post.compiled_content.try(:html_safe) %>

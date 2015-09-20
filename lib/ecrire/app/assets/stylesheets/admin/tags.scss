@@ -94,20 +94,15 @@ body.tags header > form {
 
   button {
     @include flex(0 0 auto);
-    @include transition(box-shadow 0.2s);
-    text-transform: uppercase;
-    font-size: 0.8em;
     font-weight: bold;
-    padding: 4px 8px;
-    margin-top: 2px;
-    border-radius: 2px;
-    color: lighten($green, 35%);
-    text-shadow: 0 -1px darken($green, 10%);
+    color: darken($green, 25%);
     text-decoration: none;
-    background-color: darken($green, 5%);
+    background-color: $green;
     box-shadow: inset 0 1px 0 0 transparent;
 
     &:hover {
+      color: lighten($green, 35%);
+      background-color: $green;
       box-shadow: inset 0 1px 0 0 lighten($green, 15%);
     }
 
@@ -188,18 +183,17 @@ body.tags ol.tags {
       margin-top: 2px;
       border-color: $red;
       font-weight: bold;
-      color: $red;
+      color: darken($red, 25%);
       background-color: lighten($red, 15%);
-      text-shadow: 0 1px lighten($red, 25%);
 
       &:hover:not(:active) {
-        color: darken($red, 25%);
+        background-color: lighten($red, 15%);
+        color: lighten($red, 50%);
       }
 
       &:active {
         background-color: lighten($red, 15%);
         text-shadow: 0 1px lighten($red, 25%);
-        color: darken($red, 25%);
         box-shadow: inset 0 1px 2px 0 darken($red, 5%), 0 1px 1px transparent;
       }
     }
