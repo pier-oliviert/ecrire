@@ -1,25 +1,21 @@
 #AdminNavigation {
   @include display(flex);
   @include flex-direction(column);
-  min-width: 180px;
-  width: 20vw;
-  max-width: 400px;
+  @include flex(1 0 180px);
+  max-width: 200px;
+  margin-left: auto;
   color: $light-blue;
+  border-left: 1px solid darken($bright-blue, 10%);
 }
 
 #AdminNavigation > a.home {
   @include display(flex);
   @include align-items(center);
   @include justify-content(center);
-  @include transition(box-shadow 0.2s ease-in);
 
   padding: 8px 12px;
   margin-top: auto;
-  box-shadow: 0 0 3px 0 $navy-blue;
 
-  &:hover {
-    box-shadow: 0 0 3px 0 lighten($navy-blue, 5%);
-  }
   &:hover > svg {
     fill: lighten($light-blue, 45%);
   }
@@ -50,11 +46,16 @@
   @include align-items(center);
   @include align-content(center);
   @include justify-content(space-between);
+  @include transition(background-color 0.1s ease-in);
 
   border-radius: 2px;
   margin: 2vh 1vw 0 1vw;
   background-color: rgba(darken($bright-blue, 25%), 0.2);
   padding: 4px 8px;
+
+  &:hover {
+    background-color: rgba(darken($bright-blue, 50%), 0.2);
+  }
 }
 
 #AdminNavigation > div.current.user > a.profile.menu > span {
@@ -75,7 +76,10 @@
   padding: 8px;
   margin: 0 1vw;
   font-weight: bold;
+}
 
+#AdminNavigation h2 > a {
+  @include flex(1);
 }
 
 #AdminNavigation h2 + div {

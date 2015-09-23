@@ -131,9 +131,9 @@ main {
 }
 
 main > section {
-  @include flex(1);
+  @include flex(0 1 700px);
   background: white;
-  margin-right: 5vw;
+  margin: 0 auto 0 0;
 }
 
 .hidden {

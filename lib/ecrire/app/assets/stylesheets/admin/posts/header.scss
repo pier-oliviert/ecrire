@@ -21,7 +21,10 @@
 
   height: 200px;
   min-height: 100px;
+}
 
+[as='Post.Header'] > nav.actions {
+  font-weight: bold;
 }
 
 [as='Post.Header'].image > div.drop {

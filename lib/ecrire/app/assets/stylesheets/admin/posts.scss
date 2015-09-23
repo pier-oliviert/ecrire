@@ -1,5 +1,6 @@
-body.posts:not(.index):not(.new) main > section {
-  margin-right: 0;
+body.posts:not(.index) main > section {
+  @include flex(0 1 1000px);
+  margin: 0 auto;
 }
 
 #PostsEdit, #PostsShow {
@@ -20,13 +21,34 @@ body.posts:not(.index):not(.new) main > section {
 
 #PostsIndex > section.posts > ul.posts li {
   padding: 1em;
-  h3 {
-    font-size: 1.8em;
+}
+
+#PostsIndex > section.posts > ul.posts li > header {
+  @include display(flex);
+  @include align-items(center);
+
+  & > a {
+    @include flex(1);
+
+    white-space: nowrap;
+    font-size: 2em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  & > span {
+    @include flex(0 auto);
   }
 }
 
+#PostsIndex > section.posts > ul.posts li > span.tags svg {
+  width: 14px;
+  height: 14px;
+  fill: $gray-blue;
+}
+
 body.posts section.new.post {
-  @include flex(1);
   @include display(flex);
 }
 
