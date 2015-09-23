@@ -131,7 +131,7 @@ main {
 }
 
 main > section {
-  @include flex(0 1 700px);
+  @include flex(0 1 60vw);
   background: white;
   margin: 0 auto 0 0;
 }
