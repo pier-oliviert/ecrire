@@ -5,7 +5,7 @@
   max-width: 200px;
   margin-left: auto;
   color: $light-blue;
-  border-left: 1px solid darken($bright-blue, 10%);
+  border-left: 1px solid rgba(0,0,0,0.1);
 }
 
 #AdminNavigation > a.home {
@@ -46,15 +46,14 @@
   @include align-items(center);
   @include align-content(center);
   @include justify-content(space-between);
-  @include transition(background-color 0.1s ease-in);
 
   border-radius: 2px;
   margin: 2vh 5% 0 5%;
   background-color: rgba(darken($bright-blue, 25%), 0.2);
   padding: 4px 8px;
 
-  &:hover {
-    background-color: rgba(darken($bright-blue, 50%), 0.2);
+  &:hover svg {
+    fill: lighten($bright-blue, 25%);
   }
 }
 
@@ -63,6 +62,8 @@
 }
 
 #AdminNavigation > div.current.user > a.profile.menu > svg {
+  @include transition(fill 0.1s ease-in);
+
   width: 18px;
   height: 18px;
   fill: rgba(darken($bright-blue, 25%), 0.7);
@@ -93,6 +94,10 @@
   padding: 8px 20px;
   color: $light-blue;
   font-size: 0.8em;
+
+  &.selected {
+    font-weight: bold;
+  }
 }
 
 #AdminNavigation a {

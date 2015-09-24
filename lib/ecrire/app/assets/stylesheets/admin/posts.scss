@@ -1,10 +1,10 @@
-body.posts:not(.index) main > section {
-  @include flex(0 1 1000px);
-  margin: 0 auto;
-}
-
 #PostsEdit, #PostsShow {
   background-color: white;
+
+  & > section {
+    margin: 0 auto;
+    @include flex(1 80%);
+  }
 }
 
 #PostsEdit > header + section, #PostsShow > header + section {
@@ -20,7 +20,15 @@ body.posts:not(.index) main > section {
 
 
 #PostsIndex > section.posts > ul.posts li {
-  padding: 1em;
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  border-bottom: 1px solid rgba($gray-blue, 0.2);
+  padding: 1% 2%; min-height: 80px;
+}
+
+#PostsIndex > section.posts > ul.posts li:nth-child(even) {
+  background: lighten($gray-blue, 40%);
 }
 
 #PostsIndex > section.posts > ul.posts li > header {

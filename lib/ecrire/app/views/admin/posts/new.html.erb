@@ -1,7 +1,7 @@
 <% content_for 'Navigation::Posts' do %>
   <%= link_to 'Drafts', admin_posts_path(posts: {status: :draft})%>
   <%= link_to 'Published', admin_posts_path(posts: {status: :published}) %>
-  <%= link_to 'New Post', new_admin_post_path%>
+  <%= link_to 'New Post', new_admin_post_path, class: %w(selected) %>
 <% end %>
 
 <%= render('admin/navigation') %>

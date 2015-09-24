@@ -2,9 +2,11 @@
   @include display(flex);
   @include align-items(stretch);
 
-  border-bottom: 1px solid $gray-blue;
+  border: 1px solid rgba($gray-blue, 0.3);
+  border-radius: 2px;
   overflow: hidden;
-  background-color: lighten($gray-blue, 50%);
+
+  margin: 5%;
 }
 
 #PostsIndex > section.posts > div.search > input[type=text] {

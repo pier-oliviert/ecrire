@@ -1,12 +1,26 @@
 <% content_for 'Navigation::Posts' do %>
-  <%= link_to 'Drafts', admin_posts_path(posts: {status: :draft})%>
-  <%= link_to 'Published', admin_posts_path(posts: {status: :published}) %>
-  <%= link_to 'New Post', new_admin_post_path%>
+
+  <%= content_tag :a, href: admin_posts_path(posts: {status: :draft}) do |a| %>
+    <% if search_posts_params[:status].eql?('draft') %>
+      <% a.css << 'selected' %>
+    <% end %>
+    Drafts
+  <% end %>
+
+  <%= content_tag :a, href: admin_posts_path(posts: {status: :published}) do |a| %>
+    <% if search_posts_params[:status].eql?('published') %>
+      <% a.css << 'selected' %>
+    <% end %>
+    Published
+  <% end %>
+
+  <%= link_to 'New Post', new_admin_post_path %>
 <% end %>
 
 <%= render('admin/navigation') %>
 
 <section class='posts'>
+
   <%= content_tag :div, render('search'), class: %w(search) %>
 
   <ul class='posts' as='Posts.List'>
