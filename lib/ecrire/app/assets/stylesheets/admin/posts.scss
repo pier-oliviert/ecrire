@@ -1,3 +1,8 @@
+#PostEditContent {
+  @include display(flex);
+  @include flex-direction(column);
+}
+
 #PostsEdit, #PostsShow {
   background-color: white;
 
