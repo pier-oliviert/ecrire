@@ -1,54 +1,76 @@
-main.posts > header {
+[as='Post.Header'] {
   @include display(flex);
   @include flex(0 auto);
   @include align-items(center);
   @include justify-content(center);
   @include flex-direction(column);
+  @include transition(background-color 0.3s ease);
 
   position: fixed;
   left: 0;
   right: 0;
+  width: 100%;
 
-  background-color: $bright-blue;
+  @include background(linear-gradient(darken($bright-blue, 5%), $bright-blue));
   background-size: cover;
   background-position: center left;
+
+  border-bottom: 1px solid #E8E8E8;
 
   color: lighten($bright-blue, 50%);
 
   height: 200px;
   min-height: 100px;
-  margin-top: 46px;
-
-  h2 {
-    @include display(flex);
-    @include flex(1);
-    font-size: 2.3em;
-    margin: 1em 0;
-    text-align: center;
-    color: lighten($gray-blue, 50%);
-  }
-
-  nav {
-    @include display(flex);
-    @include justify-content(space-between);
-    @include align-items(center);
-    @include flex(0 auto);
-    @include transition(opacity 0.2s);
-
-    z-index: 100;
-    width: 100%;
-    margin: 2em 0 0 0;
-    padding: 0 1em;
-    position: absolute;
-
-    &.hidden {
-      opacity: 0;
-    }
-  }
-
 }
 
-main.posts > header > div.title {
+[as='Post.Header'] > nav.actions {
+  font-weight: bold;
+}
+
+[as='Post.Header'].image > div.drop {
+  background-color: rgb(122, 199, 122);
+  opacity: 1;
+  z-index: 6;
+}
+
+[as='Post.Header'].image > div.title {
+  opacity: 0;
+}
+
+[as='Post.Header'] > div.title > input[type='file'] {
+  visibility: hidden;
+  height: 1px;
+  padding: 0;
+}
+
+[as='Post.Header'] > h2 {
+  @include display(flex);
+  @include flex(1);
+  font-size: 2.3em;
+  margin: 1em 0;
+  text-align: center;
+  color: lighten($gray-blue, 50%);
+}
+
+[as='Post.Header'] > nav {
+  @include display(flex);
+  @include justify-content(space-between);
+  @include align-items(center);
+  @include flex(0 auto);
+  @include transition(opacity 0.2s);
+
+  z-index: 100;
+  width: 100%;
+  margin: 2em 0 0 0;
+  padding: 0 1em;
+  position: absolute;
+
+  &.hidden {
+    opacity: 0;
+  }
+}
+
+[as='Post.Header'] > div.title {
   @include display(flex);
   @include flex(1);
   @include flex-direction(column);
@@ -90,6 +112,7 @@ main.posts > header > div.title {
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  margin: 0 auto;
 
   &:hover {
     color: $link-color;
@@ -99,51 +122,18 @@ main.posts > header > div.title {
 
 [as='Post.Header'] [as='Editor.Save'] {
   margin-right: 2em;
+  border-color: darken($green, 25%);
   background-color: darken($green, 10%);
-  box-shadow: inset 0 1px 0 0 lighten($green, 5%);
-  border-color: darken($green, 35%);
 
   &:hover {
+    box-shadow: inset 0 1px 0 0 lighten($green, 10%);
     background-color: darken($green, 10%);
-    box-shadow: inset 0 1px 0 0 lighten($green, 10%), 0 0 2px 0 darken($green, 30%);
   }
 
   &:active {
-    box-shadow: inset 0 1px 2px 0 darken($green, 25%), 0 0 2px 0 transparent;
-    background-color: darken($green, 5%);
+    box-shadow: inset 0 1px 2px 0 darken($green, 25%);
+    background-color: darken($green, 25%);
   }
-}
-
-[as='Post.Header'] {
-  @include display(flex);
-  @include flex-direction(column);
-  @include align-items(center);
-  @include justify-content(flex-start);
-  @include transition(background-color 0.3s ease);
-
-  background-size: cover;
-  position: relative;
-  border-bottom: 1px solid #E8E8E8;
-
-  &.image {
-
-    & > div.drop {
-      background-color: rgb(122, 199, 122);
-      opacity: 1;
-      z-index: 6;
-    }
-
-    & > div.title {
-      opacity: 0;
-    }
-  }
-
-  input[type='file'] {
-    visibility: hidden;
-    height: 1px;
-    padding: 0;
-  }
-
 }
 
 [as='Post.Header'] div.drop {
@@ -298,28 +288,6 @@ main.posts > header > div.title {
 
     label:last-child {
     }
-  }
-
-}
-
-#PostsIndex header {
-  @include flex-direction(row);
-  @include flex-wrap(wrap);
-  @include align-items(center);
-  @include align-content(center);
-  @include justify-content(center);
-
-  position: relative;
-  min-height: 200px;
-
-  & > h1 {
-    text-align: center;
-    width: 100%;
-  }
-
-  & > section {
-    @include flex(0 auto);
-    @include display(flex);
   }
 }
 

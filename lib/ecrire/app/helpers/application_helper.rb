@@ -2,18 +2,6 @@
 # +ApplicationHelper+ provides functions to help build a theme's layout
 #
 module ApplicationHelper
-
-  ##
-  # Render the admin navigation bar if a user is signed in.
-  #
-  # You don't have to check if the user is signed in before using this method
-  # Ecrire will check this automatically
-  #
-  def admin_navigation
-    return unless signed_in?
-    render 'sessions/navigation'
-  end
-
   ##
   # Render <title> tag
   #

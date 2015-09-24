@@ -1,23 +1,33 @@
-<%= form_for @post, as: :post, url: admin_posts_path, html: { class: %w(post new title), as: 'Posts.New' } do |f| %>
+<% content_for 'Navigation::Posts' do %>
+  <%= link_to 'Drafts', admin_posts_path(posts: {status: :draft})%>
+  <%= link_to 'Published', admin_posts_path(posts: {status: :published}) %>
+  <%= link_to 'New Post', new_admin_post_path, class: %w(selected) %>
+<% end %>
 
-  <%= content_tag :fieldset, class: %w(transparent) do |fieldset| %>
-    <% if @post.errors.any? %>
-      <% fieldset.css << 'errors' %>
+<%= render('admin/navigation') %>
+
+<section class='new post'>
+  <%= form_for @post, as: :post, url: admin_posts_path, html: { class: %w(post new title), as: 'Posts.New' } do |f| %>
+
+    <%= content_tag :fieldset, class: %w(transparent) do |fieldset| %>
+      <% if @post.errors.any? %>
+        <% fieldset.css << 'errors' %>
+      <% end %>
+
+      <%= f.text_field :title, placeholder: t('admin.posts.new.title') %>
     <% end %>
 
-    <%= f.text_field :title, placeholder: t('admin.posts.new.title') %>
+    <% if @post.errors.any? %>
+      <ul class='errors'>
+        <% @post.titles.first.errors.each do |key, message| %>
+          <%= content_tag :li, message, key: key %>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= content_tag :p, t('admin.posts.new.editable'), class: %w(transparent) %>
+    <% end %>
+
+    <%= f.button :submit, class: %w(hidden) %>
+
   <% end %>
-
-  <% if @post.errors.any? %>
-    <ul class='errors'>
-      <% @post.titles.first.errors.each do |key, message| %>
-        <%= content_tag :li, message, key: key %>
-      <% end %>
-    </ul>
-  <% else %>
-    <%= content_tag :p, t('admin.posts.new.editable'), class: %w(transparent) %>
-  <% end %>
-
-  <%= f.button :submit, class: %w(hidden) %>
-
-<% end %>
+</section>

@@ -11,7 +11,6 @@ html, body {
   @include flex(1);
   margin: 0;
   padding: 0;
-  background: $light-blue;
   color: rgb(24, 27, 20);
   font-size: 16px;
   font-family: 'Helvetica Neue';
@@ -21,12 +20,16 @@ html, body {
 
 body {
   @include flex-direction(column);
+  @include radial-gradient($gray-blue, white);
 }
 
 main {
   @include display(flex);
   @include flex(1);
   @include flex-direction(column);
+
+  background: $light-blue;
+  box-shadow: 0 0 3px 0 $gray-blue;
 
   & > header, & > article {
     margin: 0 auto;

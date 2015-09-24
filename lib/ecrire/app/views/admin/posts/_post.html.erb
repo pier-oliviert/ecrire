@@ -1,9 +1,17 @@
 <li>
-  <%= content_tag :h3, link_to(post.title, edit_admin_post_path(post)), class: %w(title) %>
-  <%= content_tag :span, class: %w(status) do %>
-    <%= content_tag :span, post.status.capitalize, class: %W(status #{post.status}) %>
-    <% if post.published? %>
-      <%= content_tag :span, time_ago_in_words(post.published_at).capitalize, class: %w(published date) %>
+  <header>
+    <%= link_to post.title, edit_admin_post_path(post), class: %w(title) %>
+    <%= content_tag :span, class: %w(status) do %>
+      <% if post.published? %>
+        Published <%= time_ago_in_words(post.published_at) %> ago
+      <% else %>
+        Drafted <%= time_ago_in_words(post.created_at) %> ago
+      <% end %>
     <% end %>
+  </header>
+
+  <% if post.tags.any? %>
+    <%= content_tag :span, post.tags.map(&:name).join(', '), class: %w(tags) %>
   <% end %>
+
 </li>

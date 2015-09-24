@@ -5,6 +5,9 @@ Ecrire::Application.routes.draw do
 
     namespace :admin do
       root 'posts#index'
+
+      resource :profile
+
       resources :tags
       resources :posts do
         put :toggle

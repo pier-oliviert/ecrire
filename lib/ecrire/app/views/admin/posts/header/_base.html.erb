@@ -1,54 +1,50 @@
-<%= content_tag :header, as: "Post.Header", id: 'PostHeader', href: admin_post_image_path(post), method: 'post' do |header| %>
+<nav class='actions'>
+  <%= content_tag :div, yield(:post_buttons), class: %w(buttons) %>
 
-  <nav class='actions'>
-    <%= content_tag :div, yield(:post_buttons), class: %w(buttons) %>
-
-    <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>
-      <label>Published</label>
-      <label>Draft</label>
-    <% end %>
-  </nav>
-
-  <template for='Post.Header'>
-    <%= render 'admin/posts/header/dropping', css: %w(status dropping hidden) %>
-    <%= render 'admin/posts/header/uploading', css: %w(status uploading hidden) %>
-    <%= render 'admin/posts/header/error', css: %w(status error hidden) %>
-  </template>
-
-  <% if @post.header? %>
-    <% header[:style] = "background-image: url(#{@post.header.url});" %>
+  <%= content_tag :div, class: %w(publish state), href: admin_post_toggle_path(@post), method: :put, published: @post.published?, as: 'Post.Publish' do %>
+    <label>Published</label>
+    <label>Draft</label>
   <% end %>
-  <div class='drop'>
-  </div>
+</nav>
 
-  <div class='title'>
+<template for='Post.Header'>
+  <%= render 'admin/posts/header/dropping', css: %w(status dropping hidden) %>
+  <%= render 'admin/posts/header/uploading', css: %w(status uploading hidden) %>
+  <%= render 'admin/posts/header/error', css: %w(status error hidden) %>
+</template>
 
-    <%= content_tag :svg,
-      method: 'DELETE',
-      href: admin_post_image_path(@post),
-      class: %w(clear),
-      version: "1.1",
-      xmlns: "http://www.w3.org/2000/svg",
-      'xmlns:xlink' => "http://www.w3.org/1999/xlink",
-      x: "0px",
-      y: "0px",
-      viewBox: "0 0 20 20",
-      'enable-background' => "new 0 0 20 20",
-      'xml:space' => "preserve" do |svg| %>
+<% if @post.header? %>
+  <% header[:style] = "background-image: url(#{@post.header.url});" %>
+<% end %>
+<div class='drop'>
+</div>
 
-      <% if !@post.header? %>
-        <% svg.css << 'hidden' %>
-      <% end %>
+<div class='title'>
 
-        <path d="M16,2H4C2.9,2,2,2.9,2,4v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C18,2.9,17.1,2,16,2z M13.061,14.789L10,11.729
-    	   l-3.061,3.06l-1.729-1.728L8.271,10L5.211,6.939l1.729-1.729L10,8.271l3.059-3.061l1.729,1.729L11.729,10l3.06,3.061L13.061,14.789z
-    	    "/>
+  <%= content_tag :svg,
+    method: 'DELETE',
+    href: admin_post_image_path(@post),
+    class: %w(clear),
+    version: "1.1",
+    xmlns: "http://www.w3.org/2000/svg",
+    'xmlns:xlink' => "http://www.w3.org/1999/xlink",
+    x: "0px",
+    y: "0px",
+    viewBox: "0 0 20 20",
+    'enable-background' => "new 0 0 20 20",
+    'xml:space' => "preserve" do |svg| %>
+
+    <% if !@post.header? %>
+      <% svg.css << 'hidden' %>
     <% end %>
 
-    <%= link_to @post.title, admin_post_titles_path(@post), class: %w(title), remote: true, as: 'Post.Title' %>
-    <input type='file' />
-    <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
-  </div>
+      <path d="M16,2H4C2.9,2,2,2.9,2,4v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C18,2.9,17.1,2,16,2z M13.061,14.789L10,11.729
+       l-3.061,3.06l-1.729-1.728L8.271,10L5.211,6.939l1.729-1.729L10,8.271l3.059-3.061l1.729,1.729L11.729,10l3.06,3.061L13.061,14.789z
+        "/>
+  <% end %>
 
-<% end %>
+  <%= link_to @post.title, admin_post_titles_path(@post), class: %w(title), remote: true, as: 'Post.Title' %>
+  <input type='file' />
+  <p class='browse'>Set a header image. Either <strong>drop</strong> an image here or <strong>select an image</strong>.</p>
+</div>
 

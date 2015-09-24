@@ -85,6 +85,15 @@ namespace :template do
     Ecrire::Commands::Server.new(Port: 3000).run!
   end
 
+  desc 'Run console for template development'
+  task :console do
+    require 'ecrire/commands/console'
+    Dir.chdir 'lib/ecrire/theme/template'
+    Rails.env = ENV['RAILS_ENV'] = 'development'
+    Ecrire::Commands::Console.new.run!
+  end
+
+  desc 'Routes available in your current template configuration'
   task :routes do
     Dir.chdir 'lib/ecrire/theme/template'
     Rails.env = ENV['RAILS_ENV'] = 'development'

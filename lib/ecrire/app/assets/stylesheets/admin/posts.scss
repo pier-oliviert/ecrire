@@ -1,216 +1,71 @@
-main.posts {
-  @include display(flex);
-}
-
-main.posts > section {
-  @include flex(1);
+#PostEditContent {
   @include display(flex);
   @include flex-direction(column);
 }
 
-main.posts > header + section {
-  margin-top: 260px;
-}
-
-main.posts div.done {
-  @include transition(color 0.3s ease);
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
-  font-size: 1.5em;
-  text-align: center;
-  padding: 2em 0;
-  color: lighten($light-blue, 5%);
-  &:hover {
-    color: darken($light-blue, 25%);
-    a {
-      text-decoration: underline;
-    }
-  }
-
-  h6 {
-    font-size: 1.4em;
-    margin: 0;
-  }
-
-  a {
-    color: inherit;
-    cursor: pointer;
-  }
-}
-
-main.posts.view > section:not(.preview) {
-  @include flex-direction(column);
-  @include align-items(center);
-  @include justify-content(flex-start);
+#PostsEdit, #PostsShow {
+  background-color: white;
 
   & > section {
-    @include display(flex);
-    @include flex-direction(column);
-    @include justify-content(center);
-    @include align-items(center);
-  }
-
-  svg.tag.icon {
-    width: 3em;
-    margin: 3em 0 0 0;
-    fill: lighten($gray-blue, 25%);
-  }
-
-  h3 {
-    @include display(flex);
-    @include align-items(center);
-    color: lighten($gray-blue, 15%);
-    font-size: 2em;
-    margin: 0;
-  }
-
-  ul {
-    max-width: 600px;
-    width: 100%;
-    margin: 1em 0;
-
-    li {
-      @include display(flex);
-      @include align-items(center);
-      font-size: 1.3em;
-      font-weight: bold;
-    }
-
-  }
-}
-
-#PostsIndex > section.posts {
-  @include flex-direction(row);
-  max-width: 900px;
-  width: 100%;
-  margin: 48px auto 0 auto;
-}
-
-#PostsIndex > section.posts > div.posts.list.filters {
-  @include flex(1);
-  margin: 2em 0;
-}
-
-#PostsIndex > section.posts div.posts.list.filters div.search {
-
-  @include display(flex);
-
-  border: 1px solid darken($gray-blue, 10%);
-  border-radius: 2px;
-  overflow: hidden;
-  background-color: lighten($gray-blue, 50%);
-
-  input {
-    @include flex(1);
-    min-width: 200px;
-    width: 100%;
-    font-size: 1.0em;
     margin: 0 auto;
-    border: none;
-    border-radius: 0;
-    background-color: inherit;
-  }
-
-  svg {
-    @include transition(fill 0.3s);
-    width: 24px;
-    padding: 4px;
-  }
-
-  [as='Posts.Filter.Tags'] {
-    @include display(flex);
-    @include align-items(center);
-    @include transition(background-color 0.3s ease, box-shadow 0.3s ease);
-    border-right: 1px solid lighten($gray-blue, 25%);
-    cursor: pointer;
-    color: darken($bright-blue, 15%);
-
-    &:hover, &.tagged {
-      background-color: $light-blue;
-    }
-
-    &.tagged:hover svg.clear {
-      fill: $red;
-    }
-
-    &.tagged {
-      box-shadow: inset 0 1px lighten($light-blue, 5%);
-      &:active {
-        box-shadow: inset 0 1px 2px 0 darken($light-blue, 10%);
-      }
-    }
-
-    span {
-      display: inline-block;
-      margin: 0 0.3em 0 1em;
-      font-weight: bold;
-      font-size: 0.8em;
-    }
-
-    svg.clear {
-      fill: darken($light-blue, 10%);
-      width: 20px;
-      margin-top: 1px;
-    }
+    @include flex(1 80%);
   }
 }
 
-
-#PostsIndex > section.posts ul.filters {
-  @include flex(1);
-  @include display(flex);
-}
-
-#PostsIndex > section.posts ul.filters li {
-  margin: 12px 24px 12px 0;
+#PostsEdit > header + section, #PostsShow > header + section {
+  margin-top: 214px;
 }
 
 #PostsIndex > section.posts ul.posts {
+  @include flex(1);
   @include display(flex);
   @include flex-direction(column);
-  
   width: 100%;
-  max-width: 500px;
 }
 
-#PostsIndex > section.posts > aside {
-  @include display(flex);
-  @include flex-direction(column);
-  width: 200px;
-  margin: 0 1em;
-  border-right: 1px solid $light-blue;
-  padding: 2em 1em;
-  label {
-    cursor: pointer;
-  }
-}
-
-#PostsIndex > section.posts > aside a.new.post {
-  @include transition(box-shadow 0.2s);
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 0.8em;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 2px;
-  color: lighten($green, 35%);
-  text-shadow: 0 -1px darken($green, 10%);
-  text-decoration: none;
-  background-color: darken($green, 5%);
-
-  &:active {
-    box-shadow: none;
-  }
-}
 
 #PostsIndex > section.posts > ul.posts li {
-  h3 {
-    font-size: 1.8em;
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  border-bottom: 1px solid rgba($gray-blue, 0.2);
+  padding: 1% 2%; min-height: 80px;
+}
+
+#PostsIndex > section.posts > ul.posts li:nth-child(even) {
+  background: lighten($gray-blue, 40%);
+}
+
+#PostsIndex > section.posts > ul.posts li > header {
+  @include display(flex);
+  @include align-items(center);
+
+  & > a {
+    @include flex(1);
+
+    white-space: nowrap;
+    font-size: 2em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  & > span {
+    @include flex(0 auto);
   }
 }
 
-#PostsNew form.new.post, #PostsCreate form.new.post {
+#PostsIndex > section.posts > ul.posts li > span.tags svg {
+  width: 14px;
+  height: 14px;
+  fill: $gray-blue;
+}
+
+body.posts section.new.post {
+  @include display(flex);
+}
+
+body.posts form.new.post {
   @include display(flex);
   @include align-items(center);
   @include justify-content(center);
@@ -229,6 +84,7 @@ main.posts.view > section:not(.preview) {
   fieldset {
     &.errors input {
       border: 1px solid darken($red, 5%);
+      border-radius: 2px 2px 0 0;
     }
 
     input {
@@ -245,8 +101,6 @@ main.posts.view > section:not(.preview) {
     border-left: 1px solid darken($red, 5%);
     border-right: 1px solid darken($red, 5%);
     border-bottom: 1px solid darken($red, 5%);
-
-    box-shadow: 0 1px 1px darken($red, 15%);
 
     color: darken($red, 50%);
     text-shadow: 0 1px lighten($red, 5%);
