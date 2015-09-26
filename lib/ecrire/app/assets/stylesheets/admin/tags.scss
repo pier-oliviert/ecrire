@@ -1,3 +1,32 @@
+#TagsPopup > h2 {
+  text-align: center;
+}
+
+#TagsPopup > ul > li {
+  padding: 2% 5%;
+  cursor: pointer;
+
+  @include display(flex);
+  @include align-items(center);
+}
+
+#TagsPopup > ul > li > p {
+  @include flex(1);
+  font-size: 1.3em;
+}
+
+#TagsPopup > ul > li > div.stats {
+  @include display(flex);
+  @include flex-direction(column);
+  @include flex(0 auto);
+  
+  font-size: 0.9em;
+}
+
+#TagsPopup > ul > li:hover {
+  background-color: rgba($gray-blue, 0.2);
+}
+
 #PostEditContent > div.tags {
   color: $gray-blue;
   text-align: center;

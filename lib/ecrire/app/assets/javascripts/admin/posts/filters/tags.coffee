@@ -17,25 +17,25 @@ ObserveJS.bind 'Posts.Filter.Tags', class
 
     input = @element().querySelector('input[type=hidden]')
     span = @retrieve('span.tag')
-    span.textContent = el.textContent
+    span.textContent = el.dataset.name
     input.value = el.getAttribute('oid')
 
     @retrieve('svg.placeholder').remove()
-    @element().appendChild(span)
     @element().appendChild(@retrieve('svg.clear'))
+    @element().appendChild(span)
     @element().classList.add 'tagged'
 
     document.querySelector("[as='Overlay']").instance.remove()
 
     @changed(input)
 
-  action: =>
-    input = @element().querySelector('input[type=hidden]')
-    if @element().classList.contains('tagged')
+  action: (e) =>
+    if @retrieve('svg.clear').contains(e.target)
       @retrieve('svg.clear').remove()
-      @retrieve('span.tag').remove()
+      @retrieve('span').remove()
       @element().appendChild(@retrieve('svg.placeholder'))
-      @element().classList.remove('tagged')
+      @element().classList.remove 'tagged'
+      input = @element().querySelector('input[type=hidden]')
       input.value = null
       @changed(input)
     else

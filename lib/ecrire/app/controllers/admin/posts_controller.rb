@@ -19,6 +19,23 @@ module Admin
       end
     end
 
+    def drafts
+      posts = Admin::Post.drafted
+
+      posts = posts.search search_posts_params
+      @posts = posts.order('posts.created_at').includes(:titles)
+
+      render 'index'
+    end
+
+    def published
+      posts = Admin::Post.published
+
+      posts = posts.search search_posts_params
+      @posts = posts.order('posts.created_at').includes(:titles)
+      render 'index'
+    end
+
     def create
       @post = Admin::Post.create(title: title_params[:title])
 
@@ -69,7 +86,7 @@ module Admin
     protected
 
     def search_posts_params
-      params.require(:posts).permit(:title, :tag, :status)
+      params.require(:posts).permit(:title, :tag)
     rescue ActionController::ParameterMissing
       {
         status: 'all'

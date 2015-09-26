@@ -1,54 +1,37 @@
-#PostsIndex > section.posts > div.search {
+#PostsIndexList > div.search {
   @include display(flex);
   @include align-items(stretch);
 
   border: 1px solid rgba($gray-blue, 0.3);
   border-radius: 2px;
-  overflow: hidden;
 
   margin: 5%;
 }
 
-#PostsIndex > section.posts > div.search > input[type=text] {
-  @include flex(1 80%);
+#PostsIndexList > div.search > input[type=text] {
+  @include flex(1 100%);
   min-width: 200px;
-  width: 100%;
   margin: 0 auto;
   border: none;
   border-radius: 0;
   background-color: inherit;
   font-size: 1.2em;
+  padding-left: 0;
 }
 
-#PostsIndex > section.posts [as='Posts.Filter.Tags'] {
+#PostsIndexList [as='Posts.Filter.Tags'] {
   @include display(flex);
-  @include flex(0 auto);
+  @include flex(0 0 auto);
   @include align-items(center);
   @include justify-content(center);
   @include transition(background-color 0.3s ease, box-shadow 0.3s ease);
 
-  min-width: 30px;
-  height: 30px;
   cursor: pointer;
-  color: darken($bright-blue, 15%);
+  color: $gray-blue;
+  padding: 8px;
 
-  &:hover, &.tagged {
-    background-color: $light-blue;
-  }
-
-  &.tagged:hover svg.clear {
-    fill: $red;
-  }
-
-  &.tagged {
-    box-shadow: inset 0 1px lighten($light-blue, 5%);
-    &:active {
-      box-shadow: inset 0 1px 2px 0 darken($light-blue, 10%);
-    }
-  }
-
-  &.tagged + input {
-    background-color: $light-blue;
+  svg {
+    @include transition(fill 0.2s ease);
   }
 
   svg.placeholder {
@@ -57,19 +40,31 @@
     fill: $gray-blue;
   }
 
+  svg.placeholder:hover {
+    fill: $bright-blue;
+  }
+
+  svg.clear {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    fill: $gray-blue;
+  }
+
+  svg.clear:hover {
+    fill: $red;
+  }
+
   span {
-    display: inline-block;
-    margin: 0 0.3em 0 1em;
+    @include transition(color 0.3s ease);
+    @include flex(1);
     font-weight: bold;
     font-size: 0.8em;
     text-align: center;
   }
 
-  svg.clear {
-    @include flex(0 0 16px);
-    fill: darken($light-blue, 10%);
-    width: 16px;
-    margin: 1px 12px 0 12px;
+  span:hover {
+    color: $bright-blue;
   }
 }
 

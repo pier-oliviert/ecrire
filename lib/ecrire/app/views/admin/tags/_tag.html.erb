@@ -1,3 +1,7 @@
-<%= content_tag :li, tag.name, oid: tag.id do |li| %>
-  <%= tag.name %>
+<%= content_tag :li, tag.name, oid: tag.id, 'data-name' => tag.name do |li| %>
+  <%= content_tag :p, tag.name, class: %w(name) %>
+  <div class='stats'>
+    <span><%= posts_by_tag tag.posts.drafted, 'drafted' %></span>
+    <span><%= posts_by_tag tag.posts.published, 'published' %></span>
+  </div>
 <% end %>

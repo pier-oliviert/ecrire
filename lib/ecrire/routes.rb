@@ -11,9 +11,10 @@ Ecrire::Application.routes.draw do
       resources :tags
       resources :posts do
         put :toggle
-
         collection do
           get 'help', controller: :posts, action: :help
+          get :drafts
+          get :published
         end
 
         resources :tags, only: [:index, :create], module: 'posts' do

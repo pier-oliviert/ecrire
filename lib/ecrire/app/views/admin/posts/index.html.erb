@@ -1,13 +1,13 @@
 <% content_for 'Navigation::Posts' do %>
 
-  <%= content_tag :a, href: admin_posts_path(posts: {status: :draft}) do |a| %>
+  <%= content_tag :a, href: drafts_admin_posts_path do |a| %>
     <% if search_posts_params[:status].eql?('draft') %>
       <% a.css << 'selected' %>
     <% end %>
     Drafts
   <% end %>
 
-  <%= content_tag :a, href: admin_posts_path(posts: {status: :published}) do |a| %>
+  <%= content_tag :a, href: published_admin_posts_path do |a| %>
     <% if search_posts_params[:status].eql?('published') %>
       <% a.css << 'selected' %>
     <% end %>
@@ -19,7 +19,7 @@
 
 <%= render('admin/navigation') %>
 
-<section class='posts'>
+<section id='PostsIndexList' class='posts'>
 
   <%= content_tag :div, render('search'), class: %w(search) %>
 
@@ -27,6 +27,6 @@
     <%= render @posts %>
   </ul>
 
-  <%= form_for :posts, url: admin_posts_path, method: 'GET', html: {name: 'posts', id: 'PostsFilter', as: 'Posts.Filter'} do |f| %>
+  <%= form_for :posts, url: {controller: 'admin/posts', action: action_name}, method: 'GET', html: {name: 'posts', id: 'PostsFilter', as: 'Posts.Filter'} do |f| %>
   <% end %>
 </section>
