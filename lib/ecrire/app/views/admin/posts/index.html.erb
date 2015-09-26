@@ -1,14 +1,14 @@
 <% content_for 'Navigation::Posts' do %>
 
   <%= content_tag :a, href: drafts_admin_posts_path do |a| %>
-    <% if search_posts_params[:status].eql?('draft') %>
+    <% if action_name.eql?('drafts') %>
       <% a.css << 'selected' %>
     <% end %>
     Drafts
   <% end %>
 
   <%= content_tag :a, href: published_admin_posts_path do |a| %>
-    <% if search_posts_params[:status].eql?('published') %>
+    <% if action_name.eql?('published') %>
       <% a.css << 'selected' %>
     <% end %>
     Published
