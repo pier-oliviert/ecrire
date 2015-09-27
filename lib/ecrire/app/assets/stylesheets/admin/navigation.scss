@@ -79,8 +79,14 @@
   font-weight: bold;
 }
 
+#AdminNavigation h2.selected, #AdminNavigation h2 + div > a.selected {
+    color: white;
+    font-weight: bold;
+  }
+
 #AdminNavigation h2 > a {
   @include flex(1);
+  color: inherit;
 }
 
 #AdminNavigation h2 + div {
@@ -94,10 +100,6 @@
   padding: 8px 20px;
   color: $light-blue;
   font-size: 0.8em;
-
-  &.selected {
-    font-weight: bold;
-  }
 }
 
 #AdminNavigation a {

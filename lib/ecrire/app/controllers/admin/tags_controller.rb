@@ -5,6 +5,13 @@ module Admin
       @tag = Admin::Tag.new
     end
 
+    def unused
+      @tags = Admin::Tag.all
+      @tag = Admin::Tag.new
+
+      render 'index'
+    end
+
     def create
       @tag = Admin::Tag.new(tag_params)
       if @tag.save

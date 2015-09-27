@@ -8,7 +8,11 @@ Ecrire::Application.routes.draw do
 
       resource :profile
 
-      resources :tags
+      resources :tags do
+        collection do
+          get :unused
+        end
+      end
       resources :posts do
         put :toggle
         collection do

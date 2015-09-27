@@ -1,4 +1,10 @@
 <% content_for 'Navigation::Tags' do %>
+  <%= content_tag :a, href: '/admin/tags/unused' do |a| %>
+    <% if action_name.eql?('unused') %>
+      <% a.css << 'selected' %>
+    <% end %>
+    Unused
+  <% end %>
 <% end %>
 
 <%= render 'admin/navigation' %>

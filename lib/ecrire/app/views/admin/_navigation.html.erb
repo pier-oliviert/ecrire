@@ -10,7 +10,7 @@
   </div>
 
   <%= content_tag :h2 do |header| %>
-    <% if content_for?('Navigation::Posts') %>
+    <% if controller_name.eql?('posts') %>
       <% header.css << 'selected' %>
     <% end %>
     <%= link_to('Posts', admin_posts_path) %>
@@ -20,7 +20,7 @@
   </div>
 
   <%= content_tag :h2 do |header| %>
-    <% if content_for?('Navigation::Tags') %>
+    <% if controller_name.eql?('tags') %>
       <% header.css << 'selected' %>
     <% end %>
 
