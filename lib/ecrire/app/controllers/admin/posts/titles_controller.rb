@@ -4,7 +4,7 @@ module Admin
 
       def index
         @post = Admin::Post.find(params[:post_id])
-        if @post.published?
+        if @post.published? || @post.titles.count > 1
           @title = @post.titles.new
         else
           @title = @post.titles.first
@@ -13,10 +13,7 @@ module Admin
 
       def create
         @post = Admin::Post.find(params[:post_id])
-        @title = @post.titles.new(title_params)
-        if @title.save
-          redirect_to admin_post_titles_path(@title.post) and return
-        end
+        @title = @post.titles.create(title_params)
 
         respond_to do |format|
           format.html { render 'index' }

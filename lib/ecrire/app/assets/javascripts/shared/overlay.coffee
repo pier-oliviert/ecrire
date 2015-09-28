@@ -2,6 +2,7 @@ ObserveJS.bind 'Overlay', class
   loaded: =>
     @on 'click', @clicked
     @on 'keyup', document, @escaped
+    @on 'dialog:close', @remove
 
     @y = window.scrollY
     main = document.body.querySelector('main')

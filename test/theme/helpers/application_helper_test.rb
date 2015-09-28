@@ -43,7 +43,7 @@ class ApplicationHelperTest < ActionView::TestCase
     @post = Post.first
     html = title_tag('yada')
 
-    assert_select node(html), 'title', @post.title
+    assert_select node(html), 'title', @post.title.name
 
   end
 

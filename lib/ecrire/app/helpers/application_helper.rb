@@ -19,7 +19,7 @@ module ApplicationHelper
       if content_for?(:title)
         content_for(:title)
       elsif !@post.nil?
-        @post.title
+        @post.title.name
       else
         title
       end

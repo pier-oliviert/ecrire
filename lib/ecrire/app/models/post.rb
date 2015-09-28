@@ -59,7 +59,7 @@ class Post < ActiveRecord::Base
   # Return the current title for this post
   #
   def title
-    (self.titles.first || self.titles.new).name
+    (self.titles.first || self.titles.new)
   end
 
   ##

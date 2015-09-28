@@ -4,6 +4,7 @@ ObserveJS.bind 'Popup', class
       @on 'click', btn, @remove
     @on 'click', document, @clicked
     @on 'keyup', document, @escaped
+    @on 'dialog:close', @remove
 
   clicked: (e) =>
     el = e.target

@@ -1,4 +1,7 @@
 <%= form_tag admin_post_tags_path(post), as: 'Post.Tags.Form' do |f| %>
+
+  <h2>Change tags</h2>
+
   <%= text_field_tag 'tag[name]', nil, id: 'TagName', placeholder: 'Create a new tag', autocomplete: :off %>
   <p class='message'>A new tag will be created if no match can be found. The tag it finds will be toggled.</p>
 <% end %>

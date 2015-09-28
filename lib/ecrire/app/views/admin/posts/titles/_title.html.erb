@@ -1,7 +1,8 @@
-<li>
-  <%= content_tag :p, title.name %>
+<%= content_tag :li, 'data-name' => title.name do %>
+  <%= content_tag :time, "#{time_ago_in_words(title.created_at)} ago".capitalize %>
   <% if title.post.published? %>
-    <% post = Post.new(titles: [title], published_at: title.post.published_at) %>
-    <%= link_to url(Ecrire::Theme::Engine.post_path, post: post, absolute_path: true), url(Ecrire::Theme::Engine.post_path, post: post, absolute_path: true) %>
+    <%= link_to title.name, url(Ecrire::Theme::Engine.post_path, post: title.post), class: %w(name) %>
+  <% else %>
+    <%= content_tag :span, title.name, class: %w(name) %>
   <% end %>
-</li>
+<% end %>

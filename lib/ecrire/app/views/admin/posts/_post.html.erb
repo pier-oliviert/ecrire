@@ -1,6 +1,11 @@
 <li>
-  <header>
-    <%= link_to post.title, edit_admin_post_path(post), class: %w(title) %>
+  <%= link_to post.title.name, edit_admin_post_path(post), class: %w(title) %>
+
+  <div class='info'>
+    <% if post.tags.any? %>
+      <%= content_tag :span, post.tags.map(&:name).join(', '), class: %w(tags) %>
+    <% end %>
+
     <%= content_tag :span, class: %w(status) do %>
       <% if post.published? %>
         Published <%= time_ago_in_words(post.published_at) %> ago
@@ -8,10 +13,6 @@
         Drafted <%= time_ago_in_words(post.created_at) %> ago
       <% end %>
     <% end %>
-  </header>
-
-  <% if post.tags.any? %>
-    <%= content_tag :span, post.tags.map(&:name).join(', '), class: %w(tags) %>
-  <% end %>
+  </div>
 
 </li>

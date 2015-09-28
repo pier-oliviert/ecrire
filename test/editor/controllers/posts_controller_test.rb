@@ -17,7 +17,7 @@ class PostsControllerTest < TestController
 
   test 'a new post with an existing title should render errors' do
     log_in!
-    post :create, post: {title: Post.first.title}
+    post :create, post: {title: Post.first.title.name}
     assert_select 'ul.errors' do
       assert_select 'li[key=uniqueness]'
     end

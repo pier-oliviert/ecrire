@@ -27,10 +27,6 @@ main.overlayed {
   color: #15191B;
   z-index: 101;
   overflow: hidden;
-
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
-  }
 }
 
 [as='Popup'] header {
@@ -44,10 +40,6 @@ main.overlayed {
   letter-spacing: 2px;
   border-radius: 2px 2px 0 0;
   background: rgb(203, 212, 219);
-  h5 {
-    margin: 8px 0;
-    font-size: 1.2em;
-  }
 }
 
 [as='Popup'].errors {
@@ -63,4 +55,11 @@ main.overlayed {
   ol {
     margin: 1em;
   }
+}
+
+[as='Popup'] div.errors {
+  padding: 12px 5%;
+  background: $red;
+
+  color: white;
 }

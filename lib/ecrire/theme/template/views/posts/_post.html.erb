@@ -1,6 +1,6 @@
 <li class="post">
   <div class='content'>
-    <%= content_tag :h3, link_to(post.title, url('/:post.year/:post.month/:post.slug', post: post)) %>
+    <%= content_tag :h3, link_to(post.title.name, url('/:post.year/:post.month/:post.slug', post: post)) %>
 
     <%= render 'posts/tags', tags: post.tags %>
   </div>

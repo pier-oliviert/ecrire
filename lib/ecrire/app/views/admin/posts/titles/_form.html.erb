@@ -1,29 +1,34 @@
-<%= form_for title, url: url, as: 'title', remote: request.xhr? do |form| %>
-  <%= content_tag :div, class: %w(fieldset) do |div| %>
-    <% if title.errors.any? %>
-      <% div.css << 'errors' %>
-    <% end %>
+<% if title.persisted? %>
+  <% url = admin_post_title_path(post, post.titles.first) %>
+<% else %>
+  <% url = admin_post_titles_path(post) %>
+<% end %>
 
-    <%= form.text_field :name, placeholder: 'Create a new title for this post', tabindex: 1, autocomplete: :off %>
+<%= form_for title, url: url, as: :title, remote: request.xhr?, html: { id: 'TitleForm', class: %w(title form), as: 'Post.Titles' } do |form| %>
 
-    <% if title.errors.any? %>
-      <ul class='errors'>
-        <% title.errors.each do |key, message| %>
-          <%= content_tag :li, message %>
-        <% end %>
-      </ul>
-    <% end %>
+  <h2>Change title</h2>
 
+  <% if title.errors.any? %>
+    <%= content_tag :div, title.errors.full_messages.to_sentence, class: %w(errors) %>
   <% end %>
 
-  <% if title.persisted? %>
-    <%= form.button 'Update the title' %>
-  <% else %>
-    <%= form.button 'Add this title' %>
+  <div class='fieldset title'>
+    <%= form.text_field :name, placeholder: 'New title for this post', tabindex: 1, autocomplete: :off %>
+  </div>
+
+  <div class='fieldset actions'>
+    <% unless title.persisted? %>
+      <p>The old URLS will be <strong>redirected</strong> to this new title.</p>
+    <% end %>
+    <%= form.button 'Change title' %>
+  </div>
+
+  <% if (titles = post.titles.where.not(id: [post.title.id])).size > 0 %>
+    <ul class='titles'>
+      <h3>Previous titles</h3>
+      <%= render partial: 'admin/posts/titles/title', collection: titles, as: :title %>
+    </ul>
   <% end %>
 
 <% end %>
 
-<% unless title.persisted? %>
-  <p>The old URLS will be <strong>redirected to this new title</strong>.</p>
-<% end %>

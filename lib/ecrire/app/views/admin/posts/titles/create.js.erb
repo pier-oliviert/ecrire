@@ -1,0 +1,6 @@
+<% if @title.errors.any? %>
+  e.ErrorHTML = "<%= j content_tag(:div, @title.errors.to_a.to_sentence, class: %w(errors)) %>".toHTML()
+<% else %>
+  e.HTML = "<%= j render('admin/posts/titles/title', title: @title) %>".toHTML()
+<% end %>
+

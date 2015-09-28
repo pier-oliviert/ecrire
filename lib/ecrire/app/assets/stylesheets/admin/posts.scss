@@ -36,22 +36,27 @@
   background: lighten($gray-blue, 40%);
 }
 
-#PostsIndexList > ul.posts li > header {
+#PostsIndexList > ul.posts li > a {
+  font-size: 2em;
+  margin: 8px 0;
+}
+
+#PostsIndexList > ul.posts li > div.info {
   @include display(flex);
   @include align-items(center);
 
-  & > a {
+  & > span.tags {
     @include flex(1);
 
     white-space: nowrap;
-    font-size: 2em;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
   }
 
-  & > span {
+  & > span.status {
     @include flex(0 auto);
+    margin-left: auto;
   }
 }
 

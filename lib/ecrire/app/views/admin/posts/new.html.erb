@@ -14,7 +14,7 @@
         <% fieldset.css << 'errors' %>
       <% end %>
 
-      <%= f.text_field :title, placeholder: t('admin.posts.new.title') %>
+      <%= f.text_field :title, value: '', placeholder: t('admin.posts.new.title') %>
     <% end %>
 
     <% if @post.errors.any? %>
