@@ -4,7 +4,7 @@ class TitleTest < ActiveSupport::TestCase
   test "length of name" do
     title = Title.new(name: '', post: posts(:published))
     assert !title.save
-    assert title.errors.has_key?(:name)
+    assert title.errors.has_key?(:base)
 
     title.name = 'a'
     assert title.save, title.errors.full_messages.to_sentence
