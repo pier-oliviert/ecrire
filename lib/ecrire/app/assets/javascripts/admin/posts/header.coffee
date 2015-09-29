@@ -19,7 +19,10 @@ ObserveJS.bind 'Post.Header', class
     @resize()
 
   resize:  =>
-    height = @maxHeight - window.scrollY
+    if document.querySelector('main').classList.contains('overlayed')
+      return
+
+    height = @maxHeight - document.body.scrollTop
     if height < 0
       height = 0
 
