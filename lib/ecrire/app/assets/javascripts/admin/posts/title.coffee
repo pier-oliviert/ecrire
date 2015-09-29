@@ -5,6 +5,7 @@ ObserveJS.bind 'Post.Title', class
     @on 'titles:create', document, @refresh
 
   show: (e) =>
+    e.HTML.dataset.y = document.body.scrollTop
     document.body.appendChild(e.HTML)
     e.HTML.querySelector('form input[type=text]').focus()
 

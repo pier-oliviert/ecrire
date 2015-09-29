@@ -4,7 +4,7 @@ ObserveJS.bind 'Overlay', class
     @on 'keyup', document, @escaped
     @on 'dialog:close', @remove
 
-    @y = document.body.scrollTop
+    @y = @element().dataset.y || document.body.scrollTop
     main = document.body.querySelector('main')
     main.classList.add('overlayed')
     main.style.top = "-#{@y}px"
