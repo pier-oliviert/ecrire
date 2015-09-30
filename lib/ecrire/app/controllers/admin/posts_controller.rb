@@ -11,7 +11,7 @@ module Admin
       posts = Admin::Post
 
       posts = posts.search search_posts_params
-      @posts = posts.order('posts.created_at').includes(:titles)
+      @posts = posts.order('posts.created_at DESC').includes(:titles)
 
       respond_to do |format|
         format.html
@@ -23,7 +23,7 @@ module Admin
       posts = Admin::Post.drafted
 
       posts = posts.search search_posts_params
-      @posts = posts.order('posts.created_at').includes(:titles)
+      @posts = posts.order('posts.created_at DESC').includes(:titles)
 
       render 'index'
     end
@@ -32,7 +32,7 @@ module Admin
       posts = Admin::Post.published
 
       posts = posts.search search_posts_params
-      @posts = posts.order('posts.created_at').includes(:titles)
+      @posts = posts.order('posts.published_at DESC').includes(:titles)
       render 'index'
     end
 
