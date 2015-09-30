@@ -4,6 +4,8 @@ ObserveJS.bind 'Post.Titles', class
     @on 'titles:update', document, @refresh
     @on 'titles:create', document, @refresh
 
+    @element().querySelector('form input[type=text]').focus()
+
 
   clear: =>
     @element().querySelector('div.errors')?.remove()
