@@ -11,16 +11,19 @@ ObserveJS.bind 'Editor.Content', class @Editor
     @extensions = Editor.Extensions.map (ext) =>
       new ext(this)
 
-    unless @element().lastChild?
-      @element().innerHTML = '<p></p>'
+    if @element().dataset.status != 'loaded'
+      unless @element().lastChild?
+        @element().innerHTML = '<p></p>'
 
-    lines = @lines(@element())
-    @element().textContent = ''
-    fragment = document.createDocumentFragment()
-    fragment.appendChild(line) for line in lines
-    @parse(fragment)
-    while fragment.firstChild
-      @element().appendChild(fragment.firstChild)
+      lines = @lines(@element())
+      @element().textContent = ''
+      fragment = document.createDocumentFragment()
+      fragment.appendChild(line) for line in lines
+      @parse(fragment)
+      while fragment.firstChild
+        @element().appendChild(fragment.firstChild)
+
+    @element().dataset.status = 'loaded'
 
     @observer = new MutationObserver(@outdated)
     observerSettings = {
