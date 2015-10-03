@@ -19,5 +19,6 @@ Dockerfile
 docker-compose.yml
 .DS_Store
 Gemfile.lock
+lib/**/secrets.yml
 
 /lib/ecrire/template/secrets.yml
