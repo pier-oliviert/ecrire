@@ -13,8 +13,7 @@
   @include align-items(center);
   @include justify-content(center);
 
-  padding: 8px 12px;
-  margin-top: auto;
+  padding: 12px 8px;
 
   &:hover > svg {
     fill: lighten($light-blue, 45%);
@@ -32,7 +31,7 @@
 
 #AdminNavigation > div.current.user {
   position: relative;
-  margin-bottom: 1vh;
+  margin: 1vh 5% 0 5%;
 }
 
 #AdminNavigation > div.current.user > a.home {
@@ -48,7 +47,6 @@
   @include justify-content(space-between);
 
   border-radius: 2px;
-  margin: 2vh 5% 0 5%;
   background-color: rgba(darken($bright-blue, 25%), 0.2);
   padding: 4px 8px;
 
@@ -121,7 +119,7 @@
 
 #AdminNavigation [as='Popup'] {
   position: absolute;
-  margin: 2vh 5% 0 5%;
+  margin: 0;
   top: 0;
   left: 0;
   right: 0;
