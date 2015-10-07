@@ -40,12 +40,16 @@ module Ecrire
     # knowing which module it should load based on the current
     # configuration.
     #
-    # For that reason, this method is overloaded.
+    # Another issue happens with railties being memoized before
+    # Ecrire could figure out if the user needs to be onboarded.
+    #
+    # For those reasons, this method is overloaded.
     #
     def initialize!(group=:default) #:nodoc:
       raise "Application has been already initialized." if @initialized
 
       ActiveSupport.run_load_hooks(:before_initialize, self)
+      @railties = Railties.new
 
       run_initializers(group, self)
       @initialized = true
