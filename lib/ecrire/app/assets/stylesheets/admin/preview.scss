@@ -34,6 +34,25 @@
   }
 }
 
+#PostPreviewContent > article > figure {
+  border: 1px solid $gray-blue;
+
+  img {
+    max-width: 100%;
+    margin: 12px;
+  }
+
+  figcaption {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.8em;
+    color: $light-blue;
+    background-color: $gray-blue;
+    padding: 0.2em 0.4em;
+  }
+}
+
+
 #PostPreviewContent pre {
   background-color: $light-blue;
   font-size: 0.7em;
