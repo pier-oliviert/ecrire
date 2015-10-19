@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'ecrire',               path: '/ecrire'
+gem 'ecrire'
 
 group :required do
   gem 'rails',             '~> 4.2'
@@ -22,11 +22,9 @@ group :required do
   gem 'jbuilder',          '~> 2.2'
 end
 
+gem 'byebug', group: :development
+gem 'rails_12factor', group: :production
+
 group :server do
   gem 'thin',             '~> 1.6'
-end
-
-# Only loaded in development environment.
-group :development do
-  gem 'byebug'
 end
