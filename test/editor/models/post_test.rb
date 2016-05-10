@@ -90,7 +90,8 @@ class PostTest < ActiveSupport::TestCase
 
   test "excerpt is generated until it reaches 5 elements" do
     post = Admin::Post.new({
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      content: {
+        raw: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Nunc malesuada diam id fringilla varius.
 Suspendisse ultricies sem ac enim pulvinar luctus.
 Pellentesque a nunc in libero convallis fringilla.
@@ -110,7 +111,29 @@ Nam vel elit vitae diam mattis mattis.
 Phasellus in lacus eget sem tempus elementum.
 Integer gravida diam sit amet massa egestas convallis.
 Vestibulum dignissim odio sit amet sem condimentum, ut pharetra erat bibendum.
-Cras molestie tellus id convallis lobortis."
+Cras molestie tellus id convallis lobortis.",
+        html: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<p>Nunc malesuada diam id fringilla varius.</p>
+<p>Suspendisse ultricies sem ac enim pulvinar luctus.</p>
+<p>Pellentesque a nunc in libero convallis fringilla.</p>
+<p>Praesent nec ipsum ut turpis feugiat semper.</p>
+<p>Integer quis magna quis nisi porta hendrerit in a lorem.</p>
+<p>Nam dignissim sapien nec feugiat cursus.</p>
+<p>In tincidunt orci eget est scelerisque, a consequat massa consectetur.</p>
+<p>Donec et nunc at justo facilisis congue.</p>
+<p>Cras mollis orci ac arcu consectetur, quis bibendum leo gravida.</p>
+<p>Vivamus dapibus dolor eu tortor molestie, non pulvinar risus dignissim.</p>
+<p>Aliquam vitae lectus vehicula, euismod ex at, accumsan quam.</p>
+<p>Ut vulputate mauris hendrerit mauris placerat tempus quis eget diam.</p>
+<p>Sed vestibulum lacus eu vehicula finibus.</p>
+<p>Praesent non diam vitae eros congue pretium.</p>
+<p>Nulla tincidunt justo sit amet aliquet porta.</p>
+<p>Nam vel elit vitae diam mattis mattis.</p>
+<p>Phasellus in lacus eget sem tempus elementum.</p>
+<p>Integer gravida diam sit amet massa egestas convallis.</p>
+<p>Vestibulum dignissim odio sit amet sem condimentum, ut pharetra erat bibendum.</p>
+<p>Cras molestie tellus id convallis lobortis.</p>",
+      }
     })
 
     post.titles << Admin::Title.new(name: "Post Excerpt test.", post: post)
@@ -119,29 +142,38 @@ Cras molestie tellus id convallis lobortis."
 
     html = Nokogiri::HTML(post.compiled_excerpt)
 
-    assert html.css('body > *').length == 5
+    assert html.css('body > *').length == 5, html.to_s
 
   end
 
   test "excerpt generation stops when it reaches an element that can't be part of it" do
     post = Admin::Post.new({
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-[Nunc](http://google.com) malesuada diam id fringilla varius.
-Nam dignissim sapien nec feugiat cursus.
-- In tincidunt orci eget est scelerisque, a consequat massa consectetur.
-- Donec et nunc at justo facilisis congue.
-- Cras mollis orci ac arcu consectetur, quis bibendum leo gravida.
-Vivamus dapibus dolor eu tortor molestie, non pulvinar risus dignissim.
-Aliquam vitae lectus vehicula, euismod ex at, accumsan quam.
-# Ut vulputate mauris hendrerit mauris placerat tempus quis eget diam.
-Sed vestibulum lacus eu vehicula finibus.
-Praesent non diam vitae eros congue pretium.
-Nulla tincidunt justo sit amet aliquet porta.
-Nam vel elit vitae diam mattis mattis.
-Phasellus in lacus eget sem tempus elementum.
-Integer gravida diam sit amet massa egestas convallis.
-Vestibulum dignissim odio sit amet sem condimentum, ut pharetra erat bibendum.
-Cras molestie tellus id convallis lobortis."
+      content: {
+        raw: "",
+        html: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>Nunc malesuada diam id fringilla varius.</p>
+          <ul>
+            <li>Suspendisse ultricies sem ac enim pulvinar luctus.</li>
+            <li>Pellentesque a nunc in libero convallis fringilla.</li>
+          </ul>
+          <h1>Praesent nec ipsum ut turpis feugiat semper.</h1>
+          <p>Integer quis magna quis nisi porta hendrerit in a lorem.</h1>
+          <p>Nam dignissim sapien nec feugiat cursus.</p>
+          <p>In tincidunt orci eget est scelerisque, a consequat massa consectetur.</p>
+          <p>Donec et nunc at justo facilisis congue.</p>
+          <p>Cras mollis orci ac arcu consectetur, quis bibendum leo gravida.</p>
+          <p>Vivamus dapibus dolor eu tortor molestie, non pulvinar risus dignissim.</p>
+          <p>Aliquam vitae lectus vehicula, euismod ex at, accumsan quam.</p>
+          <p>Ut vulputate mauris hendrerit mauris placerat tempus quis eget diam.</p>
+          <p>Sed vestibulum lacus eu vehicula finibus.</p>
+          <p>Praesent non diam vitae eros congue pretium.</p>
+          <p>Nulla tincidunt justo sit amet aliquet porta.</p>
+          <p>Nam vel elit vitae diam mattis mattis.</p>
+          <p>Phasellus in lacus eget sem tempus elementum.</p>
+          <p>Integer gravida diam sit amet massa egestas convallis.</p>
+          <p>Vestibulum dignissim odio sit amet sem condimentum, ut pharetra erat bibendum.</p>
+          <p>Cras molestie tellus id convallis lobortis.</p>",
+      }
     })
 
     post.titles << Admin::Title.new(name: "Post Excerpt test.", post: post)
@@ -150,7 +182,8 @@ Cras molestie tellus id convallis lobortis."
 
     html = Nokogiri::HTML(post.compiled_excerpt)
 
-    assert html.css('body > *').length == 5
+    assert html.css('body > h1').length == 0, html.to_s
+    assert html.css('body > p').length > 0, html.to_s
   end
 
 end

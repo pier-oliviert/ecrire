@@ -16,7 +16,7 @@ class PostsControllerTest < TestController
   test 'show post if it exists' do
     p = Post.published.first
     get :show, year: p.year, month: p.month, id: p.slug
-    assert_response :success
+    assert_response :success, response.inspect
   end
 
 end

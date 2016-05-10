@@ -18,7 +18,7 @@ module ApplicationHelper
     content_tag :title do
       if content_for?(:title)
         content_for(:title)
-      elsif !@post.nil?
+      elsif defined? @post
         @post.title.name
       else
         title

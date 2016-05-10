@@ -3,6 +3,7 @@ require 'pg'
 require 's3'
 require 'kaminari'
 require 'observejs'
+require 'written'
 require 'pg_search'
 
 module Ecrire

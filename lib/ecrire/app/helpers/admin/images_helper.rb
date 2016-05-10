@@ -23,8 +23,7 @@ module Admin
                         {"bucket" => Rails.application.secrets.s3['bucket']},
                         ["starts-with", "$key", "#{namespace.join('/')}/"],
                         ["starts-with", "$Content-Type", ""],
-                        {"acl" => "private"},
-                        {'success_action_status' => '201'}
+                        {"acl" => "private"}
                       ]
                     }
                     Base64.encode64(policy.to_json).gsub("\n","")

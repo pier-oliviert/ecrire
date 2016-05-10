@@ -1,7 +1,6 @@
 module Ecrire
 
   autoload :Application,        'ecrire/application'
-  autoload :Markdown,           'ecrire/markdown'
 
   ##
   # Returns true if Ecrire could find 
@@ -9,7 +8,7 @@ module Ecrire
   #
   def self.bundle?
     ENV['BUNDLE_GEMFILE'] ||= Dir.pwd + '/Gemfile'
-    File.exists?(ENV['BUNDLE_GEMFILE'])
+    File.exist?(ENV['BUNDLE_GEMFILE'])
   end
 
   if Ecrire.bundle?

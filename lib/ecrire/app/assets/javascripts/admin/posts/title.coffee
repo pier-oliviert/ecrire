@@ -1,8 +1,8 @@
 ObserveJS.bind 'Post.Title', class
   loaded: =>
     @on 'titles:index', @show
-    @on 'titles:update', document, @refresh
-    @on 'titles:create', document, @refresh
+    @when 'titles:update', @refresh
+    @when 'titles:create', @refresh
 
   show: (e) =>
     e.HTML.dataset.y = document.body.scrollTop

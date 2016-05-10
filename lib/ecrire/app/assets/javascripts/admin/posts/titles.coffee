@@ -1,8 +1,8 @@
 ObserveJS.bind 'Post.Titles', class
   loaded: =>
     @on 'submit', @clear
-    @on 'titles:update', document, @refresh
-    @on 'titles:create', document, @refresh
+    @when 'titles:update', @refresh
+    @when 'titles:create', @refresh
 
     @element().querySelector('form input[type=text]').focus()
 

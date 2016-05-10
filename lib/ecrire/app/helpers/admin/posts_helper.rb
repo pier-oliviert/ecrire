@@ -19,14 +19,15 @@ module Admin
         contenteditable: true,
         href: admin_post_path(@post.id) do |div|
 
+          namespace = Pathname.new(Rails.application.secrets.s3['namespace'] || '')
+
           if Rails.application.secrets.has_key?(:s3)
-            div[:bucket] = Rails.application.secrets.s3['bucket']
-            div[:access_key] = Rails.application.secrets.s3['access_key']
-            div[:signature] = image_form_signature(image_form_policy(@post))
-            div[:policy] = image_form_policy(@post)
-            if Rails.application.secrets.s3.has_key?('namespace')
-              div['namespace'] = Rails.application.secrets.s3['namespace']
-            end
+            div['data-bucket'] = Rails.application.secrets.s3['bucket']
+            div['data-url'] = Rails.application.secrets.s3['url']
+            div['data-access-key'] = Rails.application.secrets.s3['access_key']
+            div['data-signature'] = image_form_signature(image_form_policy(@post))
+            div['data-policy'] = image_form_policy(@post)
+            div['data-namespace'] = namespace + @post.id.to_s
           end
 
           yield if block_given?

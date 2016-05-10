@@ -5,12 +5,14 @@
 # below each fixture, per the syntax in the comments below
 #
 published:
-  content: "Test"
+  content:
+    raw: "Test"
   published_at: <%= 2.days.ago %>
   tags:
     - 1
 
 draft:
-  content: "A draft"
+  content:
+    raw: "A draft"
   tags:
     - 1

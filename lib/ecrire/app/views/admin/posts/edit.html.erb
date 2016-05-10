@@ -1,4 +1,9 @@
-<%= content_tag :header, as: 'Post.Header', id: 'PostHeader', href: admin_post_image_path(@post), method: 'post' do %>
+<%= content_tag :header, as: 'Post.Header', id: 'PostHeader', href: admin_post_image_path(@post), method: 'post' do |header| %>
+
+  <% if @post.header? %>
+    <% header[:style] = "background-image: url(#{@post.header.url});" %>
+  <% end %>
+
   <% content_for :post_buttons do %>
     <%= link_to 'Administration', admin_root_path, class: %w(button) %>
 
@@ -35,7 +40,7 @@
   <%= post_tags(@post) %>
 
   <%= edit_content_tag(@post) do %>
-    <%= h @post.content %>
+    <%= h @post.content.raw %>
   <% end %>
   
 </section>

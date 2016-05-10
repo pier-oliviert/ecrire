@@ -18,6 +18,8 @@ require 'nokogiri'
 #
 # 
 class Post < ActiveRecord::Base
+  Content = Struct.new(:raw, :html)
+
   has_one :header, class_name: Image
   has_many :titles, -> { order "titles.created_at DESC" }
 
@@ -127,7 +129,10 @@ class Post < ActiveRecord::Base
   # to a page in HTML.
   #
   def content
-    (self.compiled_content || super || '').html_safe
+    @content ||= begin
+      content = read_attribute('content')
+      Content.new(content.fetch('raw', ''), content.fetch('html', ''))
+    end
   end
 
   ##

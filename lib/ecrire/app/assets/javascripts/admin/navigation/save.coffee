@@ -1,11 +1,10 @@
 ObserveJS.bind 'Editor.Save', class
   loaded: =>
     @on 'click', @save
-    @on 'keydown', window, @shouldSave
-    @on 'Editor:loaded', document, @cache
-    @on 'Editor:updated', document, @update
-    @on 'posts:update', document, @saved
-    @on 'beforeunload', window, @confirm
+    @when 'keydown', @shouldSave
+    @when 'Editor:loaded', @cache
+    @when 'posts:update', @saved
+    @when 'beforeunload', @confirm
 
   confirm: (e) =>
     if @cache() != PostBody.instance.toString()
@@ -31,7 +30,7 @@ ObserveJS.bind 'Editor.Save', class
     e.preventDefault()
     e.stopPropagation()
 
-    dialog = @retrieve('#SavePost')
+    dialog = @template('#SavePost')
 
     if e.type == 'click'
       dialog.dataset.preview = true
@@ -43,9 +42,10 @@ ObserveJS.bind 'Editor.Save', class
 
 ObserveJS.bind 'Editor.Save.Dialog', class
   loaded: =>
-    @on 'posts:update', document, @saved
+    @when 'posts:update', @saved
     xhr = new ObserveJS.XHR(@element())
-    xhr.data.set('post[content]', PostBody.instance.toString())
+    xhr.data.set('post[content][raw]', PostBody.instance.history.current.toString())
+    xhr.data.set('post[content][html]', PostBody.instance.history.current.toHTMLString())
     xhr.data.set('context', 'content')
     xhr.request.upload.addEventListener 'progress', @upload
     xhr.request.addEventListener 'progress', @download

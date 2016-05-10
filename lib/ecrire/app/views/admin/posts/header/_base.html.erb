@@ -13,9 +13,6 @@
   <%= render 'admin/posts/header/error', css: %w(status error hidden) %>
 </template>
 
-<% if @post.header? %>
-  <% header[:style] = "background-image: url(#{@post.header.url});" %>
-<% end %>
 <div class='drop'>
 </div>
 

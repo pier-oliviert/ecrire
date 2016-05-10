@@ -7,12 +7,12 @@ ObserveJS.bind 'Post.Header', class
     @on 'dragleave', @cancel
     @on 'drop', @drop
 
-    @on 'ObserveJS:XHR:Failed', @failed
+    @when 'ObserveJS:XHR:Failed', @failed
 
     @on 'images:create', @refresh
     @on 'images:destroy', @refresh
 
-    @on 'scroll', window, @resize
+    @when 'scroll', @resize
 
     @maxHeight = parseFloat(window.getComputedStyle(this.element())['height'])
 
@@ -55,15 +55,15 @@ ObserveJS.bind 'Post.Header', class
   progress: (e) =>
     return unless e.lengthComputable
     percentComplete = e.loaded / e.total * 100.0;
-    progressBar = @retrieve('div.status.uploading').querySelector('.progressbar')
+    progressBar = @element().querySelector('div.status.uploading .progressbar')
     progressBar.firstElementChild.style.width = "#{percentComplete}%";
 
   failed: (e) =>
     errors = JSON.parse(e.response.target.responseText)
-    @hide(@retrieve('div.status.uploading'))
-    @show(@retrieve('div.error.status'))
-    ul = @retrieve('div.error.status').querySelector('ul')
-    @on 'click', @retrieve('div.error.status').querySelector('button'), @clear
+    @hide(@template('div.status.uploading'))
+    @show(@template('div.error.status'))
+    ul = @template('div.error.status').querySelector('ul')
+    @on 'click', @template('div.error.status').querySelector('button'), @clear
     for error in errors
       ul.insertAdjacentHTML('beforeend', "<li>#{error}</li>")
 
@@ -74,12 +74,13 @@ ObserveJS.bind 'Post.Header', class
     xhr = new ObserveJS.XHR(e.currentTarget)
     xhr.request.upload.onprogress = @progress
     xhr.send()
+    @show(@template('div.status.uploading'))
 
   over: (e) =>
     e.preventDefault()
     if !@element().classList.contains('image')
       @element().classList.add 'image'
-      @show(@retrieve('div.dropping.status'))
+      @show(@template('div.dropping.status'))
 
   cancel: (e) =>
     e.preventDefault()
@@ -102,19 +103,19 @@ ObserveJS.bind 'Post.Header', class
     if !@element().classList.contains('image')
       @element().classList.add 'image'
 
-    @show(@retrieve('div.status.uploading'))
-    @retrieve('div.status.uploading').querySelector('.progressbar > span').style.width = '0%';
+    @show(@template('div.status.uploading'))
+    @template('div.status.uploading').querySelector('.progressbar > span').style.width = '0%';
     xhr = new ObserveJS.XHR(@element())
     xhr.data.set 'image[file]', file
     xhr.request.upload.onprogress = @progress
     xhr.send()
 
   loading: =>
-    @element().firstElementChild.appendChild(@retrieve('div.status.uploading'))
+    @element().firstElementChild.appendChild(@template('div.status.uploading'))
 
   clear: (e) =>
     @element().classList.remove 'image'
-    for li in @retrieve('div.error.status').querySelectorAll('li')
+    for li in @template('div.error.status').querySelectorAll('li')
       li.remove()
 
     for status of @statuses

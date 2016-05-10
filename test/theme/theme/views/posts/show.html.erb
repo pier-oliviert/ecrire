@@ -2,7 +2,7 @@
 <%= content_tag :time, l(@post.published_at.to_date, format: :long) %>
 
 <div class="content">
-  <%= @post.content.html_safe %>
+  <%= @post.content.html.html_safe %>
 </div>
 
 

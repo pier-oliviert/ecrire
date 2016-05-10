@@ -2,8 +2,8 @@ ObserveJS.bind 'Popup', class
   loaded: =>
     if btn = @element().querySelector('.close')
       @on 'click', btn, @remove
-    @on 'click', document, @clicked
-    @on 'keyup', document, @escaped
+    @when 'click', @clicked
+    @when 'keyup', @escaped
     @on 'dialog:close', @remove
 
   clicked: (e) =>

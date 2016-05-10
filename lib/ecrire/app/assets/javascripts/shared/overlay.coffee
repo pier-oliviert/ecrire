@@ -1,7 +1,7 @@
 ObserveJS.bind 'Overlay', class
   loaded: =>
     @on 'click', @clicked
-    @on 'keyup', document, @escaped
+    @when 'keyup', @escaped
     @on 'dialog:close', @remove
 
     @y = document.body.scrollTop

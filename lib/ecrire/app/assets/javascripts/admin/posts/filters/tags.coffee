@@ -2,26 +2,22 @@ ObserveJS.bind 'Posts.Filter.Tags', class
   loaded: =>
     @on 'tags:index', @show
     @on 'click', @action
-    @element().appendChild(@retrieve('svg.placeholder'))
+    @when 'tags:filter:list:selected', @select
+    @element().appendChild(@template('svg.placeholder'))
 
   show: (e) =>
+    e.HTML.querySelector('ul')?.setAttribute('as', 'Tags.Filter.List')
     document.body.appendChild(e.HTML)
-    @on 'click', e.HTML, @select
 
   select: (e) =>
-    el = e.target
-    while el && !(el instanceof HTMLLIElement)
-      el = el.parentElement
-
-    return unless el?
-
+    el = e.detail
     input = @element().querySelector('input[type=hidden]')
-    span = @retrieve('span.tag')
+    span = @template('span.tag')
     span.textContent = el.dataset.name
     input.value = el.getAttribute('oid')
 
-    @retrieve('svg.placeholder').remove()
-    @element().appendChild(@retrieve('svg.clear'))
+    @element().querySelector('svg.placeholder')?.remove()
+    @element().appendChild(@template('svg.clear'))
     @element().appendChild(span)
     @element().classList.add 'tagged'
 
@@ -30,10 +26,11 @@ ObserveJS.bind 'Posts.Filter.Tags', class
     @changed(input)
 
   action: (e) =>
-    if @retrieve('svg.clear').contains(e.target)
-      @retrieve('svg.clear').remove()
-      @retrieve('span').remove()
-      @element().appendChild(@retrieve('svg.placeholder'))
+    clear = @element().querySelector('svg.clear')
+    if clear? && clear.contains(e.target)
+      clear.remove()
+      @element().querySelector('span')?.remove()
+      @element().appendChild(@template('svg.placeholder'))
       @element().classList.remove 'tagged'
       input = @element().querySelector('input[type=hidden]')
       input.value = null

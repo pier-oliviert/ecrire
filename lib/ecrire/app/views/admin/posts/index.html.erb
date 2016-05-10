@@ -21,12 +21,12 @@
 
 <section id='PostsIndexList' class='posts'>
 
-  <%= content_tag :div, render('search'), class: %w(search) %>
+  <%= form_for :posts, url: {controller: 'admin/posts', action: action_name}, method: 'GET', html: {class: %w(search), name: 'posts', id: 'PostsFilter', as: 'Posts.Filter'} do |f| %>
+    <%= render('search') %>
+  <% end %>
 
   <ul class='posts' as='Posts.List'>
     <%= render @posts %>
   </ul>
 
-  <%= form_for :posts, url: {controller: 'admin/posts', action: action_name}, method: 'GET', html: {name: 'posts', id: 'PostsFilter', as: 'Posts.Filter'} do |f| %>
-  <% end %>
 </section>

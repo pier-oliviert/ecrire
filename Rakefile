@@ -60,17 +60,10 @@ namespace :test do
     end
   end
 
-  Rake::TestTask.new 'markdown' do |t|
-    t.libs << "test"
-    t.test_files = FileList["test/markdown/**/*_test.rb"]
-    t.verbose = true
-  end
-
-
 end
 
 task :test do
-  %w(test:markdown test:editor test:onboarding test:theme).each do |name|
+  %w(test:editor test:onboarding test:theme).each do |name|
     Rake::Task[name].invoke
   end
 end

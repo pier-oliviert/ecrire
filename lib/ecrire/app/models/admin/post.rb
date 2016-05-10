@@ -4,7 +4,6 @@ module Admin
     has_one :header, class_name: Admin::Image
     has_many :titles, -> { order "titles.created_at DESC" }, class_name: Admin::Title
 
-    before_save :compile!, prepend: true
     before_save :excerptize!
 
     def self.search(params = {})
@@ -46,8 +45,16 @@ module Admin
       super || ""
     end
 
-    def content
-      read_attribute(:content) || ""
+    def content=(content)
+      content_will_change!
+      if content.is_a?(String)
+        self.content.html = self.content.raw = content
+      elsif content.kind_of?(Hash)
+        content = content.with_indifferent_access
+        self.content.html = content['html']
+        self.content.raw = content['raw']
+        write_attribute('content', {'raw' => self.content.raw, 'html' => self.content.html})
+      end
     end
 
     def status
@@ -56,19 +63,18 @@ module Admin
 
     private
 
-    def compile!
-      self.compiled_content = Ecrire::Markdown.parse(self.content).to_html
-    end
-
     def excerptize!
-      html = Nokogiri::HTML(self.compiled_content)
+      html = Nokogiri::HTML(self.content.html)
       html.xpath("//img").each do |img|
         img.remove
       end
 
-      valid_elements = %w(p ul ol li).freeze
-
-      elements = html.xpath('//body').children[0..4].take_while do |el|
+      valid_elements = %w(p ul ol li text).freeze
+      require 'byebug'
+      elements = html.xpath('//body').children.find_all do |el|
+        !el.text.blank?
+      end
+      elements = elements[0..4].take_while do |el|
         valid_elements.include?(el.name)
       end
 

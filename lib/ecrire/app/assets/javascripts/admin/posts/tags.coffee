@@ -1,7 +1,7 @@
 ObserveJS.bind 'Post.Tags', class
   loaded: =>
-    @on 'tags:toggle', document, @refresh
-    @on 'tags:create', document, @refresh
+    @when 'tags:toggle', @refresh
+    @when 'tags:create', @refresh
     @on 'tags:index', @show
 
   refresh: (e) =>

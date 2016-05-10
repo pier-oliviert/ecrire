@@ -1,4 +1,4 @@
-#PostsIndexList > div.search {
+#PostsIndexList > form.search {
   @include display(flex);
   @include align-items(stretch);
 
@@ -8,7 +8,7 @@
   margin: 5%;
 }
 
-#PostsIndexList > div.search > input[type=text] {
+#PostsIndexList > form.search > input[type=text] {
   @include flex(1 100%);
   min-width: 200px;
   margin: 0 auto;

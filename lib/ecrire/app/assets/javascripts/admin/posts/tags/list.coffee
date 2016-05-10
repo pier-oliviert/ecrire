@@ -1,7 +1,7 @@
 ObserveJS.bind 'Post.Tags.List', class
   loaded: =>
     @on 'mouseover', @clear
-    @on 'keydown', @element().parentElement, @navigate
+    @when 'keydown', @navigate
 
   navigate: (e) =>
     switch e.keyCode
