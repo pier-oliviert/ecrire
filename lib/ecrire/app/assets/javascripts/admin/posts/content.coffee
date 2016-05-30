@@ -1,11 +1,5 @@
 ObserveJS.bind 'Editor.Content', class
   loaded: =>
-    Written.Parsers.get('pre').highlightWith (element) ->
-      Prism.highlightElement(element, false)
-
-    Written.Parsers.get('code').highlightWith (element) ->
-      Prism.highlightElement(element, false)
-
     if @element().dataset.bucket?
       window.AWS = {
         bucket: @element().dataset.bucket,
@@ -15,4 +9,10 @@ ObserveJS.bind 'Editor.Content', class
       }
 
     @written = new Written(this.element())
-    @written.initialize()
+
+    @written.parsers.get('pre')?.highlightWith (element) ->
+        Prism.highlightElement(element, false)
+
+    @written.parsers.get('code')?.highlightWith (element) ->
+        Prism.highlightElement(element, false)
+

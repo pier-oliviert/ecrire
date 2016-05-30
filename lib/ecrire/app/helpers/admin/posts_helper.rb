@@ -19,7 +19,7 @@ module Admin
         contenteditable: true,
         href: admin_post_path(@post.id) do |div|
 
-          namespace = Pathname.new(Rails.application.secrets.s3['namespace'] || '')
+          namespace = Pathname.new(Rails.application.secrets.fetch('s3', {})['namespace'] || '')
 
           if Rails.application.secrets.has_key?(:s3)
             div['data-bucket'] = Rails.application.secrets.s3['bucket']
