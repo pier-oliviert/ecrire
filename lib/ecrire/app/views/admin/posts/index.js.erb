@@ -1,1 +1,1 @@
-e.HTML = "<%= j content_tag(:ul, render(@posts)) %>".toHTML()
+e.HTML = ObserveJS.HTML.parse("<%= j content_tag(:ul, render(@posts)) %>")
