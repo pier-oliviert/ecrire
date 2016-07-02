@@ -1,5 +1,5 @@
 e.Errors = [
   <% @title.errors.each do |key, message| %>
-    "<%= j content_tag(:li, message) %>".toHTML(),
+    ObserveJS.HTML.parse("<%= j content_tag(:li, message) %>"),
   <% end %>
 ]

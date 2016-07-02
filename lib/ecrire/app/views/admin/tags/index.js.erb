@@ -1,1 +1,1 @@
-e.HTML = "<%= j popup_tag(render('admin/tags/tags', tags: @tags), id: 'TagsPopup') %>".toHTML()
+e.HTML = ObserveJS.HTML.parse("<%= j popup_tag(render('admin/tags/tags', tags: @tags), id: 'TagsPopup') %>")

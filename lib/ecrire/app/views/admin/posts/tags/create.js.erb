@@ -1,2 +1,2 @@
-e.HTML = "<%= j render('admin/posts/tags/tag', tag: @tag, post: @post) %>".toHTML()
-e.TagsHTML = "<%= j post_tags(@post) %>".toHTML()
+e.HTML = ObserveJS.HTML.parse("<%= j render('admin/posts/tags/tag', tag: @tag, post: @post) %>")
+e.TagsHTML = ObserveJS.HTML.parse("<%= j post_tags(@post) %>")

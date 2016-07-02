@@ -1,2 +1,2 @@
 e.ObjectID = <%= @tag.id %>
-e.HTML = "<%= j render('admin/posts/tags/tag', post: @post, tag: @tag)%>".toHTML()
+e.HTML = ObserveJS.HTML.parse("<%= j render('admin/posts/tags/tag', post: @post, tag: @tag)%>")

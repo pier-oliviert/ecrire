@@ -1,6 +1,6 @@
 <% if @title.errors.any? %>
-  e.ErrorHTML = "<%= j content_tag(:div, @title.errors.to_a.to_sentence, class: %w(errors)) %>".toHTML()
+  e.ErrorHTML = ObserveJS.HTML.parse("<%= j content_tag(:div, @title.errors.to_a.to_sentence, class: %w(errors)) %>")
 <% else %>
-  e.HTML = "<%= j render('admin/posts/titles/title', title: @title) %>".toHTML()
+  e.HTML = ObserveJS.HTML.parse("<%= j render('admin/posts/titles/title', title: @title) %>")
 <% end %>
 
