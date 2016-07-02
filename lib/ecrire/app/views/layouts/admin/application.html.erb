@@ -4,7 +4,7 @@
     <title>Ecrire</title>
     <link rel="shortcut icon" href="<%= image_url("favicon.ico")%>" />
     <%= stylesheet_link_tag    "admin", media: "all" %>
-    <%= javascript_include_tag "admin" %>
+    <%= javascript_include_tag "admin", 'data-turbolinks-track' => "reload" %>
     <%= csrf_meta_tags %>
   </head>
   <%= content_tag :body, class: [action_name, controller_name] do %>
