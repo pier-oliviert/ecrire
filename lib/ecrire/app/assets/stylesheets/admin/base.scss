@@ -1,3 +1,5 @@
+@import 'navigation/**/*';
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -14,7 +16,6 @@ html {
 }
 
 body {
-  @include background(linear-gradient(darken($bright-blue, 5%), $bright-blue));
 
   margin: 0;
   padding: 0;
@@ -123,17 +124,25 @@ main {
 
   position: relative;
   z-index: 1;
+  padding-top: 52px;
 
   top: 0;
   left:0;
   right:0;
   bottom:0;
+
+  &[data-style='split'] {
+    flex-direction: row;
+  }
+
+  &:not([data-style='split']) {
+    flex-direction: column;
+  }
 }
 
 main > section {
-  @include flex(0 1 60vw);
+  flex: 1 auto;
   background: white;
-  margin: 0 auto 0 0;
 }
 
 .hidden {

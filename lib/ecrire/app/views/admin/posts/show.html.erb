@@ -9,5 +9,5 @@
 <% end %>
 
 <section class='preview' id='PostPreviewContent'>
-  <%= content_tag :article, @post.compiled_content.try(:html_safe) %>
+  <%= content_tag :article, @post.content.html %>
 <section>

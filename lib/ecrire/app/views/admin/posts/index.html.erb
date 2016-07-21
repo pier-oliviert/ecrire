@@ -1,25 +1,47 @@
-<% content_for 'Navigation::Posts' do %>
+<% content_for 'Content::Style', 'split' %>
 
-  <%= content_tag :a, href: drafts_admin_posts_path do |a| %>
-    <% if action_name.eql?('drafts') %>
-      <% a.css << 'selected' %>
-    <% end %>
-    Drafts
-  <% end %>
+<aside>
+  <%= link_to 'New Post', new_admin_post_path, class: %w(button new) %>
 
-  <%= content_tag :a, href: published_admin_posts_path do |a| %>
-    <% if action_name.eql?('published') %>
-      <% a.css << 'selected' %>
-    <% end %>
-    Published
-  <% end %>
+  <ol>
+    <li>
+      <%= content_tag :a, href: admin_posts_path do |a| %>
+        <% if action_name.eql?('index') %>
+          <% a.css << 'selected' %>
+        <% end %>
+        All
+      <% end %>
+    </li>
 
-  <%= link_to 'New Post', new_admin_post_path %>
-<% end %>
+    <li>
+      <%= content_tag :a, href: drafts_admin_posts_path do |a| %>
+        <% if action_name.eql?('drafts') %>
+          <% a.css << 'selected' %>
+        <% end %>
+        Drafts
+      <% end %>
+    </li>
 
-<%= render('admin/navigation') %>
+    <li>
+      <%= content_tag :a, href: published_admin_posts_path do |a| %>
+        <% if action_name.eql?('published') %>
+          <% a.css << 'selected' %>
+        <% end %>
+        Published
+      <% end %>
+    </li>
+  </ol>
+
+</aside>
 
 <section id='PostsIndexList' class='posts'>
+  <% if action_name.eql?('drafts') %>
+    <h2>Draft Posts</h2>
+  <% elsif action_name.eql?('published') %>
+    <h2>Published Posts</h2>
+  <% else %>
+    <h2>All Posts</h2>
+  <% end %>
 
   <%= form_for :posts, url: {controller: 'admin/posts', action: action_name}, method: 'GET', html: {class: %w(search), name: 'posts', id: 'PostsFilter', as: 'Posts.Filter'} do |f| %>
     <%= render('search') %>

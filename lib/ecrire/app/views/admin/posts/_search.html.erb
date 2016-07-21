@@ -19,14 +19,7 @@
   <% input[:name] = 'posts[title]' %>
   <% input[:class] << 'search' %>
   <% input[:form] = 'PostsFilter' %>
-
-  <% if search_posts_params[:status] == 'draft' %>
-    <% input[:placeholder] = 'Search for a draft' %>
-  <% elsif search_posts_params[:status] == 'published' %>
-    <% input[:placeholder] = 'Search for a published post' %>
-  <% else %>
-    <% input[:placeholder] = 'Search for any post' %>
-  <% end %>
+  <% input[:placeholder] = 'Search' %>
 
 <% end %>
 

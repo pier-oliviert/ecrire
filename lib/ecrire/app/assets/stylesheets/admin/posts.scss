@@ -16,56 +16,6 @@
   margin-top: 214px;
 }
 
-#PostsIndexList ul.posts {
-  @include flex(1);
-  @include display(flex);
-  @include flex-direction(column);
-  width: 100%;
-}
-
-
-#PostsIndexList > ul.posts li {
-  @include display(flex);
-  @include flex-direction(column);
-  @include justify-content(center);
-  border-bottom: 1px solid rgba($gray-blue, 0.2);
-  padding: 1% 2%; min-height: 80px;
-}
-
-#PostsIndexList > ul.posts li:nth-child(even) {
-  background: lighten($gray-blue, 40%);
-}
-
-#PostsIndexList > ul.posts li > a {
-  font-size: 2em;
-  margin: 8px 0;
-}
-
-#PostsIndexList > ul.posts li > div.info {
-  @include display(flex);
-  @include align-items(center);
-
-  & > span.tags {
-    @include flex(1);
-
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    margin: 0;
-  }
-
-  & > span.status {
-    @include flex(0 auto);
-    margin-left: auto;
-  }
-}
-
-#PostsIndexList > ul.posts li > span.tags svg {
-  width: 14px;
-  height: 14px;
-  fill: $gray-blue;
-}
-
 body.posts section.new.post {
   @include display(flex);
 }

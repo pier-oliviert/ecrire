@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password, if: ->{ password.present? }
 
+  def display_name
+    self.email
+  end
+
   def password
     return if self.encrypted_password.blank?
     @password ||= Password.new(self.encrypted_password)

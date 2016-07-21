@@ -20,19 +20,19 @@ module Admin
     end
 
     def drafts
-      posts = Admin::Post.drafted
+      posts = Admin::Post
 
       posts = posts.search search_posts_params
-      @posts = posts.order('posts.created_at DESC').includes(:titles)
+      @posts = posts.drafted.order('posts.created_at DESC').includes(:titles)
 
       render 'index'
     end
 
     def published
-      posts = Admin::Post.published
+      posts = Admin::Post
 
       posts = posts.search search_posts_params
-      @posts = posts.order('posts.published_at DESC').includes(:titles)
+      @posts = posts.published.order('posts.published_at DESC').includes(:titles)
       render 'index'
     end
 
