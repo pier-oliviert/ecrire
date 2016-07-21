@@ -1,0 +1,22 @@
+#AdminNavigation > a.home {
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+
+  padding: 12px 0;
+
+  &:hover > svg {
+    fill: lighten($light-blue, 45%);
+  }
+
+  & > svg {
+    @include transition(fill 0.2s ease-in);
+    width: 14px;
+    height: 14px;
+    margin-right: 12px;
+
+    fill: $light-blue;
+  }
+}
+
+

@@ -1,0 +1,61 @@
+body.posts main > section {
+  min-width: 400px;
+  max-width: 700px;
+  width: 90%;
+  margin: 0 auto 0 0;
+}
+
+body.posts main section > h2 {
+  font-size: 1.2em;
+  text-align: center;
+  margin: 2em 0;
+  color: $gray-blue;
+}
+
+body.posts main section > ul.posts {
+  @include flex(1);
+  @include display(flex);
+  @include flex-direction(column);
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+body.posts main section ul.posts > li {
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  border-bottom: 1px solid rgba($gray-blue, 0.2);
+  min-height: 80px;
+}
+
+#PostsIndexList > ul.posts li > a {
+  font-size: 2em;
+  margin: 8px 0;
+}
+
+#PostsIndexList > ul.posts li > div.info {
+  @include display(flex);
+  @include align-items(center);
+
+  & > span.tags {
+    @include flex(1);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  & > span.status {
+    @include flex(0 auto);
+    margin-left: auto;
+  }
+}
+
+#PostsIndexList > ul.posts li > span.tags svg {
+  width: 14px;
+  height: 14px;
+  fill: $gray-blue;
+}
+

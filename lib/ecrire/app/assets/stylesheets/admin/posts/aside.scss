@@ -1,0 +1,36 @@
+body.posts main > aside {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+  min-width: 200px;
+  max-width: 400px;
+  padding: 5vh 12px;
+  border-right: 1px solid $light-gray;
+  margin-left: auto;
+}
+
+body.posts main aside > a.new {
+  background-color: $bright-blue;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 24px;
+
+  &:hover {
+    background-color: $bright-blue
+  }
+}
+
+body.posts main aside > ol {
+  display: flex;
+  flex-direction: column;
+  margin: 4px 12px;
+}
+
+body.posts main aside ol > li {
+  margin: 4px;
+  padding: 0;
+}
+
+body.posts main aside ol li > a.selected {
+  font-weight: bold;
+}

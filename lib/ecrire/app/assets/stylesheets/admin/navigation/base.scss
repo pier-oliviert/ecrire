@@ -1,0 +1,30 @@
+#AdminNavigation {
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+
+  padding: 0 12px;
+
+  background: $bright-blue;
+  border-bottom: 1px solid darken($bright-blue, 15%);
+}
+
+#AdminNavigation a:not(.home):not(.profile) {
+  font-weight: bold;
+}
+
+#AdminNavigation > div {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: space-around;
+
+  flex: 0 30%;
+}
