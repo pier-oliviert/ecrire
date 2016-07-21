@@ -131,7 +131,7 @@ class Post < ActiveRecord::Base
   def content
     @content ||= begin
       content = read_attribute('content')
-      Content.new(content.fetch('raw', ''), content.fetch('html', ''))
+      Content.new(content.fetch('raw', ''), content.fetch('html', '').html_safe)
     end
   end
 
