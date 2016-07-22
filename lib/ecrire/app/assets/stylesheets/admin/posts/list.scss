@@ -1,18 +1,18 @@
-body.posts main > section {
+body.posts main.list > section {
   min-width: 400px;
   max-width: 700px;
   width: 90%;
   margin: 0 auto 0 0;
 }
 
-body.posts main section > h2 {
+body.posts main.list section > h2 {
   font-size: 1.2em;
   text-align: center;
   margin: 2em 0;
   color: $gray-blue;
 }
 
-body.posts main section > ul.posts {
+body.posts main.list section > ul.posts {
   @include flex(1);
   @include display(flex);
   @include flex-direction(column);
@@ -21,7 +21,7 @@ body.posts main section > ul.posts {
 }
 
 
-body.posts main section ul.posts > li {
+body.posts main.list section ul.posts > li {
   @include display(flex);
   @include flex-direction(column);
   @include justify-content(center);

@@ -26,7 +26,7 @@
         <%= current_user.display_name %>
       </a>
     </nav>
-    <%= main_tag 'data-style' => content_for('Content::Style') || 'plain' do %>
+    <%= main_tag class: [content_for('Content::Class')], 'data-style' => content_for('Content::Style') || 'plain' do %>
       <%= yield %>
     <% end %>
   <% end %>
