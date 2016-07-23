@@ -8,6 +8,6 @@
   <%= render 'admin/posts/header/base', post: @post %>
 <% end %>
 
-<section class='preview' id='PostPreviewContent'>
+<section id='PostPreview'>
   <%= content_tag :article, @post.content.html %>
 <section>
