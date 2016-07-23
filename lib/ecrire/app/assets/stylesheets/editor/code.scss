@@ -10,6 +10,7 @@ article.content pre {
   background: lighten($light-blue, 5%);
   border-top: 1px solid $light-blue;
   padding: 0.7em;
+  line-height: 1.1em;
 }
 
 article.content pre > code {
