@@ -5,10 +5,6 @@ module Ecrire
       Rails.application.config.active_record.migration_error = :none
       ActiveRecord::Base.configurations = {}
 
-      initializer 'ecrire.onboarding.dynamic_settings' do |app|
-        app.config.secret_key_base = SecureRandom.hex(16)
-      end
-
       initializer 'ecrire.load_paths', before: :bootstrap_hook do |app|
         ActiveSupport::Dependencies.autoload_paths.unshift(*self.paths.autoload_paths)
         ActiveSupport::Dependencies.autoload_once_paths.unshift(*self.paths.autoload_once)

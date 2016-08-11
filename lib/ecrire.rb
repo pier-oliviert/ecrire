@@ -1,6 +1,8 @@
 module Ecrire
+  SECRET_ENVIRONMENT_KEY = 'ECRIRE_SECRETS'.freeze
 
   autoload :Application,        'ecrire/application'
+  autoload :Configuration,      'ecrire/configuration'
 
   ##
   # Returns true if Ecrire could find 

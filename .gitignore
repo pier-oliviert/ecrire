@@ -22,3 +22,6 @@ Gemfile.lock
 lib/**/secrets.yml
 
 /lib/ecrire/template/secrets.yml
+.byebug_history
+*.gem
+.ruby-version

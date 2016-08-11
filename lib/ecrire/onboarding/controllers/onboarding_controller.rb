@@ -15,6 +15,8 @@ class OnboardingController < ApplicationController
       config['development'] ||= {}
       config['production'] ||= {}
       config['development']['secret_key_base'] = config['production']['secret_key'] = Rails.application.secrets.secret_key_base
+      config['development']['secret_token'] = config['production']['secret_token'] = Rails.application.secrets.secret_token
+      config['onboarding'] = false
       file.write(config.to_yaml)
     end
   end

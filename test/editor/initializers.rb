@@ -1,3 +1,4 @@
+ENV[Ecrire::SECRET_ENVIRONMENT_KEY] = JSON.generate({onboarding: false})
 Ecrire::Application.paths.add 'config/secrets', with: Dir.pwd + '/test/secrets.yml'
 Ecrire::Application.paths.add 'config/database', with: Dir.pwd + '/test/secrets.yml'
 

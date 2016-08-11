@@ -23,15 +23,6 @@ module Ecrire
   #
   #
   class Application < Rails::Application
-    require 'ecrire/config/environment'
-
-    config.before_initialize do
-      if paths['config/database'].existent.any?
-        require 'ecrire/theme/engine'
-      else
-        require 'ecrire/onboarding/engine'
-      end
-    end
 
     ##
     # There seems to be a crack between when the configuration
@@ -76,16 +67,52 @@ module Ecrire
     end
 
     ##
-    # Returns true if Ecrire::Onboarding::Engine is loaded
-    # in the application runtime
+    # Let Rails load secrets.yml and if
+    # the file doesn't exist, try to look
+    # for the JSON Encoded environment variable
     #
-    def self.onboarding?
-      defined?(Ecrire::Onboarding::Engine)
+    def secrets
+      @secrets ||= begin
+        secrets = super
+
+        if ENV.has_key?(Ecrire::SECRET_ENVIRONMENT_KEY)
+          require 'json'
+          secrets.merge!(JSON.parse(ENV[Ecrire::SECRET_ENVIRONMENT_KEY]))
+        end
+
+        secrets
+      end
+    end
+
+    def config
+      @config ||= Ecrire::Configuration.new(self.class.find_root(self.class.called_from))
+    end
+
+    class << self
+
+      ##
+      # Returns true if Ecrire::Onboarding::Engine is loaded
+      # in the application runtime
+      #
+      def onboarding?
+        secrets.fetch('onboarding', true)
+      end
+
     end
 
     Rails::Application::Bootstrap.initializers.select do |initializer|
       initializer.name.eql? :bootstrap_hook
     end.first.instance_variable_set :@block, Proc.new {}
+
+    config.before_initialize do
+      require 'ecrire/config/environment'
+      if onboarding?
+        require 'ecrire/onboarding/engine'
+      else
+        require 'ecrire/theme/engine'
+      end
+    end
+
 
   end
 

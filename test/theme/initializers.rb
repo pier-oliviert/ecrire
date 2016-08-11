@@ -1,3 +1,8 @@
+ENV[Ecrire::SECRET_ENVIRONMENT_KEY] = JSON.generate({onboarding: false})
+
+Ecrire::Application.paths.add 'config/secrets', with: Dir.pwd + '/test/secrets.yml'
+Ecrire::Application.paths.add 'config/database', with: Dir.pwd + '/test/secrets.yml'
+
 Ecrire::Application.initializer 'ecrire.automigrate', after: "active_record.initialize_database" do |app|
   path = app.paths['db/migrate'].existent
   ActiveRecord::Migrator.migrations_paths = path
@@ -13,9 +18,6 @@ class ActiveSupport::TestCase
   self.fixture_path = "#{Dir.pwd}/test/fixtures/"
   fixtures :all
 end
-
-Ecrire::Application.paths.add 'config/secrets', with: Dir.pwd + '/test/secrets.yml'
-Ecrire::Application.paths.add 'config/database', with: Dir.pwd + '/test/secrets.yml'
 
 Dir.chdir "test/theme/theme" do
   Ecrire::Application.initialize!
