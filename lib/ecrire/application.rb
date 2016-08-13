@@ -67,9 +67,9 @@ module Ecrire
     end
 
     ##
-    # Let Rails load secrets.yml and if
-    # the file doesn't exist, try to look
-    # for the JSON Encoded environment variable
+    # Let Rails load secrets.yml first
+    # Then, Ecrire will merge anything that is
+    # through environment variables
     #
     def secrets
       @secrets ||= begin
@@ -95,7 +95,7 @@ module Ecrire
       # in the application runtime
       #
       def onboarding?
-        secrets.fetch('onboarding', true)
+        secrets[:onboarding] == true
       end
 
     end
