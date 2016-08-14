@@ -19,12 +19,12 @@ module Admin
         contenteditable: true,
         href: admin_post_path(@post.id) do |div|
 
-          namespace = Pathname.new(Rails.application.secrets.fetch('s3', {})['namespace'] || '')
+          namespace = Pathname.new(Rails.application.secrets.fetch(:s3, {})['namespace'] || '')
 
           if Rails.application.secrets.has_key?(:s3)
-            div['data-bucket'] = Rails.application.secrets.s3['bucket']
-            div['data-url'] = Rails.application.secrets.s3['url']
-            div['data-access-key'] = Rails.application.secrets.s3['access_key']
+            div['data-bucket'] = Rails.application.secrets.s3[:bucket]
+            div['data-url'] = Rails.application.secrets.s3[:url]
+            div['data-access-key'] = Rails.application.secrets.s3[:access_key]
             div['data-signature'] = image_form_signature(image_form_policy(@post))
             div['data-policy'] = image_form_policy(@post)
             div['data-namespace'] = namespace + @post.id.to_s

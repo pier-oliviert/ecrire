@@ -3,7 +3,7 @@ module Admin
 
     def image_form_signature(policy)
       @signature ||= begin
-        key = Rails.application.secrets.s3['secret_key']
+        key = Rails.application.secrets.s3[:secret_key]
         sha = OpenSSL::Digest.new('sha1')
         digest = OpenSSL::HMAC.digest sha, key, policy
         Base64.encode64(digest).gsub("\n", "")
@@ -13,14 +13,14 @@ module Admin
     def image_form_policy(post)
       @policy ||= begin
                     namespace = [post.id]
-                    if Rails.application.secrets.s3.has_key?('namespace')
-                      namespace.insert 0, Rails.application.secrets.s3['namespace']
+                    if Rails.application.secrets.s3.has_key?(:namespace)
+                      namespace.insert 0, Rails.application.secrets.s3[:namespace]
                     end
 
                     policy = {
                       "expiration" => (Time.now + 10.years).utc.to_s(:iso8601),
                       "conditions" => [
-                        {"bucket" => Rails.application.secrets.s3['bucket']},
+                        {"bucket" => Rails.application.secrets.s3[:bucket]},
                         ["starts-with", "$key", "#{namespace.join('/')}/"],
                         ["starts-with", "$Content-Type", ""],
                         {"acl" => "private"}
