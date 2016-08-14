@@ -62,6 +62,8 @@ module Ecrire
          paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
          paths.add 'config/routes.rb', with: 'routes.rb'
          paths.add 'config/locales', with: 'locales', glob: "**/*.{rb,yml}"
+
+         paths.add 'lib/tasks', with: 'tasks', glob: '**/*.rake'
          paths
        end
     end
@@ -85,7 +87,7 @@ module Ecrire
     end
 
     def config
-      @config ||= Ecrire::Configuration.new(self.class.find_root(self.class.called_from))
+      @config ||= Ecrire::Configuration.new(Pathname.new(self.class.called_from))
     end
 
     class << self
