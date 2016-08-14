@@ -18,8 +18,17 @@ module Ecrire
 
       def run!
         @server.tap do |server|
+          create_tmp_directories!
           Dir.chdir(Ecrire::Application.root)
           server.start
+        end
+      end
+
+      private
+
+      def create_tmp_directories!
+        %w(cache pids sockets).each do |dir_to_make|
+          FileUtils.mkdir_p(File.join(Dir.pwd, "tmp", dir_to_make))
         end
       end
 
