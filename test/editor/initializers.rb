@@ -2,11 +2,13 @@ require_relative '../configuration'
 
 ENV[Ecrire::SECRET_ENVIRONMENT_KEY] = JSON.generate({
   onboarding: false,
-  adapter: 'postgresql',
-  database: 'ecrire_test',
-  username: 'ecrire_test',
   secret_key: "2370 128u3o2ujwoi12jw122e12e",
   secret_key_base: "Mlkasj alskjkdsla jsdkaljsadlkjasd",
+  database:  {
+    adapter: 'postgresql',
+    database: 'ecrire_test',
+    username: 'ecrire_test'
+  },
   s3: {
     path: 'test'
   }

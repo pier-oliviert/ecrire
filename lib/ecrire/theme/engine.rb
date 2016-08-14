@@ -44,7 +44,7 @@ module Ecrire
       #
       def paths
         @paths ||= begin
-          paths = Rails::Paths::Root.new(root_path)
+          paths = Rails::Paths::Root.new(Ecrire::Theme.path)
           paths.add 'app/views', with: 'views'
           paths.add 'app/controllers', with: 'controllers', eager_load: true
           paths.add 'app/assets', with: 'assets', glob: '*'

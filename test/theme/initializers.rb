@@ -2,8 +2,11 @@ require_relative '../configuration'
 
 ENV[Ecrire::SECRET_ENVIRONMENT_KEY] = JSON.generate({
   onboarding: false,
-  username: 'ecrire_test',
-  database: 'ecrire_test'
+  database: {
+    adapter: 'postgresql',
+    username: 'ecrire_test',
+    database: 'ecrire_test'
+  }
 })
 
 Dir.chdir "test/theme/theme" do

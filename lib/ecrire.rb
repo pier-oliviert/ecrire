@@ -4,6 +4,16 @@ module Ecrire
   autoload :Application,        'ecrire/application'
   autoload :Configuration,      'ecrire/configuration'
 
+  module Theme
+    def self.path=(pathname)
+      @@path = pathname
+    end
+
+    def self.path
+      @@path ||= Pathname.new(Dir.pwd)
+    end
+  end
+
   ##
   # Returns true if Ecrire could find 
   # a Gemfile in the current working directory

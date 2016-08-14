@@ -23,6 +23,7 @@ module Ecrire
   #
   #
   class Application < Rails::Application
+    attr_writer :pwd
 
     ##
     # There seems to be a crack between when the configuration
@@ -49,38 +50,31 @@ module Ecrire
     end
 
     ##
-    # Return paths based off Rails default plus some customization.
-    #
-    # These paths are Ecrire's, not the users's theme.
-    #
-    # For the user's paths, look at Ecrire::Theme::Engine.paths
-    #
-    def paths
-      @paths ||= begin
-         paths = super
-         paths.add 'config/secrets', with: Dir.pwd + '/secrets.yml'
-         paths.add 'config/database', with: Dir.pwd + '/secrets.yml'
-         paths.add 'config/routes.rb', with: 'routes.rb'
-         paths.add 'config/locales', with: 'locales', glob: "**/*.{rb,yml}"
-
-         paths.add 'lib/tasks', with: 'tasks', glob: '**/*.rake'
-         paths
-       end
-    end
-
-    ##
-    # Let Rails load secrets.yml first
+    # Override Rails secrets management as
+    # it doesn't allow us to do what we want.
     # Then, Ecrire will merge anything that is
     # through environment variables
     #
     def secrets
       @secrets ||= begin
-        secrets = super
+        secrets = ActiveSupport::OrderedOptions.new
+        yaml    = config.paths["config/secrets"].first
+
+        if File.exist?(yaml)
+          require "erb"
+          content = YAML.load(ERB.new(IO.read(yaml)).result) || {}
+          secrets.merge!(content.deep_symbolize_keys)
+        end
 
         if ENV.has_key?(Ecrire::SECRET_ENVIRONMENT_KEY)
           require 'json'
           secrets.merge!(JSON.parse(ENV[Ecrire::SECRET_ENVIRONMENT_KEY]).deep_symbolize_keys)
         end
+        
+        # Fallback to config.secret_key_base if secrets.secret_key_base isn't set
+        secrets.secret_key_base ||= config.secret_key_base
+        # Fallback to config.secret_token if secrets.secret_token isn't set
+        secrets.secret_token ||= config.secret_token
 
         secrets
       end

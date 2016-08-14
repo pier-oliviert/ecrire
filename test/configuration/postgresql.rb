@@ -82,11 +82,11 @@ class Ecrire::Test::Configuration::Postgresql
   end
 
   def user
-    @user ||= User.new(@app.secrets['username'])
+    @user ||= User.new(@app.secrets.database[:username])
   end
 
   def database
-    @database ||= @app.secrets['database']
+    @database ||= @app.secrets.database[:database]
   end
 
 end
