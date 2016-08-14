@@ -1,5 +1,3 @@
-ENV['VERBOSE'] = 'false'
-
 class ActiveSupport::TestCase
   ActiveSupport.test_order = :random
 end

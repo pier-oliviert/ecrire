@@ -77,7 +77,7 @@ module Ecrire
 
         if ENV.has_key?(Ecrire::SECRET_ENVIRONMENT_KEY)
           require 'json'
-          secrets.merge!(JSON.parse(ENV[Ecrire::SECRET_ENVIRONMENT_KEY]))
+          secrets.merge!(JSON.parse(ENV[Ecrire::SECRET_ENVIRONMENT_KEY]).deep_symbolize_keys)
         end
 
         secrets
@@ -95,7 +95,7 @@ module Ecrire
       # in the application runtime
       #
       def onboarding?
-        secrets[:onboarding] == true
+        secrets.fetch(:onboarding, true)
       end
 
     end

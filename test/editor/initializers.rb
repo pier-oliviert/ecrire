@@ -1,15 +1,22 @@
-ENV[Ecrire::SECRET_ENVIRONMENT_KEY] = JSON.generate({onboarding: false})
-Ecrire::Application.paths.add 'config/secrets', with: Dir.pwd + '/test/secrets.yml'
-Ecrire::Application.paths.add 'config/database', with: Dir.pwd + '/test/secrets.yml'
+require_relative '../configuration'
 
-Ecrire::Application.initializer 'ecrire.automigrate', after: "active_record.initialize_database" do |app|
-  path = app.paths['db/migrate'].existent
-  ActiveRecord::Migrator.migrations_paths = path
-  if ActiveRecord::Migrator.needs_migration?
-    ActiveRecord::Migration.verbose = false
-    ActiveRecord::Migrator.migrate(path)
-  end
-  ActiveRecord::Migration.maintain_test_schema!
+ENV[Ecrire::SECRET_ENVIRONMENT_KEY] = JSON.generate({
+  onboarding: false,
+  adapter: 'postgresql',
+  database: 'ecrire_test',
+  username: 'ecrire_test',
+  secret_key: "2370 128u3o2ujwoi12jw122e12e",
+  secret_key_base: "Mlkasj alskjkdsla jsdkaljsadlkjasd",
+  s3: {
+    path: 'test'
+  }
+})
+
+Dir.chdir "test/editor/theme" do
+  Ecrire::Application.initialize!
+  postgresql = Ecrire::Test::Configuration::Postgresql.new(Ecrire::Application)
+  postgresql.configure!
+  postgresql.reset_database!
 end
 
 class ActiveSupport::TestCase
@@ -19,6 +26,3 @@ class ActiveSupport::TestCase
   fixtures :all
 end
 
-Dir.chdir "test/editor/theme" do
-  Ecrire::Application.initialize!
-end
