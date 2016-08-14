@@ -19,9 +19,17 @@ module Ecrire
       def run!
         @server.tap do |server|
           Ecrire::Theme.path = Pathname.new(Dir.pwd)
+          create_tmp_directories
+
           Dir.chdir(Ecrire::Application.root) do
             server.start
           end
+        end
+      end
+
+      def create_tmp_directories
+        %w(cache pids sockets).each do |dir_to_make|
+          FileUtils.mkdir_p(File.join(Ecrire::Theme.path, "tmp", dir_to_make))
         end
       end
 
