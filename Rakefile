@@ -29,6 +29,7 @@ namespace :template do
   task :server do
     require 'ecrire/commands/server'
     Dir.chdir 'lib/ecrire/theme/template'
+    ENV[Ecrire::SECRET_ENVIRONMENT_KEY] = {onboarding: false}.to_json
     Rails.env = ENV['RAILS_ENV'] = 'development'
     Ecrire::Commands::Server.new(Port: 3000).run!
   end
