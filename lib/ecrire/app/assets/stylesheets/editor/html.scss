@@ -1,0 +1,20 @@
+article.content div {
+  padding: 0.2rem 0.8rem;
+  border-left: solid 3px $light-blue;
+  font-size: 0.8rem;
+  position: relative;
+}
+
+article.content div:before {
+  content: 'HTML';
+  position: absolute;
+  left: -1.3rem;
+  top: 0;
+  bottom: 0;
+  width: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  break-word: break-all;
+  color: $light-blue;
+  overflow-y: hidden;
+}
