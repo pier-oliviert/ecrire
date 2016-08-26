@@ -4,7 +4,7 @@ gemspec
 
 gem 'rails'
 gem 'observejs',         git: 'https://github.com/pothibo/observejs.git'
-gem 'written'
+gem 'written',           git: 'https://github.com/pothibo/written.git'
 gem 'warden'
 gem 'bcrypt'
 gem 'nokogiri'
