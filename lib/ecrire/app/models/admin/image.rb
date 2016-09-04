@@ -56,11 +56,11 @@ module Admin
 
       def initialize(options={})
         @errors = ActiveModel::Errors.new(self)
-        @access_key = options.fetch('access_key', "")
-        @secret_key = options.fetch('secret_key', "")
-        @path = options.fetch('path', "")
+        @access_key = options.fetch(:access_key, "")
+        @secret_key = options.fetch(:secret_key, "")
+        @path = options.fetch(:path, "")
 
-        @bucket = service.bucket(options.fetch('bucket', 'ecrire'))
+        @bucket = service.bucket(options.fetch(:bucket, 'ecrire'))
       end
 
       def configuration_hash
