@@ -63,7 +63,7 @@ ObserveJS.bind 'Post.Header', class
     @hide(@template('div.status.uploading'))
     @show(@template('div.error.status'))
     ul = @template('div.error.status').querySelector('ul')
-    @on 'click', @template('div.error.status').querySelector('button'), @clear
+    @on 'click', @element().querySelector('div.error.status button'), @clear
     for error in errors
       ul.insertAdjacentHTML('beforeend', "<li>#{error}</li>")
 
