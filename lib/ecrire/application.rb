@@ -5,6 +5,7 @@ require 'kaminari'
 require 'observejs'
 require 'written'
 require 'pg_search'
+require 'autoprefixer-rails'
 
 module Ecrire
   ##
