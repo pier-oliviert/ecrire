@@ -43,7 +43,7 @@ module ApplicationHelper
   # Will generate the asset url given with the +name+ of your favicon.
   #
   def favicon_tag(name = 'favicon.ico')
-    content_tag :link, nil, rel: %w(shortcut icon), href: asset_url(name)
+    content_tag :link, nil, rel: %w(shortcut icon), href: image_path(name)
   end
 
   ##
