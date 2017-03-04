@@ -11,6 +11,7 @@
   left: 0;
   right: 0;
   width: 100%;
+  z-index: 100;
 
   @include background(linear-gradient(darken($bright-blue, 5%), $bright-blue));
   background-size: cover;

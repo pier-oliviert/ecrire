@@ -4,6 +4,7 @@ article.content > figure {
   @include transition(background-color 0.3s);
   background-color: #EEE;
   overflow: hidden;
+  max-height: 30vh;
 
 
   &.dropping div[contenteditable] {

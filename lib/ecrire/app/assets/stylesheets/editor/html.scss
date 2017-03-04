@@ -1,11 +1,11 @@
-article.content div {
+article.content > div:not([data-attachment]) {
   padding: 0.2rem 0.8rem;
   border-left: solid 3px $light-blue;
   font-size: 0.8rem;
   position: relative;
 }
 
-article.content div:before {
+article.content > div:not([data-attachment]):before {
   content: 'HTML';
   position: absolute;
   left: -1.3rem;

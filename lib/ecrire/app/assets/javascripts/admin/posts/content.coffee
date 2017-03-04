@@ -1,3 +1,5 @@
+#= require 'written/attachments/image'
+
 ObserveJS.bind 'Editor.Content', class
   loaded: =>
     if @element().dataset.bucket?

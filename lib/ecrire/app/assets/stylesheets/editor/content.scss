@@ -21,7 +21,7 @@ article.content {
     font-weight: bold;
   }
 
-  & > * {
+  & > *:not([data-attachment]) {
     white-space: pre-wrap;
     min-height: 1.6em;
     line-height: 1.6em;
