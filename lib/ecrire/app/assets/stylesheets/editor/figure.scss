@@ -44,6 +44,7 @@ article.content > figure {
 
     & > img {
       max-width: 100%;
+      object-fit: cover;
     }
 
     & > p {
